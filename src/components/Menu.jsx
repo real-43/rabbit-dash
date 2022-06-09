@@ -1,24 +1,28 @@
 import React, { Component } from "react";
+import "./Menu.css";
 
 export default class Menu extends Component {
   render() {
     return (
       <div>
-        <aside className="main-sidebar sidebar-dark-primary elevation-4">
+        <aside className="sidebar-mini main-sidebar  sidebar-dark-primary ">
           {/* Brand Logo */}
-          <a href="index3.html" className="brand-link">
+          <a href="index3.html" className="brand-image-xl ">
             <img
-              src="dist/img/AdminLTELogo.png"
-              alt="AdminLTE Logo"
-              className="brand-image img-circle elevation-3"
-              style={{ opacity: ".8" }}
+              src="dist/img/rabbitcard-logo.png"
+              alt="rabbit-card Logo"
+              className="float-start"
+              style={{ 
+                height: '55px',
+                width: '266px'
+             }}
             />
-            <span className="brand-text font-weight-light">AdminLTE 3</span>
+            {/* <span className="brand-text font-weight-light">AdminLTE 3</span> */}
           </a>
           {/* Sidebar */}
           <div className="sidebar">
             {/* Sidebar user panel (optional) */}
-            <div className="user-panel mt-3 pb-3 mb-3 d-flex">
+            {/* <div className="user-panel mt-3 pb-3 mb-3 d-flex">
               <div className="image">
                 <img
                   src="dist/img/user2-160x160.jpg"
@@ -31,7 +35,7 @@ export default class Menu extends Component {
                   Alexander Pierce
                 </a>
               </div>
-            </div>
+            </div> */}
             {/* Sidebar Menu */}
             <nav className="mt-2">
               <ul
