@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import './Header.css'
 
 export default class Header extends Component {
     render() {
         return (
            <div>
-  <nav className="main-header navbar navbar-expand navbar-light">
+  <nav className="main-header navbar navbar-expand navbar-color navbar-light">
     {/* Left navbar links */}
     <ul className="navbar-nav">
       <li className="nav-item">
@@ -14,13 +15,13 @@ export default class Header extends Component {
     {/* Right navbar links */}
     <ul className="navbar-nav ml-auto">
       {/* Notifications Dropdown Menu */}
-      <li className="nav-item dropdown">
-        <a className="nav-link" data-toggle="dropdown" href="#">
+      <li className="nav-item">
+        <a className="nav-link" href="#">
           ยินดีต้อนรับคุณ : <strong>admin admin</strong>
         </a>
       </li>
       <li className="nav-item">
-        <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+        <a className="nav-link" href="#">
           [ออกจากระบบ]
         </a>
       </li>
