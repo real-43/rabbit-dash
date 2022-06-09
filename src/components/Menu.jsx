@@ -37,6 +37,16 @@ export default class Menu extends Component {
               </div>
             </div> */}
             {/* Sidebar Menu */}
+            <form class="form-inline mt-2">
+              <div class="input-group">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" />
+                <div class="input-group-append">
+                  <button class="btn btn-sidebar" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
             <nav className="mt-2">
               <ul
                 className="nav nav-pills nav-sidebar flex-column"
