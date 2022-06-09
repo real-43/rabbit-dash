@@ -5,3 +5,17 @@
 .navbar-nav i {
     color: white;
 }
+
+.nav-welcome , .nav-log{
+    display: block;
+    padding: 0.5rem 1rem;
+    color: black;
+}
+
+.nav-welcome:hover {
+    color: black;
+}
+
+.nav-log:hover {
+    color: rgb(255, 255, 255);
+}

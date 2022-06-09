@@ -16,12 +16,12 @@ export default class Header extends Component {
     <ul className="navbar-nav ml-auto">
       {/* Notifications Dropdown Menu */}
       <li className="nav-item">
-        <a className="nav-link" href="#">
+        <a className="nav-welcome">
           ยินดีต้อนรับคุณ : <strong>admin admin</strong>
         </a>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="#">
+        <a className="nav-log" href="#">
           [ออกจากระบบ]
         </a>
       </li>
