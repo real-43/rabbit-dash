@@ -7,3 +7,7 @@
 .main-menu {
     width: fit-content;
 }
+
+.sidebar-mini::before {
+    /* width: 55px */
+}
