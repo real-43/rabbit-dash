@@ -11,3 +11,11 @@
 .sidebar-mini::before {
     /* width: 55px */
 }
+
+.nav-sidebar .nav-item>.nav-link {
+    margin-bottom: 0rem;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0rem;
+}

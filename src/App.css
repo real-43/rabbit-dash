@@ -2,18 +2,18 @@
 
 .sidebar-mini.sidebar-collapse .main-sidebar,
 .sidebar-mini.sidebar-collapse .main-sidebar::before {
-    width: 65px;
+    width: 60px;
 }
 
 .nav-link {
     display: block;
-    padding: .5rem .72rem;
+    padding: 10px 13px;
 }
 
 .sidebar-mini.sidebar-collapse .content-wrapper,
 .sidebar-mini.sidebar-collapse .main-footer,
 .sidebar-mini.sidebar-collapse .main-header {
-    margin-left: 4rem !important;
+    margin-left: 3.7rem !important;
 }
 
 .brand-link {
@@ -26,5 +26,13 @@
     .sidebar-mini.sidebar-collapse .main-footer,
     .sidebar-mini.sidebar-collapse .main-header {
         margin-left: 0rem !important;
+    }
 }
+
+[class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link,
+[class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link,
+[class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus {
+    background-color: rgba(255, 255, 255, .1);
+    color: #fff;
+    border-left: 3px solid rgb(255, 136, 0);
 }
