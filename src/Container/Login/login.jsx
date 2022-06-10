@@ -25,7 +25,13 @@ const handleSubmit = (event) => {
   signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
     .then(userInformation => {
       console.log(userInformation);
-      navigate('/dashboard')
+      if (userInfo.email.includes("@rabbit.co.ac.th")){
+        navigate('/dashboard')
+      }
+      else{
+        router('/')
+      }
+      
     })
     .catch(error => {
     setAlert({ visible:true,severity:'error',message:error.message})
@@ -73,7 +79,7 @@ const handleSubmit = (event) => {
     }catch(err) {
         alert(err);
     }
-}
+  }
 
 
   return (
