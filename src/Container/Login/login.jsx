@@ -96,7 +96,7 @@ const handleSubmit = (event) => {
             alignItems: 'center',
           }}
         >
-          
+          <img src="./rabbitcard-logo.jpg" alt="rabbit-logo" style={{border: '6px solid black', borderRadius:'50%', height: '200px',width: 'auto',marginBottom: "20px"}} />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
