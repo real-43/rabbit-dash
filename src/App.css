@@ -16,10 +16,10 @@
     margin-left: 4rem !important;
 }
 
-.brand-link {
+/* .brand-link {
     transition: width 2s ease-in-out;
     white-space: nowrap;
-}
+} */
 
 @media (max-width:991px) {
     .sidebar-mini.sidebar-collapse .content-wrapper,

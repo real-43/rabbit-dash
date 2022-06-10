@@ -11,3 +11,8 @@
 .sidebar-mini::before {
     /* width: 55px */
 }
+
+.brand-link {
+    background-color: #FF8901;
+    position: relative;
+}
