@@ -12,6 +12,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth,provider } from '../../firebase';
 import './login.css'
 
+const comp_form = "@rabbit.co.th";
 const theme = createTheme();
 export default function Login() {
 
@@ -25,7 +26,7 @@ const handleSubmit = (event) => {
   signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
     .then(userInformation => {
       console.log(userInformation);
-      if (userInfo.email.includes("@rabbit.co.ac.th")){
+      if (userInfo.email.includes(comp_form)){
         navigate('/dashboard')
       }
       else{
