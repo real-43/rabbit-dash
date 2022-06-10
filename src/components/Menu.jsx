@@ -13,21 +13,23 @@ export default class Menu extends Component {
           </a>
           {/* Sidebar */}
 
-          <div class="form-inline mt-2" style={{padding:"0px 10px"}}>
-              <div class="input-group">
-                <input 
-                  class="form-control form-control-sidebar" 
-                  type="search" 
-                  placeholder="Search" 
-                  aria-label="Search" 
-                />
-                <div class="input-group-append">
-                  <button class="btn btn-sidebar" type="submit">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </div>
+          {/* SidebarSearch Form */}
+          <div className="form-inline mt-2" style={{padding: "0px 10px"}}>
+            <div className="input-group" data-widget="sidebar-search">
+              <input
+                className="form-control form-control-sidebar"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <div className="input-group-append">
+                <button className="btn btn-sidebar">
+                  <i className="fas fa-search fa-fw" />
+                </button>
               </div>
             </div>
+          </div>
+
           <div className="sidebar" style={{padding: "0px 0px 0px 0px"}}>
             {/* Sidebar user panel (optional) */}
             {/* <div className="user-panel mt-3 pb-3 mb-3 d-flex">
