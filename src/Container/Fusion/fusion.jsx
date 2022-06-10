@@ -21,6 +21,7 @@ export default function Fusion() {
         
         return authentication
     },[])
+
     return (
         <div class="wrapper">
             <Header/>

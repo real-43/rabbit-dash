@@ -56,7 +56,7 @@ const handleSubmit = (event) => {
   const handleGoogleButton = () => {
     signInWithPopup(auth, provider).then(result => {
       console.log(result)
-      navigate('/')
+      navigate('/dashboard')
     }).catch(error => {
       console.log(error)
     })
