@@ -17,7 +17,7 @@ export default function Login() {
 
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
-  const router = useNavigate();
+  const navigate = useNavigate();
   const timerRef = useRef(null);
 
 const handleSubmit = (event) => {
@@ -25,7 +25,7 @@ const handleSubmit = (event) => {
   signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
     .then(userInformation => {
       console.log(userInformation);
-      router('/')
+      navigate('/')
     })
     .catch(error => {
     setAlert({ visible:true,severity:'error',message:error.message})
@@ -56,11 +56,24 @@ const handleSubmit = (event) => {
   const handleGoogleButton = () => {
     signInWithPopup(auth, provider).then(result => {
       console.log(result)
-      router('/')
+      navigate('/')
     }).catch(error => {
       console.log(error)
     })
   }
+
+  const normalLogin = async () => {
+    try {
+        const user = await signInWithEmailAndPassword(
+            auth,
+            userInfo.email,
+            userInfo.password
+        );
+        navigate("/")
+    }catch(err) {
+        alert(err);
+    }
+}
 
 
   return (
@@ -110,6 +123,7 @@ const handleSubmit = (event) => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick = {normalLogin}
             >
               Sign In
             </Button>
