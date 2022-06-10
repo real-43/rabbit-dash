@@ -27,6 +27,7 @@ const handleSubmit = (event) => {
   signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
     .then(userInformation => {
       console.log(userInformation);
+      console.log(userInfo.email.includes(comp_form));
       if (userInfo.email.includes(comp_form)){
         navigate('/dashboard')
       }
