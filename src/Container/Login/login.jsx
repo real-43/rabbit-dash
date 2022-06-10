@@ -29,7 +29,7 @@ const handleSubmit = (event) => {
         navigate('/dashboard')
       }
       else{
-        router('/')
+        navigate('/')
       }
       
     })
