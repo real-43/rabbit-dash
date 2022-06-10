@@ -7,9 +7,9 @@ export default class Menu extends Component {
       <div>
         <aside className="sidebar-mini main-sidebar  sidebar-dark-primary " style={{overflowX: 'hidden'}}>
           {/* Brand Logo */}
-          <a href="#" class="brand-link logo-switch">
-            <img src="dist/img/rabbitcard-logo.jpg" alt="Rabbitcard Logo Small" class="brand-image-xl logo-xs" style={{top:"0", left: "0px", maxHeight: "55px", width: "60px", padding: "0px", transition:"10s"}} />
-            <img src="dist/img/rabbitcard-logo.png" alt="Rabbitcard Logo Large" class="brand-image-xl logo-xl" style={{top:"0", left: "0px", maxHeight: "55px", width: "266px", padding: "0px"}} />
+          <a href="#" class="brand-link logo-switch logo-scale">
+            <img src="rabbitcard-logo.jpg" alt="Rabbitcard Logo Small" class="brand-image-xl logo-xs" style={{top:"0", left: "2px", maxHeight: "55px", width: "55px", padding: "0px", transition:"10s"}} />
+            <img src="rabbitcard-logo.png" alt="Rabbitcard Logo Large" class="brand-image-xl logo-xl" style={{top:"0", left: "0px", maxHeight: "55px", width: "266px", padding: "0px"}} />
           </a>
           {/* Sidebar */}
 
