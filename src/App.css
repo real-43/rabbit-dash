@@ -21,7 +21,7 @@
     white-space: nowrap;
 } */
 
-@media (max-width:991px) {
+@media (max-width:992px) {
     .sidebar-mini.sidebar-collapse .content-wrapper,
     .sidebar-mini.sidebar-collapse .main-footer,
     .sidebar-mini.sidebar-collapse .main-header {
