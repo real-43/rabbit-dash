@@ -45,7 +45,6 @@ export default class Menu extends Component {
               </div>
             </div> */}
             {/* Sidebar Search form */}
-            
             <nav className="mt-2">
               <ul
                 className="nav nav-pills nav-sidebar flex-column nav-collapse-hide-child"
