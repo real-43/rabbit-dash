@@ -7,7 +7,7 @@ import Menu from '../../components/Menu';
 import Dashboard from '../../components/Dashboard';
 import Footer from '../../components/Footer';
 
-export default function fusion() {
+export default function Fusion() {
 
     const router = useNavigate();
     useEffect(() => {
