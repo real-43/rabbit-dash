@@ -8,9 +8,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { auth,provider } from '../../firebase';
 import './login.css'
+import { async } from '@firebase/util';
 
 const comp_form = "@rabbit.co.th";
 const theme = createTheme();
@@ -60,28 +61,30 @@ const handleSubmit = (event) => {
   //   })
   // }
     
-  const handleGoogleButton = () => {
-    signInWithPopup(auth, provider).then(result => {
+  const handleGoogleButton = async() => {
+    provider.setCustomParameters ({
+      'login_hint': "jsmith@rabbit.co.th",
+      'hd': 'rabbit.co.th',
+      'promp': 'select_account'
+    })
+
+    const user = await signInWithPopup(auth, provider).then(result => {
       console.log(result)
-      navigate('/dashboard')
+      if (user.auth.email.includes(comp_form)) {
+        navigate('/dashboard')
+      } else {
+        signOut(auth).then(() => {
+          navigate('/')
+        console.log("signout");
+        })
+      }
+      // navigate('/dashboard')
     }).catch(error => {
       console.log(error)
     })
+
+    
   }
-
-  // const normalLogin = async () => {
-  //   try {
-  //       const user = await signInWithEmailAndPassword(
-  //           auth,
-  //           userInfo.email,
-  //           userInfo.password
-  //       );
-  //       navigate("/")
-  //   }catch(err) {
-  //       alert(err);
-  //   }
-  // }
-
 
   return (
     <ThemeProvider theme={theme}>
