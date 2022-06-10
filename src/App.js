@@ -7,8 +7,8 @@ function App() {
   
   return (
       <Routes>
-        <Route path="/" element={<ComDash />}/>
-        <Route path='/login' element={<LoginPage />} />
+        <Route path="/dashboard" element={<ComDash />}/>
+        <Route path='/' exact element={<LoginPage />} />
       </Routes>
   );
 }

@@ -25,7 +25,7 @@ const handleSubmit = (event) => {
   signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
     .then(userInformation => {
       console.log(userInformation);
-      navigate('/')
+      navigate('/dashboard')
     })
     .catch(error => {
     setAlert({ visible:true,severity:'error',message:error.message})

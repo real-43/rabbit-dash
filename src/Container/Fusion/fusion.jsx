@@ -13,9 +13,9 @@ export default function Fusion() {
     useEffect(() => {
         const authentication = onAuthStateChanged(auth,(user) => {
             if (user) {
-                router('/')
+                router('/dashboard')
             } else {
-                router('/login')
+                router('/')
            }
         }) 
         

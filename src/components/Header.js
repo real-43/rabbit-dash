@@ -8,10 +8,10 @@ export default function Header() {
   const router = useNavigate();
   const handleChange = () => {
       signOut(auth).then(() => {
-        router('/login')
+        router('/')
       console.log("signout");
       }).catch((error) => {
-        router('/')
+        router('/dashboard')
       });
   }
   return (
