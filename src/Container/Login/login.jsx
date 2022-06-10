@@ -69,18 +69,18 @@ const handleSubmit = (event) => {
     })
   }
 
-  const normalLogin = async () => {
-    try {
-        const user = await signInWithEmailAndPassword(
-            auth,
-            userInfo.email,
-            userInfo.password
-        );
-        navigate("/")
-    }catch(err) {
-        alert(err);
-    }
-  }
+  // const normalLogin = async () => {
+  //   try {
+  //       const user = await signInWithEmailAndPassword(
+  //           auth,
+  //           userInfo.email,
+  //           userInfo.password
+  //       );
+  //       navigate("/")
+  //   }catch(err) {
+  //       alert(err);
+  //   }
+  // }
 
 
   return (
@@ -130,7 +130,6 @@ const handleSubmit = (event) => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick = {normalLogin}
             >
               Sign In
             </Button>
