@@ -76,7 +76,7 @@ export default function Signup() {
           displayName:userInfo.userName
          })
         createUser();
-        // sendEmailVerification(auth.currentUser)
+        sendEmailVerification(auth.currentUser)
         console.log(userInformation, userInformation.user);
         
         router('/managementUser')
