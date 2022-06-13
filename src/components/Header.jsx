@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
 import { useNavigate } from 'react-router'
 import './Header.css'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { onAuthStateChanged, signOut, getAuth } from 'firebase/auth'
 import { auth } from '../firebase';
 
 export default function Header() {
+
   const router = useNavigate();
+  const user = getAuth().currentUser;
+
+  console.log("user: ", user)
+
   const handleChange = () => {
       signOut(auth).then(() => {
         router('/')
@@ -14,6 +19,7 @@ export default function Header() {
         router('/dashboard')
       });
   }
+
   return (
       <div>
       <nav className="main-header navbar navbar-expand navbar-color navbar-light">
@@ -28,7 +34,7 @@ export default function Header() {
           {/* Notifications Dropdown Menu */}
           <li className="nav-item">
             <a className="nav-welcome">
-              ยินดีต้อนรับคุณ : <strong>admin admin</strong>
+              ยินดีต้อนรับคุณ : <strong>{user.displayName}</strong>
             </a>
           </li>
           <li className="nav-item">

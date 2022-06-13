@@ -8,10 +8,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
-import { signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser } from 'firebase/auth';
 import { auth,provider } from '../../firebase';
 import './login.css'
-import { async } from '@firebase/util';
 
 const comp_form = "@rabbit.co.th";
 const theme = createTheme();
@@ -72,15 +71,17 @@ const handleSubmit = (event) => {
 
     const user = await signInWithPopup(auth, provider).then(result => {
       console.log(result)
-      if (user.auth.email.includes(comp_form)) {
-        navigate('/dashboard')
-      } else {
-        signOut(auth).then(() => {
-          navigate('/')
-        console.log("signout");
-        })
-      }
-      // navigate('/dashboard')
+      // if (user.auth.email.includes(comp_form)) {
+      //   navigate('/dashboard')
+      // } else {
+      //   deleteUser(user.id)
+      //   signOut(auth).then(() => {
+      //   navigate('/')
+      //   alert("You have to use @rabbit.co.th domain")
+      //   console.log("signout");
+      //   })
+      // }
+      navigate('/dashboard')
     }).catch(error => {
       console.log(error)
     })
