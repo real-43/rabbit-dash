@@ -31,7 +31,7 @@ export default function Signup() {
   useEffect(() => {
       const authentication = onAuthStateChanged(auth,(user) => {
           if (user) {
-              router('/management')
+              router('/user')
           } else {
               router('/')
          }

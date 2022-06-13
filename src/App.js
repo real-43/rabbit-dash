@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path="/dashboard" element={<Dash />}/>
           <Route path='/' exact element={<LoginPage />} />
-          <Route path='/management' exact element={<SignupPage />} />
+          <Route path='/user' exact element={<SignupPage />} />
         </Routes>
     </>
   );
