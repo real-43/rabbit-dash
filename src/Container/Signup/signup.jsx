@@ -29,14 +29,11 @@ export default function Signup() {
   const router = useNavigate();
   const timerRef = useRef(null);
 
-  const [newName, setNewName] = useState("");
-  const [newAge, setNewAge] = useState(0);
-
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
 
   const createUser = async () => {
-    await addDoc(usersCollectionRef, { name: newName, age: Number(newAge) });
+    await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
   };
 
   const deleteUser = async (id) => {
@@ -88,6 +85,10 @@ export default function Signup() {
         },2000)
     })
   };
+  const AuthAdd = (event) =>{
+    handleSubmit(event);
+    createUser();
+  }
 
 
    return (
@@ -95,24 +96,31 @@ export default function Signup() {
       <input
         placeholder="Name..."
         onChange={(event) => {
-          setNewName(event.target.value);
+          setUserInfo({ ...userInfo, userName: event.target.value })
         }}
       />
       <input
-        type="number"
-        placeholder="Age..."
+        type="Email"
+        placeholder="Email..."
         onChange={(event) => {
-          setNewAge(event.target.value);
+          setUserInfo({ ...userInfo, email: event.target.value })
+        }}
+      />
+      <input
+        type="Password"
+        placeholder="Password..."
+        onChange={(event) => {
+          setUserInfo({ ...userInfo, password: event.target.value })
         }}
       />
 
-      <button onClick={createUser}> Create User</button>
+      <button onClick={AuthAdd}> Create User</button>
       {users.map((user) => {
         return (
           <div>
             {" "}
-            <h1>Name: {user.name}</h1>
-            <h1>Age: {user.age}</h1>
+            <h1>Name: {user.userName}</h1>
+            <h1>Password: {user.email}</h1>
             <button
               onClick={() => {
                 deleteUser(user.id);
