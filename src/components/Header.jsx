@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, setState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import './Header.css'
 import { onAuthStateChanged, signOut, getAuth } from 'firebase/auth'
@@ -7,14 +7,15 @@ import { auth } from '../firebase';
 export default function Header() {
 
   const router = useNavigate();
-  // const user = getAuth().currentUser;
+  const user = getAuth().currentUser || {email: ""};
+  const userName = user.email.split('@')[0]
 
-  // console.log("user: ", user)
+  console.log("user: ", user)
 
   const handleChange = () => {
       signOut(auth).then(() => {
         router('/')
-      console.log("signout");
+        console.log("signout");
       }).catch((error) => {
         router('/dashboard')
       });
@@ -34,7 +35,7 @@ export default function Header() {
           {/* Notifications Dropdown Menu */}
           <li className="nav-item">
             <a className="nav-welcome">
-              ยินดีต้อนรับคุณ : <strong>Admin</strong>
+              ยินดีต้อนรับคุณ : <strong>{userName}</strong>
             </a>
           </li>
           <li className="nav-item">
