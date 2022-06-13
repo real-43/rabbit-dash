@@ -10,7 +10,6 @@ import {Router,Route,Routes} from 'react-router-dom';
 
 
 function App() {
-  const pushAgain = "Poodyn"
   
   return (
     <>
@@ -20,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/dashboard" element={<Dash />}/>
           <Route path='/' exact element={<LoginPage />} />
-          <Route path='/user' exact element={<SignupPage />} />
+          <Route path='/management/user' exact element={<SignupPage />} />
         </Routes>
     </>
   );

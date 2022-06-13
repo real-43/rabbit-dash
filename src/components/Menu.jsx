@@ -83,7 +83,7 @@ export default class Menu extends Component {
                   </ul>
                   <ul className="nav nav-treeview">
                     <li className="nav-item has-treeview">
-                      <a href="/user" className="nav-link">
+                      <a href="/management/user" className="nav-link">
                         <i className="far fa-circle nav-icon" />
                         <p>
                           User
