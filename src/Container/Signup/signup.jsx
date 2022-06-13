@@ -71,85 +71,87 @@ export default function Signup() {
       <Header/>
       <Menu/>
       <Footer/>
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <AlertBox visible={alert.visible} severity={alert.severity} message={alert.message}/>
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12} >
-                  <TextField
-                    autoComplete="given-name"
-                    name="Name"
-                    required
-                    fullWidth
-                    id="Name"
-                    label="Name"
-                    value={userInfo.userName}
-                    onChange={(event) => setUserInfo({ ...userInfo, userName: event.target.value })}
-                    autoFocus
-                  />
+      <div className="content-wrapper">
+        <ThemeProvider theme={theme}>
+          <Container component="main" maxWidth="xs">
+            <AlertBox visible={alert.visible} severity={alert.severity} message={alert.message}/>
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <LockOutlinedIcon />
+              </Avatar> */}
+              <Typography component="h1" variant="h5">
+                Sign up
+              </Typography>
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} >
+                    <TextField
+                      autoComplete="given-name"
+                      name="Name"
+                      required
+                      fullWidth
+                      id="Name"
+                      label="Name"
+                      value={userInfo.userName}
+                      onChange={(event) => setUserInfo({ ...userInfo, userName: event.target.value })}
+                      autoFocus
+                    />
+                  </Grid>
+                
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      value={userInfo.email}
+                      onChange={(event) => setUserInfo({ ...userInfo, email: event.target.value })}
+                      autoComplete="email"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      value={userInfo.password}
+                      onChange={(event) => setUserInfo({ ...userInfo, password: event.target.value })}
+                      autoComplete="new-password"
+                    />
+                  </Grid>
                 </Grid>
-              
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email Address"
-                    name="email"
-                    value={userInfo.email}
-                    onChange={(event) => setUserInfo({ ...userInfo, email: event.target.value })}
-                    autoComplete="email"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    value={userInfo.password}
-                    onChange={(event) => setUserInfo({ ...userInfo, password: event.target.value })}
-                    autoComplete="new-password"
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign Up
-              </Button>
-              {/* <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link to='/login'>
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid> */}
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign Up
+                </Button>
+                {/* <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <Link to='/login'>
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
+                </Grid> */}
+              </Box>
             </Box>
-          </Box>
-        </Container>
-      </ThemeProvider>
+          </Container>
+        </ThemeProvider>
+      </div>
     </>
   );
 }
