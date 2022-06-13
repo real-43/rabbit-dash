@@ -1,19 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged } from "firebase/auth";
-import { Link } from 'react-router-dom';
-import { auth } from '../../firebase'
+import { auth, db } from '../../firebase'
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
 const theme = createTheme();
 
@@ -23,6 +28,30 @@ export default function Signup() {
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const router = useNavigate();
   const timerRef = useRef(null);
+
+  const [newName, setNewName] = useState("");
+  const [newAge, setNewAge] = useState(0);
+
+  const [users, setUsers] = useState([]);
+  const usersCollectionRef = collection(db, "users");
+
+  const createUser = async () => {
+    await addDoc(usersCollectionRef, { name: newName, age: Number(newAge) });
+  };
+
+  const deleteUser = async (id) => {
+    const userDoc = doc(db, "users", id);
+    await deleteDoc(userDoc);
+  };
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getUsers();
+  }, []);
 
   useEffect(() => {
     return clearTimeout(timerRef.current)
@@ -61,89 +90,40 @@ export default function Signup() {
   };
 
 
-  return (
-    <>
-      <div className="content-wrapper">
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <AlertBox visible={alert.visible} severity={alert.severity} message={alert.message}/>
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+   return (
+    <div className="content-wrapper">
+      <input
+        placeholder="Name..."
+        onChange={(event) => {
+          setNewName(event.target.value);
+        }}
+      />
+      <input
+        type="number"
+        placeholder="Age..."
+        onChange={(event) => {
+          setNewAge(event.target.value);
+        }}
+      />
+
+      <button onClick={createUser}> Create User</button>
+      {users.map((user) => {
+        return (
+          <div>
+            {" "}
+            <h1>Name: {user.name}</h1>
+            <h1>Age: {user.age}</h1>
+            <button
+              onClick={() => {
+                deleteUser(user.id);
               }}
             >
-              {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-              </Avatar> */}
-              <Typography component="h1" variant="h5">
-                Sign up
-              </Typography>
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} >
-                    <TextField
-                      autoComplete="given-name"
-                      name="Name"
-                      required
-                      fullWidth
-                      id="Name"
-                      label="Name"
-                      value={userInfo.userName}
-                      onChange={(event) => setUserInfo({ ...userInfo, userName: event.target.value })}
-                      autoFocus
-                    />
-                  </Grid>
-                
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      value={userInfo.email}
-                      onChange={(event) => setUserInfo({ ...userInfo, email: event.target.value })}
-                      autoComplete="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      value={userInfo.password}
-                      onChange={(event) => setUserInfo({ ...userInfo, password: event.target.value })}
-                      autoComplete="new-password"
-                    />
-                  </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign Up
-                </Button>
-                {/* <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link to='/login'>
-                      Already have an account? Sign in
-                    </Link>
-                  </Grid>
-                </Grid> */}
-              </Box>
-            </Box>
-          </Container>
-        </ThemeProvider>
-      </div>
-    </>
+              {" "}
+              Delete User
+            </button>
+          </div>
+        );
+      })}
+    </div>
   );
 }
