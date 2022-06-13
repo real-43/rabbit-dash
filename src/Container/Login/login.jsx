@@ -64,24 +64,20 @@ const handleSubmit = (event) => {
   const handleGoogleButton = async() => {
     // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     provider.setCustomParameters ({
-      'login_hint': "jsmith@rabbit.co.th",
       'hd': 'rabbit.co.th',
-      'promp': 'select_account'
     })
 
     const user = await signInWithPopup(auth, provider).then(result => {
       console.log(result)
-      // if (user.auth.email.includes(comp_form)) {
-      //   navigate('/dashboard')
-      // } else {
-      //   deleteUser(user.id)
-      //   signOut(auth).then(() => {
-      //   navigate('/')
-      //   alert("You have to use @rabbit.co.th domain")
-      //   console.log("signout");
-      //   })
-      // }
-      navigate('/dashboard')
+      if (user.auth.email.includes(comp_form)) {
+        navigate('/dashboard')
+      } else {
+        alert("You have to use @rabbit.co.th domain")
+        signOut(auth).then(() => {
+        navigate('/')
+        console.log("signout");
+        })
+      }
     }).catch(error => {
       console.log(error)
     })
