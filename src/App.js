@@ -6,22 +6,31 @@ import SignupPage from './Container/Signup/signup';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
-import {Router,Route,Routes} from 'react-router-dom';
+import {Router,Route,Routes, Outlet} from 'react-router-dom';
 
 
 function App() {
+
+  const SidebarLayout = () => (
+    <>
+      <Header/>
+      <Menu/>
+      <Footer/>
+      <Outlet/>
+    </>
+  );
   
   return (
     <>
-        <Header/>
-        <Menu/>
-        <Footer/>
         <Routes>
-          <Route path="/dashboard" element={<Dash />}/>
-          <Route path='/' exact element={<LoginPage />} />
-          <Route path='/managementUser' exact element={<SignupPage />} />
+          <Route path='/' exact element={<LoginPage/>} />
+          <Route element={<SidebarLayout/>}>
+            <Route path='/dashboard' element={<Dash/>} />
+            <Route path='/managementUser' element={<SignupPage/>} />
+          </Route>
         </Routes>
     </>
+
   );
 }
 
