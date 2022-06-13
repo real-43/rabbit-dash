@@ -1,12 +1,11 @@
 import './App.css';
-import ComDash from './Container/Fusion/fusion'
 import Dash from './components/Dashboard'
 import LoginPage from './Container/Login/login';
 import SignupPage from './Container/Signup/signup';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
-import {Router,Route,Routes, Outlet} from 'react-router-dom';
+import {Route,Routes, Outlet} from 'react-router-dom';
 
 
 function App() {

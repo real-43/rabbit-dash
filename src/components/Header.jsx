@@ -1,7 +1,7 @@
-import React, { Component, setState, useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router'
 import './Header.css'
-import { onAuthStateChanged, signOut, getAuth } from 'firebase/auth'
+import { signOut, getAuth } from 'firebase/auth'
 import { auth } from '../firebase';
 
 export default function Header() {
