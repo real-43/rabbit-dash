@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged } from "firebase/auth";
+import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, getAuth } from "firebase/auth";
 import { auth, db } from '../../firebase'
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
@@ -21,6 +21,7 @@ import {
 } from "firebase/firestore";
 
 const theme = createTheme();
+const user = getAuth.currentUser;
 
 export default function Signup() {
 
@@ -36,9 +37,10 @@ export default function Signup() {
     await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
   };
 
-  const deleteUser = async (id) => {
+  const deleteUserOnFstored = async (id) => {
     const userDoc = doc(db, "users", id);
     await deleteDoc(userDoc);
+    // deleteUser(user);
   };
 
   useEffect(() => {
@@ -73,10 +75,12 @@ export default function Signup() {
          updateProfile(auth.currentUser, {
           displayName:userInfo.userName
          })
-        sendEmailVerification(auth.currentUser)
-        console.log(userInformation, userInformation.user);
         createUser();
-        router('/')
+        // sendEmailVerification(auth.currentUser)
+        console.log(userInformation, userInformation.user);
+        
+        router('/managementUser')
+        // window.location.reload(false);
       })
       .catch(error => {
         setAlert({ visible:true,severity:'error',message:error.message})
@@ -110,25 +114,40 @@ export default function Signup() {
           setUserInfo({ ...userInfo, password: event.target.value })
         }}
       />
-
       <button onClick={handleSubmit}> Create User</button>
-      {users.map((user) => {
-        return (
-          <div>
-            {" "}
-            <h1>Name: {user.userName}</h1>
-            <h1>Password: {user.email}</h1>
-            <button
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>function</th>
+          </tr>
+        </thead>
+        {users.map((user) => {return (
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>{user.userName}</td>
+            <td>{user.email}</td>
+            <td> <button
               onClick={() => {
-                deleteUser(user.id);
+                deleteUserOnFstored(user.id);
               }}
             >
-              {" "}
+               {" "}
               Delete User
             </button>
-          </div>
-        );
-      })}
+            </td>
+          </tr>
+        </tbody>)})}
+      </table>
+      
+        
+          
+           
+             
+          
     </div>
   );
 }
