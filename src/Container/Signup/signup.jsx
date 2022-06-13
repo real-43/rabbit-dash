@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, getAuth } from "firebase/auth";
-import { auth, db } from '../../firebase'
+import { authSec, db } from '../../firebaseSec'
+import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
 import {
   collection,
@@ -12,7 +13,7 @@ import {
 } from "firebase/firestore";
 
 const theme = createTheme();
-const user = getAuth.currentUser;
+const user = auth.currentUser;
 
 export default function Signup() {
 
@@ -61,13 +62,13 @@ export default function Signup() {
   //On Click of submit button
   const handleSubmit = (event) => {
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, userInfo.email,userInfo.password)
+    createUserWithEmailAndPassword(authSec, userInfo.email,userInfo.password)
       .then((userInformation) => {
-         updateProfile(auth.currentUser, {
+         updateProfile(authSec.currentUser, {
           displayName:userInfo.userName
          })
         createUser();
-        sendEmailVerification(auth.currentUser)
+        sendEmailVerification(authSec.currentUser)
         console.log(userInformation, userInformation.user);
         
         router('/managementUser')
