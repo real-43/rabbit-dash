@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
-import { signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser, getAuth } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser } from 'firebase/auth';
 import { auth,provider } from '../../firebase';
 import './login.css'
 
@@ -40,30 +40,10 @@ export default function Login() {
           console.log(error.code);
           timerRef.current= setTimeout(() => {
             setAlert({ visible:false,severity:'',message:''})
-          },5000)
+          },2000)
     })
   };
     
-
-  const listAllUsers = (nextPageToken) => {
-    // List batch of users, 1000 at a time.
-    getAuth()
-      .listUsers(1000, nextPageToken)
-      .then((listUsersResult) => {
-        listUsersResult.users.forEach((userRecord) => {
-          console.log('user', userRecord.toJSON());
-        });
-        if (listUsersResult.pageToken) {
-          // List next batch of users.
-          listAllUsers(listUsersResult.pageToken);
-        }
-      })
-      .catch((error) => {
-        console.log('Error listing users:', error);
-      });
-  };
-  // Start listing users from the beginning, 1000 at a time.
-  // listAllUsers();
   // const handlePassword = () => {
   //   sendPasswordResetEmail(auth, userInfo.email)
   //     .then(() => {
@@ -84,20 +64,26 @@ export default function Login() {
   const handleGoogleButton = async() => {
     // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     provider.setCustomParameters ({
+      'login_hint': "jsmith@rabbit.co.th",
       'hd': 'rabbit.co.th',
+      'promp': 'select_account'
     })
 
     const user = await signInWithPopup(auth, provider).then(result => {
       console.log(result)
-      if (user.auth.email.includes(comp_form)) {
-        navigate('/dashboard')
-      }
+      // if (user.auth.email.includes(comp_form)) {
+      //   navigate('/dashboard')
+      // } else {
+      //   deleteUser(user.id)
+      //   signOut(auth).then(() => {
+      //   navigate('/')
+      //   alert("You have to use @rabbit.co.th domain")
+      //   console.log("signout");
+      //   })
+      // }
+      navigate('/dashboard')
     }).catch(error => {
-      setAlert({ visible:true,severity:'error',message:"You have to use \"@rabbit.co.th\" E-mail"})
-          console.log(error.code);
-          timerRef.current= setTimeout(() => {
-            setAlert({ visible:false,severity:'',message:''})
-          },5000)
+      console.log(error)
     })
 
     
