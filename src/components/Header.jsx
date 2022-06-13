@@ -34,7 +34,7 @@ export default function Header() {
           {/* Notifications Dropdown Menu */}
           <li className="nav-item">
             <a className="nav-welcome">
-              ยินดีต้อนรับคุณ : <strong>{user.displayName}</strong>
+              {/* ยินดีต้อนรับคุณ : <strong>{user.displayName}</strong> */}
             </a>
           </li>
           <li className="nav-item">

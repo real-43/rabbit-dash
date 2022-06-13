@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
-import { signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser, getAuth } from 'firebase/auth';
 import { auth,provider } from '../../firebase';
 import './login.css'
 
@@ -21,29 +21,49 @@ export default function Login() {
   const navigate = useNavigate();
   const timerRef = useRef(null);
 
-const handleSubmit = (event) => {
-    event.preventDefault();
-  signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
-    .then(userInformation => {
-      console.log(userInformation);
-      console.log(userInfo.email.includes(comp_form));
-      if (userInfo.email.includes(comp_form)){
-        navigate('/dashboard')
-      }
-      else{
-        navigate('/')
-      }
-      
+  const handleSubmit = (event) => {
+      event.preventDefault();
+    signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
+      .then(userInformation => {
+        console.log(userInformation);
+        console.log(userInfo.email.includes(comp_form));
+        if (userInfo.email.includes(comp_form)){
+          navigate('/dashboard')
+        }
+        else{
+          navigate('/')
+        }
+        
+      })
+      .catch(error => {
+      setAlert({ visible:true,severity:'error',message:error.message})
+          console.log(error.code);
+          timerRef.current= setTimeout(() => {
+            setAlert({ visible:false,severity:'',message:''})
+          },2000)
     })
-    .catch(error => {
-    setAlert({ visible:true,severity:'error',message:error.message})
-        console.log(error.code);
-        timerRef.current= setTimeout(() => {
-          setAlert({ visible:false,severity:'',message:''})
-        },2000)
-  })
-};
-  
+  };
+    
+
+  const listAllUsers = (nextPageToken) => {
+    // List batch of users, 1000 at a time.
+    getAuth()
+      .listUsers(1000, nextPageToken)
+      .then((listUsersResult) => {
+        listUsersResult.users.forEach((userRecord) => {
+          console.log('user', userRecord.toJSON());
+        });
+        if (listUsersResult.pageToken) {
+          // List next batch of users.
+          listAllUsers(listUsersResult.pageToken);
+        }
+      })
+      .catch((error) => {
+        console.log('Error listing users:', error);
+      });
+  };
+  // Start listing users from the beginning, 1000 at a time.
+  listAllUsers();
   // const handlePassword = () => {
   //   sendPasswordResetEmail(auth, userInfo.email)
   //     .then(() => {
