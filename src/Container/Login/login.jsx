@@ -63,6 +63,7 @@ const handleSubmit = (event) => {
   // }
     
   const handleGoogleButton = async() => {
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     provider.setCustomParameters ({
       'login_hint': "jsmith@rabbit.co.th",
       'hd': 'rabbit.co.th',

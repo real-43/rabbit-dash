@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import { useNavigate } from 'react-router'
 import './Header.css'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from '../firebase';
-import { useNavigate } from 'react-router';
 
 export default function Header() {
   const router = useNavigate();
