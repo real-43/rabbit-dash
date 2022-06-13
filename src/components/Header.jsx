@@ -8,9 +8,9 @@ export default function Header() {
 
   const router = useNavigate();
   const user = getAuth().currentUser || {email: ""};
-  const userName = user.email.split('@')[0]
+  const userName = user.displayName || user.email.split('@')[0]
 
-  console.log("user: ", user)
+  console.log("user: ", userName)
 
   const handleChange = () => {
       signOut(auth).then(() => {

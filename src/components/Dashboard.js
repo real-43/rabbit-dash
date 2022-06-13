@@ -1,6 +1,24 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../firebase'
+
 
 export default function Dashboard() {
+
+  const router = useNavigate();
+    useEffect(() => {
+        const authentication = onAuthStateChanged(auth,(user) => {
+            if (user) {
+                router('/dashboard')
+            } else {
+                router('/')
+           }
+        }) 
+        
+        return authentication
+    },[])
+
   return (
     <div>
       <div className="content-wrapper">
