@@ -58,7 +58,7 @@ export default class Menu extends Component {
                 with font-awesome or any other icon font library */}
                 {/* Sidebar Menu */}
                 <li className="nav-item">
-                  <a href="#" className="nav-link">
+                  <a href="/dashboard" className="nav-link">
                     <i className="fa fa-home nav-icon" />
                     <p>Home</p>
                   </a>
@@ -83,7 +83,7 @@ export default class Menu extends Component {
                   </ul>
                   <ul className="nav nav-treeview">
                     <li className="nav-item has-treeview">
-                      <a href="/user" className="nav-link">
+                      <a href="/managementUser" className="nav-link">
                         <i className="far fa-circle nav-icon" />
                         <p>
                           User
