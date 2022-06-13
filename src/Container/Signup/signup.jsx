@@ -74,7 +74,8 @@ export default function Signup() {
           displayName:userInfo.userName
          })
         sendEmailVerification(auth.currentUser)
-        console.log(userInformation, userInformation.user)
+        console.log(userInformation, userInformation.user);
+        createUser();
         router('/')
       })
       .catch(error => {
@@ -85,10 +86,6 @@ export default function Signup() {
         },2000)
     })
   };
-  const AuthAdd = (event) =>{
-    handleSubmit(event);
-    createUser();
-  }
 
 
    return (
@@ -114,7 +111,7 @@ export default function Signup() {
         }}
       />
 
-      <button onClick={AuthAdd}> Create User</button>
+      <button onClick={handleSubmit}> Create User</button>
       {users.map((user) => {
         return (
           <div>
