@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/dashboard" element={<Dash />}/>
           <Route path='/' exact element={<LoginPage />} />
-          <Route path='/management/user' exact element={<SignupPage />} />
+          <Route path='/management' exact element={<SignupPage />} />
         </Routes>
     </>
   );
