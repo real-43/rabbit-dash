@@ -1,16 +1,16 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 import './Header.css'
-import { signOut, getAuth } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
 import { auth } from '../firebase';
 
 export default function Header() {
 
   const router = useNavigate();
-  const user = getAuth().currentUser || {email: ""};
+  const user = auth.currentUser || {email: ""};
   const userName = user.displayName || user.email.split('@')[0]
 
-  console.log("user: ", userName)
+  console.log("user: ", user)
 
   const handleChange = () => {
       signOut(auth).then(() => {
