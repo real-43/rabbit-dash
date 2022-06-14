@@ -76,7 +76,7 @@ export default function Signup() {
   const forgotPassword = async (user) => {
     await signInWithEmailAndPassword(authSec, user.email, user.password)
     .then(() => {
-      updatePassword(authSec, newPassword)
+      updatePassword(authSec.currentUser, newPassword)
       authSec.signOut()
     })
     
