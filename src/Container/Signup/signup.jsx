@@ -24,7 +24,7 @@ export default function Signup() {
   const [userInfo, setUserInfo] = useState({ userName: '', email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const [isOpen, setIsOpen] = useState(false);
-  const [newPassword, setNewPassword] = useState(" ")
+  const [newPassword, setNewPassword] = useState("")
   const router = useNavigate();
   const timerRef = useRef(null);
 
@@ -81,16 +81,16 @@ export default function Signup() {
     await updateDoc(userDoc, {
       "password": newPassword
     });
-    
+    console.log("-----------------------------------------------------------------------");
     await signInWithEmailAndPassword(authSec, user.email, user.password)
     .then(() => {
       const userToEdit = authSec.currentUser
+      console.log("asdddddddddddddddddddddddddddddddddddddddddddddddd",userToEdit);
       updatePassword(userToEdit, newPassword)
       authSec.signOut()
     })
-
-    console.log("End")
-    window.location.reload(false);
+    console.log("-----------------------------------------------------------------------");
+    // window.location.reload(false);
     
   }
 
@@ -191,25 +191,17 @@ export default function Signup() {
                     {" "}
                     Edit
                   </button>
-                  <ReactModal
-                    appElement={document.getElementById("root")}
-                    isOpen={isOpen}
-                    onRequestClose={dismiss}
-                    style={{
-                      overlay: { backgroundColor: "rgba(0,0, 0, 0.30" },
-                      content: { width: 400, height: 150 },
-                    }}
-                  >
-                  <label>
-                    Enter some text:
-                    <input
-                      type="text"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                    />
-                  </label>
-                  <button onClick={() =>{forgotPassword(user)}}>Confirm</button>
-                </ReactModal>
+                  <form onSubmit={confirm}>
+                    <label>
+                      Enter some text:
+                      <input
+                        type="text"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                      />
+                    </label>
+                    <button onClick={() =>{forgotPassword(user)}}>Confirm</button>
+                  </form>
               </td>
             </tr>
           </tbody>)})}
