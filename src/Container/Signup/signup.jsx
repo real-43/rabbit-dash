@@ -27,6 +27,7 @@ export default function Signup() {
 
   const createUser = async () => {
     await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
+    window.location.reload(false);
   };
 
   const deleteUserOnFstored = async (user) => {
