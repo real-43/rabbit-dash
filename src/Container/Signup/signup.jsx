@@ -10,6 +10,7 @@ import {
   getDocs,
   addDoc,
   deleteDoc,
+  updateDoc,
   doc,
 } from "firebase/firestore";
 
@@ -76,6 +77,10 @@ export default function Signup() {
   //On Click of submit button
 
   const forgotPassword = async (user) => {
+    const userDoc = doc(db, "users", user.id);
+    await updateDoc(userDoc, {
+      "password":newPassword
+    });
     await signInWithEmailAndPassword(authSec, user.email, user.password)
     .then(() => {
       updatePassword(authSec.currentUser, newPassword)
