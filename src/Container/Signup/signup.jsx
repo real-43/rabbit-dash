@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, getAuth, sendPasswordResetEmail } from "firebase/auth";
+import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { authSec, db } from '../../firebaseSec'
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
@@ -33,14 +33,15 @@ export default function Signup() {
     const userDoc = doc(db, "users", user.id);
     await deleteDoc(userDoc);
 
-    signInWithEmailAndPassword(authSec, user.email, user.password)
+    await signInWithEmailAndPassword(authSec, user.email, user.password)
       .then(() => {
         const userToDel = authSec.currentUser
         deleteUser(userToDel)
         authSec.signOut()
       })
-    // deleteUser(user);
-  };
+
+    window.location.reload(false);
+    };
 
   useEffect(() => {
     const getUsers = async () => {
@@ -142,7 +143,7 @@ export default function Signup() {
             <td> 
               <button
                 onClick={() => {
-                  deleteUserOnFstored(user.id);
+                  deleteUserOnFstored(user);
                 }}
               >
                 {" "}
