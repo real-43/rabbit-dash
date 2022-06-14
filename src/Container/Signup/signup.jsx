@@ -25,6 +25,7 @@ export default function Signup() {
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const [isOpen, setIsOpen] = useState(false);
   const [newPassword, setNewPassword] = useState("")
+  const [changeUser, setChangeUser] = useState()
   const router = useNavigate();
   const timerRef = useRef(null);
 
@@ -94,8 +95,6 @@ export default function Signup() {
     
   }
 
- 
-
   function confirm(e) {
     if (e) e.preventDefault();
     console.log(" ");
@@ -129,6 +128,27 @@ export default function Signup() {
         },2000)
     })
   };
+
+  function changeSet(user) {
+    setChangeUser(user)
+    setIsOpen(!isOpen)
+  }
+
+  function popup() {
+    return (isOpen) ? (
+      <div>
+        <button onClick={(e) => setIsOpen(!isOpen)}> X </button>
+        <input
+          type="text"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="Enter Password"
+        />
+        <button onClick={(e) =>{forgotPassword(changeUser)}}>Click</button>
+      </div>
+    ) : "";
+  }
+
    return (
     <div className="content-wrapper">
       <h3>Management {'>'} User</h3>
@@ -158,6 +178,7 @@ export default function Signup() {
           <button className="btn" onClick={handleSubmit}> Create User</button>
         </div>
       </div>
+      {popup()}
       <div className='table-container'>
         <table class="table">
           <thead>
@@ -186,12 +207,12 @@ export default function Signup() {
                   </button>
                   <button
                     className='btn btn-function'
-                    onClick={(e) => setIsOpen(true)}
+                    onClick={(e) => changeSet(user)}
                   >
                     {" "}
                     Edit
                   </button>
-                  <form onSubmit={confirm}>
+                  {/*<form onSubmit={confirm}>
                     <label>
                       Enter some text:
                       <input
@@ -201,7 +222,7 @@ export default function Signup() {
                       />
                     </label>
                     <button onClick={() =>{forgotPassword(user)}}>Confirm</button>
-                  </form>
+                  </form>*/}
               </td>
             </tr>
           </tbody>)})}
