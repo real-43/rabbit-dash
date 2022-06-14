@@ -11,6 +11,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import './signup.css'
 
 const theme = createTheme();
 const user = auth.currentUser;
@@ -105,69 +106,73 @@ export default function Signup() {
 
    return (
     <div className="content-wrapper">
-      <input
-        placeholder="Name..."
-        onChange={(event) => {
-          setUserInfo({ ...userInfo, userName: event.target.value })
-        }}
-      />
-      <input
-        type="Email"
-        placeholder="Email..."
-        onChange={(event) => {
-          setUserInfo({ ...userInfo, email: event.target.value })
-        }}
-      />
-      <input
-        type="Password"
-        placeholder="Password..."
-        onChange={(event) => {
-          setUserInfo({ ...userInfo, password: event.target.value })
-        }}
-      />
-      <button onClick={handleSubmit}> Create User</button>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>function</th>
-          </tr>
-        </thead>
-        {users.map((user) => {return (
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>{user.userName}</td>
-            <td>{user.email}</td>
-            <td> 
-              <button
-                onClick={() => {
-                  deleteUserOnFstored(user);
-                }}
-              >
-                {" "}
-                Delete User
-              </button>
-              <button
-                onClick={() => {
-                  forgotPassword(user.email);
-                }}
-              >
-                {" "}
-                Edit
-              </button>
-            </td>
-          </tr>
-        </tbody>)})}
-      </table>
-      
-        
-          
-  
-             
-          
+      <h3>Management {'>'} User</h3>
+      <div className='input-wrapper'>
+        <h4>Create New User</h4>
+        <div className='input-container'>
+          <input className='input-register'
+            placeholder="Name..."
+            onChange={(event) => {
+              setUserInfo({ ...userInfo, userName: event.target.value })
+            }}
+          />
+          <input className='input-register'
+            type="Email"
+            placeholder="Email..."
+            onChange={(event) => {
+              setUserInfo({ ...userInfo, email: event.target.value })
+            }}
+          />
+          <input className='input-register'
+            type="Password"
+            placeholder="Password..."
+            onChange={(event) => {
+              setUserInfo({ ...userInfo, password: event.target.value })
+            }}
+          />
+          <button onClick={handleSubmit}> Create User</button>
+        </div>
+      </div>
+      <div className='table-container'>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Email</th>
+              <th>function</th>
+            </tr>
+          </thead>
+          {users.map((user) => {return (
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>{user.userName}</td>
+              <td>{user.email}</td>
+              <td className='btn-table'> 
+                <button
+                  className='del btn'
+                  onClick={() => {
+                    deleteUserOnFstored(user);
+                  }}
+                >
+                  {" "}
+                  Delete User
+                </button>
+                <button
+                  className='edit btn'
+                  onClick={() => {
+                    forgotPassword(user.email);
+                  }}
+                >
+                  {" "}
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </tbody>)})}
+        </table>
+      </div>
     </div>
   );
 }

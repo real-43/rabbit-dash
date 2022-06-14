@@ -1,0 +1,84 @@
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper h3 {
+    margin-left: 10px;
+    font-size: small;
+}
+
+.input-wrapper {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.input-wrapper h4 {
+    margin-left: 10px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 70px;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -10px;
+}
+
+.input-register {
+    border-radius: 3px;
+    width: 27%;
+    height: 60%;
+    border: 1px solid rgb(132, 132, 132);
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.input-container button {
+    height: 35px;
+    border: 0;
+    background-color: orange;
+    border-radius: 4px;
+    height: 60%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.input-container button:hover {
+    background-color: rgb(233, 154, 7);
+}
+
+.input-container button:active {
+    background-color: rgb(216, 143, 6);
+}
+
+.tabel-container {
+    margin-top: 20px;
+}
+
+.btn-table {
+    display: flex;
+}
+
+.btn {
+    border: 0;
+    background-color: rgb(199, 199, 199);
+    margin-right: 20px;
+}
+
+.del:hover {
+    background-color: red;
+}
+
+.edit:hover {
+    background-color: green;
+}
