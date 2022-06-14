@@ -29,9 +29,16 @@ export default function Signup() {
     await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
   };
 
-  const deleteUserOnFstored = async (id) => {
-    const userDoc = doc(db, "users", id);
+  const deleteUserOnFstored = async (user) => {
+    const userDoc = doc(db, "users", user.id);
     await deleteDoc(userDoc);
+
+    signInWithEmailAndPassword(authSec, user.email, user.password)
+      .then(() => {
+        const userToDel = authSec.currentUser
+        deleteUser(userToDel)
+        authSec.signOut()
+      })
     // deleteUser(user);
   };
 
@@ -156,7 +163,7 @@ export default function Signup() {
       
         
           
-           
+  
              
           
     </div>
