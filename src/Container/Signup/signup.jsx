@@ -171,7 +171,7 @@ export default function Signup() {
               <td>{user.email}</td>
               <td className='btn-table'> 
                 <button
-                    className='del btn'
+                    className='btn-function btn'
                     onClick={() => {
                       deleteUserOnFstored(user);
                     }}
@@ -180,7 +180,7 @@ export default function Signup() {
                     Delete User
                   </button>
                   <button
-                    className='btn edit'
+                    className='btn btn-function'
                     onClick={(e) => setIsOpen(true)}
                   >
                     {" "}
