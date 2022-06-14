@@ -69,16 +69,11 @@
     display: flex;
 }
 
-.btn {
-    border: 0;
-    background-color: rgb(199, 199, 199);
+.btn-function {
+    background-color: rgb(208, 208, 208);
     margin-right: 20px;
 }
 
-.del:hover {
-    background-color: red;
-}
-
-.edit:hover {
-    background-color: green;
+.btn-function:hover {
+    background-color: orange;
 }
