@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, getAuth } from "firebase/auth";
+import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { authSec, db } from '../../firebaseSec'
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
@@ -60,6 +60,16 @@ export default function Signup() {
       return authentication
   },[])
   //On Click of submit button
+
+  const forgotPassword = (Email) => {
+  sendPasswordResetEmail(Email)
+      .then(function () {
+          alert('Please check your email...')
+      }).catch(function (e) {
+          console.log(e)
+      }) 
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     createUserWithEmailAndPassword(authSec, userInfo.email,userInfo.password)
@@ -122,14 +132,23 @@ export default function Signup() {
             <td>1</td>
             <td>{user.userName}</td>
             <td>{user.email}</td>
-            <td> <button
-              onClick={() => {
-                deleteUserOnFstored(user.id);
-              }}
-            >
-               {" "}
-              Delete User
-            </button>
+            <td> 
+              <button
+                onClick={() => {
+                  deleteUserOnFstored(user.id);
+                }}
+              >
+                {" "}
+                Delete User
+              </button>
+              <button
+                onClick={() => {
+                  forgotPassword(user.email);
+                }}
+              >
+                {" "}
+                Edit
+              </button>
             </td>
           </tr>
         </tbody>)})}
