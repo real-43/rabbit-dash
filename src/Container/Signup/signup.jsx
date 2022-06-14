@@ -79,13 +79,18 @@ export default function Signup() {
   const forgotPassword = async (user) => {
     const userDoc = doc(db, "users", user.id);
     await updateDoc(userDoc, {
-      "password":newPassword
+      "password": newPassword
     });
+    
     await signInWithEmailAndPassword(authSec, user.email, user.password)
     .then(() => {
-      updatePassword(authSec.currentUser, newPassword)
+      const userToEdit = authSec.currentUser
+      updatePassword(userToEdit, newPassword)
       authSec.signOut()
     })
+
+    console.log("End")
+    window.location.reload(false);
     
   }
 
@@ -104,11 +109,11 @@ export default function Signup() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    createUserWithEmailAndPassword(authSec, userInfo.email,userInfo.password)
+    createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
-         updateProfile(authSec.currentUser, {
+        updateProfile(authSec.currentUser, {
           displayName:userInfo.userName
-         })
+        })
         createUser();
         sendEmailVerification(authSec.currentUser)
         console.log(userInformation, userInformation.user);
@@ -195,17 +200,15 @@ export default function Signup() {
                       content: { width: 400, height: 150 },
                     }}
                   >
-                    <form onSubmit={confirm}>
-                      <label>
-                        Enter some text:
-                        <input
-                          type="text"
-                          value={newPassword}
-                          onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                      </label>
-                    <button type="submit" onClick={() =>{forgotPassword(user)}}>Confirm</button>
-                  </form>
+                  <label>
+                    Enter some text:
+                    <input
+                      type="text"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                  </label>
+                  <button onClick={() =>{forgotPassword(user)}}>Confirm</button>
                 </ReactModal>
               </td>
             </tr>
