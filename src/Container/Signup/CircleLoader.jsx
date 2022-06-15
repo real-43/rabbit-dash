@@ -24,7 +24,7 @@ const circleStyle = {
 const spinTransition = {
   loop: Infinity,
   ease: "linear",
-  duration: 1
+  duration: 0.8
 };
 
 export default function CircleLoader() {
