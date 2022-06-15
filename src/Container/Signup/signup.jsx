@@ -122,10 +122,11 @@ export default function Signup() {
       if(newPassword !== "") {
         updatePassword(userToChange, newPassword)
       }
+      setIsLoading(false);
       authSec.signOut()
     })
     
-    setIsLoading(false)
+    
     window.location.reload(false);
   }
 
