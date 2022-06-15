@@ -169,16 +169,17 @@ export default function Signup() {
         <button onClick={(e) => setIsOpen(!isOpen)}> X </button>
         <input
           type="text"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="Enter New Password"
-        />
-        <input
-          type="text"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           placeholder="Enter New Name"
         />
+        <input
+          type="text"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="Enter New Password"
+        />
+        
         <button onClick={(e) =>{handleChange(changeUser)}}>Click</button>
       </div>
     ) : "";
