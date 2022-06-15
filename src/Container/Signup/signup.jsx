@@ -25,8 +25,8 @@ export default function Signup() {
 
   // Use for change profile and password
   const [newPassword, setNewPassword] = useState("")
-  const [newName, setNewName] = useState("")
   const [changeUser, setChangeUser] = useState()
+  const [newName, setNewName] = useState("")
 
   const [isLoading, setIsLoading] = useState(false);
   const router = useNavigate();
@@ -91,6 +91,7 @@ export default function Signup() {
   const handleChange = async (user) => {
     setIsOpen(!isOpen)
     setIsLoading(true)
+    setChangeUser(user)
 
     // Change in firestore
     const userDoc = doc(db, "users", user.id);
@@ -164,32 +165,19 @@ export default function Signup() {
   function changeSet(user) {
     setChangeUser(user)
     setIsOpen(!isOpen)
+    setNewName(user.userName)
+    setNewPassword(user.password)
   }
+
 
   // Popup input to chnage password or name
   function popup() {
-  
-  
+    
     return (isOpen) ? (
       <div>
-        {/* <button onClick={(e) => setIsOpen(!isOpen)}> X </button>
-        <input
-          type="text"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          placeholder="Enter New Name"
-        />
-        <input
-          type="text"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="Enter New Password"
-        />
-        
-        <button onClick={(e) =>{handleChange(changeUser)}}>Click</button> */}
-         <Modal show={true} onHide={(e)=>{setIsOpen(!isOpen)}}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+        <Modal show={true} onHide={(e)=>{setIsOpen(!isOpen)}}>
+          <Modal.Header>
+            <Modal.Title>Modal heading <i onClick={(e) => setIsOpen(!isOpen)} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -197,7 +185,7 @@ export default function Signup() {
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
-                  value={changeUser.userName}
+                  value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   autoFocus
                 />
@@ -208,8 +196,8 @@ export default function Signup() {
               >
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="text"
-                  value={changeUser.password}
+                  type="password"
+                  value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   row={3}
                   autoFocus
