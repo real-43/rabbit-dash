@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
-import { authSec, db } from '../../firebaseSec'
+import { authSec, db } from '../../firebaseSec';
+import {Modal, Form, Button}  from 'react-bootstrap';
+
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
 import Loader from './CircleLoader'
@@ -87,6 +89,7 @@ export default function Signup() {
 
   // Change Name or Password in firebase
   const handleChange = async (user) => {
+    setIsOpen(!isOpen)
     setIsLoading(true)
 
     // Change in firestore
@@ -165,9 +168,11 @@ export default function Signup() {
 
   // Popup input to chnage password or name
   function popup() {
+  
+  
     return (isOpen) ? (
       <div>
-        <button onClick={(e) => setIsOpen(!isOpen)}> X </button>
+        {/* <button onClick={(e) => setIsOpen(!isOpen)}> X </button>
         <input
           type="text"
           value={newName}
@@ -181,7 +186,46 @@ export default function Signup() {
           placeholder="Enter New Password"
         />
         
-        <button onClick={(e) =>{handleChange(changeUser)}}>Click</button>
+        <button onClick={(e) =>{handleChange(changeUser)}}>Click</button> */}
+         <Modal show={true} onHide={(e)=>{setIsOpen(!isOpen)}}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="name@example.com"
+                  onChange={(e) => setNewName(e.target.value)}
+                  autoFocus
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  row={3}
+                  autoFocus
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={(e) => setIsOpen(!isOpen)}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={(e) =>{handleChange(changeUser)}}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     ) : "";
   }
