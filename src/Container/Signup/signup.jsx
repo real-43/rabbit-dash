@@ -197,7 +197,7 @@ export default function Signup() {
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="name@example.com"
+                  value={changeUser.userName}
                   onChange={(e) => setNewName(e.target.value)}
                   autoFocus
                 />
@@ -208,8 +208,8 @@ export default function Signup() {
               >
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="password"
-                  placeholder="Password"
+                  type="text"
+                  value={changeUser.password}
                   onChange={(e) => setNewPassword(e.target.value)}
                   row={3}
                   autoFocus
