@@ -36,8 +36,9 @@ export default function Signup() {
   // Create user in firestore
   const createUser = async () => {
     await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
-    window.location.reload(false);
     setIsLoading(false);
+    window.location.reload(false);
+    
   };
 
   // To delete user in firebase
@@ -51,11 +52,12 @@ export default function Signup() {
     // delete user in firebase auth
     await signInWithEmailAndPassword(authSec, user.email, user.password)
       .then(() => {
+        setIsLoading(false);
         const userToDel = authSec.currentUser
         deleteUser(userToDel)
         authSec.signOut()
       })
-    setIsLoading(false);
+    
     window.location.reload(false);
     };
 
