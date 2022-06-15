@@ -36,9 +36,6 @@ export default function Signup() {
   // Create user in firestore
   const createUser = async () => {
     await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
-    setIsLoading(false);
-    window.location.reload(false);
-    
   };
 
   // To delete user in firebase
@@ -56,7 +53,7 @@ export default function Signup() {
         deleteUser(userToDel)
         authSec.signOut()
       })
-      
+
     setIsLoading(false);
     window.location.reload(false);
     };
@@ -131,21 +128,23 @@ export default function Signup() {
   }
 
   // To create new user in firebase
-  const handleSubmit = (event) => {
-    
-    event.preventDefault();
+  const handleSubmit = async (event) => {
     setIsLoading(true);
+
+    event.preventDefault();
+    
+    // To create user in firestore
+    const usersCollectionRef = collection(db, "users")
+    await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
     // Create user in firebase auth
     createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
         updateProfile(authSec.currentUser, {
           displayName:userInfo.userName
         })
-        createUser(); // To create user in firestore
-        sendEmailVerification(authSec.currentUser)
-        console.log(userInformation, userInformation.user);
+        // createUser(); 
         
-        router('/managementUser')
+        // router('/managementUser')
       })
       .catch(error => {
         setAlert({ visible:true,severity:'error',message:error.message})
@@ -154,7 +153,8 @@ export default function Signup() {
           setAlert({ visible:false,severity:'',message:''})
         },2000)
     })
-    setIsLoading(true);
+    setIsLoading(false);
+    window.location.reload(false);
   };
 
   // To open/close popup and set user that send form edit btn
