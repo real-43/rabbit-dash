@@ -37,6 +37,7 @@ export default function Signup() {
   const createUser = async () => {
     await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
     window.location.reload(false);
+    setIsLoading1(false);
   };
 
   const deleteUserOnFstored = async (user) => {
@@ -50,8 +51,9 @@ export default function Signup() {
         deleteUser(userToDel)
         authSec.signOut()
       })
-    setIsLoading2(true);
+    
     window.location.reload(false);
+    setIsLoading2(false);
     };
 
   useEffect(() => {
@@ -118,9 +120,9 @@ export default function Signup() {
 
   // To create new user in firebase
   const handleSubmit = (event) => {
-    
-    event.preventDefault();
     setIsLoading1(true);
+    event.preventDefault();
+    
     // Create user in firebase auth
     createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
@@ -140,7 +142,7 @@ export default function Signup() {
           setAlert({ visible:false,severity:'',message:''})
         },2000)
     })
-    setIsLoading1(true);
+    
   };
 
   // To open/close popup and set user that send form edit btn
@@ -175,7 +177,7 @@ export default function Signup() {
     <div className="content-wrapper">
       <h3>Management {'>'} User</h3>
       {isLoading1 ? (
-            <Loader />
+            <Loader style={{marginLeft:"auto", maginRight:"auto"}}/>
           ) : (
       <div className='input-wrapper'>
         <h4>Create New User</h4>
