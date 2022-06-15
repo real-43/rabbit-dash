@@ -35,11 +35,6 @@ export default function Signup() {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
 
-  // Create user in firestore
-  const createUser = async () => {
-    await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
-  };
-
   // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
     setIsLoading(true);
@@ -169,6 +164,14 @@ export default function Signup() {
     setNewPassword(user.password)
   }
 
+  function displayOption() {
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
 
   // Popup input to chnage password or name
   function popup() {
@@ -197,6 +200,7 @@ export default function Signup() {
               >
                 <Form.Label>Password</Form.Label>
                 <Form.Control
+                  id='myInput'
                   type="password"
                   placeholder="password"
                   value={newPassword}
@@ -204,6 +208,11 @@ export default function Signup() {
                   row={3}
                   autoFocus
                 />
+                <i class="fa fa-eye-slash" id="togglePassword" onClick={(e) => displayOption()}/>
+                {/*<div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                  <label class="form-check-label" for="exampleCheck1">Show password</label>
+    </div>*/}
               </Form.Group>
             </Form>
           </Modal.Body>
