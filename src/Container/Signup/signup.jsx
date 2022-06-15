@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
 import { authSec, db } from '../../firebaseSec';
-import {Modal, Form, Button}  from 'react-bootstrap';
+import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
 
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
@@ -29,6 +29,7 @@ export default function Signup() {
   const [newName, setNewName] = useState("")
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isActive, setActive] = useState("false");
   const router = useNavigate();
   const timerRef = useRef(null);
 
@@ -165,6 +166,7 @@ export default function Signup() {
   }
 
   function displayOption() {
+    setActive(!isActive);
     var x = document.getElementById("myInput");
 
     if (x.type === "password") {
@@ -200,20 +202,21 @@ export default function Signup() {
                 controlId="exampleForm.ControlTextarea1"
               >
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  id='myInput'
-                  type="password"
-                  placeholder="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  row={3}
-                  autoFocus
-                />
-                <i class="fa fa-eye-slash" id="togglePassword" onClick={(e) => displayOption(this)}/>
-                {/*<div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                  <label class="form-check-label" for="exampleCheck1">Show password</label>
-    </div>*/}
+                <InputGroup className="mb-3">
+                  
+                  <FormControl
+                    aria-label="Example text with button addon"
+                    aria-describedby="basic-addon1"
+                    id='myInput'
+                    type="password"
+                    placeholder="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                  <Button variant="outline-secondary" id="button-addon1">
+                    <i class={isActive ? "fa fa-eye-slash" : "fa fa-eye"} id="togglePassword" onClick={(e) => displayOption(this)}/>
+                  </Button>
+                </InputGroup>
               </Form.Group>
             </Form>
           </Modal.Body>
