@@ -93,6 +93,9 @@ export default function Signup() {
 
     // Change in firestore
     const userDoc = doc(db, "users", user.id);
+
+    setIsLoading(true)
+
     if (newName !== "") {
       updateDoc(userDoc, {
         "userName": newName
@@ -122,6 +125,7 @@ export default function Signup() {
       }
 
       authSec.signOut()
+      setIsLoading(false)
     }) 
   }
 
