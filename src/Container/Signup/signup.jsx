@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
 import { authSec, db } from '../../firebaseSec'
 import { auth } from '../../firebase'
@@ -25,6 +24,7 @@ export default function Signup() {
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const [isOpen, setIsOpen] = useState(false);
   const [newPassword, setNewPassword] = useState("")
+  const [newName, setNewName] = useState("")
   const [changeUser, setChangeUser] = useState()
   const [isLoading, setIsLoading] = useState(false);
   const router = useNavigate();
@@ -77,50 +77,59 @@ export default function Signup() {
       
       return authentication
   },[])
-  //On Click of submit button
 
-  const forgotPassword = async (user) => {
+  // Change Name or Password in firebase
+  const handleChange = async (user) => {
+
+    // Change in firestore
     const userDoc = doc(db, "users", user.id);
-    await updateDoc(userDoc, {
-      "password": newPassword
-    });
-    console.log("-----------------------------------------------------------------------");
+    if (newName !== "") {
+      updateDoc(userDoc, {
+        "userName": newName
+      });
+    }
+
+    if (newPassword !== "") {
+      updateDoc(userDoc, {
+        "password": newPassword
+      });
+    }
+
+    // Change in firebase auth
     await signInWithEmailAndPassword(authSec, user.email, user.password)
     .then(() => {
-      const userToEdit = authSec.currentUser
-      console.log("asdddddddddddddddddddddddddddddddddddddddddddddddd",userToEdit);
-      updatePassword(userToEdit, newPassword)
+      const userToChange = authSec.currentUser
+      console.log("asdddddddddddddddddddddddddddddddddddddddddddddddd",userToChange);
+      
+      if(newName !== "") {
+        updateProfile(userToChange, {
+          displayName: newName
+        })
+      }
+
+      if(newPassword !== "") {
+        updatePassword(userToChange, newPassword)
+      }
+
       authSec.signOut()
-    })
-    console.log("-----------------------------------------------------------------------");
-    // window.location.reload(false);
-    
+    }) 
   }
 
-  function confirm(e) {
-    if (e) e.preventDefault();
-    console.log(" ");
-    dismiss();
-    setNewPassword("");
-  }
-
-  function dismiss() {
-    setIsOpen(false);
-  }
-
+  // To create new user in firebase
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Create user in firebase auth
     createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
         updateProfile(authSec.currentUser, {
           displayName:userInfo.userName
         })
-        createUser();
+        createUser(); // To create user in firestore
         sendEmailVerification(authSec.currentUser)
         console.log(userInformation, userInformation.user);
         
         router('/managementUser')
-        // window.location.reload(false);
       })
       .catch(error => {
         setAlert({ visible:true,severity:'error',message:error.message})
@@ -131,11 +140,13 @@ export default function Signup() {
     })
   };
 
+  // To open/close popup and set user that send form edit btn
   function changeSet(user) {
     setChangeUser(user)
     setIsOpen(!isOpen)
   }
 
+  // Popup input to chnage password or name
   function popup() {
     return (isOpen) ? (
       <div>
@@ -144,9 +155,15 @@ export default function Signup() {
           type="text"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="Enter Password"
+          placeholder="Enter New Password"
         />
-        <button onClick={(e) =>{forgotPassword(changeUser)}}>Click</button>
+        <input
+          type="text"
+          value={newName}
+          onChange={(e) => setNewName(e.target.value)}
+          placeholder="Enter New Name"
+        />
+        <button onClick={(e) =>{handleChange(changeUser)}}>Click</button>
       </div>
     ) : "";
   }
@@ -218,17 +235,6 @@ export default function Signup() {
                     {" "}
                     Edit
                   </button>
-                  {/*<form onSubmit={confirm}>
-                    <label>
-                      Enter some text:
-                      <input
-                        type="text"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                      />
-                    </label>
-                    <button onClick={() =>{forgotPassword(user)}}>Confirm</button>
-                  </form>*/}
               </td>
             </tr>
           </tbody>)})}

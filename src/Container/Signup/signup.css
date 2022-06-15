@@ -62,7 +62,7 @@
 }
 
 .tabel-container {
-    margin: 200px 200px;
+    margin-top: 20px;
 }
 
 .btn-table {
@@ -78,7 +78,9 @@
     background-color: orange;
 }
 
-tr,
-th {
-    padding: 20px 20px;
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
