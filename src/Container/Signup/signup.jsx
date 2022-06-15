@@ -64,6 +64,7 @@ export default function Signup() {
     };
 
     getUsers();
+    
   }, []);
 
   useEffect(() => {
@@ -109,6 +110,7 @@ export default function Signup() {
     .then(() => {
       const userToChange = authSec.currentUser
       console.log("asdddddddddddddddddddddddddddddddddddddddddddddddd",newName, newPassword);
+      console.log("55555555555555",users)
       
       if(newName !== "") {
         updateProfile(userToChange, {
@@ -124,7 +126,7 @@ export default function Signup() {
     })
     
     
-    window.location.reload(false);
+    // window.location.reload(false);
   }
 
   // To create new user in firebase
@@ -135,7 +137,7 @@ export default function Signup() {
     
     // To create user in firestore
     const usersCollectionRef = collection(db, "users")
-    await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
+    await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password , isBlocked: false});
     // Create user in firebase auth
     createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {

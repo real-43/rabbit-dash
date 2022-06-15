@@ -10,19 +10,34 @@ import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
 import { signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser } from 'firebase/auth';
 import { auth,provider } from '../../firebase';
+import { authSec, db } from '../../firebaseSec';
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+
 import './login.css'
+
+
+const userRef = collection(db, "users");
+
 
 const comp_form = "@rabbit.co.th";
 const theme = createTheme();
 export default function Login() {
-
+  const [users, setUsers] = useState([]);
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const navigate = useNavigate();
   const timerRef = useRef(null);
 
   const handleSubmit = (event) => {
-      event.preventDefault();
+    // console.log("00000",users)
+    event.preventDefault();
     signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
       .then(userInformation => {
         console.log(userInformation);
@@ -41,6 +56,9 @@ export default function Login() {
           timerRef.current= setTimeout(() => {
             setAlert({ visible:false,severity:'',message:''})
           },2000)
+          // if (error.code === "auth/too-many-requests"){
+
+          // }
     })
   };
     
