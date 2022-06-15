@@ -4,7 +4,7 @@ import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, 
 import { authSec, db } from '../../firebaseSec'
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
-import ReactModal from "react-modal";
+import Loader from './ThreeDotsWave'
 import {
   collection,
   getDocs,
@@ -26,6 +26,7 @@ export default function Signup() {
   const [isOpen, setIsOpen] = useState(false);
   const [newPassword, setNewPassword] = useState("")
   const [changeUser, setChangeUser] = useState()
+  const [isLoading, setIsLoading] = useState(false);
   const router = useNavigate();
   const timerRef = useRef(null);
 
@@ -38,6 +39,7 @@ export default function Signup() {
   };
 
   const deleteUserOnFstored = async (user) => {
+    setIsLoading(true);
     const userDoc = doc(db, "users", user.id);
     await deleteDoc(userDoc);
 
@@ -47,7 +49,7 @@ export default function Signup() {
         deleteUser(userToDel)
         authSec.signOut()
       })
-
+    setIsLoading(true);
     window.location.reload(false);
     };
 
@@ -196,15 +198,19 @@ export default function Signup() {
               <td>{user.userName}</td>
               <td>{user.email}</td>
               <td className='btn-table'> 
-                <button
-                    className='btn-function btn'
-                    onClick={() => {
-                      deleteUserOnFstored(user);
-                    }}
-                  >
-                    {" "}
-                    Delete User
-                  </button>
+                {isLoading ? (
+                      <Loader />
+                    ) : (
+                      <button
+                        className='btn-function btn'
+                        onClick={() => {
+                          deleteUserOnFstored(user);
+                        }}
+                      >
+                        {" "}
+                        Delete User
+                      </button>
+                )}
                   <button
                     className='btn btn-function'
                     onClick={(e) => changeSet(user)}

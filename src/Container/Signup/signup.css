@@ -62,7 +62,7 @@
 }
 
 .tabel-container {
-    margin-top: 20px;
+    margin: 200px 200px;
 }
 
 .btn-table {
@@ -76,4 +76,9 @@
 
 .btn-function:hover {
     background-color: orange;
+}
+
+tr,
+th {
+    padding: 20px 20px;
 }
