@@ -284,6 +284,7 @@ export default function Signup() {
             <tr>
               <th>#</th>
               <th>First Name</th>
+              <th>isBlocked</th>
               <th>Email</th>
               <th>function</th>
             </tr>
@@ -293,6 +294,7 @@ export default function Signup() {
             <tr>
               <td>1</td>
               <td>{user.userName}</td>
+              <td>{user.isBlocked.toString()}</td>
               <td>{user.email}</td>
               <td className='btn-table'> 
                 <button
