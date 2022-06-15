@@ -15,17 +15,17 @@ import {
 
 import './signup.css'
 
-// const theme = createTheme();
-// const user = auth.currentUser;
-
 export default function Signup() {
 
   const [userInfo, setUserInfo] = useState({ userName: '', email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const [isOpen, setIsOpen] = useState(false);
+
+  // Use for change profile and password
   const [newPassword, setNewPassword] = useState("")
   const [newName, setNewName] = useState("")
   const [changeUser, setChangeUser] = useState()
+
   const [isLoading1, setIsLoading1] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
   const router = useNavigate();
@@ -34,16 +34,21 @@ export default function Signup() {
   const [users, setUsers] = useState([]);
   const usersCollectionRef = collection(db, "users");
 
+  // Create user in firestore
   const createUser = async () => {
     await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password });
     window.location.reload(false);
   };
 
+  // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
     setIsLoading2(true);
+
+    // delete user in firestore
     const userDoc = doc(db, "users", user.id);
     await deleteDoc(userDoc);
 
+    // delete user in firebase auth
     await signInWithEmailAndPassword(authSec, user.email, user.password)
       .then(() => {
         const userToDel = authSec.currentUser
@@ -54,6 +59,7 @@ export default function Signup() {
     window.location.reload(false);
     };
 
+  // get all users in firestore and set to variable name "users"
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
@@ -67,6 +73,7 @@ export default function Signup() {
     return clearTimeout(timerRef.current)
   },[])
   
+  // Check that the user are logged in
   useEffect(() => {
       const authentication = onAuthStateChanged(auth,(user) => {
           if (user) {
