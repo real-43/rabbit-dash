@@ -166,6 +166,7 @@ export default function Signup() {
 
   function displayOption() {
     var x = document.getElementById("myInput");
+
     if (x.type === "password") {
       x.type = "text";
     } else {
@@ -208,7 +209,7 @@ export default function Signup() {
                   row={3}
                   autoFocus
                 />
-                <i class="fa fa-eye-slash" id="togglePassword" onClick={(e) => displayOption()}/>
+                <i class="fa fa-eye-slash" id="togglePassword" onClick={(e) => displayOption(this)}/>
                 {/*<div class="form-check">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                   <label class="form-check-label" for="exampleCheck1">Show password</label>
