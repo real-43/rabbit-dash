@@ -52,12 +52,12 @@ export default function Signup() {
     // delete user in firebase auth
     await signInWithEmailAndPassword(authSec, user.email, user.password)
       .then(() => {
-        setIsLoading(false);
         const userToDel = authSec.currentUser
         deleteUser(userToDel)
         authSec.signOut()
       })
-    
+      
+    setIsLoading(false);
     window.location.reload(false);
     };
 
