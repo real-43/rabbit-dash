@@ -90,20 +90,19 @@ export default function Signup() {
 
   // Change Name or Password in firebase
   const handleChange = async (user) => {
+    setIsLoading(true)
 
     // Change in firestore
     const userDoc = doc(db, "users", user.id);
 
-    setIsLoading(true)
-
     if (newName !== "") {
-      updateDoc(userDoc, {
+      await updateDoc(userDoc, {
         "userName": newName
       });
     }
 
     if (newPassword !== "") {
-      updateDoc(userDoc, {
+      await updateDoc(userDoc, {
         "password": newPassword
       });
     }
@@ -112,7 +111,7 @@ export default function Signup() {
     await signInWithEmailAndPassword(authSec, user.email, user.password)
     .then(() => {
       const userToChange = authSec.currentUser
-      console.log("asdddddddddddddddddddddddddddddddddddddddddddddddd",userToChange);
+      console.log("asdddddddddddddddddddddddddddddddddddddddddddddddd",newName, newPassword);
       
       if(newName !== "") {
         updateProfile(userToChange, {
@@ -123,10 +122,11 @@ export default function Signup() {
       if(newPassword !== "") {
         updatePassword(userToChange, newPassword)
       }
-
       authSec.signOut()
-      setIsLoading(false)
-    }) 
+    })
+    
+    setIsLoading(false)
+    window.location.reload(false);
   }
 
   // To create new user in firebase
