@@ -26,8 +26,7 @@ export default function Signup() {
   const [newName, setNewName] = useState("")
   const [changeUser, setChangeUser] = useState()
 
-  const [isLoading1, setIsLoading1] = useState(false);
-  const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useNavigate();
   const timerRef = useRef(null);
 
@@ -42,7 +41,7 @@ export default function Signup() {
 
   // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
-    setIsLoading2(true);
+    setIsLoading(true);
 
     // delete user in firestore
     const userDoc = doc(db, "users", user.id);
@@ -55,7 +54,7 @@ export default function Signup() {
         deleteUser(userToDel)
         authSec.signOut()
       })
-    setIsLoading2(true);
+    setIsLoading(true);
     window.location.reload(false);
     };
 
@@ -127,7 +126,7 @@ export default function Signup() {
   const handleSubmit = (event) => {
     
     event.preventDefault();
-    setIsLoading1(true);
+    setIsLoading(true);
     // Create user in firebase auth
     createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
@@ -147,7 +146,7 @@ export default function Signup() {
           setAlert({ visible:false,severity:'',message:''})
         },2000)
     })
-    setIsLoading1(true);
+    setIsLoading(true);
   };
 
   // To open/close popup and set user that send form edit btn
@@ -178,12 +177,21 @@ export default function Signup() {
     ) : "";
   }
 
+  function loadingPopup() {
+    return (isLoading) ? (
+      <div className='loading-container'>
+        <div className='loading-wrapper'>
+          <Loader />
+        </div>
+      </div>
+    ) : "";
+  }
+
    return (
     <div className="content-wrapper">
+      {loadingPopup()}
       <h3>Management {'>'} User</h3>
-      {isLoading1 ? (
-            <Loader />
-          ) : (
+      
       <div className='input-wrapper'>
         <h4>Create New User</h4>
 
@@ -213,7 +221,6 @@ export default function Signup() {
           
         </div>
       </div>
-      )}
       {popup()}
       <div className='table-container'>
         <table class="table">
@@ -232,26 +239,22 @@ export default function Signup() {
               <td>{user.userName}</td>
               <td>{user.email}</td>
               <td className='btn-table'> 
-                {isLoading2 ? (
-                      <Loader />
-                    ) : (
-                      <button
-                        className='btn-function btn'
-                        onClick={() => {
-                          deleteUserOnFstored(user);
-                        }}
-                      >
-                        {" "}
-                        Delete User
-                      </button>
-                )}
-                  <button
-                    className='btn btn-function'
-                    onClick={(e) => changeSet(user)}
+                <button
+                  className='btn-function btn'
+                  onClick={() => {
+                    deleteUserOnFstored(user);
+                  }}
                   >
-                    {" "}
-                    Edit
-                  </button>
+                  {" "}
+                  Delete User
+                </button>
+                <button
+                  className='btn btn-function'
+                  onClick={(e) => changeSet(user)}
+                >
+                  {" "}
+                  Edit
+                </button>
               </td>
             </tr>
           </tbody>)})}
