@@ -3,7 +3,7 @@ import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, 
 import { authSec, db } from '../../firebaseSec'
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
-import Loader from './ThreeDotsWave'
+import Loader from './CircleLoader'
 import {
   collection,
   getDocs,
@@ -26,7 +26,8 @@ export default function Signup() {
   const [newPassword, setNewPassword] = useState("")
   const [newName, setNewName] = useState("")
   const [changeUser, setChangeUser] = useState()
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading1, setIsLoading1] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const router = useNavigate();
   const timerRef = useRef(null);
 
@@ -39,7 +40,7 @@ export default function Signup() {
   };
 
   const deleteUserOnFstored = async (user) => {
-    setIsLoading(true);
+    setIsLoading2(true);
     const userDoc = doc(db, "users", user.id);
     await deleteDoc(userDoc);
 
@@ -49,7 +50,7 @@ export default function Signup() {
         deleteUser(userToDel)
         authSec.signOut()
       })
-    setIsLoading(true);
+    setIsLoading2(true);
     window.location.reload(false);
     };
 
@@ -117,8 +118,9 @@ export default function Signup() {
 
   // To create new user in firebase
   const handleSubmit = (event) => {
+    
     event.preventDefault();
-
+    setIsLoading1(true);
     // Create user in firebase auth
     createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
@@ -138,6 +140,7 @@ export default function Signup() {
           setAlert({ visible:false,severity:'',message:''})
         },2000)
     })
+    setIsLoading1(true);
   };
 
   // To open/close popup and set user that send form edit btn
@@ -171,8 +174,12 @@ export default function Signup() {
    return (
     <div className="content-wrapper">
       <h3>Management {'>'} User</h3>
+      {isLoading1 ? (
+            <Loader />
+          ) : (
       <div className='input-wrapper'>
         <h4>Create New User</h4>
+
         <div className='input-container'>
           <input className='input-register'
             placeholder="Name..."
@@ -194,9 +201,12 @@ export default function Signup() {
               setUserInfo({ ...userInfo, password: event.target.value })
             }}
           />
-          <button className="btn" onClick={handleSubmit}> Create User</button>
+          
+            <button className="btn" onClick={handleSubmit}> Create User</button>
+          
         </div>
       </div>
+      )}
       {popup()}
       <div className='table-container'>
         <table class="table">
@@ -215,7 +225,7 @@ export default function Signup() {
               <td>{user.userName}</td>
               <td>{user.email}</td>
               <td className='btn-table'> 
-                {isLoading ? (
+                {isLoading2 ? (
                       <Loader />
                     ) : (
                       <button
