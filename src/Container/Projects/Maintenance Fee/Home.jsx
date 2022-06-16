@@ -70,13 +70,11 @@ const DatatablePage = () => {
   };
 
   return (
-    <div className="content-wrapper" style={{paddingBottom: 30, paddingLeft: 25, paddingRight: 25}}>
+    <div className="content-wrapper" style={{paddingBottom: 60, paddingLeft: 25, paddingRight: 25, pagingTop: 10}}>
     <MDBDataTableV5 
-        hover
-        entriesOptions={[5, 20, 25]}
-        entries={5}
-        pagesAmount={4}
-        data={data1}
+        hover 
+        sortable={false} 
+        data={data1}  
         pagingTop
         searchTop
         searchBottom={false}
