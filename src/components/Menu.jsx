@@ -145,6 +145,43 @@ export default class Menu extends Component {
                       </ul>
                     </li>
                   </ul>
+                  <ul className="nav nav-treeview">
+                    <li className="nav-item has-treeview">
+                      <a href="#" className="nav-link">
+                        <i className="far fa-circle nav-icon" />
+                        <p>
+                          Datafile Mornitoring
+                          <i className="right fas fa-angle-left" />
+                        </p>
+                      </a>
+                      <ul className="nav nav-treeview">
+                        <li className="nav-item">
+                          <a href="#" className="nav-link">
+                            <i className="far fa-dot-circle nav-icon" />
+                            <p>Home</p>
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a href="#" className="nav-link">
+                            <i className="far fa-dot-circle nav-icon" />
+                            <p>PDF</p>
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a href="#" className="nav-link">
+                            <i className="far fa-dot-circle nav-icon" />
+                            <p>Notification</p>
+                          </a>
+                        </li>
+                        <li className="nav-item">
+                          <a href="#" className="nav-link">
+                            <i className="far fa-dot-circle nav-icon" />
+                            <p>Setting</p>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
                 </li>
                 <li className="nav-item has-treeview">
                   <a href="#" className="nav-link">
