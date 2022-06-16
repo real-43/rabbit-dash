@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react'
+import React, { useState,useRef, useEffect } from 'react'
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -31,62 +31,96 @@ export default function Login() {
   const timerRef = useRef(null);
 
   const usersCollectionRef = collection(db, "users");
-  const [blockUser, setBlockUser] = useState({ id: '',email: '', password: '' });
+  const [blockUser, setBlockUser] = useState({ id: '',email: '', password: '', isBlock: false });
+
   function goBlock() {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      data.docs.map((doc) => {
-        if(doc.data().email === userInfo.email) {
-          setBlockUser({
-            id: doc.id,
-            email: doc.data().email,
-            password: doc.data().password
-          })
-        }
-      })
-      console.log("2")
-      await firestoreBlock()
+    const blocker = async () => {
+      console.log(blockUser.isBlock)
+      if(blockUser.isBlock) {
+        setAlert({ visible:true,severity:'error',message:"This account has been bolcked!"})
+        timerRef.current= setTimeout(() => {
+          setAlert({ visible:false,severity:'',message:''})
+        },5000)
+      } else {
+        await firestoreBlock()
+      }
+
+      // console.log("data", data.docs[1])
     };
 
     const firestoreBlock = async () => {
       
       const userDoc = doc(db, "users", blockUser.id);
       updateDoc(userDoc, {
-        "isBlocked": true
+        "isBlocked": true  
       })
       console.log("id: ", blockUser.email)
     }
 
-    console.log("1")
-    getUsers();
+    console.log("Block!!")
+    blocker();
   }
 
-  const handleSubmit = (event) => {
-      event.preventDefault();
-    signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
-      .then(userInformation => {
-        console.log(userInformation);
-        console.log(userInfo.email.includes(comp_form));
-        if (userInfo.email.includes(comp_form)){
-          navigate('/dashboard')
-        }
-        else{
-          navigate('/')
-        }
-        
+  function getCurrentProfile() {
+    const getUser = async () => {
+      const data = await getDocs(usersCollectionRef)
+      .then((usersColl) => {
+        usersColl.docs.map((doc) => {
+
+          // if email on input equal to email in firestore will setState
+          if (doc.data().email === userInfo.email) {
+            setBlockUser({
+              id: doc.id,
+              email: doc.data().email,
+              password: doc.data().password,
+              isBlock: doc.data().isBlocked
+            });
+          }
+        })
       })
-      .catch(error => {
+    }
+    getUser();
+  }
 
-        if(error.message === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).") {
-          goBlock()
-        }
+  useEffect(() => {
+    console.log("UseEffect")
+    getCurrentProfile();
+  })
 
-        setAlert({ visible:true,severity:'error',message:error.message})
-          console.log(error.code);
-          timerRef.current= setTimeout(() => {
-            setAlert({ visible:false,severity:'',message:''})
-          },5000)
-    })
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if(blockUser.isBlock) {
+      setAlert({ visible:true,severity:'error',message:"This account has been bolcked!"})
+      timerRef.current= setTimeout(() => {
+        setAlert({ visible:false,severity:'',message:''})
+      },5000)
+    } else {
+      signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
+        .then(userInformation => {
+          console.log(userInformation);
+          console.log(userInfo.email.includes(comp_form));
+          if (userInfo.email.includes(comp_form)){
+            navigate('/dashboard')
+          }
+          else{
+            navigate('/')
+          }
+          
+        })
+        .catch(error => {
+
+          if(error.message === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).") {
+            goBlock()
+          } else {
+            setAlert({ visible:true,severity:'error',message:error.message})
+            console.log(error.code);
+            timerRef.current= setTimeout(() => {
+              setAlert({ visible:false,severity:'',message:''})
+            },5000)
+          }
+      })
+    }
   };
     
   // const handlePassword = () => {
