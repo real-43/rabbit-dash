@@ -156,7 +156,7 @@ export default class Menu extends Component {
                       </a>
                       <ul className="nav nav-treeview">
                         <li className="nav-item">
-                          <a href="#" className="nav-link">
+                          <a href="/datafileHome" className="nav-link">
                             <i className="far fa-dot-circle nav-icon" />
                             <p>Home</p>
                           </a>
