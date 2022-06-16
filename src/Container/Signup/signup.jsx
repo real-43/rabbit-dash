@@ -130,11 +130,14 @@ export default function Signup() {
   }
 
   const ControlBlocked = async (user) => {
+    setIsLoading(true)
+    console.log("Controlblocked function")
     const userDoc = doc(db, "users", user.id);
     await updateDoc(userDoc, {
       "isBlocked": !user.isBlocked
       
     });
+    setIsLoading(false)
     window.location.reload(false);
   }
 
@@ -293,17 +296,17 @@ export default function Signup() {
         <table class="table">
           <thead>
             <tr>
-              <th>#</th>
+              <th>Number</th>
               <th>First Name</th>
               <th>isBlocked</th>
               <th>Email</th>
               <th>function</th>
             </tr>
           </thead>
-          {users.map((user) => {return (
+          {users.map((user, index) => {return (
           <tbody>
             <tr>
-              <td>1</td>
+              <td>{index+1}</td>
               <td>{user.userName}</td>
               <td>{user.isBlocked.toString()}</td>
               <td>{user.email}</td>
