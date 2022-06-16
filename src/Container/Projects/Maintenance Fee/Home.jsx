@@ -70,7 +70,7 @@ const DatatablePage = () => {
   };
 
   return (
-    <div className="content-wrapper" style={{paddingBottom: 30, paddingLeft: 20}}>
+    <div className="content-wrapper" style={{paddingBottom: 30, paddingLeft: 25, paddingRight: 25}}>
     <MDBDataTableV5 
         hover
         entriesOptions={[5, 20, 25]}
@@ -81,7 +81,7 @@ const DatatablePage = () => {
         searchTop
         searchBottom={false}
         barReverse
-    />;
+    />
     </div>
   );
 }
