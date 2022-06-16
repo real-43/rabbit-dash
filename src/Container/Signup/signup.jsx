@@ -53,7 +53,8 @@ export default function Signup() {
       })
 
     setIsLoading(false);
-    window.location.reload(false);
+    updateUI()
+    // window.location.reload(false);
     };
 
   // get all users in firestore and set to variable name "users"
@@ -109,8 +110,6 @@ export default function Signup() {
     await signInWithEmailAndPassword(authSec, user.email, user.password)
     .then(() => {
       const userToChange = authSec.currentUser
-      console.log("asdddddddddddddddddddddddddddddddddddddddddddddddd",newName, newPassword);
-      console.log("55555555555555",users)
       
       if(newName !== "") {
         updateProfile(userToChange, {
@@ -125,8 +124,8 @@ export default function Signup() {
       authSec.signOut()
     })
     
-    
-    window.location.reload(false);
+    updateUI()
+    // window.location.reload(false);
   }
 
   const ControlBlocked = async (user) => {
@@ -138,7 +137,8 @@ export default function Signup() {
       
     });
     setIsLoading(false)
-    window.location.reload(false);
+    updateUI()
+    // window.location.reload(false);
   }
 
   // To create new user in firebase
@@ -168,7 +168,8 @@ export default function Signup() {
         },2000)
     })
     setIsLoading(false);
-    window.location.reload(false);
+    updateUI();
+    // window.location.reload(false);
   };
 
   // To open/close popup and set user that send form edit btn
@@ -188,6 +189,22 @@ export default function Signup() {
     } else {
       x.type = "password";
     }
+  }
+
+  function updateUI() {
+    setIsLoading(true)
+    setInterval(() => {
+      console.log("Updating UI")
+      const getUsers = async () => {
+        const data = await getDocs(usersCollectionRef);
+        setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        
+      };
+    
+    console.log("getUsers: ",users)
+    getUsers();
+    setIsLoading(false)
+    }, 1000)
   }
 
   // Popup input to chnage password or name
@@ -228,7 +245,7 @@ export default function Signup() {
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
                   <Button variant="outline-secondary" id="button-addon1">
-                    <i class={isActive ? "fa fa-eye-slash" : "fa fa-eye"} id="togglePassword" onClick={(e) => displayOption(this)}/>
+                    <i class={isActive ? "fa fa-eye" : "fa fa-eye-slash"} id="togglePassword" onClick={(e) => displayOption(this)}/>
                   </Button>
                 </InputGroup>
               </Form.Group>
