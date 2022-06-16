@@ -1,5 +1,6 @@
 import React from 'react'
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact';
+import {data} from '../../../Data'
 
 const DataFilePDF = () => {
 
@@ -17,7 +18,16 @@ const DataFilePDF = () => {
           </tr>
         </MDBTableHead>
         <MDBTableBody>
+        {data.map((info) => {
           <tr>
+            <th scope='row'>{info.sourceType}</th>
+            <td>{info.createdAt}</td>
+            <td>{info.updatedAt}</td>
+            <td>{info.locationId}</td>
+            <td>{info.value}</td>
+          </tr>
+        })}
+          {/*<tr>
             <th scope='row'>1</th>
             <td>Mark</td>
             <td>Otto</td>
@@ -40,7 +50,7 @@ const DataFilePDF = () => {
             <td>@mdo</td>
             <td>@mdo</td>
             <td>@twitter</td>
-          </tr>
+          </tr>*/}
         </MDBTableBody>
       </MDBTable>
     </div>
