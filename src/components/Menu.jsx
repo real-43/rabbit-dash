@@ -162,7 +162,7 @@ export default class Menu extends Component {
                           </a>
                         </li>
                         <li className="nav-item">
-                          <a href="#" className="nav-link">
+                          <a href="datafilePDF" className="nav-link">
                             <i className="far fa-dot-circle nav-icon" />
                             <p>PDF</p>
                           </a>
