@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
 import { signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser } from 'firebase/auth';
 import { auth,provider } from '../../firebase';
+import './login.css'
 import { authSec, db } from '../../firebaseSec';
 import {
   collection,
@@ -20,24 +21,48 @@ import {
   doc,
 } from "firebase/firestore";
 
-import './login.css'
-
-
-const userRef = collection(db, "users");
-
-
 const comp_form = "@rabbit.co.th";
 const theme = createTheme();
 export default function Login() {
-  const [users, setUsers] = useState([]);
+
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const navigate = useNavigate();
   const timerRef = useRef(null);
 
+  const usersCollectionRef = collection(db, "users");
+  const [blockUser, setBlockUser] = useState({ id: '',email: '', password: '' });
+  function goBlock() {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      data.docs.map((doc) => {
+        if(doc.data().email === userInfo.email) {
+          setBlockUser({
+            id: doc.id,
+            email: doc.data().email,
+            password: doc.data().password
+          })
+        }
+      })
+      console.log("2")
+      await firestoreBlock()
+    };
+
+    const firestoreBlock = async () => {
+      
+      const userDoc = doc(db, "users", blockUser.id);
+      updateDoc(userDoc, {
+        "isBlocked": true
+      })
+      console.log("id: ", blockUser.email)
+    }
+
+    console.log("1")
+    getUsers();
+  }
+
   const handleSubmit = (event) => {
-    // console.log("00000",users)
-    event.preventDefault();
+      event.preventDefault();
     signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
       .then(userInformation => {
         console.log(userInformation);
@@ -51,14 +76,16 @@ export default function Login() {
         
       })
       .catch(error => {
-      setAlert({ visible:true,severity:'error',message:error.message})
+
+        if(error.message === "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).") {
+          goBlock()
+        }
+
+        setAlert({ visible:true,severity:'error',message:error.message})
           console.log(error.code);
           timerRef.current= setTimeout(() => {
             setAlert({ visible:false,severity:'',message:''})
-          },2000)
-          // if (error.code === "auth/too-many-requests"){
-
-          // }
+          },5000)
     })
   };
     
