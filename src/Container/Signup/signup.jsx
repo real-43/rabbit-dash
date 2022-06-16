@@ -126,7 +126,16 @@ export default function Signup() {
     })
     
     
-    // window.location.reload(false);
+    window.location.reload(false);
+  }
+
+  const ControlBlocked = async (user) => {
+    const userDoc = doc(db, "users", user.id);
+    await updateDoc(userDoc, {
+      "isBlocked": !user.isBlocked
+      
+    });
+    window.location.reload(false);
   }
 
   // To create new user in firebase
@@ -315,6 +324,9 @@ export default function Signup() {
                   {" "}
                   Edit
                 </button>
+                <Button variant="outline-secondary" id="button-addon1">
+                    <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
+                </Button>
               </td>
             </tr>
           </tbody>)})}

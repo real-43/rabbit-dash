@@ -83,7 +83,7 @@ export default function Login() {
   }
 
   useEffect(() => {
-    console.log("UseEffect")
+    // console.log("UseEffect")
     getCurrentProfile();
   })
 
