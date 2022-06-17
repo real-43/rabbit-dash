@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MDBDataTableV5 } from 'mdbreact';
 import {data} from '../../../Data'
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import './PDF.css'
+import Loading from '../../../components/Loading';
 
 const DataFilePDF = () => {
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const data1 = {
         columns: [
@@ -73,6 +77,7 @@ const DataFilePDF = () => {
       };
 
     function exportPDF() {
+        setIsLoading(true)
         const unit = "pt";
         const size = "A3"; // Use A1, A2, A3 or A4
         const orientation = "portrait"; // portrait or landscape
@@ -96,21 +101,15 @@ const DataFilePDF = () => {
         doc.text(title, marginLeft, 40);
         doc.autoTable(content);
         doc.save("report.pdf")
+        setIsLoading(false)
+        window.location.reload(false);
     }
 
   return (
     <div className="content-wrapper" style={{paddingBottom: 60, paddingLeft: 25, paddingRight: 25, pagingTop: 10}}>
-        <MDBDataTableV5 
-            hover 
-            sortable={false} 
-            data={data1}
-            pagingTop
-            searchTop
-            searchBottom={false}
-            barReverse
-        />
-
-        <button onClick={(e) => exportPDF()}>Generate Report</button>
+        <Loading isLoading={isLoading}/>
+        <MDBDataTableV5 className="data-table" hover entriesOptions={[10, 20, 40]} entries={10} pagesAmount={4} data={data1} materialSearch sortable={false} searchBottom={false} searchTop barReverse/>
+        <button className="btn btn-pdf" onClick={(e) => exportPDF()}>Generate PDF</button>
     </div>
   );
 }

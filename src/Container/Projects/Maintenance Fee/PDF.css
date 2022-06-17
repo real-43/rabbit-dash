@@ -1,0 +1,13 @@
+.btn-pdf {
+    background-color: orange;
+    margin-bottom: 1%;
+}
+
+.btn-pdf:hover {
+    background-color: rgb(204, 149, 47);
+    color: whitesmoke;
+}
+
+.data-table {
+    margin-top: 1%;
+}

@@ -6,18 +6,15 @@ import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import Dashboard from '../../components/Dashboard';
 import Footer from '../../components/Footer';
+import { authentication } from '../../components/CheckAuth';
 
 export default function Fusion() {
 
     const router = useNavigate();
+
+    // Check that the user logged in
     useEffect(() => {
-        const authentication = onAuthStateChanged(auth,(user) => {
-            if (user) {
-                router('/dashboard')
-            } else {
-                router('/')
-           }
-        }) 
+        authentication
         
         return authentication
     },[])
