@@ -1,6 +1,9 @@
 import React from 'react';
 import { Input } from 'reactstrap';
-import DateInput from 'react-input-date'
+import TextField from '@mui/material/TextField';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export const Filter = ({ column }) => {
   return (
