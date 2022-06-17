@@ -1,6 +1,8 @@
 import React from 'react'
 import { MDBDataTableV5 } from 'mdbreact';
 import {data} from '../../../Data'
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const DataFilePDF = () => {
 
@@ -70,6 +72,32 @@ const DataFilePDF = () => {
         rows: data
       };
 
+    function exportPDF() {
+        const unit = "pt";
+        const size = "A3"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+
+        doc.setFontSize(15);
+
+        const title = "Data PDF";
+        const headers = [["ID", "DEVICE ID", "LOCATION ID", "SOURCE TYPE", "STATUS", "TXN DATE", "TXN TYPE", "VALUE", "CREATE DATA AT", "UPDATE DATA AT"]];
+
+        const info = data.map(elt=> [elt.id, elt.deviceId, elt.locationId, elt.sourceType, elt.status, elt.txnDate, elt.txnType, elt.value, elt.createdAt, elt.updatedAt]);
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: info
+        };
+
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("report.pdf")
+    }
+
   return (
     <div className="content-wrapper" style={{paddingBottom: 60, paddingLeft: 25, paddingRight: 25, pagingTop: 10}}>
         <MDBDataTableV5 
@@ -81,6 +109,8 @@ const DataFilePDF = () => {
             searchBottom={false}
             barReverse
         />
+
+        <button onClick={(e) => exportPDF()}>Generate Report</button>
     </div>
   );
 }
