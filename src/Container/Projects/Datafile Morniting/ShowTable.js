@@ -77,14 +77,12 @@ const ShowTable = () => {
   );
 
   return (
-    <div className='content-wrapper'>
-      <Container style={{ marginTop: 100 }}>
+      <Container>
         <TableContainer
           columns={columns}
           data={data}
         />
       </Container>
-    </div>
   );
 };
 

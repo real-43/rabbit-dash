@@ -107,6 +107,8 @@ export default function DataFilePDF() {
     }
 
   return (
-    <ShowTable/>
+    <div className='content-wrapper'>
+        <ShowTable/>
+    </div>
   );
 }
