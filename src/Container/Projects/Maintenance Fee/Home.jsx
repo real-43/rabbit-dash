@@ -79,6 +79,7 @@ const DatatablePage = () => {
         searchTop
         searchBottom={false}
         barReverse
+        striped
     />
     </div>
   );
