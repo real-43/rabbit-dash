@@ -108,7 +108,14 @@ export default function DataFilePDF() {
 
   return (
     <div className='content-wrapper'>
-        <ShowTable/>
+        <div className='pdf-page'>
+            <div className='pdf-table'>
+                <ShowTable />
+            </div>
+            <div>
+                <button className="pdf-btn" onClick={(e) => exportPDF()}>Generate PDF</button>
+            </div>
+        </div>
     </div>
   );
 }

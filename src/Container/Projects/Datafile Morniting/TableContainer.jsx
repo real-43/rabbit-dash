@@ -8,6 +8,7 @@ import {
 } from 'react-table';
 import { Table, Row, Col, Button, Input } from 'reactstrap';
 import { Filter, DefaultColumnFilter } from './filters';
+import './Table.css'
 
 const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   const {
@@ -91,7 +92,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             </tbody>
         </Table>
 
-      <Row style={{ textAlign: 'center' }}>
+      <Row className='under-table'>
         <Col md={3}>
           <Button
             color='primary'
