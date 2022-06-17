@@ -2,10 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
 import { authSec, db } from '../../firebaseSec';
 import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
-
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
-import Loader from './CircleLoader'
 import {
   collection,
   getDocs,
@@ -14,6 +12,8 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+
+import Loading from '../../components/Loading';
 
 import './signup.css'
 
@@ -276,7 +276,7 @@ export default function Signup() {
 
    return (
     <div className="content-wrapper">
-      {loadingPopup()}
+      <Loading isLoading={isLoading} />
       <h3>Management {'>'} User</h3>
       
       <div className='input-wrapper'>
