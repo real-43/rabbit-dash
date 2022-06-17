@@ -70,16 +70,15 @@ const DatatablePage = () => {
   };
 
   return (
-    <div className="content-wrapper" style={{paddingBottom: 60, paddingLeft: 25, paddingRight: 25, pagingTop: 10}}>
+    <div className="content-wrapper" style={{paddingBottom: 60, paddingLeft: 25, paddingRight: 25, paddingTop: 25}}>
     <MDBDataTableV5 
-        hover 
+        striped
         sortable={false} 
         data={data1}  
-        pagingTop
+        entries={10}
         searchTop
         searchBottom={false}
         barReverse
-        striped
     />
     </div>
   );
