@@ -54,7 +54,7 @@ export default function Signup() {
 
     setIsLoading(false);
     updateUI()
-    window.location.reload(false);
+    // window.location.reload(false);
     };
 
   // get all users in firestore and set to variable name "users"
@@ -334,7 +334,7 @@ export default function Signup() {
                   {" "}
                   Edit
                 </button>
-                <Button variant="outline-secondary" id="button-addon1">
+                <Button variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
                     <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
                 </Button>
               </td>
