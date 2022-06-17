@@ -1,6 +1,7 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
 import {data} from '../../../Data'
+import ShowTable from './ShowTable';
 
 const DatatablePage = () => {
   const data1 = {
@@ -70,16 +71,10 @@ const DatatablePage = () => {
   };
 
   return (
-    <div className="content-wrapper" style={{paddingBottom: 60, paddingLeft: 25, paddingRight: 25, paddingTop: 25}}>
-    <MDBDataTableV5 
-        striped
-        sortable={false} 
-        data={data1}  
-        entries={10}
-        searchTop
-        searchBottom={false}
-        barReverse
-    />
+    <div className="content-wrapper" style={{paddingBottom: 100, paddingLeft: 25, paddingRight: 25, paddingTop: 25}}>
+
+        <ShowTable/>
+    
     </div>
   );
 }
