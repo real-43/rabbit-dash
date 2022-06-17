@@ -1,58 +1,116 @@
 import React from 'react'
-import { MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact';
+import { MDBDataTableV5 } from 'mdbreact';
 import {data} from '../../../Data'
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const DataFilePDF = () => {
 
+    const data1 = {
+        columns: [
+            {
+                label: 'Id',
+                field: 'id',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'DeviceId',
+                field: 'deviceId',
+                sort: 'asc',
+                width: 100
+            },
+            {
+                label: 'LocationId',
+                field: 'locationId',
+                sort: 'asc',
+                width: 100
+            },
+            {
+                label: 'SourceType',
+                field: 'sourceType',
+                sort: 'asc',
+                width: 50
+            },
+            {
+                label: 'Status',
+                field: 'status',
+                sort: 'asc',
+                width: 80
+            },
+            {
+                label: 'TxnDate',
+                field: 'txnDate',
+                sort: 'asc',
+                width: 80
+            },
+            {
+                label: 'TxnType',
+                field: 'txnType',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Value',
+                field: 'value',
+                sort: 'asc',
+                width: 60
+            },
+            {
+                label: 'CreatedAt',
+                field: 'createdAt',
+                sort: 'asc',
+                width: 100
+            },
+            {
+                label: 'UpdatedAt',
+                field: 'updatedAt',
+                sort: 'asc',
+                width: 100
+            },
+        ],
+        rows: data
+      };
+
+    function exportPDF() {
+        const unit = "pt";
+        const size = "A3"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+
+        doc.setFontSize(15);
+
+        const title = "Data PDF";
+        const headers = [["ID", "DEVICE ID", "LOCATION ID", "SOURCE TYPE", "STATUS", "TXN DATE", "TXN TYPE", "VALUE", "CREATE DATA AT", "UPDATE DATA AT"]];
+
+        const info = data.map(elt=> [elt.id, elt.deviceId, elt.locationId, elt.sourceType, elt.status, elt.txnDate, elt.txnType, elt.value, elt.createdAt, elt.updatedAt]);
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: info
+        };
+
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("report.pdf")
+    }
+
   return (
-    <div className='content-wrapper table-PDF'>
-      <MDBTable hover>
-        <MDBTableHead>
-          <tr>
-            <th scope='col'>SOURCE TYPE</th>
-            <th scope='col'>TRANSACTION DATE</th>
-            <th scope='col'>SETTLEMENT DATE</th>
-            <th scope='col'>TERMINAL ID</th>
-            <th scope='col'>VALUE</th>
-            <th scope='col'>TRANSACTION TYPE</th>
-          </tr>
-        </MDBTableHead>
-        <MDBTableBody>
-        {data.map((info) => {
-          <tr>
-            <th scope='row'>{info.sourceType}</th>
-            <td>{info.createdAt}</td>
-            <td>{info.updatedAt}</td>
-            <td>{info.locationId}</td>
-            <td>{info.value}</td>
-          </tr>
-        })}
-          {/*<tr>
-            <th scope='row'>1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope='row'>2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope='row'>3</th>
-            <td>Larry the Bird</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@twitter</td>
-          </tr>*/}
-        </MDBTableBody>
-      </MDBTable>
+    <div className="content-wrapper" style={{paddingBottom: 60, paddingLeft: 25, paddingRight: 25, pagingTop: 10}}>
+        <MDBDataTableV5 
+            hover 
+            sortable={false} 
+            data={data1}
+            pagingTop
+            searchTop
+            searchBottom={false}
+            barReverse
+        />
+
+        <button onClick={(e) => exportPDF()}>Generate Report</button>
     </div>
   );
 }
