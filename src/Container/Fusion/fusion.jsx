@@ -1,7 +1,5 @@
-import { onAuthStateChanged, signOut } from 'firebase/auth'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { auth } from '../../firebase'
 import Header from '../../components/Header';
 import Menu from '../../components/Menu';
 import Dashboard from '../../components/Dashboard';

@@ -264,16 +264,6 @@ export default function Signup() {
     ) : "";
   }
 
-  function loadingPopup() {
-    return (isLoading) ? (
-      <div className='loading-container'>
-        <div className='loading-wrapper'>
-          <Loader />
-        </div>
-      </div>
-    ) : "";
-  }
-
    return (
     <div className="content-wrapper">
       <Loading isLoading={isLoading} />
