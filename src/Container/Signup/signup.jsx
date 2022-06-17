@@ -169,7 +169,7 @@ export default function Signup() {
     })
     setIsLoading(false);
     updateUI();
-    // window.location.reload(false);
+    window.location.reload(false);
   };
 
   // To open/close popup and set user that send form edit btn
