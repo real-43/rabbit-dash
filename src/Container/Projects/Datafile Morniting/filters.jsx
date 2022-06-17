@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input } from 'reactstrap';
+import DateInput from 'react-input-date'
 
 export const Filter = ({ column }) => {
   return (
@@ -54,5 +55,34 @@ export const SelectColumnFilter = ({
         </option>
       ))}
     </Input>
+  );
+};
+
+export const DateColumnFilter = ({
+  column: { filterValue, setFilter },
+}) => {
+  const [value, setValue] = useState(null);
+  const show = (newValue) => {
+    setValue(newValue)
+    let d = JSON.stringify(newValue)
+    let a = d.split("T")
+    let b = a[0].split("-")
+    let c = b[2] + "/"+ b[1] + "/" +b[0].split("\"")[1]
+    console.log("first", c, typeof(c))
+    return c
+  }
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DatePicker
+        label="Basic example"
+        value={value}
+        onChange={(newValue) => {
+          setFilter(show(newValue));
+          console.log("Filter", filterValue, typeof(filterValue))
+        }}
+        renderInput={(params) => <TextField {...params} />}
+      />
+    </LocalizationProvider>
   );
 };

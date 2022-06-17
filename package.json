@@ -20,6 +20,7 @@
         "react": "^17.0.1",
         "react-bootstrap": "^2.4.0",
         "react-dom": "^17.0.1",
+        "react-input-date": "^1.0.12",
         "react-modal": "^3.15.1",
         "react-router": "^6.3.0",
         "react-router-dom": "^6.3.0",
