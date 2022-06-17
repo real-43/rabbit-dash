@@ -54,7 +54,7 @@ export default function Signup() {
 
     setIsLoading(false);
     updateUI()
-    // window.location.reload(false);
+    window.location.reload(false);
     };
 
   // get all users in firestore and set to variable name "users"
