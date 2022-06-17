@@ -4,7 +4,7 @@ import {
 } from 'reactstrap';
 import TableContainer from './TableContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { SelectColumnFilter } from './filters';
+import { SelectColumnFilter, DateColumnFilter } from './filters';
 import { data } from '../../../Data'
 
 const ShowTable = () => {
@@ -52,6 +52,7 @@ const ShowTable = () => {
       {
         Header: 'Txn Date',
         accessor: 'txnDate',
+        Filter: DateColumnFilter,
       },
       {
         Header: "Txn Type",

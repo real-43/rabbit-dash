@@ -1,9 +1,10 @@
-import React from 'react';
-import { Input } from 'reactstrap';
+import React, { useState } from 'react';
+import { Button, Input } from 'reactstrap';
 import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import enLocale from 'date-fns/locale/en-US';
 
 export const Filter = ({ column }) => {
   return (
@@ -66,25 +67,35 @@ export const DateColumnFilter = ({
 }) => {
   const [value, setValue] = useState(null);
   const show = (newValue) => {
-    setValue(newValue)
-    let d = JSON.stringify(newValue)
-    let a = d.split("T")
-    let b = a[0].split("-")
-    let c = b[2] + "/"+ b[1] + "/" +b[0].split("\"")[1]
-    console.log("first", c, typeof(c))
-    return c
+    try{
+      setValue(newValue)
+      let d = JSON.stringify(newValue)
+      let a = d.split("T")
+      let b = a[0].split("-")
+      let c = b[2] + "/"+ b[1] + "/" +b[0].split("\"")[1]
+      console.log("first", c, typeof(c))
+      return c
+    }catch {
+      setValue(newValue)
+    }
   }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <Button onClick={(e) => {setFilter(undefined)}}>1</Button>
       <DatePicker
-        label="Basic example"
-        value={value}
+        label="Date"
+        value={undefined}
+        openTo="year"
+        views={['year', 'month', 'day']}
         onChange={(newValue) => {
-          setFilter(show(newValue));
+          setFilter(show(newValue) || undefined);
           console.log("Filter", filterValue, typeof(filterValue))
         }}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => <TextField {...params} onChange={(newValue) => {
+          setFilter(show(newValue) || undefined);
+          console.log("Filter", filterValue, typeof(filterValue))
+        }}/>}
       />
     </LocalizationProvider>
   );
