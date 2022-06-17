@@ -48,8 +48,8 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   };
 
   return (
-    <Fragment>
-        <Table bordered hover {...getTableProps()}>
+    <Fragment >
+        <Table bordered hover {...getTableProps()} >
             <thead>
                 {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -91,7 +91,7 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             </tbody>
         </Table>
 
-      <Row style={{ maxWidth: 1000, textAlign: 'center' }}>
+      <Row style={{ textAlign: 'center' }}>
         <Col md={3}>
           <Button
             color='primary'

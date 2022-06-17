@@ -16,6 +16,7 @@
     margin-left: 3.7rem !important;
 }
 
+
 /* .brand-link {
     transition: width 2s ease-in-out;
     white-space: nowrap;
@@ -36,4 +37,15 @@
     color: #fff;
     border-left: 3px solid rgb(255, 136, 0);
     width: 100%;
+}
+
+@media (min-width: 1400px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 100% !important;
+    }
 }
