@@ -5,8 +5,9 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import './PDF.css'
 import Loading from '../../../components/Loading';
+import ShowTable from './ShowTable';
 
-const DataFilePDF = () => {
+export default function DataFilePDF() {
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -106,12 +107,6 @@ const DataFilePDF = () => {
     }
 
   return (
-    <div className="content-wrapper" style={{paddingBottom: 60, paddingLeft: 25, paddingRight: 25, pagingTop: 10}}>
-        <Loading isLoading={isLoading}/>
-        <MDBDataTableV5 className="data-table" hover entriesOptions={[10, 20, 40]} entries={10} pagesAmount={4} data={data1} materialSearch sortable={false} searchBottom={false} searchTop barReverse/>
-        <button className="btn btn-pdf" onClick={(e) => exportPDF()}>Generate PDF</button>
-    </div>
+    <ShowTable/>
   );
 }
-
-export default DataFilePDF;
