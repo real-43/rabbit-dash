@@ -14,6 +14,26 @@ export const Filter = ({ column }) => {
   );
 };
 
+export const CNUDateColumnFilter = ({
+  column: {
+    filterValue,
+    setFilter,
+    preFilteredRows: { length },
+  },
+}) => {
+  return (
+    <Input 
+      style={{ width: "125px", height: "30px", marginLeft: "auto", marginRight: "auto"}}
+      value={filterValue || ''}
+      onChange={(e) => {
+        setFilter(e.target.value || undefined);
+      }}
+      placeholder={`search...`}
+    />
+  );
+};
+
+
 export const DefaultColumnFilter = ({
   column: {
     filterValue,
@@ -23,12 +43,12 @@ export const DefaultColumnFilter = ({
 }) => {
   return (
     <Input 
-      style={{ height: "30px"}}
+      style={{ width: "70px", height: "30px", marginLeft: "auto", marginRight: "auto"}}
       value={filterValue || ''}
       onChange={(e) => {
         setFilter(e.target.value || undefined);
       }}
-      placeholder={`search (${length}) ...`}
+      placeholder={`search...`}
     />
   );
 };
@@ -86,6 +106,7 @@ export const DateColumnFilter = ({
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label="Date"
+        
         value={value}
         openTo="year"
         views={['year', 'month', 'day']}
@@ -96,7 +117,7 @@ export const DateColumnFilter = ({
         }}
         renderInput={({ inputRef, inputProps, InputProps }) => (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <input style={{width: "100px"}} ref={inputRef} {...inputProps} onChange={(newValue) => {
+            <input style={{width: "90%"}} ref={inputRef} {...inputProps} onChange={(newValue) => {
               setFilter(show(newValue) || undefined);
             }}/>
             {InputProps?.endAdornment}
@@ -116,7 +137,7 @@ export const NoSearch = ({
 }) => {
   return (
     <Input 
-      style={{ width: "10px", height: "30px"}}
+      style={{ width: "10px", height: "30px", marginLeft: "auto", marginRight: "auto"}}
       value={filterValue || ''}
       onChange={(e) => {
         setFilter(e.target.value || undefined);

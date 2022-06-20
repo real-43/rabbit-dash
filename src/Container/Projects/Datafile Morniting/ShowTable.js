@@ -4,7 +4,7 @@ import {
 } from 'reactstrap';
 import TableContainer from './TableContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { SelectColumnFilter, DateColumnFilter, NoSearch } from './filters';
+import { SelectColumnFilter, DateColumnFilter, NoSearch, CNUDateColumnFilter } from './filters';
 import { data } from '../../../Data'
 import './Table.css'
 import { NoEncryption } from '@mui/icons-material';
@@ -79,10 +79,12 @@ const ShowTable = () => {
       {
         Header: 'Create Date',
         accessor: 'createdAt',
+        Filter: CNUDateColumnFilter,
       },
       {
         Header: 'Update Date',
         accessor: 'updatedAt',
+        Filter: CNUDateColumnFilter,
       },
     ],
     []
