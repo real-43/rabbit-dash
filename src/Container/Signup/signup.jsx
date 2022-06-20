@@ -25,6 +25,7 @@ export default function Signup() {
 
   // Use for change profile and password
   const [newPassword, setNewPassword] = useState("")
+  const [role, setRole] = useState()
   const [changeUser, setChangeUser] = useState()
   const [newName, setNewName] = useState("")
 
@@ -34,7 +35,9 @@ export default function Signup() {
   const timerRef = useRef(null);
 
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
   const usersCollectionRef = collection(db, "users");
+  const rolesCollectionRef = collection(db, "roles");
 
   // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
@@ -63,8 +66,13 @@ export default function Signup() {
       const data = await getDocs(usersCollectionRef);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
+    const getRoles = async () => {
+      const data = await getDocs(rolesCollectionRef);
+      setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.roleID })));
+    };
 
     getUsers();
+    getRoles();
     
   }, []);
 
@@ -106,6 +114,12 @@ export default function Signup() {
       });
     }
 
+    if (role !== "") {
+      await updateDoc(userDoc, {
+        "role": role
+      });
+    }
+
     // Change in firebase auth
     await signInWithEmailAndPassword(authSec, user.email, user.password)
     .then(() => {
@@ -120,6 +134,7 @@ export default function Signup() {
       if(newPassword !== "") {
         updatePassword(userToChange, newPassword)
       }
+
       setIsLoading(false);
       authSec.signOut()
     })
@@ -178,6 +193,8 @@ export default function Signup() {
     setIsOpen(!isOpen)
     setNewName(user.userName)
     setNewPassword(user.password)
+    setRole(user.role)
+    
   }
 
   function displayOption() {
@@ -249,6 +266,13 @@ export default function Signup() {
                   </Button>
                 </InputGroup>
               </Form.Group>
+              <Form.Label>Role</Form.Label>
+              <Form.Select aria-label={role} defaultValue={role} onChange={(e) => setRole(e.target.value)}>
+                <option className="d-none" value="">{role}</option>
+                {roles.map((role) => {return (
+                  <option value={role.name}>{role.name}</option>
+                )})}
+              </Form.Select>
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -306,6 +330,7 @@ export default function Signup() {
               <th>Number</th>
               <th>First Name</th>
               <th>isBlocked</th>
+              <th>Role</th>
               <th>Email</th>
               <th>function</th>
             </tr>
@@ -316,6 +341,7 @@ export default function Signup() {
               <td>{index+1}</td>
               <td>{user.userName}</td>
               <td>{user.isBlocked.toString()}</td>
+              <td>{user.role}</td>
               <td>{user.email}</td>
               <td className='btn-table'> 
                 <button
