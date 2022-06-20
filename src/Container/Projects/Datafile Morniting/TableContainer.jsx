@@ -51,9 +51,10 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
   return (
     <Fragment >
         <Table bordered hover {...getTableProps()} >
-            <thead>
+            <thead className='header-table'>
                 {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
+                    {console.log({...headerGroup.getHeaderGroupProps()})}
                         {headerGroup.headers.map((column) => (
                             <th {...column.getHeaderProps()}>
                                 <div {...column.getSortByToggleProps()}>
@@ -75,17 +76,10 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
                                 <tr>
                                     {row.cells.map((cell) => {
                                         return (
-                                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                            <td className='content-tabel' {...cell.getCellProps()}>{cell.render('Cell')}</td>
                                         );
                                     })}
                                 </tr>
-                                {row.isExpanded && (
-                                    <tr>
-                                        <td colSpan={visibleColumns.length}>
-                                            {renderRowSubComponent(row)}
-                                        </td>
-                                    </tr>
-                                )}
                             </Fragment>
                         );
                     })}

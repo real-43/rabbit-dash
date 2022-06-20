@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import enLocale from 'date-fns/locale/en-US';
+import './Table.css'
 
 export const Filter = ({ column }) => {
   return (
@@ -22,7 +22,8 @@ export const DefaultColumnFilter = ({
   },
 }) => {
   return (
-    <Input
+    <Input 
+      style={{ height: "30px"}}
       value={filterValue || ''}
       onChange={(e) => {
         setFilter(e.target.value || undefined);
@@ -45,6 +46,7 @@ export const SelectColumnFilter = ({
 
   return (
     <Input
+      style={{ height: "30px" }}
       id='custom-select'
       type='select'
       value={filterValue}
@@ -82,21 +84,37 @@ export const DateColumnFilter = ({
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Button onClick={(e) => {setFilter(undefined)}}>1</Button>
       <DatePicker
         label="Date"
-        value={undefined}
-        openTo="year"
         views={['year', 'month', 'day']}
         onChange={(newValue) => {
           setFilter(show(newValue) || undefined);
           console.log("Filter", filterValue, typeof(filterValue))
         }}
-        renderInput={(params) => <TextField {...params} onChange={(newValue) => {
+        renderInput={(params) => <TextField className='field-date' {...params} onChange={(newValue) => {
           setFilter(show(newValue) || undefined);
           console.log("Filter", filterValue, typeof(filterValue))
         }}/>}
       />
     </LocalizationProvider>
+  );
+};
+
+export const NoSearch = ({
+  column: {
+    filterValue,
+    setFilter,
+    preFilteredRows: { length },
+  },
+}) => {
+  return (
+    <Input 
+      style={{ width: "10px", height: "30px"}}
+      value={filterValue || ''}
+      onChange={(e) => {
+        setFilter(e.target.value || undefined);
+      }}
+      placeholder={`search...`}
+    />
   );
 };

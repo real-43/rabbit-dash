@@ -1,5 +1,35 @@
 .under-table {
     text-align: center;
-    margin-left: 14% !important;
+    margin-left: 14.5% !important;
     margin-right: auto !important;
+}
+
+.header-txn-date {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-left: 20%;
+}
+
+.header-txn-date button {
+    border: 0;
+    background-color: transparent;
+    margin-bottom: 16px;
+    color: black;
+}
+
+.input-boxs {
+    width: 1px;
+}
+
+.header-table {
+    user-select: none;
+}
+
+.content-tabel {
+    font-size: xx-small;
+}
+
+.input-id {
+    width: 10px;
 }

@@ -4,8 +4,10 @@ import {
 } from 'reactstrap';
 import TableContainer from './TableContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { SelectColumnFilter, DateColumnFilter } from './filters';
+import { SelectColumnFilter, DateColumnFilter, NoSearch } from './filters';
 import { data } from '../../../Data'
+import './Table.css'
+import { NoEncryption } from '@mui/icons-material';
 
 const ShowTable = () => {
   // const [data, setData] = useState([]);
@@ -26,6 +28,7 @@ const ShowTable = () => {
       {
         Header: 'ID',
         accessor: 'id',
+        Filter: NoSearch,
       },
       {
         Header: 'Device ID',
@@ -50,8 +53,16 @@ const ShowTable = () => {
         filter: 'equals',
       },
       {
-        Header: 'Txn Date',
+        Header: () => {
+          return (
+            <div className='header-txn-date'>
+              <p>Txn Date</p>
+              <button onClick={() => window.location.reload(false)}><i className='fas fa-times'></i></button>
+            </div>
+          )
+        },
         accessor: 'txnDate',
+        disableSortBy: true,
         Filter: DateColumnFilter,
       },
       {
