@@ -86,6 +86,8 @@ export const DateColumnFilter = ({
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label="Date"
+        value={""}
+        openTo="year"
         views={['year', 'month', 'day']}
         onChange={(newValue) => {
           setFilter(show(newValue) || undefined);
