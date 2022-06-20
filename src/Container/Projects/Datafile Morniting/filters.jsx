@@ -85,7 +85,7 @@ export const DateColumnFilter = ({
       <Button onClick={(e) => {setFilter(undefined)}}>1</Button>
       <DatePicker
         label="Date"
-        value={undefined}
+        value={""}
         openTo="year"
         views={['year', 'month', 'day']}
         onChange={(newValue) => {
