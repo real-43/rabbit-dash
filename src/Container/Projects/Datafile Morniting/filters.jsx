@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input } from 'reactstrap';
-import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -86,17 +86,22 @@ export const DateColumnFilter = ({
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label="Date"
-        value={""}
+        value={value}
         openTo="year"
         views={['year', 'month', 'day']}
+        dateFormat={'dd/mm/yyyy'}
         onChange={(newValue) => {
           setFilter(show(newValue) || undefined);
           console.log("Filter", filterValue, typeof(filterValue))
         }}
-        renderInput={(params) => <TextField className='field-date' {...params} onChange={(newValue) => {
-          setFilter(show(newValue) || undefined);
-          console.log("Filter", filterValue, typeof(filterValue))
-        }}/>}
+        renderInput={({ inputRef, inputProps, InputProps }) => (
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <input style={{width: "100px"}} ref={inputRef} {...inputProps} onChange={(newValue) => {
+              setFilter(show(newValue) || undefined);
+            }}/>
+            {InputProps?.endAdornment}
+          </Box>
+        )}
       />
     </LocalizationProvider>
   );

@@ -54,10 +54,9 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             <thead className='header-table'>
                 {headerGroups.map((headerGroup) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
-                    {console.log({...headerGroup.getHeaderGroupProps()})}
                         {headerGroup.headers.map((column) => (
                             <th {...column.getHeaderProps()} style={{width: "fit-content"}}>
-                                <div {...column.getSortByToggleProps()}>
+                                <div className='header-content' {...column.getSortByToggleProps()}>
                                     {column.render('Header')}
                                     {generateSortingIndicator(column)}
                                 </div>
