@@ -1,13 +1,13 @@
 .under-table {
-    text-align: center;
+    text-align: center !important;
     margin-left: 14.5% !important;
     margin-right: auto !important;
 }
 
 .header-txn-date {
     display: flex;
-    align-items: center;
-    text-align: center;
+    align-items: center !important;
+    text-align: center !important;
     margin-left: 20%;
 }
 
@@ -36,4 +36,9 @@
 
 .header-content {
     font-size: small;
+}
+
+th,
+td {
+    text-align: center !important;
 }
