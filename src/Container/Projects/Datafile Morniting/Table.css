@@ -6,9 +6,8 @@
 
 .header-txn-date {
     display: flex;
-    align-items: center;
-    text-align: center;
-    margin-left: 20%;
+    justify-content: center;
+    height: 22px;
 }
 
 .header-txn-date button {
