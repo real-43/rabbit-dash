@@ -23,7 +23,7 @@ export const CNUDateColumnFilter = ({
 }) => {
   return (
     <Input 
-      style={{ width: "125px", height: "30px", marginLeft: "auto", marginRight: "auto"}}
+      style={{ height: "30px", marginLeft: "auto", marginRight: "auto"}}
       value={filterValue || ''}
       onChange={(e) => {
         setFilter(e.target.value || undefined);
