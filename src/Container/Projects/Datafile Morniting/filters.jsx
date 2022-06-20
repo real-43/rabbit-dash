@@ -137,12 +137,11 @@ export const NoSearch = ({
 }) => {
   return (
     <Input 
-      style={{ width: "10px", height: "30px", marginLeft: "auto", marginRight: "auto"}}
+      style={{ width: "30px", height: "30px", marginLeft: "auto", marginRight: "auto"}}
       value={filterValue || ''}
       onChange={(e) => {
         setFilter(e.target.value || undefined);
       }}
-      placeholder={`search...`}
     />
   );
 };
