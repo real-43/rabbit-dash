@@ -55,7 +55,7 @@ const ShowTable = () => {
       {
         Header: () => {
           return (
-            <div className='header-txn-date'>
+            <div className="header-txn-date">
               <p>Txn Date</p>
               <button onClick={() => window.location.reload(false)}><i className='fas fa-times'></i></button>
             </div>

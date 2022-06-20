@@ -117,7 +117,7 @@ export const DateColumnFilter = ({
         }}
         renderInput={({ inputRef, inputProps, InputProps }) => (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <input style={{width: "90%"}} ref={inputRef} {...inputProps} onChange={(newValue) => {
+            <input style={{width: "80%"}} ref={inputRef} {...inputProps} onChange={(newValue) => {
               setFilter(show(newValue) || undefined);
             }}/>
             {InputProps?.endAdornment}
