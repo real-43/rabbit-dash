@@ -66,7 +66,7 @@ export const SelectColumnFilter = ({
 
   return (
     <Input
-      style={{ height: "30px" }}
+      style={{ height: "30px" , fontSize: "13px" }}
       id='custom-select'
       type='select'
       value={filterValue}
