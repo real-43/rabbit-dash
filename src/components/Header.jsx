@@ -10,19 +10,17 @@ export default function Header() {
   const user = auth.currentUser || {email: ""};
   const userName = user.displayName || user.email.split('@')[0]
 
-  console.log("user: ", user)
-
   const handleChange = () => {
-      signOut(auth).then(() => {
-        router('/')
-        console.log("signout");
-      }).catch((error) => {
-        router('/dashboard')
-      });
+    signOut(auth).then(() => {
+      router('/')
+      console.log("signout");
+    }).catch((error) => {
+      router('/dashboard')
+    });
   }
 
   return (
-      <div>
+    <div>
       <nav className="main-header navbar navbar-expand navbar-color navbar-light">
         {/* Left navbar links */}
         <ul className="navbar-nav">

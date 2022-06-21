@@ -1,7 +1,59 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import "./Menu.css";
+import { auth, db } from '../firebase';
+import { getDoc, doc, getDocs, collection, where, query } from "firebase/firestore";
+import { signOut } from 'firebase/auth'
+import { useNavigate } from 'react-router'
+import { async } from "@firebase/util";
 
 export default function Menu() {
+
+  const [role, setRole] = useState(null);
+  const [menu, setMenu] = useState(null);
+
+  const getRole= async() => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setRole(doc.data())
+    });
+  }
+
+  const getMenu = async() => {
+    const q = query(collection(db, "roles"), where("name", "==", role.role));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      setMenu(doc.data())
+    });
+  }
+
+  const checkMenu = (menuCheck) => {
+    console.log("Check menu")
+    var permission = null
+    if (menu !== null) {
+      menu.project.map((p) => {
+        if(p.name === menuCheck) {
+          console.log("Check menu2")
+          permission = true
+        }
+      })
+    console.log("Check menu3")
+    }
+    return permission
+  }
+
+  const router = useNavigate();
+  const user = auth.currentUser || {email: ""};
+
+  if (role === null) {
+    getRole();
+  }
+
+  if (role !== null && menu === null) {
+    getMenu();
+  }
+  console.log("menu", menu)
+
   return (
     <div>
       <aside className="sidebar-mini main-sidebar  sidebar-dark-primary " style={{overflowX: 'hidden'}}>
@@ -62,7 +114,8 @@ export default function Menu() {
                   <p>Home</p>
                 </a>
               </li>
-              <li className="nav-item has-treeview">
+              {console.log("checkc", checkMenu("Management"))}
+              {((checkMenu("Management"))) ? (<li className="nav-item has-treeview">
                 <a href="#" className="nav-link">
                   <i className="nav-icon fas fa-book" />
                   <p>
@@ -110,7 +163,7 @@ export default function Menu() {
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li>) : ""}
               <li className="nav-item has-treeview">
                 <a href="#" className="nav-link">
                   <i className="nav-icon fas fa-book" />
@@ -223,5 +276,5 @@ export default function Menu() {
         {/* /.sidebar */}
       </aside>
     </div>
-  );
+  )
 }

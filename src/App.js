@@ -23,15 +23,15 @@ function App() {
   
   return (
     <>
-        <Routes>
-          <Route path='/' exact element={<LoginPage/>} />
-          <Route element={<SidebarLayout/>}>
-            <Route path='/dashboard' element={<Dash/>} />
-            <Route path='/managementUser' element={<SignupPage/>} />
-            <Route path='/datafileHome' element={<DatafileHome/>}  />
-            <Route path='/datafilePDF' element={<PDF/>}  />
-          </Route>
-        </Routes>
+      <Routes>
+        <Route path='/' exact element={<LoginPage/>} />
+        <Route element={<SidebarLayout/>}>
+          <Route path='/dashboard' element={<Dash/>} />
+          <Route path='/managementUser' element={<SignupPage/>} />
+          <Route path='/datafileHome' element={<DatafileHome/>}  />
+          <Route path='/datafilePDF' element={<PDF/>}  />
+        </Route>
+      </Routes>
     </>
 
   );
