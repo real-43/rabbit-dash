@@ -11,6 +11,7 @@ import {
   deleteDoc,
   updateDoc,
   doc,
+  setDoc,
 } from "firebase/firestore";
 
 import Loading from '../../components/Loading';
@@ -162,28 +163,32 @@ export default function Signup() {
 
     event.preventDefault();
     
-    // To create user in firestore
-    const usersCollectionRef = collection(db, "users")
-    await addDoc(usersCollectionRef, { name: userInfo.name, email: userInfo.email, password: userInfo.password , isBlocked: false, role: "staff"});
     // Create user in firebase auth
-    createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
+    await createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
         updateProfile(authSec.currentUser, {
           displayName:userInformation.name
         })
-        // createUser(); 
-        
-        // router('/managementUser')
-      })
-      .catch(error => {
+      }).catch(error => {
         setAlert({ visible:true,severity:'error',message:error.message})
         console.log(error.code);
         timerRef.current= setTimeout(() => {
           setAlert({ visible:false,severity:'',message:''})
         },2000)
     })
+
+    // To create user in firestore
+    // const usersCollectionRef = collection(db, "users")
+    // await addDoc(usersCollectionRef, { name: userInfo.name, email: userInfo.email, password: userInfo.password , isBlocked: false, role: "staff"});
+    await setDoc(doc(db, "users", authSec.currentUser.uid), {
+      name: userInfo.name,
+      email: userInfo.email,
+      password: userInfo.password,
+      isBlocked: false,
+      role: "staff"
+    })
+
     setIsLoading(false);
-    updateUI();
     window.location.reload(false);
   };
 

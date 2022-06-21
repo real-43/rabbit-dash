@@ -62,7 +62,6 @@ export default function Menu() {
   if (role !== null && menu === null) {
     getMenu();
   }
-  console.log("menu", menu)
 
   return (
     <div>
