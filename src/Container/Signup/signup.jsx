@@ -19,7 +19,7 @@ import './signup.css'
 
 export default function Signup() {
 
-  const [userInfo, setUserInfo] = useState({ userName: '', email: '', password: '' });
+  const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const [isOpen, setIsOpen] = useState(false);
 
@@ -104,7 +104,7 @@ export default function Signup() {
 
     if (newName !== "") {
       await updateDoc(userDoc, {
-        "userName": newName
+        "name": newName
       });
     }
 
@@ -164,12 +164,12 @@ export default function Signup() {
     
     // To create user in firestore
     const usersCollectionRef = collection(db, "users")
-    await addDoc(usersCollectionRef, { userName: userInfo.userName, email: userInfo.email, password: userInfo.password , isBlocked: false});
+    await addDoc(usersCollectionRef, { name: userInfo.name, email: userInfo.email, password: userInfo.password , isBlocked: false, role: "staff"});
     // Create user in firebase auth
     createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
         updateProfile(authSec.currentUser, {
-          displayName:userInfo.userName
+          displayName:userInformation.name
         })
         // createUser(); 
         
@@ -191,7 +191,7 @@ export default function Signup() {
   function changeSet(user) {
     setChangeUser(user)
     setIsOpen(!isOpen)
-    setNewName(user.userName)
+    setNewName(user.name)
     setNewPassword(user.password)
     setRole(user.role)
     
@@ -239,7 +239,7 @@ export default function Signup() {
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder={changeUser.userName}
+                  placeholder={changeUser.name}
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   autoFocus
@@ -300,7 +300,7 @@ export default function Signup() {
           <input className='input-register'
             placeholder="Name..."
             onChange={(event) => {
-              setUserInfo({ ...userInfo, userName: event.target.value })
+              setUserInfo({ ...userInfo, name: event.target.value })
             }}
           />
           <input className='input-register'
@@ -339,7 +339,7 @@ export default function Signup() {
           <tbody>
             <tr>
               <td>{index+1}</td>
-              <td>{user.userName}</td>
+              <td>{user.name}</td>
               <td>{user.isBlocked.toString()}</td>
               <td>{user.role}</td>
               <td>{user.email}</td>
