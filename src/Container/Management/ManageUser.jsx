@@ -74,7 +74,6 @@ export default function Signup() {
 
     getUsers();
     getRoles();
-    
   }, []);
 
   useEffect(() => {
