@@ -2,6 +2,7 @@ import './App.css';
 import Dash from './components/Dashboard'
 import LoginPage from './Container/Login/login';
 import SignupPage from './Container/Management/ManageUser';
+import ManagePro from './Container/Management/ManageProject';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
@@ -29,6 +30,7 @@ function App() {
         <Route element={<SidebarLayout/>}>
           <Route path='/dashboard' element={<Dash/>} />
           <Route path='/managementUser' element={<SignupPage/>} />
+          <Route path='/managementProject' element={<ManagePro/>} />
           <Route path='/datafileHome' element={<DatafileHome/>}  />
           <Route path='/datafilePDF' element={<PDF/>}  />
           <Route path='/managePermission' element={<ManagePermission/>} />
