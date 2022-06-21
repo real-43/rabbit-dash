@@ -221,7 +221,7 @@ export default function Signup() {
     console.log("getUsers: ",users)
     getUsers();
     setIsLoading(false)
-    }, 1000)
+    }, 200)
   }
 
   // Popup input to chnage password or name
