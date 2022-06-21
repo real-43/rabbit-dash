@@ -28,16 +28,26 @@ export default function Menu() {
   }
 
   const checkMenu = (menuCheck) => {
-    console.log("Check menu")
     var permission = null
     if (menu !== null) {
       menu.project.map((p) => {
         if(p.name === menuCheck) {
-          console.log("Check menu2")
           permission = true
         }
       })
-    console.log("Check menu3")
+    }
+    return permission
+  }
+
+  const checkSubMenu = (subMenuCheck) => {
+    var permission = null
+    var i = 0
+    if (menu !== null) {
+      menu.project.map((p) => {
+        if (p.subMenu.includes(subMenuCheck)) {
+          permission = true
+        }
+      })
     }
     return permission
   }
@@ -82,21 +92,6 @@ export default function Menu() {
         </div>
 
         <div className="sidebar" style={{padding: "0px 0px 0px 0px"}}>
-          {/* Sidebar user panel (optional) */}
-          {/* <div className="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div className="image">
-              <img
-                src="dist/img/user2-160x160.jpg"
-                className="img-circle elevation-2"
-                alt="User Image"
-              />
-            </div>
-            <div className="info">
-              <a href="#" className="d-block">
-                Alexander Pierce
-              </a>
-            </div>
-          </div> */}
           {/* Sidebar Search form */}
           <nav className="mt-2">
             <ul
@@ -114,7 +109,6 @@ export default function Menu() {
                   <p>Home</p>
                 </a>
               </li>
-              {console.log("checkc", checkMenu("Management"))}
               {((checkMenu("Management"))) ? (<li className="nav-item has-treeview">
                 <a href="#" className="nav-link">
                   <i className="nav-icon fas fa-book" />
@@ -172,7 +166,7 @@ export default function Menu() {
                     <i className="right fas fa-angle-left" />
                   </p>
                 </a>
-                <ul className="nav nav-treeview">
+                {(checkMenu("Maintenance Fee")) ? (<ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
                     <a href="#" className="nav-link">
                       <i className="far fa-circle nav-icon" />
@@ -196,8 +190,8 @@ export default function Menu() {
                       </li>
                     </ul>
                   </li>
-                </ul>
-                <ul className="nav nav-treeview">
+                </ul>) : ""}
+                {(checkMenu("Datafile Monitoring")) ? (<ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
                     <a href="#" className="nav-link">
                       <i className="far fa-circle nav-icon" />
@@ -219,21 +213,21 @@ export default function Menu() {
                           <p>PDF</p>
                         </a>
                       </li>
-                      <li className="nav-item">
+                      {(checkSubMenu("Notification")) ? (<li className="nav-item">
                         <a href="#" className="nav-link">
                           <i className="far fa-dot-circle nav-icon" />
                           <p>Notification</p>
                         </a>
-                      </li>
-                      <li className="nav-item">
+                      </li>) : ""}
+                      {(checkSubMenu("Setting")) ? (<li className="nav-item">
                         <a href="#" className="nav-link">
                           <i className="far fa-dot-circle nav-icon" />
                           <p>Setting</p>
                         </a>
-                      </li>
+                      </li>) : ""}
                     </ul>
                   </li>
-                </ul>
+                </ul>) : ""}
               </li>
               <li className="nav-item has-treeview">
                 <a href="#" className="nav-link">
