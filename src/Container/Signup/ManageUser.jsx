@@ -178,8 +178,6 @@ export default function Signup() {
     })
 
     // To create user in firestore
-    // const usersCollectionRef = collection(db, "users")
-    // await addDoc(usersCollectionRef, { name: userInfo.name, email: userInfo.email, password: userInfo.password , isBlocked: false, role: "staff"});
     await setDoc(doc(db, "users", authSec.currentUser.uid), {
       name: userInfo.name,
       email: userInfo.email,

@@ -1,7 +1,7 @@
 import './App.css';
 import Dash from './components/Dashboard'
 import LoginPage from './Container/Login/login';
-import SignupPage from './Container/Signup/signup';
+import SignupPage from './Container/Signup/ManageUser';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
