@@ -31,9 +31,7 @@ const ManageProject = () => {
         console.log(data);
     };
     if (projects.length==0){ 
-       
         getProjects()
-       
     }
         
     
@@ -46,12 +44,13 @@ const ManageProject = () => {
             submenu: submenu[submenu.length-1],
         });
         setProjects({ name: ''})
-        // console.log(submenu)
+        console.log(submenu)
     }
 
-    const deleteProjects = async (project) => {
-        const userDoc = doc(db, "projects", project.id);
+    const deleteProjects = async (id) => {
+        const userDoc = doc(db, "projects", id);
         await deleteDoc(userDoc);
+        console.log("delete",id)
     }
 
     const addChip = (value) => {
@@ -100,9 +99,10 @@ const ManageProject = () => {
                         <th>Project ID</th>
                         <th>Project Name</th>
                         <th>Submenu</th>
+                        <th>Function</th>
                     </tr>
                 </thead>
-                {projects.map((project,index) =>{return(
+                {projects?.map((project,index) =>{return(
                     <tbody>
                         <tr className="border align-items-center ">
                             <td>{index+1}</td>
@@ -114,6 +114,15 @@ const ManageProject = () => {
                                     <div></div>
                                     </>
                                 ) })}   
+                            </td>
+                            <td>
+                                <i 
+                                    class="fa fa-trash" 
+                                    aria-hidden="true" 
+                                    style={{cursor: "pointer"}}
+                                    onClick={(e)=>deleteProjects(project.id)}
+                                >
+                                </i>
                             </td>
                         </tr>
                     </tbody>

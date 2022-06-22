@@ -1,4 +1,4 @@
-import React, { Profiler, useEffect, useState } from 'react'
+import React, { Profiler, useCallback, useEffect, useState} from 'react'
 import {Form, Button}  from 'react-bootstrap';
 import './ManagePermission.css'
 import Select from 'react-select';
@@ -6,7 +6,7 @@ import makeAnimated from 'react-select/animated';
 
 export default function ManagePermission() {
 
-    const [projectInput, setProjectInput] = useState([]);
+    // const [projectInput, setProjectInput] = useState([]);
     const [data, setdata] = useState(null);
 
     const mockupRole = {
@@ -40,7 +40,7 @@ export default function ManagePermission() {
             names[index] = {value: p.name, label: p.name}
             index = index + 1
         })
-        console.log("input: ", projectInput)
+        // console.log("input: ", projectInput)
         return names
     }
 
@@ -50,12 +50,15 @@ export default function ManagePermission() {
 
     const animatedComponents = makeAnimated();
 
-    const subMenuOptions = () => {
+    const subMenuOptions = (event) => {
+        // setProjectInput(event)
         var filteredProject = [{name: "", options: [{value: "", label: ""}]}]
         var index = 0
-        projectInput.map((inp) => {
-            
+        console.log("out out",event)
+        event.map((inp) => {
+            console.log("out")
             mockupProject.map((moc) => {
+                console.log("in")
                 var option = []
                 var indexOption = 0
                 // if project in input
@@ -64,7 +67,7 @@ export default function ManagePermission() {
                         option[indexOption] = {value: sub, label: sub}
                         indexOption = indexOption + 1
                     })
-                    filteredProject[index] = {name: moc.name, options: option}
+                    filteredProject[index] = {name: inp.value, options: option}
                     index = index + 1
                 }
             })
@@ -73,7 +76,6 @@ export default function ManagePermission() {
         setdata(filteredProject)
         console.log("data", data, filteredProject)
     }
-
     return (
         <div className='content-wrapper'>
             <div className='ManagePermission'>
@@ -93,8 +95,7 @@ export default function ManagePermission() {
                                     isMulti
                                     options={optionsProject()}
                                     onChange={(event) => {
-                                        setProjectInput(event)
-                                        subMenuOptions()
+                                        subMenuOptions(event)
                                     }}
                                 />
                             </div>
