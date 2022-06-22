@@ -10,7 +10,7 @@ import { db } from "./firebaseSec"
 import * as GG from '../../MyFireStore';
 
 var a = GG.getUsers().then((value) => {
-    console.log("GG", vlue)
+    console.log("GG", value)
 })
 
 ************************************************************************************************************************/
