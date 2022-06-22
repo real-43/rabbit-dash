@@ -1,0 +1,12 @@
+.p-btn {
+    background-color: #0d6af4;
+    color: white;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.p-btn:hover {
+    background-color: #0b5ed7;
+    color: white;
+}
