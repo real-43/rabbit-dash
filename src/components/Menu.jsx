@@ -17,6 +17,7 @@ export default function Menu() {
     querySnapshot.forEach((doc) => {
       setRole(doc.data())
     });
+    console.log("getRole")
   }
 
   const getMenu = async() => {
@@ -25,6 +26,7 @@ export default function Menu() {
     querySnapshot.forEach((doc) => {
       setMenu(doc.data())
     });
+    console.log("getMenu")
   }
 
   const checkMenu = (menuCheck) => {
@@ -108,7 +110,8 @@ export default function Menu() {
                   <p>Home</p>
                 </a>
               </li>
-              {((checkMenu("Management"))) ? (<li className="nav-item has-treeview">
+              {((checkMenu("Management"))) ? (
+              <li className="nav-item has-treeview">
                 <a href="#" className="nav-link">
                   <i className="nav-icon fas fa-book" />
                   <p>
@@ -156,7 +159,8 @@ export default function Menu() {
                     </a>
                   </li>
                 </ul>
-              </li>) : ""}
+              </li>
+              ) : ""}
               <li className="nav-item has-treeview">
                 <a href="#" className="nav-link">
                   <i className="nav-icon fas fa-book" />
@@ -190,7 +194,7 @@ export default function Menu() {
                     </ul>
                   </li>
                 </ul>) : ""}
-                {(checkMenu("Datafile Monitoring")) ? (<ul className="nav nav-treeview">
+                {(checkMenu("Datafile Mornitoring")) ? (<ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
                     <a href="#" className="nav-link">
                       <i className="far fa-circle nav-icon" />
