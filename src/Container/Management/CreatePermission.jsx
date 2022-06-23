@@ -8,7 +8,7 @@ import { db } from '../../firebase';
 import { getProjects } from '../../MyFireStore';
 
 
-export default function ManagePermission() {
+export default function CreatePermission() {
 
     const [roleName, setRoleName] = useState("");
     const [projectInput, setProjectInput] = useState([]);
@@ -104,17 +104,15 @@ export default function ManagePermission() {
                                     onChange={(event) => {
                                         handleChange(event)
                                         subMenuOptions(event)
-                                        console.log("something", getProjects())
                                     }}
                                 />
                             </div>
                         </Form.Group>
                         {(projectInput.length !== 0) ? (
                             <div>
-                            {console.log("data", data)}
                                 {data.map((d, index) => {
                                     return (
-                                        <Form.Group className="mb-3">
+                                        <Form.Group key={d.name} className="mb-3">
                                             <Form.Label>Select Sub Menu of {d.name}</Form.Label>
                                             <div className="mb-3">
                                                 <Select
