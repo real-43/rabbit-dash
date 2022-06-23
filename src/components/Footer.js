@@ -13,7 +13,10 @@ export default function Footer() {
   return (
     <div className="footer">
       <footer class="main-footer">
-        <strong className="footer-content">
+        <div class="float-left d-none d-sm-inline-block">
+          Copyright © 2014-2021 AdminLTE.io. All rights reserved.
+        </div>
+        <strong className="float-center footer-content">
           Today: {`${objDate.getDate()}/${objDate.getMonth()+1}/${objDate.getFullYear()}`} {objDate.toLocaleTimeString()}
           {callTime()}
         </strong>
