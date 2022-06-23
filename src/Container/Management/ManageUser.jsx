@@ -57,16 +57,17 @@ export default function Signup() {
       })
 
     setIsLoading(false);
-    updateUI()
+    getUsers()
     // window.location.reload(false);
-    };
+  };
+
+  const getUsers = async () => {
+    const data = await getDocs(usersCollectionRef);
+    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
 
   // get all users in firestore and set to variable name "users"
   useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
     const getRoles = async () => {
       const data = await getDocs(rolesCollectionRef);
       setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.roleID })));
@@ -139,8 +140,7 @@ export default function Signup() {
       authSec.signOut()
     })
     
-    updateUI()
-    // window.location.reload(false);
+    getUsers()
   }
 
   const ControlBlocked = async (user) => {
@@ -152,8 +152,7 @@ export default function Signup() {
       
     });
     setIsLoading(false)
-    updateUI()
-    // window.location.reload(false);
+    getUsers();
   }
 
   // To create new user in firebase
@@ -186,7 +185,7 @@ export default function Signup() {
     })
 
     setIsLoading(false);
-    window.location.reload(false);
+    getUsers();
   };
 
   // To open/close popup and set user that send form edit btn
@@ -290,7 +289,7 @@ export default function Signup() {
     ) : "";
   }
 
-   return (
+  return (
     <div className="content-wrapper">
       <Loading isLoading={isLoading} />
       <h3>Management {'>'} User</h3>

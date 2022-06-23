@@ -5,11 +5,16 @@ import { useNavigate } from 'react-router'
 import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import { async } from '@firebase/util';
+import { db } from '../../firebase';
+import { doc, deleteDoc } from 'firebase/firestore';
+import Loading from '../../components/Loading';
 
 export default function Permission() {
 
     const animatedComponents = makeAnimated();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState();
 
     const [allRoles, setAllRoles] = useState([]);
     const [allProjects, setAllProjects] = useState([]);
@@ -23,10 +28,14 @@ export default function Permission() {
 
     const [projectInput, setProjectInput] = useState([]);
 
-    if (allRoles.length < 1) {
+    const getAllRolesAgain = () => {
         getRoles().then((value) => {
             setAllRoles(value)
         })
+    }
+
+    if (allRoles.length < 1) {
+        getAllRolesAgain()
     }
 
     if (allProjects.length < 1) {
@@ -84,6 +93,15 @@ export default function Permission() {
         setIsAdd(!isAdd)
         setClickedRole(role)
         setProOptions(genAddOptions(role))
+    }
+
+    const handleDeleteBtn = async (role) => {
+        setIsLoading(true)
+        const roleDoc = doc(db, "roles", role.id);
+        await deleteDoc(roleDoc);
+        setIsLoading(false)
+        getAllRolesAgain()
+        // window.location.reload()
     }
 
     function popupAdd() {
@@ -262,13 +280,14 @@ export default function Permission() {
 
     return (
         <div className='content-wrapper'>
+            <Loading isLoading={isLoading} />
             {popupAdd()}
             {popupEdit()}
             <div className='permission'>
                 <div className='top'>
                     <h2 className='topic'>Permission</h2>
                     <div className='create'>
-                        <button className="btn create-btn" onClick={() => {navigate("/CreatePermission")}}>Create New Permission</button>
+                        <button className="btn create-btn" ><a href='/CreatePermission'>Create New Permission</a></button>
                     </div>
                 </div>
                 <Table striped bbordered>
@@ -299,7 +318,7 @@ export default function Permission() {
                                     <td>
                                         <Button className="btn m-2 edit" onClick={(e) => {handleEditBtn(role)}}>Edit</Button>
                                         <Button className="btn m-2 add" onClick={(e) => {handleAddBtn(role)}}>Add Projects</Button><br/>
-                                        <button className="btn m-2 del" onClick={(e) => {console.log("Delete btn")}}>Delete</button>
+                                        <button className="btn m-2 del" onClick={(e) => {handleDeleteBtn(role)}}>Delete</button>
                                     </td>
                                 </tr>
                             )

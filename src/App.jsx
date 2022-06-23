@@ -10,6 +10,7 @@ import {Route,Routes, Outlet} from 'react-router-dom';
 import DatafileHome from './Container/Projects/Datafile Morniting/Home';
 import PDF from './Container/Projects/Datafile Morniting/PDF'
 import ManagePermission from './Container/Management/CreatePermission';
+import Permission from './Container/Management/Permission';
 
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
           <Route path='/managementProject' element={<ManagePro/>} />
           <Route path='/datafileHome' element={<DatafileHome/>}  />
           <Route path='/datafilePDF' element={<PDF/>}  />
-          <Route path='/managePermission' element={<ManagePermission/>} />
+          <Route path='/permission' element={<Permission/>} />
+          <Route path='/CreatePermission' element={<ManagePermission/>} />
         </Route>
       </Routes>
     </>

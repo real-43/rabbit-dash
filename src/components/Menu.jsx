@@ -155,7 +155,7 @@ export default function Menu() {
                 </ul>
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
-                    <a href="#" className="nav-link">
+                    <a href="/permission" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>
                         Permission

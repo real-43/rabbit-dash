@@ -7,11 +7,13 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from '../../firebase';
 import { getProjects } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
+import Loading from '../../components/Loading';
 
 
 export default function CreatePermission() {
 
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState();
 
     const [roleName, setRoleName] = useState("");
     const [projectInput, setProjectInput] = useState([]);
@@ -32,6 +34,8 @@ export default function CreatePermission() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        setIsLoading(true)
+
         var update = [...toSend]
         setToSend(update)
 
@@ -39,6 +43,8 @@ export default function CreatePermission() {
             name: roleName,
             project: toSend
         });
+        setIsLoading(false)
+        window.location.reload()
     }
 
     const animatedComponents = makeAnimated();
@@ -81,8 +87,9 @@ export default function CreatePermission() {
     
     return (
         <div className='content-wrapper'>
+            <Loading isLoading={isLoading} />
             <div className='CreatePermission'>
-                <Button className='back-btn' onClick={navigate("/permission")} >{'<'} Back</Button>
+                <button className='back-btn' >{'<'} <a href="/permission">Back</a></button>
                 <div className='create-permission'>
                     <Form>
                         <Form.Group className="mb-3">

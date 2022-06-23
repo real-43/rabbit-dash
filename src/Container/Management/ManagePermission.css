@@ -36,6 +36,14 @@
 
 .back-btn {
     margin-bottom: 20px;
+    border: 0;
+    background-color: transparent;
+    color: black;
+}
+
+.back-btn a {
+    color: black;
+    text-decoration: none;
 }
 
 .del {
@@ -47,4 +55,9 @@
     background-color: #ffbdad;
     color: #de360c;
     border: 0.5px solid #de360c;
+}
+
+.create-btn a {
+    color: black;
+    text-decoration: none;
 }
