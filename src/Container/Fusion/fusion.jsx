@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import Header from '../../components/Header';
-import Menu from '../../components/Menu';
+import Menu from '../../components/MenuBackUp';
 import Dashboard from '../../components/Dashboard';
 import Footer from '../../components/Footer';
 import { authentication } from '../../components/CheckAuth';

@@ -13,44 +13,80 @@ import {
     updateDoc,
     doc,
     setDoc,
+    arrayUnion,
+    arrayRemove
   } from "firebase/firestore";
   
   
 const ManageProject = () => {
 
+    const [subSnap,setSubSnap] = useState(null)
 
     const [projectInfo, setProjectInfo] = useState({ name: ''});
     const [submenu, setSubmenu] = useState([])
 
-    const [projects, setProjects] = React.useState([]);
+    const [projects, setProjects] = useState([]);
     const projectsCollectionRef = collection(db, "projects");
+
+    const [roles, setRoles] = useState([]);
+    const rolesCollectionRef = collection(db, "roles");
+
+    const AdminDoc = doc(db, "roles", '9OJ53QcrH2aHr5hnPuL5');
+    
 
     const getProjects = async () => {
         const data = await getDocs(projectsCollectionRef);
         setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        console.log(data);
     };
     if (projects.length==0){ 
         getProjects()
     }
-        
-    
 
+    const getRoles = async () => {
+        const data = await getDocs(rolesCollectionRef);
+        setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    if (projects.length==0){ 
+        getRoles()
+    }
 
     const addProjects = async (e) => {
         e.preventDefault();
-        await addDoc(collection(db, "projects"), {
+        
+        var NewProject ={
             name: projectInfo.name,
-            submenu: submenu[submenu.length-1],
+            subMenu: submenu[submenu.length-1],
+        }
+
+        await addDoc(collection(db, "projects"), NewProject);
+        roles.map((role) =>{ 
+            if(role.name == 'Admin'){
+                updateDoc(AdminDoc,{
+                    project: arrayUnion(NewProject)
+                });
+            }       
         });
-        setProjects({ name: ''})
-        console.log(submenu)
     }
 
-    const deleteProjects = async (id) => {
-        const userDoc = doc(db, "projects", id);
+    const deleteProjects = async (project) => {
+        const userDoc = doc(db, "projects", project.id);
+        var DelProjectDetails = {
+            name: project.name,
+            subMenu: project.subMenu
+        }
         await deleteDoc(userDoc);
-        console.log("delete",id)
+        console.log("delete",project.id)
+
+        roles.map((role) =>{ 
+            if(role.name == 'Admin'){
+                updateDoc(AdminDoc,{
+                    project: arrayRemove(DelProjectDetails)
+                }); 
+                console.log("delete from admin",role.id)
+            }       
+        });
+       
+
     }
 
     const addChip = (value) => {
@@ -108,7 +144,7 @@ const ManageProject = () => {
                             <td>{index+1}</td>
                             <td>{project.name}</td>      
                             <td>
-                                {project.submenu?.map((submenu,index) =>{ return(
+                                {project.subMenu?.map((submenu,index) =>{ return(
                                     <>
                                      <Chip label={submenu} clickable />
                                     <div></div>
@@ -120,7 +156,7 @@ const ManageProject = () => {
                                     class="fa fa-trash" 
                                     aria-hidden="true" 
                                     style={{cursor: "pointer"}}
-                                    onClick={(e)=>deleteProjects(project.id)}
+                                    onClick={(e)=>deleteProjects(project)}
                                 >
                                 </i>
                             </td>

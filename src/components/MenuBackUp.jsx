@@ -8,7 +8,6 @@ import { async } from "@firebase/util";
 
 export default function Menu() {
 
-  const [projects, setProjects] = useState(null);
   const [role, setRole] = useState(null);
   const [menu, setMenu] = useState(null);
 
@@ -30,24 +29,15 @@ export default function Menu() {
     console.log("getMenu")
   }
 
-  const getProjects = async () => {
-    const data = await getDocs( collection(db, "projects"));
-    setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    console.log(data);
-  };
-
   const checkMenu = (menuCheck) => {
     var permission = null
     if (menu !== null) {
       menu.project.map((p) => {
-        // console.log(p.name,menuCheck)
         if(p.name === menuCheck) {
-          
           permission = true
         }
       })
     }
-    // console.log(menuCheck,permission);
     return permission
   }
 
@@ -73,10 +63,6 @@ export default function Menu() {
 
   if (role !== null && menu === null) {
     getMenu();
-  }
-
-  if (role !== null && menu !== null && projects === null) {
-    getProjects();
   }
 
   return (
@@ -175,16 +161,7 @@ export default function Menu() {
                 </ul>
               </li>
               ) : ""}
-
-
-
-
-
-
               <li className="nav-item has-treeview">
-
-
-
                 <a href="#" className="nav-link">
                   <i className="nav-icon fas fa-book" />
                   <p>
@@ -192,48 +169,69 @@ export default function Menu() {
                     <i className="right fas fa-angle-left" />
                   </p>
                 </a>
-
-
-
-
-
-                <ul className="nav nav-treeview"> 
-                {projects?.map((project) =>(
-                  <div>
-                  {(checkMenu(project.name)) ? (<li className="nav-item has-treeview">
-
-                 
-
-
+                {(checkMenu("Maintenance Fee")) ? (<ul className="nav nav-treeview">
+                  <li className="nav-item has-treeview">
                     <a href="#" className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>
-                        {project?.name}
+                        Maintenance Fee
                         <i className="right fas fa-angle-left" />
                       </p>
                     </a>
-
-
-                        {project.subMenu?.map((submenu, i) =>(
-                                    <ul className="nav nav-treeview">
-                                          <li className="nav-item">
-                                            <a href="#" className="nav-link">
-                                              <i className="far fa-dot-circle nav-icon" />
-                                              <p>{submenu}</p>
-                                            </a>
-                                          </li>
-                                    </ul>
-                        ))}
-                  
-                  </li>) : ""}
-                  </div>
-                ))}
-                </ul>
+                    <ul className="nav nav-treeview">
+                      <li className="nav-item">
+                        <a href="#" className="nav-link">
+                          <i className="far fa-dot-circle nav-icon" />
+                          <p>Healthcheck</p>
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a href="#" className="nav-link">
+                          <i className="far fa-dot-circle nav-icon" />
+                          <p>Logs</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>) : ""}
+                {(checkMenu("Datafile Mornitoring")) ? (<ul className="nav nav-treeview">
+                  <li className="nav-item has-treeview">
+                    <a href="#" className="nav-link">
+                      <i className="far fa-circle nav-icon" />
+                      <p>
+                        Datafile Mornitoring
+                        <i className="right fas fa-angle-left" />
+                      </p>
+                    </a>
+                    <ul className="nav nav-treeview">
+                      <li className="nav-item">
+                        <a href="/datafileHome" className="nav-link">
+                          <i className="far fa-dot-circle nav-icon" />
+                          <p>Home</p>
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a href="datafilePDF" className="nav-link">
+                          <i className="far fa-dot-circle nav-icon" />
+                          <p>PDF</p>
+                        </a>
+                      </li>
+                      {(checkSubMenu("Notification")) ? (<li className="nav-item">
+                        <a href="#" className="nav-link">
+                          <i className="far fa-dot-circle nav-icon" />
+                          <p>Notification</p>
+                        </a>
+                      </li>) : ""}
+                      {(checkSubMenu("Setting")) ? (<li className="nav-item">
+                        <a href="#" className="nav-link">
+                          <i className="far fa-dot-circle nav-icon" />
+                          <p>Setting</p>
+                        </a>
+                      </li>) : ""}
+                    </ul>
+                  </li>
+                </ul>) : ""}
               </li>
-
-
-
-
               <li className="nav-item has-treeview">
                 <a href="#" className="nav-link">
                   <i className="nav-icon fas fa-cogs" />
