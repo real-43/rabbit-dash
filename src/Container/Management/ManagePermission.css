@@ -10,3 +10,41 @@
     background-color: #0b5ed7;
     color: white;
 }
+
+.create-btn {
+    background-color: orange;
+    justify-self: flex-end;
+}
+
+.create-btn:hover {
+    background-color: #FF8901;
+}
+
+.top {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.top h2 {
+    font-size: x-large;
+}
+
+.CreatePermission {
+    margin: 20px;
+}
+
+.back-btn {
+    margin-bottom: 20px;
+}
+
+.del {
+    background-color: whitesmoke;
+    border: 0.5px solid rgb(138, 138, 138);
+}
+
+.del:hover {
+    background-color: #ffbdad;
+    color: #de360c;
+    border: 0.5px solid #de360c;
+}

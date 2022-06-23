@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {Form, Button}  from 'react-bootstrap';
 import './ManagePermission.css'
 import Select from 'react-select';
@@ -6,26 +6,18 @@ import makeAnimated from 'react-select/animated';
 import { collection, addDoc } from "firebase/firestore"; 
 import { db } from '../../firebase';
 import { getProjects } from '../../MyFireStore';
+import { useNavigate } from 'react-router'
 
 
 export default function CreatePermission() {
+
+    const navigate = useNavigate();
 
     const [roleName, setRoleName] = useState("");
     const [projectInput, setProjectInput] = useState([]);
     const [data, setdata] = useState([]);
     const [mockupProject, setMockUpProject] = useState([]);
-    const toSend = [];
-
-    // const mockupProject = [
-    //     {
-    //         name: "Datafile",
-    //         subMenu: ["Home", "PDF", "Setting", "Notification"]
-    //     },
-    //     {
-    //         name: "Maintenance Fee",
-    //         subMenu: ["HealthCheck", "Logs"]
-    //     }
-    // ]
+    const [toSend, setToSend] = useState([]);
 
     const optionsProject = () => {
         var names = []
@@ -34,14 +26,15 @@ export default function CreatePermission() {
             names[index] = {value: p.name, label: p.name}
             index = index + 1
         })
-        // console.log("input: ", projectInput)
         return names
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        //name: roleName
-        //project: toSend
+
+        var update = [...toSend]
+        setToSend(update)
+
         await addDoc(collection(db, "roles"), {
             name: roleName,
             project: toSend
@@ -52,6 +45,10 @@ export default function CreatePermission() {
 
     const handleChange = (event) => {
         setProjectInput(event)
+        console.log("event", event)
+        if (event.length < 1) {
+            setToSend([])
+        }
     }
 
     const subMenuOptions = (event) => {
@@ -60,7 +57,6 @@ export default function CreatePermission() {
         event.map((inp) => {
             
             mockupProject.map((moc) => {
-                console.log("in")
                 var option = []
                 var indexOption = 0
                 // if project in input
@@ -80,12 +76,13 @@ export default function CreatePermission() {
     if (mockupProject.length === 0) {
         getProjects().then((value) => {
             setMockUpProject(value)
-            console.log(value)
         })
     }
+    
     return (
         <div className='content-wrapper'>
-            <div className='ManagePermission'>
+            <div className='CreatePermission'>
+                <Button className='back-btn' onClick={navigate("/permission")} >{'<'} Back</Button>
                 <div className='create-permission'>
                     <Form>
                         <Form.Group className="mb-3">
@@ -121,12 +118,13 @@ export default function CreatePermission() {
                                                     isMulti
                                                     options={d.options}
                                                     onChange={(event) => {
-                                                        var arr = []
+                                                        var arrSubMenu = []
+                                                        var addSub = [...toSend]
                                                         event.map((e, eIndex) => {
-                                                            arr[eIndex] = e.value
+                                                            arrSubMenu[eIndex] = e.value
                                                         })
-
-                                                        toSend[index] = {name: d.name, subMenu: arr}
+                                                        addSub[index] = {name: d.name, subMenu: arrSubMenu}
+                                                        setToSend(addSub)
                                                         console.log("tosend", toSend)
                                                     }}
                                                 />
