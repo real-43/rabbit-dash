@@ -208,70 +208,72 @@ const ManageProject = () => {
     
     return (
         
-        <div className="content-wrapper" style={{padding:"20px 20px"}}>
+        <div className="content-wrapper">
             <Loading isLoading={isLoading} />
-            <form >
-                <div class="form-group row">
-                    <div class="col-xs-2">
-                        <label for="ex1">Project Management</label>
-                        <input 
-                            class="form-control" 
-                            id="ex1" 
-                            type="text" 
-                            onChange={(event) => {
-                                setProjectInfo({ ...projectInfo, name: event.target.value })
-                            }}
-                        />
-                    </div>
-                    <ChipInput 
-                        style={{paddingTop: "10px",width:"97%",marginLeft:"20px"}}
-                        classes="class1 class2"
-                        chips={submenu}
-                        onChange={(chips) => handleChip(chips)}
+            <div className='manage-project'>
+                <form >
+                    <div class="form-group row">
+                        <div class="col-xs-2">
+                            <label for="ex1">Project Management</label>
+                            <input 
+                                class="form-control" 
+                                id="ex1" 
+                                type="text" 
+                                onChange={(event) => {
+                                    setProjectInfo({ ...projectInfo, name: event.target.value })
+                                }}
+                            />
+                        </div>
+                        <ChipInput 
+                            style={{paddingTop: "10px",width:"97%",marginLeft:"20px"}}
+                            classes="class1 class2"
+                            chips={submenu}
+                            onChange={(chips) => handleChip(chips)}
 
-                    />
-                    <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create User</button> 
-                </div>
-            </form>
-            {popup()}
-            <table className="table " style={{paddingTop: "10px"}}>
-                <thead>
-                    <tr className="border align-items-center ">
-                        <th>Project ID</th>
-                        <th>Project Name</th>
-                        <th>Submenu</th>
-                        <th>Function</th>
-                    </tr>
-                </thead>
-                {projects?.map((project,index) =>{return(
-                    <tbody>
+                        />
+                        <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create User</button> 
+                    </div>
+                </form>
+                {popup()}
+                <table className="table " style={{paddingTop: "10px"}}>
+                    <thead>
                         <tr className="border align-items-center ">
-                            <td>{index+1}</td>
-                            <td>{project.name}</td>      
-                            <td>
-                                {project.subMenu?.map((submenu,index) =>{ return(
-                                    <>
-                                        <Chip label={submenu} clickable />
-                                        <div></div>
-                                    </>
-                                ) })}   
-                            </td>
-                            <td>
-                                <i 
-                                    class="fa fa-trash" 
-                                    aria-hidden="true" 
-                                    style={{cursor: "pointer"}}
-                                    onClick={(e)=>deleteProjects(project)}
-                                >
-                                </i>
-                                <Button variant="secondary" onClick={(e) =>handleEdit(project) }>
-                                    Edit
-                                </Button>
-                            </td>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Submenu</th>
+                            <th>Function</th>
                         </tr>
-                    </tbody>
-                )})} 
-            </table>           
+                    </thead>
+                    {projects?.map((project,index) =>{return(
+                        <tbody>
+                            <tr className="border align-items-center ">
+                                <td>{index+1}</td>
+                                <td>{project.name}</td>      
+                                <td>
+                                    {project.subMenu?.map((submenu,index) =>{ return(
+                                        <>
+                                            <Chip label={submenu} clickable />
+                                            <div></div>
+                                        </>
+                                    ) })}   
+                                </td>
+                                <td>
+                                    <i 
+                                        class="fa fa-trash" 
+                                        aria-hidden="true" 
+                                        style={{cursor: "pointer"}}
+                                        onClick={(e)=>deleteProjects(project)}
+                                    >
+                                    </i>
+                                    <Button variant="secondary" onClick={(e) =>handleEdit(project) }>
+                                        Edit
+                                    </Button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    )})} 
+                </table>  
+            </div>         
         </div>
     );
 }
