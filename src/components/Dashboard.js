@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="content-wrapper">
+      <div className="content-wrapper" style={{marginBottom: "60px"}}>
         {/* Content Header (Page header) */}
         <div className="content-header">
           <div className="container-fluid">
