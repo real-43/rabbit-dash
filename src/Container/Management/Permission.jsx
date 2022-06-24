@@ -8,7 +8,6 @@ import makeAnimated from 'react-select/animated';
 import { db } from '../../firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../components/Loading';
-import { async } from '@firebase/util';
 
 export default function Permission() {
 
@@ -18,19 +17,19 @@ export default function Permission() {
 
     const [allRoles, setAllRoles] = useState([]);
     const [allProjects, setAllProjects] = useState([]);
-    const [clickedRole, setClickedRole] = useState({});
+    const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
     const [isPopup, setIsPopup] = useState(false);
     const [isAdd, setIsAdd] = useState(false);
+
     const [newRoleName, setNewRoleName] = useState("");
 
-    const [proOptions, setProOptions] = useState({});
+    const [proOptions, setProOptions] = useState({}); // store options to select
 
-    const [projectInput, setProjectInput] = useState([]);
-    const [projectChange, setProjectChange] = useState([]);
+    const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
+    const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
     const getAllRolesAgain = async () => {
-
         await getRoles().then((value) => {
             setAllRoles(value)
         })
@@ -47,6 +46,7 @@ export default function Permission() {
         })
     }
 
+    // create options for user select of edit permission
     const genProjectOptions = (project) => {
         let options = []
         project.map((data, index) => {
@@ -56,6 +56,7 @@ export default function Permission() {
         return options
     }
 
+    // create options for user select of add permission
     const genAddOptions = (role) => {
         let options = []
         let index = 0
@@ -72,6 +73,7 @@ export default function Permission() {
         return options
     }
 
+    // call when click btn to close all popup
     const handleClosePopup = () => {
         if (isPopup) {
             setIsPopup(!isPopup)
@@ -107,6 +109,7 @@ export default function Permission() {
 
         setProjectChange(update)
 
+        // add new project to current role
         clickedRole.project.map((pro, index) => {
             sendPro[index] = pro
             projectChange.map((proC, proCIndex) => {
@@ -114,10 +117,8 @@ export default function Permission() {
             })
         })
 
-        console.log("Send", {project: sendPro})
-
+        // update field(project) in firestore
         const docRef = doc(db, "roles", clickedRole.id)
-
         await updateDoc(docRef, {
             "project" : sendPro
         })
@@ -132,9 +133,10 @@ export default function Permission() {
         let update = [...projectChange]
         let sendPro = []
         
+        // set value to current
         setProjectChange(update)
-        console.log("ProjectChange", projectChange)
 
+        // store new value of project to sendPro
         clickedRole.project.map((pro, index) => {
             projectChange.map((proC) => {
                 if(pro.name === proC?.name) {
@@ -145,17 +147,18 @@ export default function Permission() {
             })
         })
 
-        console.log("Send", {name: newRoleName, project: sendPro})
-
+        // update field(name and project) in document roles in firestore
         const docRef = doc(db, "roles", clickedRole.id)
-
         await updateDoc(docRef, {
             "name" : newRoleName,
             "project" : sendPro
         })
 
+        // get updated value from firestore to display
         await getAllRolesAgain()
+        // close popup and set all variable to default
         handleClosePopup()
+
         setIsLoading(false)
     }
 
