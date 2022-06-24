@@ -11,9 +11,26 @@ import DatafileHome from './Container/Projects/Datafile Morniting/Home';
 import PDF from './Container/Projects/Datafile Morniting/PDF'
 import ManagePermission from './Container/Management/CreatePermission';
 import Permission from './Container/Management/Permission';
-
+import { setUsers } from './counterSlice'
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "./firebase"
+import { useSelector, useDispatch } from 'react-redux'
 
 function App() {
+
+  const users = useSelector((state) => state.counter.users)
+  const dispatch = useDispatch()
+
+  const getUsers = async () => {
+    const usersCollectionRef = collection(db, "users");
+    const data = await getDocs(usersCollectionRef);
+    var users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    dispatch(setUsers(users))
+  };
+
+  if (users.length === 0) {
+    getUsers()
+  }
 
   const SidebarLayout = () => (
     <>

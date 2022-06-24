@@ -12,6 +12,8 @@ export default function Menu() {
   const [role, setRole] = useState(null);
   const [menu, setMenu] = useState(null);
 
+  const navigate = useNavigate();
+
   const getRole= async() => {
     const q = query(collection(db, "users"), where("email", "==", user.email));
     const querySnapshot = await getDocs(q);
