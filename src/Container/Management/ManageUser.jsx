@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {  createUserWithEmailAndPassword, sendEmailVerification, updateProfile, onAuthStateChanged, deleteUser, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
+import {  createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, deleteUser, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
 import { authSec, db } from '../../firebaseSec';
 import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
 import { auth } from '../../firebase'
@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router'
 import {
   collection,
   getDocs,
-  addDoc,
   deleteDoc,
   updateDoc,
   doc,
@@ -279,7 +278,6 @@ export default function Signup() {
   return (
     <div className="content-wrapper">
       <Loading isLoading={isLoading} />
-      <h3>Management {'>'} User</h3>
       
       <div className='input-wrapper'>
         <h4>Create New User</h4>

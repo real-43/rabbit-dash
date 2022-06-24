@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { Table } from 'react-bootstrap';
 import { getProjects, getRoles } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
-import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
+import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { async } from '@firebase/util';
 import { db } from '../../firebase';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../components/Loading';
+import { async } from '@firebase/util';
 
 export default function Permission() {
 
@@ -27,11 +27,14 @@ export default function Permission() {
     const [proOptions, setProOptions] = useState({});
 
     const [projectInput, setProjectInput] = useState([]);
+    const [projectChange, setProjectChange] = useState([]);
 
-    const getAllRolesAgain = () => {
-        getRoles().then((value) => {
+    const getAllRolesAgain = async () => {
+
+        await getRoles().then((value) => {
             setAllRoles(value)
         })
+
     }
 
     if (allRoles.length < 1) {
@@ -83,10 +86,12 @@ export default function Permission() {
     }
 
     const handleEditBtn = (role) => {
+        let options = genProjectOptions(role.project)
         setIsPopup(!isPopup)
         setClickedRole(role)
         setNewRoleName(role.name)
-        setProOptions(genProjectOptions(role.project))
+        setProOptions(options)
+        setProjectInput(options)
     }
 
     const handleAddBtn = (role) => {
@@ -95,12 +100,71 @@ export default function Permission() {
         setProOptions(genAddOptions(role))
     }
 
+    const handleSubmitAdd = async () => {
+        setIsLoading(true)
+        let sendPro = []
+        let update = [...projectChange]
+
+        setProjectChange(update)
+
+        clickedRole.project.map((pro, index) => {
+            sendPro[index] = pro
+            projectChange.map((proC, proCIndex) => {
+                sendPro[index + proCIndex + 1] = proC
+            })
+        })
+
+        console.log("Send", {project: sendPro})
+
+        const docRef = doc(db, "roles", clickedRole.id)
+
+        await updateDoc(docRef, {
+            "project" : sendPro
+        })
+
+        await getAllRolesAgain()
+        handleClosePopup()
+        setIsLoading(false)
+    }
+
+    const handleSubmitEdit = async () => {
+        setIsLoading(true)
+        let update = [...projectChange]
+        let sendPro = []
+        
+        setProjectChange(update)
+        console.log("ProjectChange", projectChange)
+
+        clickedRole.project.map((pro, index) => {
+            projectChange.map((proC) => {
+                if(pro.name === proC?.name) {
+                    sendPro[index] = proC
+                } else {
+                    sendPro[index] = pro
+                }
+            })
+        })
+
+        console.log("Send", {name: newRoleName, project: sendPro})
+
+        const docRef = doc(db, "roles", clickedRole.id)
+
+        await updateDoc(docRef, {
+            "name" : newRoleName,
+            "project" : sendPro
+        })
+
+        await getAllRolesAgain()
+        handleClosePopup()
+        setIsLoading(false)
+    }
+
     const handleDeleteBtn = async (role) => {
         setIsLoading(true)
         const roleDoc = doc(db, "roles", role.id);
         await deleteDoc(roleDoc);
         setIsLoading(false)
-        getAllRolesAgain()
+        await getAllRolesAgain()
         // window.location.reload()
     }
 
@@ -139,7 +203,7 @@ export default function Permission() {
                             
                             {(projectInput.length > 0) ? (
                                 <Form.Group className="mb-3">
-                                    {projectInput.map((pro) => {
+                                    {projectInput.map((pro, index) => {
                                         let subMenuOptions = []
                                         allProjects.map((all) => {
                                             if (all.name === pro.value) {
@@ -158,7 +222,14 @@ export default function Permission() {
                                                         isMulti
                                                         options={subMenuOptions}
                                                         onChange={(event) => {
-                                                            
+                                                            var arrSubMenu = []
+                                                            var addSub = [...projectChange]
+                                                            event.map((e, eIndex) => {
+                                                                arrSubMenu[eIndex] = e.value
+                                                            })
+                                                            addSub[index] = {name: pro.value, subMenu: arrSubMenu}
+                                                            setProjectChange(addSub)
+                                                            console.log("pro change", projectChange)
                                                         }}
                                                     />
                                                 </div>
@@ -173,7 +244,7 @@ export default function Permission() {
                         <Button variant="secondary" onClick={(e) => {handleClosePopup()}}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={(e) =>{}}>
+                        <Button variant="primary" onClick={(e) =>{handleSubmitAdd()}}>
                             Add Permission
                         </Button>
                     </Modal.Footer>
@@ -207,6 +278,7 @@ export default function Permission() {
                         <Form.Label>Select Projects</Form.Label>
                         <div className="mb-3">
                             <Select
+                                defaultValue={proOptions}
                                 closeMenuOnSelect={true}
                                 components={animatedComponents}
                                 isMulti
@@ -220,10 +292,11 @@ export default function Permission() {
 
                     {(projectInput.length > 0) ? (
                         <div>
-                            {projectInput.map((pro) => {
+                            {projectInput.map((pro, index) => {
                                 let subOptions = []
                                 let defOptions = []
                                 
+                                let projectName = ""
                                 // Set subMenu in allProjects to format => {value: "", label: ""} and keep at subOptions
                                 allProjects.map((p) => {
                                     if (pro.value === p.name) {
@@ -233,7 +306,7 @@ export default function Permission() {
                                     }
                                 })
 
-                                // Set subMenu in clickedRole(value from edit btn) to format => {value: "", label: ""} and keep at defOptions
+                                // Set subMenu in clickedRole(value form edit btn) to format => {value: "", label: ""} and keep at defOptions
                                 clickedRole.project.map((p) => {
                                     if (p.name === pro.value) {
                                         p.subMenu.map((subM, subMIndex) => {
@@ -253,7 +326,14 @@ export default function Permission() {
                                             isMulti
                                             options={subOptions}
                                             onChange={(event) => {
-                                                
+                                                var arrSubMenu = []
+                                                var addSub = [...projectChange]
+                                                event.map((e, eIndex) => {
+                                                    arrSubMenu[eIndex] = e.value
+                                                })
+                                                addSub[index] = {name: pro.value, subMenu: arrSubMenu}
+                                                setProjectChange(addSub)
+                                                console.log("pro change", projectChange)
                                             }}
                                         />
                                     </div>
@@ -269,7 +349,7 @@ export default function Permission() {
                 <Button variant="secondary" onClick={(e) => {handleClosePopup()}}>
                   Close
                 </Button>
-                <Button variant="primary" onClick={(e) =>{}}>
+                <Button variant="primary" onClick={(e) =>{handleSubmitEdit()}}>
                   Save Changes
                 </Button>
               </Modal.Footer>

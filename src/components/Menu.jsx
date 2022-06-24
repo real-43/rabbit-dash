@@ -17,8 +17,8 @@ export default function Menu() {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       setRole(doc.data())
+      console.log("role", doc.data())
     });
-    console.log("getRole")
   }
 
   const getMenu = async() => {
@@ -33,7 +33,6 @@ export default function Menu() {
   const getProjects = async () => {
     const data = await getDocs( collection(db, "projects"));
     setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    console.log(data);
   };
 
   const checkMenu = (menuCheck) => {
