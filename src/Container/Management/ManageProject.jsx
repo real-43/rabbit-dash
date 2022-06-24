@@ -5,6 +5,7 @@ import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
 import "./signup.css";
 import Chip from '@mui/material/Chip';
 import ChipInput from 'material-ui-chip-input'
+import Loading from '../../components/Loading';
 
 import {
     collection,
@@ -25,6 +26,7 @@ const ManageProject = () => {
     const [changeProject,setChangeProject] = useState(null)
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [projectInfo, setProjectInfo] = useState({ name: ''});
     const [submenu, setSubmenu] = useState([])
@@ -42,6 +44,7 @@ const ManageProject = () => {
         const data = await getDocs(projectsCollectionRef);
         setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
+
     if (projects.length==0){ 
         getProjects()
     }
@@ -50,12 +53,15 @@ const ManageProject = () => {
         const data = await getDocs(rolesCollectionRef);
         setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
+
     if (projects.length==0){ 
         getRoles()
     }
 
     const addProjects = async (e) => {
         e.preventDefault();
+
+        setIsLoading(true)
         
         var NewProject ={
             name: projectInfo.name,
@@ -70,10 +76,16 @@ const ManageProject = () => {
                 });
             }       
         });
+
+        window.location.reload()
+        setIsLoading(false)
     }
 
     const deleteProjects = async (project) => {
         const userDoc = doc(db, "projects", project.id);
+
+        setIsLoading(true)
+
         var DelProjectDetails = {
             name: project.name,
             subMenu: project.subMenu
@@ -90,10 +102,13 @@ const ManageProject = () => {
             }       
         });
        
-
+        getProjects()
+        setIsLoading(false)
     }
 
     const editProject = async (project) =>{
+
+        setIsLoading(true)
         console.log("edit",project.id)
         setIsOpen(!isOpen)
         const projectDoc = doc(db, "projects", project.id);
@@ -124,6 +139,8 @@ const ManageProject = () => {
             
                        
         });
+        getProjects()
+        setIsLoading(false)
     }
 
     const handleChip = (value) => {
@@ -192,10 +209,11 @@ const ManageProject = () => {
     return (
         
         <div className="content-wrapper" style={{padding:"20px 20px"}}>
+            <Loading isLoading={isLoading} />
             <form >
                 <div class="form-group row">
                     <div class="col-xs-2">
-                        <label for="ex1">col-xs-2</label>
+                        <label for="ex1">Project Management</label>
                         <input 
                             class="form-control" 
                             id="ex1" 

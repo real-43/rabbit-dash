@@ -62,8 +62,10 @@ export default function Signup() {
   };
 
   const getUsers = async () => {
+    setIsLoading(true)
     const data = await getDocs(usersCollectionRef);
     setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    setIsLoading(false)
   };
 
   // get all users in firestore and set to variable name "users"
@@ -140,7 +142,7 @@ export default function Signup() {
       authSec.signOut()
     })
     
-    getUsers()
+    await getUsers()
   }
 
   const ControlBlocked = async (user) => {
