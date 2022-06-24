@@ -214,13 +214,17 @@ export default function Menu() {
 
 
                         {project.subMenu?.map((submenu, i) =>(
+                          
                                     <ul className="nav nav-treeview">
+                                      {(checkSubMenu(submenu)) ? (
                                           <li className="nav-item">
                                             <a href="#" className="nav-link">
                                               <i className="far fa-dot-circle nav-icon" />
                                               <p>{submenu}</p>
                                             </a>
                                           </li>
+                                      ) : ""}
+
                                     </ul>
                         ))}
                   

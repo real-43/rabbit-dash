@@ -275,9 +275,17 @@ const ManageProject = () => {
                                         onClick={(e)=>deleteProjects(project)}
                                     >
                                     </i>
-                                    <Button variant="secondary" onClick={(e) =>handleEdit(project) }>
-                                        Edit
-                                    </Button>
+                                    <i 
+                                        class="fa fa-cogs" 
+                                        aria-hidden="true" 
+                                        style={{
+                                            cursor: "pointer",
+                                            marginLeft: "15px",
+                                        }}
+                                        onClick={(e) => handleEdit(project)}>
+
+                                    </i>
+
                                 </td>
                             </tr>
                         </tbody>
