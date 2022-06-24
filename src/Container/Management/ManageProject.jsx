@@ -92,15 +92,21 @@ const ManageProject = () => {
         }
         await deleteDoc(userDoc);
         console.log("delete",project.id)
-
         roles.map((role) =>{ 
-            if(role.name == 'Admin'){
-                updateDoc(AdminDoc,{
-                    project: arrayRemove(DelProjectDetails)
-                }); 
-                console.log("delete from admin",role.id)
-            }       
-        });
+            // console.log(role.id)
+            const roleDoc = doc(db, "roles", role.id)
+            role.project?.map((submenu) =>{
+                // console.log(submenu.name)
+                if(submenu.name === project.name){
+                    // console.log(submenu.name)
+                    updateDoc(roleDoc,{
+                        project: arrayRemove(DelProjectDetails)
+                    });
+                }      
+            })
+                
+        }); 
+        
        
         getProjects()
         setIsLoading(false)
@@ -119,26 +125,30 @@ const ManageProject = () => {
         });
 
         roles.map((role) =>{ 
-            if(role.name == 'Admin'){
-               
-                updateDoc(AdminDoc,{
-                    project: arrayRemove({
-                        name: project.name,
-                        subMenu: project.subMenu
-                    })
-                });  
-                console.log("delete")
-                updateDoc(AdminDoc,{
-                    project: arrayUnion({
-                        name: newProjectName,
-                        subMenu: submenu[submenu.length - 1] 
-                    })
-                });   
-                console.log("add")
-            }    
-            
+            const roleDoc = doc(db, "roles", role.id)
+            role.project?.map((proJ) =>{
+                // console.log(submenu.name)
+                if(proJ.name === project.name){
+                    updateDoc(roleDoc,{
+                        project: arrayRemove({
+                            name: project.name,
+                            subMenu: project.subMenu
+                        })
+                    });  
+                    console.log("delete")
+                    console.log(newProjectName,submenu )
+                    updateDoc(roleDoc,{
+                        project: arrayUnion({
+                            name: newProjectName,
+                            subMenu: submenu[submenu.length - 1] 
+                        })
+                    });   
+                    console.log("add")
+                }    
+            })
                        
         });
+
         getProjects()
         setIsLoading(false)
     }
