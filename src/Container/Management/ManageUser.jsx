@@ -187,6 +187,7 @@ export default function Signup() {
     })
 
     setIsLoading(false);
+    setUserInfo({ name: '', email: '', password: '' })
     getUsers();
   };
 
@@ -209,22 +210,6 @@ export default function Signup() {
     } else {
       x.type = "password";
     }
-  }
-
-  function updateUI() {
-    setIsLoading(true)
-    setInterval(() => {
-      console.log("Updating UI")
-      const getUsers = async () => {
-        const data = await getDocs(usersCollectionRef);
-        setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        
-      };
-    
-    console.log("getUsers: ",users)
-    getUsers();
-    setIsLoading(false)
-    }, 200)
   }
 
   // Popup input to chnage password or name
@@ -302,6 +287,7 @@ export default function Signup() {
         <div className='input-container'>
           <input className='input-register'
             placeholder="Name..."
+            value={userInfo.name}
             onChange={(event) => {
               setUserInfo({ ...userInfo, name: event.target.value })
             }}
@@ -309,6 +295,7 @@ export default function Signup() {
           <input className='input-register'
             type="Email"
             placeholder="Email..."
+            value={userInfo.email}
             onChange={(event) => {
               setUserInfo({ ...userInfo, email: event.target.value })
             }}
@@ -316,6 +303,7 @@ export default function Signup() {
           <input className='input-register'
             type="Password"
             placeholder="Password..."
+            value={userInfo.password}
             onChange={(event) => {
               setUserInfo({ ...userInfo, password: event.target.value })
             }}
