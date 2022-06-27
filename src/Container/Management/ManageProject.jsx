@@ -224,7 +224,7 @@ const ManageProject = () => {
                 <form >
                     <div class="form-group row">
                         <div class="col-xs-2">
-                            <label for="ex1">Project Management</label>
+                            <label for="ex1" style={{paddingBottom: '20px'}}>Project Management</label>
                             <input 
                                 class="form-control" 
                                 id="ex1" 
@@ -232,6 +232,8 @@ const ManageProject = () => {
                                 onChange={(event) => {
                                     setProjectInfo({ ...projectInfo, name: event.target.value })
                                 }}
+                                placeholder="Project Name"
+                                
                             />
                         </div>
                         <ChipInput 
@@ -239,9 +241,10 @@ const ManageProject = () => {
                             classes="class1 class2"
                             chips={submenu}
                             onChange={(chips) => handleChip(chips)}
+                            placeholder="Submenu..."
 
                         />
-                        <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create User</button> 
+                        <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create Project</button> 
                     </div>
                 </form>
                 {popup()}
