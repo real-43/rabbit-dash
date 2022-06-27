@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Table } from 'react-bootstrap';
-import { getProjects, getRoles } from '../../MyFireStore';
+import { getProjects, getRoles, getUsers } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
@@ -17,6 +17,7 @@ export default function Permission() {
 
     const [allRoles, setAllRoles] = useState([]);
     const [allProjects, setAllProjects] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
     const [isPopup, setIsPopup] = useState(false);
@@ -28,6 +29,12 @@ export default function Permission() {
 
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
+    
+    const getAllUsers = async () => {
+        await getUsers().then((value) => {
+            setAllUsers(value)
+        })
+    }
 
     const getAllRolesAgain = async () => {
         await getRoles().then((value) => {
@@ -38,6 +45,7 @@ export default function Permission() {
 
     if (allRoles.length < 1) {
         getAllRolesAgain()
+        getAllUsers()
     }
 
     if (allProjects.length < 1) {
@@ -129,7 +137,6 @@ export default function Permission() {
     }
 
     const handleSubmitEdit = async () => {
-        setIsPopup(!isPopup)
         setIsLoading(true)
         let update = [...projectChange]
         let sendPro = []
@@ -165,11 +172,21 @@ export default function Permission() {
 
     const handleDeleteBtn = async (role) => {
         setIsLoading(true)
+
         const roleDoc = doc(db, "roles", role.id);
         await deleteDoc(roleDoc);
+
+        allUsers.map((user) => {
+            if (user.role === role.name) {
+                const docRef = doc(db, "users", user.id)
+                updateDoc(docRef, {
+                    "role" : "",
+                })
+            }
+        })
+
         setIsLoading(false)
         await getAllRolesAgain()
-        // window.location.reload()
     }
 
     function popupAdd() {
