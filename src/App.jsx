@@ -49,8 +49,8 @@ function App() {
           <Route path='/dashboard' element={<Dash/>} />
           <Route path='/managementUser' element={<SignupPage/>} />
           <Route path='/managementProject' element={<ManagePro/>} />
-          <Route path='/datafileHome' element={<DatafileHome/>}  />
-          <Route path='/datafilePDF' element={<PDF/>}  />
+          <Route path='/Datafile%20MonitoringHome' element={<DatafileHome/>}  />
+          <Route path='/Datafile%20MonitoringPDF' element={<PDF/>}  />
           <Route path='/permission' element={<Permission/>} />
           <Route path='/CreatePermission' element={<ManagePermission/>} />
         </Route>
