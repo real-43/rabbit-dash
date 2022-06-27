@@ -237,7 +237,7 @@ const ManageProject = () => {
                             />
                         </div>
                         <ChipInput 
-                            style={{paddingTop: "10px",width:"97%",marginLeft:"20px"}}
+                            style={{paddingTop: "10px",width:"97.5%",marginLeft:"20px"}}
                             classes="class1 class2"
                             chips={submenu}
                             onChange={(chips) => handleChip(chips)}

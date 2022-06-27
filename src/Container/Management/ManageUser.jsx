@@ -182,7 +182,7 @@ export default function Signup() {
       email: userInfo.email,
       password: userInfo.password,
       isBlocked: false,
-      role: "staff"
+      role: ""
     })
 
     setIsLoading(false);

@@ -33,7 +33,6 @@ export default function CreatePermission() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         setIsLoading(true)
 
         var update = [...toSend]

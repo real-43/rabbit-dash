@@ -129,6 +129,7 @@ export default function Permission() {
     }
 
     const handleSubmitEdit = async () => {
+        setIsPopup(!isPopup)
         setIsLoading(true)
         let update = [...projectChange]
         let sendPro = []
