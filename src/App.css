@@ -49,3 +49,7 @@
         max-width: 100% !important;
     }
 }
+
+.content-wrapper {
+    background-color: inherit !important
+}
