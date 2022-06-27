@@ -6,6 +6,7 @@ import "./signup.css";
 import Chip from '@mui/material/Chip';
 import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
+import Stack from '@mui/material/Stack';
 
 import {
     collection,
@@ -263,12 +264,11 @@ const ManageProject = () => {
                                 <td>{index+1}</td>
                                 <td>{project.name}</td>      
                                 <td>
-                                    {project.subMenu?.map((submenu,index) =>{ return(
-                                        <>
-                                            <Chip label={submenu} clickable />
-                                            <div></div>
-                                        </>
-                                    ) })}   
+                                    <Stack direction="row" spacing={1}>
+                                        {project.subMenu?.map((submenu,index) =>{ return(
+                                            <Chip label={submenu} clickable/>
+                                        ) })}  
+                                    </Stack> 
                                 </td>
                                 <td>
                                     <i 
