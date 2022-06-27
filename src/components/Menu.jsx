@@ -201,18 +201,19 @@ export default function Menu() {
                 <ul className="nav nav-treeview"> 
                 {projects?.map((project) =>(
                   <div>
-                  {(checkMenu(project.name)) ? (<li className="nav-item has-treeview">
+                  {(checkMenu(project.name)) ? (
+                    <li className="nav-item has-treeview">
 
                  
 
 
-                    <a href="#" className="nav-link">
-                      <i className="far fa-circle nav-icon" />
-                      <p>
-                        {project?.name}
-                        <i className="right fas fa-angle-left" />
-                      </p>
-                    </a>
+                      <a href="#" className="nav-link">
+                        <i className="far fa-circle nav-icon" />
+                        <p>
+                          {project?.name}
+                          <i className="right fas fa-angle-left" />
+                        </p>
+                      </a>
 
 
                         {project.subMenu?.map((submenu, i) =>(
@@ -220,7 +221,7 @@ export default function Menu() {
                                     <ul className="nav nav-treeview">
                                       {(checkSubMenu(submenu)) ? (
                                           <li className="nav-item">
-                                            <a href="#" className="nav-link">
+                                            <a href={`${project.name}${submenu}`} className="nav-link">
                                               <i className="far fa-dot-circle nav-icon" />
                                               <p>{submenu}</p>
                                             </a>
@@ -230,7 +231,8 @@ export default function Menu() {
                                     </ul>
                         ))}
                   
-                  </li>) : ""}
+                    </li>
+                  ) : ""}
                   </div>
                 ))}
                 </ul>
