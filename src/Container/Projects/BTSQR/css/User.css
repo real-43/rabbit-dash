@@ -1,0 +1,79 @@
+.monitor-user {
+    background-color: #F78F1E;
+}
+
+.table {
+    margin-top: 0.5rem;
+}
+
+table th {
+    text-align: center;
+    background-color: yellowgreen;
+}
+
+table tr td:nth-child(1),
+table tr td:nth-child(3),
+table tr td:nth-child(4),
+table tr td:nth-child(5){
+  text-align: center;
+}
+
+.img-action {
+  cursor: pointer;
+  width: 30px;
+}
+.img-action:nth-child(2){
+  margin-left: 0.5rem;
+}
+
+  
+/* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (max-width: 768px) {
+    .welcomeText {
+        color: white;
+        font-weight: bold;
+        font-size:30px;
+      }
+      .box-img {
+        width: 120px;
+        margin-left: 20px;
+      }
+  }
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .welcomeText {
+        color: white;
+        font-weight: bold;
+        font-size:50px;
+      }
+      .box-img {
+        width: 120px;
+        margin-left: 20px;
+      }
+  } 
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+      .welcomeText {
+        color: white;
+        font-weight: bold;
+        font-size:70px;
+      }
+      .box-img {
+        width: 150px;
+        margin-left: 20px;
+      }
+  } 
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .welcomeText {
+      color: white;
+      font-weight: bold;
+      font-size: 90px;
+    }
+    .box-img {
+      width: 170px;
+      margin-left: 20px;
+    }
+  }

@@ -56,7 +56,7 @@ export const getProject = async (projectName) => {
     return project
 }
 
-export const getUser = async (uid = String) => {
+export const getUser = async (uid) => {
     var user = null
     const docRef = doc(db, "users", uid)
     const docSnap = await getDoc(docRef)

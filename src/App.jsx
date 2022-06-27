@@ -10,7 +10,7 @@ import {Route,Routes, Outlet} from 'react-router-dom';
 import DatafileHome from './Container/Projects/Datafile Morniting/Home';
 import PDF from './Container/Projects/Datafile Morniting/PDF'
 import ManagePermission from './Container/Management/CreatePermission';
-import Permission from './Container/Management/Permission';
+import Permission from './Container/Management/PermissionForAdmin';
 import { setUsers } from './counterSlice'
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase"

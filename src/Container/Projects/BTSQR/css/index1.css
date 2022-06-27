@@ -1,0 +1,46 @@
+.center {
+    text-align: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+}
+
+.input-groups{
+    width: 300px !important;
+    margin-bottom: 10px !important;
+}
+
+.formGroup {
+    padding-top: 100px;
+    padding-left: 50px;
+
+}
+.bgLogin {
+    border-radius: 120px 15px;
+      background-image: url("../images/rabbit-bg-login.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      vertical-align: middle;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+}
+.test3 {
+    position: center;
+    width:200px;
+    float:left;
+    margin-right:100px;
+    text-align:center;
+}
+.test4 {
+    position: center;
+    width:20px;
+    float:left;
+    margin-right:100px;
+    text-align:center;
+    min-height:100px;
+    padding:50px;
+}

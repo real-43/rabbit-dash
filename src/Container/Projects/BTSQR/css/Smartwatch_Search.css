@@ -1,0 +1,53 @@
+.monitor-smartwatch {
+    background-color: #F78F1E;
+  }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (max-width: 768px) {
+    .welcomeText {
+        color: white;
+        font-weight: bold;
+        font-size:30px;
+      }
+      .box-img {
+        width: 120px;
+        margin-left: 20px;
+      }
+  }
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .welcomeText {
+        color: white;
+        font-weight: bold;
+        font-size:50px;
+      }
+      .box-img {
+        width: 120px;
+        margin-left: 20px;
+      }
+  } 
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+      .welcomeText {
+        color: white;
+        font-weight: bold;
+        font-size:70px;
+      }
+      .box-img {
+        width: 150px;
+        margin-left: 20px;
+      }
+  } 
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .welcomeText {
+      color: white;
+      font-weight: bold;
+      font-size: 90px;
+    }
+    .box-img {
+      width: 170px;
+      margin-left: 20px;
+    }
+  }
