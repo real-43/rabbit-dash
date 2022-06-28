@@ -200,7 +200,7 @@ const Search = () => {
                 <th className="p17-5" style={{ width: "7%" }}>
                     QR type
                 </th>
-                <th className="p17-5" style={{ width: "15%" }}>
+                <th className="p17-5" style={{ width: "30%" }}>
                     Create Date
                     <Date_range_picker func_setSelect={func_setSelectDate} setformdate={setFormDate} settodate={setToDate}/>
                 </th>
@@ -309,8 +309,8 @@ const Search = () => {
     return (
         <div className="content-wrapper">
             {/* <Header /> */}
-            <div className="Search" style={{ background: 'orange', padding: '1rem' }}>
-                <div className="justify-content-center col-11 mx-auto">
+            <div className="Search" >
+                <div className="justify-content-center mx-auto">
                     <form className="Search" onSubmit={handleSubmit(mySubmitHandler)}>
                             {/* <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="formDate" style={{ borderRadius: '20px' }} value={FormDate} onChange={(e) => setFormDate(e.target.value)} /></div>
                             <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="toDate" style={{ borderRadius: '20px' }} value={ToDate} onChange={(e) => setToDate(e.target.value)} /></div> */}
@@ -318,7 +318,7 @@ const Search = () => {
                     </form>
                 </div>
             </div>
-            <div className="container-fuild col-11 mx-auto">
+            <div className="container-fuild mx-auto">
                 <div className="mt-3 w-100">
                     {/* <form className="" onSubmit={handleSubmit(mySubmitHandler)}>
                         <div className="input-group justify-content-center">
