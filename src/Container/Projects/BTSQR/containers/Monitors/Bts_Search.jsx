@@ -171,7 +171,7 @@ const Search = () => {
 
     const table = () => {
         return (
-            <table className="table table-responsive-sm table-bordered table-striped text-center">
+            <table className="table table-responsive-sm table-bordered table-striped text-center" style={{width: '100%'}}>
                 <thead className="table-primary">
                     {tableHeader()}
                 </thead>
@@ -200,7 +200,7 @@ const Search = () => {
                 <th className="p17-5" style={{ width: "7%" }}>
                     QR type
                 </th>
-                <th className="p17-5" style={{ width: "30%" }}>
+                <th className="p17-5" style={{ width: "15%" }}>
                     Create Date
                     <Date_range_picker func_setSelect={func_setSelectDate} setformdate={setFormDate} settodate={setToDate}/>
                 </th>
