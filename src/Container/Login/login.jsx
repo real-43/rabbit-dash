@@ -8,27 +8,21 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
-import { signInWithEmailAndPassword, signInWithPopup, signOut, deleteUser } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth,provider } from '../../firebase';
 import './login.css'
-import { authSec, db } from '../../firebaseSec';
+import { db } from '../../firebaseSec';
 import {
   collection,
   getDocs,
-  addDoc,
-  deleteDoc,
   updateDoc,
   doc,
 } from "firebase/firestore";
-
-import { useSelector, useDispatch } from 'react-redux'
-import { setName } from '../../counterSlice';
 
 const comp_form = "@rabbit.co.th";
 const theme = createTheme();
 export default function Login() {
 
-  const dispatch = useDispatch()
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const navigate = useNavigate();
@@ -104,7 +98,6 @@ export default function Login() {
         .then(userInformation => {
           console.log(userInformation);
           console.log(userInfo.email);
-          dispatch(setName(userInfo.email))
           if (userInfo.email.includes(comp_form)){
             navigate('/dashboard')
           }

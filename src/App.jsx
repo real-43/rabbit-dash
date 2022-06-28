@@ -17,26 +17,20 @@ import CreatePermissionAdmin from './Container/Management/CreatePermissionAdmin'
 import CreatePermissionOthers from './Container/Management/CreatePermissionOthers';
 import Permission from './Container/Management/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/PermissionForOthers';
-import { setUsers } from './counterSlice'
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase"
 import { useSelector, useDispatch } from 'react-redux'
 
 function App() {
 
-  const users = useSelector((state) => state.counter.users)
+  // const users = useSelector((state) => state.counter.users)
   const dispatch = useDispatch()
 
   const getUsers = async () => {
     const usersCollectionRef = collection(db, "users");
     const data = await getDocs(usersCollectionRef);
     var users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    dispatch(setUsers(users))
   };
-
-  if (users.length === 0) {
-    getUsers()
-  }
 
   const SidebarLayout = () => (
     <>

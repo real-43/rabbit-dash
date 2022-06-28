@@ -12,12 +12,15 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-
+import { useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
 
 import './signup.css'
 
 export default function Signup() {
+
+  const asdf = useSelector((state) => state.counter.allUsers)
+  console.log("testtttttttttttt", asdf)
 
   const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});

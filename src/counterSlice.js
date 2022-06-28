@@ -2,32 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import { auth } from "./firebase"
 
 const initialState = {
-    value: 0,
-    name: auth.currentUser,
-    users: [],
+    allUsers: [],
+    allProjects: [],
+    allRoles: [],
 }
 
 export const counterSlice = createSlice({
     name: "counter",
     initialState,
     reducers: {
-        increment: (state) => {
-            state.value += 1
+        defindAllUsers: (state, action) => {
+            state.allUsers = action.payload
         },
-        decrement: (state) => {
-            state.value -= 1
+        defindAllProjects: (state, action) => {
+            state.allProjects = action.payload
         },
-        addvalue: (state, action) => {
-            state.name = action.payload
-        },
-        setUsers: (state, action) => {
-            state.users = action.payload
-        },
-        setName: (state, action) => {
-            state.name = action.payload
+        defindAllRoles: (state, action) => {
+            state.allRoles = action.payload
         }
     }
 })
 
-export const { increment, decrement, addvalue, setUsers, setName } = counterSlice.actions;
+export const { defindAllUsers, defindAllProjects, defindAllRoles } = counterSlice.actions;
 export default counterSlice.reducer;
