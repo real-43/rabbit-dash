@@ -1,12 +1,14 @@
-import React, {useState,useEffect}from 'react';
-import { authSec, db } from '../../firebaseSec';
-import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
+import React, {useState}from 'react';
+import { db } from '../../firebaseSec';
+import { auth } from '../../firebase';
+import {Modal, Form, Button}  from 'react-bootstrap';
 // import Table from 'react-bootstrap';
 import "./signup.css";
 import Chip from '@mui/material/Chip';
 import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
 import Stack from '@mui/material/Stack';
+import * as GG from '../../MyFireStore';
 
 import {
     collection,
@@ -15,13 +17,20 @@ import {
     deleteDoc,
     updateDoc,
     doc,
-    setDoc,
+    getDoc,
     arrayUnion,
-    arrayRemove
+    arrayRemove,
+    where, query
   } from "firebase/firestore";
-  
+
+
+
+ 
   
 const ManageProject = () => {
+
+    const user = auth.currentUser 
+    
     const [newProjectName,setNewProjectName] = useState("")
     const [newSubM,setNewSubM] = useState([])
     const [changeProject,setChangeProject] = useState(null)
@@ -46,7 +55,7 @@ const ManageProject = () => {
         setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
-    if (projects.length==0){ 
+    if (projects.length===0){ 
         getProjects()
     }
 
@@ -55,7 +64,7 @@ const ManageProject = () => {
         setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
-    if (projects.length==0){ 
+    if (projects.length===0){ 
         getRoles()
     }
 
@@ -71,11 +80,11 @@ const ManageProject = () => {
 
         await addDoc(collection(db, "projects"), NewProject);
         roles.map((role) =>{ 
-            if(role.name == 'Admin'){
+            if(role.name === 'Admin'){
                 updateDoc(AdminDoc,{
                     project: arrayUnion(NewProject)
                 });
-            }       
+            }   
         });
 
         window.location.reload()
@@ -169,7 +178,28 @@ const ManageProject = () => {
         setChangeProject(project)
         console.log()
     }
+    const [projectName,setProjectName] =  useState([])
 
+    const getProjectPermission = () =>{
+        const uid = user?.uid  
+        var userinfo = GG.getUser(uid).then((value) => {
+            return value
+        })
+       
+        roles.map(role =>{
+            console.log("9999999999999999999999999999999999999999",role.Management.Project,userinfo.name)  
+            if (role.name === userinfo.role ){ 
+                          
+                setProjectName(role.Management.Project)
+                
+            }
+        })
+    } 
+    if (projectName.length===0 && user !== null){
+        getProjectPermission()
+    }
+  
+    
 
     function popup() {
         return (isOpen) ? (
@@ -195,7 +225,6 @@ const ManageProject = () => {
                     >
                     <ChipInput 
                         style={{paddingTop: "10px",width: "100%",}}
-                        classes="class1 class2"
                         defaultValue={newSubM}
                         chips={submenu}
                         onChange={(chips) => handleChip(chips)}                  
@@ -239,7 +268,6 @@ const ManageProject = () => {
                         </div>
                         <ChipInput 
                             style={{paddingTop: "10px",width:"97.5%",marginLeft:"20px"}}
-                            classes="class1 class2"
                             chips={submenu}
                             onChange={(chips) => handleChip(chips)}
                             placeholder="Submenu..."
@@ -258,14 +286,14 @@ const ManageProject = () => {
                             <th>Function</th>
                         </tr>
                     </thead>
-                    {projects?.map((project,index) =>{return(
+                    {projects.filter(project => project.name === projectName[0]).map((filproject,index) =>{return(
                         <tbody>
                             <tr className="border align-items-center ">
                                 <td>{index+1}</td>
-                                <td>{project.name}</td>      
+                                <td>{filproject.name}</td>      
                                 <td>
                                     <Stack direction="row" spacing={1}>
-                                        {project.subMenu?.map((submenu,index) =>{ return(
+                                        {filproject.subMenu?.map((submenu,index) =>{ return(
                                             <Chip label={submenu} clickable/>
                                         ) })}  
                                     </Stack> 
@@ -275,7 +303,7 @@ const ManageProject = () => {
                                         class="fa fa-trash" 
                                         aria-hidden="true" 
                                         style={{cursor: "pointer"}}
-                                        onClick={(e)=>deleteProjects(project)}
+                                        onClick={(e)=>deleteProjects(filproject)}
                                     >
                                     </i>
                                     <i 
@@ -285,7 +313,7 @@ const ManageProject = () => {
                                             cursor: "pointer",
                                             marginLeft: "15px",
                                         }}
-                                        onClick={(e) => handleEdit(project)}>
+                                        onClick={(e) => handleEdit(filproject)}>
 
                                     </i>
 

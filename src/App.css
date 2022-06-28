@@ -97,8 +97,17 @@
 .table-primary th,
 .table-primary thead th {
     border-color: #d3d3d3c9 !important;
+    border-bottom: 1px solid #000000 !important;
 }
 
 .table-bordered>:not(caption)>*>* {
     border-width: 1px 1px !important;
+}
+
+.btn-success {
+    color: rgb(0, 0, 0) !important;
+    background-color: #ffffff !important;
+    border-color: #b0b0b075 !important;
+    margin-left: 0 !important;
+    margin-top: 10px;
 }
