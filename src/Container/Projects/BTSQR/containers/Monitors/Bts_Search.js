@@ -183,12 +183,27 @@ const Search = () => {
     const tableHeader = () => {
         return (
             <tr>
+                
                 <th className="p17-5" style={{ width: "5%" }}>#</th>
-                <th className="p17-5" style={{ width: "13%" }}>Station</th>
-                <th className="p17-5" style={{ width: "10%" }}>Terminal Code</th>
-                <th className="p17-5" style={{ width: "15%" }}>Referent Number</th>
-                <th className="p17-5" style={{ width: "7%" }}>QR type</th>
-                <th className="p17-5" style={{ width: "15%" }}>Create Date</th>
+                <th className="p17-5" style={{ width: "13%" }}>
+                    Station
+                    <div className="align-self-center" style={{ marginLeft: '10px' }}><Select func_setSelect={func_setSelect} setState={setStationCode} placeholder={'Station'} options={stationList} /></div>
+                </th>
+                <th className="p17-5" style={{ width: "10%" }}>
+                    Terminal Code
+                    <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="text" name="terminalId" style={{ borderRadius: '4px', fontWeight: 'bold' }} placeholder='Terminal' onChange={(e) => setTerminalId(e.target.value)} /></div>
+                </th>
+                <th className="p17-5" style={{ width: "15%" }}>
+                    Referent Number
+                    <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="text" name="refNumber" style={{ borderRadius: '4px', fontWeight: 'bold' }} placeholder='Reference number' onChange={(e) => setRefNumber(e.target.value)} /></div>
+                </th>
+                <th className="p17-5" style={{ width: "7%" }}>
+                    QR type
+                </th>
+                <th className="p17-5" style={{ width: "15%" }}>
+                    Create Date
+                    <Date_range_picker func_setSelect={func_setSelectDate} setformdate={setFormDate} settodate={setToDate}/>
+                </th>
                 <th className="p17-5" style={{ width: "6%" }}>Amount</th>
                 <th className="p17-5" style={{ width: "14%" }}>Payment</th>
                 <th className="p17-5" style={{ width: "14%" }}>confirm</th>
@@ -293,20 +308,12 @@ const Search = () => {
 
     return (
         <div className="container-fuild">
-            <Header />
             <div className="Search" style={{ background: 'orange', padding: '1rem' }}>
                 <div className="justify-content-center col-11 mx-auto">
                     <form className="Search" onSubmit={handleSubmit(mySubmitHandler)}>
-                        <div className="input-group justify-content-center row">
-                            <div className="align-self-center" style={{ marginLeft: '10px', width: '280px' }}><Select func_setSelect={func_setSelect} setState={setStationCode} placeholder={'Station'} options={stationList} /></div>
-                            <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="text" name="terminalId" style={{ borderRadius: '20px', fontWeight: 'bold', width: '250px' }} placeholder='Terminal' onChange={(e) => setTerminalId(e.target.value)} /></div>
-                            <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="text" name="refNumber" style={{ borderRadius: '20px', fontWeight: 'bold', width: '250px' }} placeholder='Reference number' onChange={(e) => setRefNumber(e.target.value)} /></div>
-
-                            <Date_range_picker func_setSelect={func_setSelectDate} setformdate={setFormDate} settodate={setToDate}/>
                             {/* <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="formDate" style={{ borderRadius: '20px' }} value={FormDate} onChange={(e) => setFormDate(e.target.value)} /></div>
                             <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="toDate" style={{ borderRadius: '20px' }} value={ToDate} onChange={(e) => setToDate(e.target.value)} /></div> */}
                             <button className="btn btn-success align-self-center" style={{ marginLeft: 5, height: 38 }} type="submit">Search</button>
-                        </div>
                     </form>
                 </div>
             </div>
