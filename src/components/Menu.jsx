@@ -3,7 +3,7 @@ import "./Menu.css";
 import { auth, db } from '../firebase';
 import { getDoc, doc, getDocs, collection, where, query } from "firebase/firestore";
 import { signOut } from 'firebase/auth'
-import { useNavigate } from 'react-router'
+import { useNavigate } from "react-router-dom";
 import { async } from "@firebase/util";
 
 export default function Menu() {
@@ -27,9 +27,8 @@ export default function Menu() {
     const q = query(collection(db, "roles"), where("name", "==", role.role));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      setMenu(doc.data())
+      setMenu(doc?.data())
     });
-    console.log("getMenu")
   }
 
   const getProjects = async () => {
@@ -70,7 +69,6 @@ export default function Menu() {
     return permission
   }
 
-  const router = useNavigate();
   const user = auth.currentUser || {email: ""};
 
   if (role === null) {
@@ -141,7 +139,7 @@ export default function Menu() {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
-                    <a href="/managementProject" className="nav-link">
+                    <a onClick={() => navigate('/managementProject')} className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>
                         Project
@@ -151,7 +149,7 @@ export default function Menu() {
                 </ul>
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
-                    <a href="/managementUser" className="nav-link">
+                    <a onClick={() => navigate('/managementUser')} className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>
                         User
@@ -161,7 +159,7 @@ export default function Menu() {
                 </ul>
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
-                    <a href="/permission" className="nav-link">
+                    <a onClick={() => navigate('/permission')} className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>
                         Permission
@@ -226,7 +224,7 @@ export default function Menu() {
                                     <ul className="nav nav-treeview">
                                       {(checkSubMenu(submenu)) ? (
                                           <li className="nav-item">
-                                            <a href={`${project.name}${submenu}`} className="nav-link">
+                                            <a onClick={() => navigate(`${project.name}${submenu}`)} className="nav-link">
                                               <i className="far fa-dot-circle nav-icon" />
                                               <p>{submenu}</p>
                                             </a>
