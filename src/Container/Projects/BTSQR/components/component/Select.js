@@ -2,7 +2,7 @@ import Select from 'react-select';
 
 const Selects = (props) => {
     const style = {
-        control: styles => ({ ...styles, backgroundColor: 'white', borderRadius: '20px',fontWeight: 500, paddingLeft: '10px', fontSize: '17.5px', height:'40px' }),
+        control: styles => ({ ...styles, backgroundColor: 'white', borderRadius: '4px',fontWeight: 500, paddingLeft: '10px', fontSize: '17.5px', height:'38px' }),
         option: (styles, { isFocused, isSelected }) => {
             return {
                 ...styles,
