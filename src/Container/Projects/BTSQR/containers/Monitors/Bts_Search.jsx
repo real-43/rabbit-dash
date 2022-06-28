@@ -308,7 +308,7 @@ const Search = () => {
         <div className="content-wrapper">
             {/* <Header /> */}
             <div className="Search" >
-                <div className="justify-content-center mx-auto">
+                <div className="justify-content-center mx-4">
                     <form className="Search" onSubmit={handleSubmit(mySubmitHandler)}>
                             {/* <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="formDate" style={{ borderRadius: '20px' }} value={FormDate} onChange={(e) => setFormDate(e.target.value)} /></div>
                             <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="toDate" style={{ borderRadius: '20px' }} value={ToDate} onChange={(e) => setToDate(e.target.value)} /></div> */}
@@ -316,7 +316,7 @@ const Search = () => {
                     </form>
                 </div>
             </div>
-            <div className="container-fuild mx-auto">
+            <div className="container-fuild mx-4">
                 <div className="mt-3 w-100">
                     {/* <form className="" onSubmit={handleSubmit(mySubmitHandler)}>
                         <div className="input-group justify-content-center">
