@@ -19,7 +19,7 @@ import './signup.css'
 
 export default function Signup() {
 
-  const asdf = useSelector((state) => state.counter.allUsers)
+  const asdf = useSelector((state) => state.firebase.currentUser)
   console.log("testtttttttttttt", asdf)
 
   const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' });

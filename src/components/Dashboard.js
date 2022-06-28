@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase'
 import { useDispatch } from 'react-redux'
 import { getProjects, getUsers, getRoles } from "../MyFireStore";
-import { defindAllProjects, defindAllRoles, defindAllUsers } from "../counterSlice";
+import { defindAllProjects, defindAllRoles, defindAllUsers, defindCurrentUser } from "../firebaseSlice";
 
 
 export default function Dashboard() {

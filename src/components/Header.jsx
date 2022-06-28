@@ -3,10 +3,14 @@ import { useNavigate } from 'react-router'
 import './Header.css'
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase';
+import { useDispatch } from 'react-redux';
+import { defindCurrentUser } from '../firebaseSlice';
 
 export default function Header() {
 
   const router = useNavigate();
+  const dispatch = useDispatch();
+
   const user = auth.currentUser || {email: ""};
   const userName = user.displayName || user.email.split('@')[0]
 
@@ -17,6 +21,10 @@ export default function Header() {
     }).catch((error) => {
       router('/dashboard')
     });
+  }
+
+  if (user.email !== "") {
+    dispatch(defindCurrentUser(user))
   }
 
   return (
