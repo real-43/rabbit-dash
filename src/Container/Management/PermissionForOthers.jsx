@@ -52,9 +52,13 @@ export default function PermissionForOthers() {
     }
 
     const getAllRolesAgain = async () => {
-        let roles = 
+        let roles = {}
         await getRoles().then((value) => {
-            setAllRoles(value)
+            value.map((r) => {
+                if (r.Management.permission[0] === currentUserRole.Management.permission[0]) {
+                    roles = {...roles, r}
+                }
+            })
         })
 
     }
