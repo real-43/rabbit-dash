@@ -33,6 +33,7 @@ export default function CreatePermission() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         setIsLoading(true)
 
         var update = [...toSend]
@@ -40,7 +41,8 @@ export default function CreatePermission() {
 
         await addDoc(collection(db, "roles"), {
             name: roleName,
-            project: toSend
+            project: toSend,
+            Management: {Permission: [toSend[0].name], Project: [toSend[0].name], Services: [toSend[0].name]}
         });
         setIsLoading(false)
         window.location.reload()
@@ -88,7 +90,7 @@ export default function CreatePermission() {
         <div className='content-wrapper'>
             <Loading isLoading={isLoading} />
             <div className='CreatePermission'>
-                <button className='back-btn' >{'<'} <a onClick={() => navigate("/permission")}>Back</a></button>
+                <button className='back-btn' >{'<'} <a onClick={() => navigate('/permission')}>Back</a></button>
                 <div className='create-permission'>
                     <Form>
                         <Form.Group className="mb-3">
