@@ -13,7 +13,8 @@ import Footer from './components/Footer';
 import {Route,Routes, Outlet} from 'react-router-dom';
 import DatafileHome from './Container/Projects/Datafile Morniting/Home';
 import PDF from './Container/Projects/Datafile Morniting/PDF'
-import ManagePermission from './Container/Management/CreatePermission';
+import CreatePermissionAdmin from './Container/Management/CreatePermissionAdmin';
+import CreatePermissionOthers from './Container/Management/CreatePermissionOthers';
 import Permission from './Container/Management/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/PermissionForOthers';
 import { setUsers } from './counterSlice'
@@ -54,9 +55,12 @@ function App() {
           <Route path='/dashboard' element={<Dash/>} />
           <Route path='/managementUser' element={<SignupPage/>} />
           <Route path='/managementProject' element={<ManagePro/>} /> 
+
           <Route path='/permission' element={<Permission/>} />
           <Route path='/permissionOthers' element={<PermissionForOthers/>}/>
-          <Route path='/CreatePermission' element={<ManagePermission/>} />
+
+          <Route path='/CreatePermissionAdmin' element={<CreatePermissionAdmin/>}/>
+          <Route path='/CreatePermissionOthers' element={<CreatePermissionOthers/>} />
 
           <Route path='/Datafile%20MonitoringHome' element={<DatafileHome/>}  />
           <Route path='/Datafile%20MonitoringPDF' element={<PDF/>}  />

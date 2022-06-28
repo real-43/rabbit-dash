@@ -8,10 +8,8 @@ import { auth, db } from '../../firebase';
 import { getProjects, getUser, getRole } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import Loading from '../../components/Loading';
-import { set } from 'date-fns';
 
-
-export default function CreatePermission() {
+export default function CreatePermissionOthers() {
 
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
