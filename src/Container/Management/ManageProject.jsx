@@ -179,21 +179,22 @@ const ManageProject = () => {
         console.log()
     }
     const [projectName,setProjectName] =  useState([])
+    const [currentUser,setCurrentUser] =  useState(null)
 
     const getProjectPermission = () =>{
         const uid = user?.uid  
         var userinfo = GG.getUser(uid).then((value) => {
-            return value
-        })
        
-        roles.map(role =>{
-            console.log("9999999999999999999999999999999999999999",role.Management.Project,userinfo.name)  
-            if (role.name === userinfo.role ){ 
-                          
-                setProjectName(role.Management.Project)
-                
-            }
-        })
+       
+                roles.map(permission =>{
+                    console.log(permission.Management.Project)  
+                    if (permission.name === value.role){ 
+                                
+                        setProjectName(permission.Management.Project)
+                        
+                    }
+                })
+            })
     } 
     if (projectName.length===0 && user !== null){
         getProjectPermission()
