@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Select from '../../components/component/Select';
 // import Select from 'react-select';
-import Header from '../../components/Header';
+// import Header from '../../components/Header';
 import Date_range_picker from '../../components/component/date-range-picker';
 
 const Search = () => {
@@ -292,8 +292,8 @@ const Search = () => {
     }
 
     return (
-        <div className="container-fuild">
-            <Header />
+        <div className="content-wrapper">
+            {/* <Header /> */}
             <div className="Search" style={{ background: 'orange', padding: '1rem' }}>
                 <div className="justify-content-center col-11 mx-auto">
                     <form className="Search" onSubmit={handleSubmit(mySubmitHandler)}>

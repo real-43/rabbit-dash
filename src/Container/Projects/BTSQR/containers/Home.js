@@ -1,10 +1,10 @@
-import Header from '../components/Header';
+// import Header from '../components/Header';
 import pngRabbit from '../images/Rabbit.png';
 import "../css/Home.css";
 const Home = () => {
     return (
-        <div className="container-fluid">
-            <Header />
+        <div className="content-wrapper">
+            {/* <Header /> */}
             <div className="carousel-inner monitor-home">
                 <div className="container">
                     <div className="row align-items-center justify-content-center">

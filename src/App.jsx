@@ -5,6 +5,10 @@ import SignupPage from './Container/Management/ManageUser';
 import ManagePro from './Container/Management/ManageProject';
 import Header from './components/Header';
 import Menu from './components/Menu';
+
+import BTS_QR_Home from './Container/Projects/BTSQR/containers/Home';
+import BTS_QR_Search from './Container/Projects/BTSQR/containers/Monitors/Bts_Search'
+
 import Footer from './components/Footer';
 import {Route,Routes, Outlet} from 'react-router-dom';
 import DatafileHome from './Container/Projects/Datafile Morniting/Home';
@@ -48,11 +52,18 @@ function App() {
         <Route element={<SidebarLayout/>}>
           <Route path='/dashboard' element={<Dash/>} />
           <Route path='/managementUser' element={<SignupPage/>} />
-          <Route path='/managementProject' element={<ManagePro/>} />
-          <Route path='/Datafile%20MonitoringHome' element={<DatafileHome/>}  />
-          <Route path='/Datafile%20MonitoringPDF' element={<PDF/>}  />
+          <Route path='/managementProject' element={<ManagePro/>} /> 
           <Route path='/permission' element={<Permission/>} />
           <Route path='/CreatePermission' element={<ManagePermission/>} />
+
+          <Route path='/Datafile%20MonitoringHome' element={<DatafileHome/>}  />
+          <Route path='/Datafile%20MonitoringPDF' element={<PDF/>}  />
+
+          <Route path='/BTS%20QRHome' element={<BTS_QR_Home/>}  />
+          <Route path='/BTS%20QRBTS' element={<BTS_QR_Search/>} />  
+
+         
+          
         </Route>
       </Routes>
     </>
