@@ -287,7 +287,7 @@ const ManageProject = () => {
                             <th>Function</th>
                         </tr>
                     </thead>
-                    {projects.filter(project => project.name === projectName[0]).map((filproject,index) =>{return(
+                    {projects.filter(project => projectName.includes(project.name)).map((filproject,index) =>{return(
                         <tbody>
                             <tr className="border align-items-center ">
                                 <td>{index+1}</td>
