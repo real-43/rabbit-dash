@@ -307,46 +307,49 @@ const Search = () => {
     return (
         <div className="content-wrapper">
             {/* <Header /> */}
-            <div className="Search" >
-                <div className="justify-content-center mx-4">
-                    <form className="Search" onSubmit={handleSubmit(mySubmitHandler)}>
-                            {/* <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="formDate" style={{ borderRadius: '20px' }} value={FormDate} onChange={(e) => setFormDate(e.target.value)} /></div>
-                            <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="toDate" style={{ borderRadius: '20px' }} value={ToDate} onChange={(e) => setToDate(e.target.value)} /></div> */}
-                            <button className="btn btn-success align-self-center" style={{ marginLeft: 5, height: 38 }} type="submit">Search</button>
-                    </form>
+            <div style={{marginBottom: "100px"}}>
+                <div className="Search">
+                    <div className="justify-content-center mx-4">
+                        <form className="Search" onSubmit={handleSubmit(mySubmitHandler)}>
+                                {/* <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="formDate" style={{ borderRadius: '20px' }} value={FormDate} onChange={(e) => setFormDate(e.target.value)} /></div>
+                                <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="toDate" style={{ borderRadius: '20px' }} value={ToDate} onChange={(e) => setToDate(e.target.value)} /></div> */}
+                                <button className="btn btn-success align-self-center" style={{ marginLeft: 5, height: 38 }} type="submit">Search</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div className="container-fuild mx-4">
-                <div className="mt-3 w-100">
-                    {/* <form className="" onSubmit={handleSubmit(mySubmitHandler)}>
-                        <div className="input-group justify-content-center">
-                            <label className="font-weight-bold text-secondary text-center">Station Code<div className="text-left" style={{ width: '200px' }}><Select onChange={(e) => changeStationCode(e)} isClearable={true} placeholder='' options={options} /></div></label>
-                            <label className="font-weight-bold text-secondary text-center">Terminal Code<input className="form-control" type="text" name="terminalId" onChange={(e) => setTerminalId(e.target.value)} /></label>
-                            <label className="font-weight-bold text-secondary text-center">Reference Number<input className="form-control" type="text" name="refNumber" onChange={(e) => setRefNumber(e.target.value)} /></label>
-                            <label className="font-weight-bold text-secondary text-center">Form Date<input className="form-control" type="date" name="formDate" value={FormDate} onChange={(e) => setFormDate(e.target.value)} /></label>
-                            <label className="font-weight-bold text-secondary text-center">To Date<input className="form-control" type="date" name="toDate" value={ToDate} onChange={(e) => setToDate(e.target.value)} /></label>
-                            <button className="btn btn-success" style={{ marginTop: 25, marginLeft: 5, height: 38 }} type="submit">Search</button>
-                        </div>
-                    </form> */}
-                    {isLoading === true ?
-                        Loading()
-                        :
-                        noData === true ?
-                            Nodata()
+            
+                <div className="container-fuild mx-4">
+                    <div className="mt-3 w-100">
+                        {/* <form className="" onSubmit={handleSubmit(mySubmitHandler)}>
+                            <div className="input-group justify-content-center">
+                                <label className="font-weight-bold text-secondary text-center">Station Code<div className="text-left" style={{ width: '200px' }}><Select onChange={(e) => changeStationCode(e)} isClearable={true} placeholder='' options={options} /></div></label>
+                                <label className="font-weight-bold text-secondary text-center">Terminal Code<input className="form-control" type="text" name="terminalId" onChange={(e) => setTerminalId(e.target.value)} /></label>
+                                <label className="font-weight-bold text-secondary text-center">Reference Number<input className="form-control" type="text" name="refNumber" onChange={(e) => setRefNumber(e.target.value)} /></label>
+                                <label className="font-weight-bold text-secondary text-center">Form Date<input className="form-control" type="date" name="formDate" value={FormDate} onChange={(e) => setFormDate(e.target.value)} /></label>
+                                <label className="font-weight-bold text-secondary text-center">To Date<input className="form-control" type="date" name="toDate" value={ToDate} onChange={(e) => setToDate(e.target.value)} /></label>
+                                <button className="btn btn-success" style={{ marginTop: 25, marginLeft: 5, height: 38 }} type="submit">Search</button>
+                            </div>
+                        </form> */}
+                        {isLoading === true ?
+                            Loading()
                             :
-                            table()
-                    }
-                    {pagination &&
-                        <nav className="Page navigation example">
-                            <ul className="pagination justify-content-center">
-                                <button className={disabled === true && currentpage === 1 ? "btn btn-outline-light text-muted disabled" : "btn btn-outline-light text-primary active"} onClick={prev}>Previous</button>
-                                {paginations()}
-                                <button className={disabled === true && currentpage === maxPage.length ? "btn btn-outline-light text-muted disabled" : "btn btn-outline-light text-primary active"} onClick={next}>Next</button>
-                            </ul>
-                        </nav>
-                    }
-                </div>
-            </div >
+                            noData === true ?
+                                Nodata()
+                                :
+                                table()
+                        }
+                        {pagination &&
+                            <nav className="Page navigation example">
+                                <ul className="pagination justify-content-center">
+                                    <button className={disabled === true && currentpage === 1 ? "btn btn-outline-light text-muted disabled" : "btn btn-outline-light text-primary active"} onClick={prev}>Previous</button>
+                                    {paginations()}
+                                    <button className={disabled === true && currentpage === maxPage.length ? "btn btn-outline-light text-muted disabled" : "btn btn-outline-light text-primary active"} onClick={next}>Next</button>
+                                </ul>
+                            </nav>
+                        }
+                    </div>
+                </div >
+            </div>
         </div >
     )
 
