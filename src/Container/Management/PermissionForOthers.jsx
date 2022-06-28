@@ -17,6 +17,7 @@ export default function PermissionForOthers() {
 
     const [currentUserRole, setCurrentUserRole] = useState();
     const [currentUser, setCurrentUser] = useState();
+    const user = auth.currentUser
 
     const [allRoles, setAllRoles] = useState([]);
     const [allProjects, setAllProjects] = useState([]);
@@ -33,16 +34,16 @@ export default function PermissionForOthers() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
     
-    const getCurrentUserRole = () => {
-        let user = auth.currentUser
-        let id = user.id
-        getUser(id).then((value) => {
-            setCurrentUser(value);
-        })
-
-        getRole(currentUser.role).then((value) => {
-            setCurrentUserRole(value)
-        })
+    const getCurrentUserRole = async () => {
+        let id = user?.uid
+        if (id !== undefined) {
+            getUser(id).then((value) => {
+                setCurrentUser(value);
+                getRole(value.role).then((value) => {
+                    setCurrentUserRole(value)
+                })
+            })
+        }
     }
 
     const getAllUsers = async () => {
@@ -52,19 +53,28 @@ export default function PermissionForOthers() {
     }
 
     const getAllRolesAgain = async () => {
-        let roles = {}
-        await getRoles().then((value) => {
+        let roles = [...allRoles]
+        let index = 0
+        if (currentUserRole !== undefined) {
+            await getRoles().then((value) => {
             value.map((r) => {
-                if (r.Management.permission[0] === currentUserRole.Management.permission[0]) {
-                    roles = {...roles, r}
+                if (r.name !== "Admin" && r.Management.Permission[0] === currentUserRole?.Management.Permission[0]) {
+                    roles[index] = r
+                    index += 1
                 }
             })
-        })
+            setAllRoles(roles)
+            })
+        }
 
     }
 
     if (allRoles.length < 1) {
         getAllRolesAgain()
+        getCurrentUserRole()
+    }
+
+    if (allUsers.length < 1) {
         getAllUsers()
     }
 
@@ -84,31 +94,9 @@ export default function PermissionForOthers() {
         return options
     }
 
-    // create options for user select of add permission
-    const genAddOptions = (role) => {
-        let options = []
-        let index = 0
-        allProjects.map((all) => {
-            let projectNames = []
-            role.project.map((p, pIndex) => {
-                projectNames[pIndex] = p.name
-            })
-            if (!projectNames.includes(all.name)) {
-                options[index] = {value: all.name, label: all.name}
-            }
-        })
-
-        return options
-    }
-
     // call when click btn to close all popup
     const handleClosePopup = () => {
-        if (isPopup) {
-            setIsPopup(!isPopup)
-        } else if (isAdd) {
-            setIsAdd(!isAdd)
-        }
-
+        setIsPopup(!isPopup)
         setClickedRole({})
         setNewRoleName("")
         setProOptions({})
@@ -122,38 +110,6 @@ export default function PermissionForOthers() {
         setNewRoleName(role.name)
         setProOptions(options)
         setProjectInput(options)
-    }
-
-    const handleAddBtn = (role) => {
-        setIsAdd(!isAdd)
-        setClickedRole(role)
-        setProOptions(genAddOptions(role))
-    }
-
-    const handleSubmitAdd = async () => {
-        setIsLoading(true)
-        let sendPro = []
-        let update = [...projectChange]
-
-        setProjectChange(update)
-
-        // add new project to current role
-        clickedRole.project.map((pro, index) => {
-            sendPro[index] = pro
-            projectChange.map((proC, proCIndex) => {
-                sendPro[index + proCIndex + 1] = proC
-            })
-        })
-
-        // update field(project) in firestore
-        const docRef = doc(db, "roles", clickedRole.id)
-        await updateDoc(docRef, {
-            "project" : sendPro
-        })
-
-        await getAllRolesAgain()
-        handleClosePopup()
-        setIsLoading(false)
     }
 
     const handleSubmitEdit = async () => {
@@ -207,92 +163,6 @@ export default function PermissionForOthers() {
 
         setIsLoading(false)
         await getAllRolesAgain()
-    }
-
-    function popupAdd() {
-        return (isAdd) ? (
-            <div>
-                <Modal show={true} onHide={(e)=>{handleClosePopup()}}>
-                    <Modal.Header>
-                        <Modal.Title>Add Projects <i onClick={(e) => handleClosePopup()} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control
-                                type="text"
-                                disabled
-                                value={clickedRole.name}
-                                />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Select Projects</Form.Label>
-                                <div className="mb-3">
-                                    <Select
-                                        disabled
-                                        closeMenuOnSelect={true}
-                                        components={animatedComponents}
-                                        isMulti
-                                        options={proOptions}
-                                        onChange={(event) => {
-                                            setProjectInput(event)
-                                        }}
-                                    />
-                                </div>
-                            </Form.Group>
-                            
-                            {(projectInput.length > 0) ? (
-                                <Form.Group className="mb-3">
-                                    {projectInput.map((pro, index) => {
-                                        let subMenuOptions = []
-                                        allProjects.map((all) => {
-                                            if (all.name === pro.value) {
-                                                all.subMenu.map((sub, subIndex) => {
-                                                    subMenuOptions[subIndex] = {value: sub, label: sub}
-                                                })
-                                            }
-                                        })
-                                        return (
-                                            <div>
-                                                <Form.Label>{pro.value}</Form.Label>
-                                                <div className="mb-3">
-                                                    <Select
-                                                        closeMenuOnSelect={true}
-                                                        components={animatedComponents}
-                                                        isMulti
-                                                        options={subMenuOptions}
-                                                        onChange={(event) => {
-                                                            var arrSubMenu = []
-                                                            var addSub = [...projectChange]
-                                                            event.map((e, eIndex) => {
-                                                                arrSubMenu[eIndex] = e.value
-                                                            })
-                                                            addSub[index] = {name: pro.value, subMenu: arrSubMenu}
-                                                            setProjectChange(addSub)
-                                                            console.log("pro change", projectChange)
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-                                </Form.Group>
-                            ) : ""}
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={(e) => {handleClosePopup()}}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={(e) =>{handleSubmitAdd()}}>
-                            Add Permission
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        ) : "";
     }
 
     function popupEdit() {
@@ -375,7 +245,6 @@ export default function PermissionForOthers() {
                                                 })
                                                 addSub[index] = {name: pro.value, subMenu: arrSubMenu}
                                                 setProjectChange(addSub)
-                                                console.log("pro change", projectChange)
                                             }}
                                         />
                                     </div>
@@ -403,13 +272,12 @@ export default function PermissionForOthers() {
     return (
         <div className='content-wrapper'>
             <Loading isLoading={isLoading} />
-            {popupAdd()}
             {popupEdit()}
             <div className='permission'>
                 <div className='top'>
                     <h2 className='topic'>Permission</h2>
                     <div className='create'>
-                        <button className="btn create-btn" ><a href='/CreatePermission'>Create New Permission</a></button>
+                        <button className="btn create-btn" ><a onClick={() => navigate('/CreatePermission')}>Create New Permission</a></button>
                     </div>
                 </div>
                 <Table striped bbordered>
@@ -422,12 +290,12 @@ export default function PermissionForOthers() {
                         </tr>
                     </thead>
                     <tbody>
-                        {allRoles.map((role,index) => {
+                        {allRoles?.map((role,index) => {
                             return (
                                 <tr>
                                     <td>{index + 1}</td>
                                     <td>{role.name}</td>
-                                    <td>{role.project.map((project) => {
+                                    <td>{role?.project.map((project) => {
                                         return <div>{project.name} {'('}{project.subMenu.map((sub, subIndex) => {
                                             if (subIndex > 0) {
                                                 return `, ${sub}`
@@ -438,8 +306,7 @@ export default function PermissionForOthers() {
                                     })}
                                     </td>
                                     <td>
-                                        <Button className="btn m-2 edit" onClick={(e) => {handleEditBtn(role)}}>Edit</Button>
-                                        <Button className="btn m-2 add" onClick={(e) => {handleAddBtn(role)}}>Add Projects</Button><br/>
+                                        <Button className="btn m-2 edit" onClick={(e) => {handleEditBtn(role)}}>Edit</Button><br/>
                                         <button className="btn m-2 del" onClick={(e) => {handleDeleteBtn(role)}}>Delete</button>
                                     </td>
                                 </tr>

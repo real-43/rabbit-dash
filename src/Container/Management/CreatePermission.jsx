@@ -4,10 +4,11 @@ import './ManagePermission.css'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { collection, addDoc } from "firebase/firestore"; 
-import { db } from '../../firebase';
-import { getProjects } from '../../MyFireStore';
+import { auth, db } from '../../firebase';
+import { getProjects, getUser, getRole } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import Loading from '../../components/Loading';
+import { set } from 'date-fns';
 
 
 export default function CreatePermission() {
@@ -15,20 +16,35 @@ export default function CreatePermission() {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
 
+    const [currentUser, setCurrentUser] = useState([]);
+    const [currentUserRole, setCurrentUserRole] = useState([]);
+    const user = auth.currentUser
+
+    // data to in input to create new permission
     const [roleName, setRoleName] = useState("");
     const [projectInput, setProjectInput] = useState([]);
     const [data, setdata] = useState([]);
-    const [mockupProject, setMockUpProject] = useState([]);
+    const [options, setOptions] = useState([]);
+
+    const [allProjects, setAllProjects] = useState([]);
     const [toSend, setToSend] = useState([]);
 
     const optionsProject = () => {
-        var names = []
-        var index = 0
-        mockupProject.map((p) => {
-            names[index] = {value: p.name, label: p.name}
-            index = index + 1
-        })
-        return names
+        let pName = currentUserRole.project[0].name
+        console.log("pName", pName)
+        setOptions([{value: pName, label: pName}])
+    }
+
+    const getCurrentUser = () => {
+        let id = user?.uid
+        if (id !== undefined) {
+            getUser(id).then((value) => {
+                setCurrentUser(value);
+                getRole(value.role).then((value) => {
+                    setCurrentUserRole(value)
+                })
+            })
+        }
     }
 
     const handleSubmit = async (event) => {
@@ -61,7 +77,7 @@ export default function CreatePermission() {
         var index = 0
         event.map((inp) => {
             
-            mockupProject.map((moc) => {
+            allProjects.map((moc) => {
                 var option = []
                 var indexOption = 0
                 // if project in input
@@ -78,17 +94,36 @@ export default function CreatePermission() {
         setdata(filteredProject)
     }
 
-    if (mockupProject.length === 0) {
-        getProjects().then((value) => {
-            setMockUpProject(value)
-        })
+    if (currentUser.length < 1) {
+        getCurrentUser()
+        console.log("getCurrentUser")
+    } else {
+        console.log("CurrentUserRole", currentUserRole.length)
+            if (allProjects.length === 0) {
+                getProjects().then((value) => {
+                    setAllProjects(value)
+            })
+            
+            if (currentUserRole.length !== 0 && options.length < 1) {
+                console.log("dododo")
+                optionsProject()
+            }
+        }
     }
+
     
+
     return (
         <div className='content-wrapper'>
             <Loading isLoading={isLoading} />
             <div className='CreatePermission'>
-                <button className='back-btn' >{'<'} <a onClick={() => navigate("/permission")}>Back</a></button>
+                <button className='back-btn' >{'<'} <a onClick={() => {
+                    if (currentUser.role === "Admin") {
+                        navigate("/permission")
+                    }else {
+                        navigate("/permissionOthers")
+                    }
+                }}>Back</a></button>
                 <div className='create-permission'>
                     <Form>
                         <Form.Group className="mb-3">
@@ -103,7 +138,7 @@ export default function CreatePermission() {
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
                                     isMulti
-                                    options={optionsProject()}
+                                    options={options}
                                     onChange={(event) => {
                                         handleChange(event)
                                         subMenuOptions(event)

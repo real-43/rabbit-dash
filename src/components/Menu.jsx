@@ -19,7 +19,6 @@ export default function Menu() {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       setRole(doc.data())
-      console.log("role", doc.data())
     });
   }
 
@@ -159,7 +158,11 @@ export default function Menu() {
                 </ul>
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
-                    <a onClick={() => navigate('/permission')} className="nav-link">
+                    <a onClick={() => {if (role.role === "Admin") {
+                      navigate('/permission')
+                    }else {
+                      navigate('/permissionOthers')
+                    }}} className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>
                         Permission

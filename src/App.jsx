@@ -15,6 +15,7 @@ import DatafileHome from './Container/Projects/Datafile Morniting/Home';
 import PDF from './Container/Projects/Datafile Morniting/PDF'
 import ManagePermission from './Container/Management/CreatePermission';
 import Permission from './Container/Management/PermissionForAdmin';
+import PermissionForOthers from './Container/Management/PermissionForOthers';
 import { setUsers } from './counterSlice'
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase"
@@ -54,6 +55,7 @@ function App() {
           <Route path='/managementUser' element={<SignupPage/>} />
           <Route path='/managementProject' element={<ManagePro/>} /> 
           <Route path='/permission' element={<Permission/>} />
+          <Route path='/permissionOthers' element={<PermissionForOthers/>}/>
           <Route path='/CreatePermission' element={<ManagePermission/>} />
 
           <Route path='/Datafile%20MonitoringHome' element={<DatafileHome/>}  />
