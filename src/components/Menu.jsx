@@ -138,7 +138,7 @@ export default function Menu() {
                 </a>
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
-                    <a onClick={() => navigate('/managementProject')} className="nav-link">
+                    <a onClick={() => navigate('/managementProject')} style={{cursor: "pointer"}} className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>
                         Project
@@ -148,7 +148,7 @@ export default function Menu() {
                 </ul>
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
-                    <a onClick={() => navigate('/managementUser')} className="nav-link">
+                    <a onClick={() => navigate('/managementUser')} style={{cursor: "pointer"}} className="nav-link">
                       <i className="far fa-circle nav-icon" />
                       <p>
                         User
@@ -162,7 +162,7 @@ export default function Menu() {
                       navigate('/permission')
                     }else {
                       navigate('/permissionOthers')
-                    }}} className="nav-link">
+                    }}} className="nav-link" style={{cursor: "pointer"}}>
                       <i className="far fa-circle nav-icon" />
                       <p>
                         Permission
@@ -227,7 +227,7 @@ export default function Menu() {
                                     <ul className="nav nav-treeview">
                                       {(checkSubMenu(submenu)) ? (
                                           <li className="nav-item">
-                                            <a onClick={() => navigate(`${project.name}${submenu}`)} className="nav-link">
+                                            <a onClick={() => navigate(`${project.name}${submenu}`)} className="nav-link" style={{cursor: "pointer"}}>
                                               <i className="far fa-dot-circle nav-icon" />
                                               <p>{submenu}</p>
                                             </a>
