@@ -31,7 +31,6 @@ export default function CreatePermission() {
 
     const optionsProject = () => {
         let pName = currentUserRole.project[0].name
-        console.log("pName", pName)
         setOptions([{value: pName, label: pName}])
     }
 
@@ -66,7 +65,6 @@ export default function CreatePermission() {
 
     const handleChange = (event) => {
         setProjectInput(event)
-        console.log("event", event)
         if (event.length < 1) {
             setToSend([])
         }
@@ -96,16 +94,13 @@ export default function CreatePermission() {
 
     if (currentUser.length < 1) {
         getCurrentUser()
-        console.log("getCurrentUser")
     } else {
-        console.log("CurrentUserRole", currentUserRole.length)
             if (allProjects.length === 0) {
                 getProjects().then((value) => {
                     setAllProjects(value)
             })
             
             if (currentUserRole.length !== 0 && options.length < 1) {
-                console.log("dododo")
                 optionsProject()
             }
         }
@@ -166,7 +161,6 @@ export default function CreatePermission() {
                                                         })
                                                         addSub[index] = {name: d.name, subMenu: arrSubMenu}
                                                         setToSend(addSub)
-                                                        console.log("tosend", toSend)
                                                     }}
                                                 />
                                             </div>
