@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Select from '../../components/component/Select';
-// import Select from 'react-select';
-// import Header from '../../components/Header';
 import Date_range_picker from '../../components/component/date-range-picker';
 
 const Search = () => {

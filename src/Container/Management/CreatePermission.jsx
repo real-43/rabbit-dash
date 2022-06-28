@@ -88,7 +88,7 @@ export default function CreatePermission() {
         <div className='content-wrapper'>
             <Loading isLoading={isLoading} />
             <div className='CreatePermission'>
-                <button className='back-btn' >{'<'} <a href="/permission">Back</a></button>
+                <button className='back-btn' >{'<'} <a onClick={() => navigate("/permission")}>Back</a></button>
                 <div className='create-permission'>
                     <Form>
                         <Form.Group className="mb-3">
