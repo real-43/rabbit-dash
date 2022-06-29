@@ -90,6 +90,9 @@ export default function CreatePermission() {
                         <Form.Group className="mb-3">
                             <Form.Label>Permission Name</Form.Label>
                             <Form.Control type="text" placeholder="Name" onChange={(e) => {setRoleName(e.target.value)}} />
+                            <Form.Text className="text-muted">
+                                If the name includes "Admin" they can manage their project
+                            </Form.Text>
                         </Form.Group>
                         
                         <Form.Group className="mb-3">
