@@ -400,6 +400,7 @@ export default function Permission() {
                     </thead>
                     <tbody>
                         {allRoles.map((role,index) => {
+                            console.log("role",role.project)
                             return (
                                 <tr>
                                     <td>{index + 1}</td>
