@@ -31,8 +31,17 @@ export default function CreatePermission() {
         return names
     }
 
+    const getProjectName = (project) => {
+        let menuName = []
+        project.map((p, index) => {
+            menuName[index] = p.name
+        })
+        return menuName
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+        let manageChild = getProjectName(toSend)
 
         setIsLoading(true)
 
@@ -42,7 +51,7 @@ export default function CreatePermission() {
         await addDoc(collection(db, "roles"), {
             name: roleName,
             project: toSend,
-            Management: {Permission: [toSend[0].name], Project: [toSend[0].name], Services: [toSend[0].name]}
+            Management: {Permission: manageChild, Project: manageChild, Services: manageChild}
         });
         setIsLoading(false)
         window.location.reload()

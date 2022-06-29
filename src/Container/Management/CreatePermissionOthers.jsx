@@ -7,11 +7,14 @@ import { collection, addDoc } from "firebase/firestore";
 import { auth, db } from '../../firebase';
 import { useNavigate } from 'react-router'
 import Loading from '../../components/Loading';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRoles } from '../../MyFireStore';
+import { defindAllRoles } from '../../firebaseSlice';
 
 export default function CreatePermissionOthers() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState();
 
     const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
@@ -31,6 +34,14 @@ export default function CreatePermissionOthers() {
         setOptions([{value: pName, label: pName}])
     }
 
+    const updateData = async () => {
+        setIsLoading(true)
+        await getRoles().then((value) => {
+            dispatch(defindAllRoles(value))
+        })
+        setIsLoading(false)
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true)
@@ -43,7 +54,9 @@ export default function CreatePermissionOthers() {
             project: toSend,
             Management: {Permission: [toSend[0].name], Project: [toSend[0].name], Services: [toSend[0].name]}
         });
+
         setIsLoading(false)
+        await updateData()
         window.location.reload()
     }
 

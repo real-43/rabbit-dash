@@ -165,6 +165,7 @@ export default function Menu() {
                     </a>
                   </li>
                 </ul>
+                {(role.role.includes("Admin")) ? (
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
                     <a onClick={() => {if (role.role === "Admin") {
@@ -179,6 +180,7 @@ export default function Menu() {
                     </a>
                   </li>
                 </ul>
+                ) : ""}
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
                     <a href="#" className="nav-link">

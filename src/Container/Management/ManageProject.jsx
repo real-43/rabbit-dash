@@ -131,7 +131,7 @@ const ManageProject = () => {
     const editProject = async (project) =>{
 
         setIsLoading(true)
-        console.log("edit",project.id)
+        console.log("edit", project.id)
         setIsOpen(!isOpen)
         const projectDoc = doc(db, "projects", project.id);
     
@@ -145,6 +145,7 @@ const ManageProject = () => {
             role.project?.map((proJ) =>{
                 // console.log(submenu.name)
                 if(proJ.name === project.name){
+<<<<<<< HEAD
                     updateDoc(roleDoc,{
                         project: arrayRemove({
                             name: project.name,
@@ -159,6 +160,13 @@ const ManageProject = () => {
                             subMenu: submenu[submenu.length - 1] 
                         })
                     });   
+=======
+                    updateDoc(roleDoc, {
+                        "name" : project.name,
+                        "project": {name: project.name, subMenu: project.subMenu},
+                        "Management": {Permission: project.name, Project: project.name, Services: project.name}
+                    })
+>>>>>>> bc26c36a706b3913114e35bbda53c2ae7a4ad1ca
                     console.log("add")
                 }    
             })

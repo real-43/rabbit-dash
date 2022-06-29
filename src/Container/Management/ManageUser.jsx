@@ -37,8 +37,11 @@ export default function Signup() {
   const router = useNavigate();
   const timerRef = useRef(null);
 
-  const users = useSelector((state) => state.firebase.allUsers)
-  const roles = useSelector((state) => state.firebase.allRoles)
+  const usersR = useSelector((state) => state.firebase.allUsers)
+  const rolesR = useSelector((state) => state.firebase.allRoles)
+
+  const [users, setUsers] = useState(usersR)
+  const [roles, setRoles] = useState(usersR)
 
   const usersCollectionRef = collection(db, "users");
   const rolesCollectionRef = collection(db, "roles");
@@ -66,21 +69,15 @@ export default function Signup() {
 
   const getUsers = async () => {
     setIsLoading(true)
+
     const data = await getDocs(usersCollectionRef);
-    dispatch(defindAllUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))))
+    let usersData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    setUsers(usersData)
+    
     setIsLoading(false)
+
+    dispatch(defindAllUsers(usersData))
   };
-
-  // get all users in firestore and set to variable name "users"
-  // useEffect(() => {
-  //   const getRoles = async () => {
-  //     const data = await getDocs(rolesCollectionRef);
-  //     setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.roleID })));
-  //   };
-
-  //   getUsers();
-  //   getRoles();
-  // }, []);
 
   useEffect(() => {
     return clearTimeout(timerRef.current)
