@@ -5,13 +5,14 @@ import { signOut } from 'firebase/auth'
 import { auth } from '../firebase';
 import { useDispatch } from 'react-redux';
 import { defindCurrentUser } from '../firebaseSlice';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
 
   const router = useNavigate();
   const dispatch = useDispatch();
 
-  const user = auth.currentUser || {email: ""};
+  const user = useSelector((state) => state.firebase.currentUser) || auth.currentUser || {email: ""};
   const userName = user.displayName || user.email.split('@')[0]
 
   const handleChange = () => {
