@@ -9,6 +9,7 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { defindAllRoles } from '../../firebaseSlice';
+import { getRoles } from '../../MyFireStore';
 
 export default function PermissionForOthers() {
 
@@ -20,8 +21,11 @@ export default function PermissionForOthers() {
     const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
 
     const allRoles = useSelector((state) => state.firebase.allRoles)
-    const allProjects = useSelector((state) => state.firebase.allProjects)
-    const allUsers = useSelector((state) => state.firebase.allUsers)
+    const allProjectsR = useSelector((state) => state.firebase.allProjects)
+    const allUsersR = useSelector((state) => state.firebase.allUsers)
+
+    const [allProjects, setAllProjects] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
     const [rolesInSamePro, setRoleInSamePro] = useState([])
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
@@ -35,7 +39,12 @@ export default function PermissionForOthers() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
-    const getAllRolesAgain = async () => {
+    if (allUsers.length < 1) {
+        setAllUsers(allUsersR)
+        setAllProjects(allProjectsR)
+    }
+
+    const getSameRolesAgain = async () => {
         let roles = []
         let index = 0
         if (currentUserRole !== undefined) {
@@ -50,8 +59,28 @@ export default function PermissionForOthers() {
 
     }
 
+    const updateData = async () => {
+        let roles = []
+        let index = 0
+
+        setIsLoading(true)
+        await getRoles().then((value) => {
+            dispatch(defindAllRoles(value))
+            value.map((r) => {
+                if (r.name !== "Admin" && r.Management.Permission[0] === currentUserRole?.Management.Permission[0]) {
+                    roles[index] = r
+                    index += 1
+                }
+            })
+        })
+        
+        setRoleInSamePro(roles)
+
+        setIsLoading(false)
+    }
+
     if (rolesInSamePro.length < 1) {
-        getAllRolesAgain()
+        getSameRolesAgain()
     }
 
     // create options for user select of edit permission
@@ -66,7 +95,7 @@ export default function PermissionForOthers() {
 
     // call when click btn to close all popup
     const handleClosePopup = () => {
-        setIsPopup(!isPopup)
+        setIsPopup(false)
         setClickedRole({})
         setNewRoleName("")
         setProOptions({})
@@ -75,7 +104,7 @@ export default function PermissionForOthers() {
 
     const handleEditBtn = (role) => {
         let options = genProjectOptions(role.project)
-        setIsPopup(!isPopup)
+        setIsPopup(true)
         setClickedRole(role)
         setNewRoleName(role.name)
         setProOptions(options)
@@ -89,7 +118,7 @@ export default function PermissionForOthers() {
         
         // set value to current
         setProjectChange(update)
-
+        setIsPopup(false)
         // store new value of project to sendPro
         clickedRole.project.map((pro, index) => {
             projectChange.map((proC) => {
@@ -109,7 +138,7 @@ export default function PermissionForOthers() {
         })
 
         // get updated value from firestore to display
-        await getAllRolesAgain()
+        await updateData()
         // close popup and set all variable to default
         handleClosePopup()
 
@@ -132,7 +161,8 @@ export default function PermissionForOthers() {
         })
 
         setIsLoading(false)
-        await getAllRolesAgain()
+        await updateData()
+        window.location.reload()
     }
 
     function popupEdit() {

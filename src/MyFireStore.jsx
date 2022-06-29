@@ -1,5 +1,3 @@
-import React from "react";
-
 import { getDocs, collection, query, where, getDoc, doc } from "firebase/firestore";
 import { db } from "./firebaseSec"
 

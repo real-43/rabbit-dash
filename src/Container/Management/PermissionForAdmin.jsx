@@ -18,9 +18,14 @@ export default function Permission() {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState();
 
-    const allRoles = useSelector((state) => state.firebase.allRoles)
-    const allProjects = useSelector((state) => state.firebase.allProjects)
-    const allUsers = useSelector((state) => state.firebase.allUsers)
+    const allRolesR = useSelector((state) => state.firebase.allRoles)
+    const allProjectsR = useSelector((state) => state.firebase.allProjects)
+    const allUsersR = useSelector((state) => state.firebase.allUsers)
+
+    const [allRoles, setAllRoles] = useState([]);
+    const [allProjects, setAllProjects] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
     const [isPopup, setIsPopup] = useState(false);
@@ -32,29 +37,19 @@ export default function Permission() {
 
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
-    
-    // const getAllUsers = async () => {
-    //     await getUsers().then((value) => {
-    //         setAllUsers(value)
-    //     })
-    // }
 
     const getAllRolesAgain = async () => {
         await getRoles().then((value) => {
             dispatch(defindAllRoles(value))
+            setAllRoles(value)
         })
     }
 
-    // if (allRoles.length < 1) {
-    //     getAllRolesAgain()
-    //     getAllUsers()
-    // }
-
-    // if (allProjects.length < 1) {
-    //     getProjects().then((value) => {
-    //         setAllProjects(value)
-    //     })
-    // }
+    if (allRoles.length < 1) {
+        setAllRoles(allRolesR)
+        setAllUsers(allUsersR)
+        setAllProjects(allProjectsR)
+    }
 
     // create options for user select of edit permission
     const genProjectOptions = (project) => {
@@ -86,7 +81,7 @@ export default function Permission() {
     // call when click btn to close all popup
     const handleClosePopup = () => {
         if (isPopup) {
-            setIsPopup(!isPopup)
+            setIsPopup(false)
         } else if (isAdd) {
             setIsAdd(!isAdd)
         }
@@ -99,7 +94,7 @@ export default function Permission() {
 
     const handleEditBtn = (role) => {
         let options = genProjectOptions(role.project)
-        setIsPopup(!isPopup)
+        setIsPopup(true)
         setClickedRole(role)
         setNewRoleName(role.name)
         setProOptions(options)
@@ -107,13 +102,14 @@ export default function Permission() {
     }
 
     const handleAddBtn = (role) => {
-        setIsAdd(!isAdd)
+        setIsAdd(true)
         setClickedRole(role)
         setProOptions(genAddOptions(role))
     }
 
     const handleSubmitAdd = async () => {
         setIsLoading(true)
+        setIsAdd(false)
         let sendPro = []
         let update = [...projectChange]
 
@@ -140,12 +136,12 @@ export default function Permission() {
 
     const handleSubmitEdit = async () => {
         setIsLoading(true)
+        setIsPopup(false)
         let update = [...projectChange]
         let sendPro = []
         
         // set value to current
         setProjectChange(update)
-
         // store new value of project to sendPro
         clickedRole.project.map((pro, index) => {
             projectChange.map((proC) => {
