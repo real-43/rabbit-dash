@@ -2,58 +2,62 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase'
-import { useDispatch } from 'react-redux'
-import { getProjects, getUsers, getRoles } from "../MyFireStore";
-import { defindAllProjects, defindAllRoles, defindAllUsers, defindCurrentUser } from "../firebaseSlice";
+import { useDispatch, useSelector } from 'react-redux'
+
+import { getProjects, getUsers, getRoles, getUser } from "../MyFireStore";
+
+import { defindAllProjects, defindAllRoles, defindAllUsers } from "../firebaseSlice";
 
 
 export default function Dashboard() {
 
-  const dispatch = useDispatch()
+    const refUser = useSelector((state) => state.firebase.currentUser)
+    const dispatch = useDispatch()
 
-  const [isData, setIsData] = useState(false);
+    const [isData, setIsData] = useState(false);
 
-  const defindAll = async () => {
-    await getAllUsers()
-    await getAllProjects()
-    await getAllRoles()
-    setIsData(true)
-  }
+    const defindAll = async() => {
+        await getAllUsers()
+        await getAllProjects()
+        await getAllRoles()
+        setIsData(true)
+    }
 
-  const getAllUsers = async () => {
-    await getUsers().then((value) => {
-      dispatch(defindAllUsers(value))
-    })
-  }
+    const getAllUsers = async() => {
+        await getUsers().then((value) => {
+            dispatch(defindAllUsers(value))
+        })
+    }
 
-  const getAllProjects = async () => {
-    await getProjects().then((value) => {
-      dispatch(defindAllProjects(value))
-    })
-  }
+    const getAllProjects = async() => {
+        await getProjects().then((value) => {
+            dispatch(defindAllProjects(value))
+        })
+    }
 
-  const getAllRoles = async () => {
-    await getRoles().then((value) => {
-      dispatch(defindAllRoles(value))
-    })
-  }
+    const getAllRoles = async() => {
+        await getRoles().then((value) => {
+            dispatch(defindAllRoles(value))
+        })
+    }
 
-  if (!isData) {
-    defindAll()
-  }
 
-  const router = useNavigate();
+    if (!isData) {
+        defindAll()
+    }
+
+    const router = useNavigate();
     useEffect(() => {
-        const authentication = onAuthStateChanged(auth,(user) => {
+        const authentication = onAuthStateChanged(auth, (user) => {
             if (user) {
                 router('/dashboard')
             } else {
                 router('/')
-           }
-        }) 
-        
+            }
+        })
+
         return authentication
-    },[])
+    }, [])
   
   return (
     <div>

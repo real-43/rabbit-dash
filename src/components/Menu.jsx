@@ -5,12 +5,20 @@ import { getDoc, doc, getDocs, collection, where, query } from "firebase/firesto
 import { signOut } from 'firebase/auth'
 import { useNavigate } from "react-router-dom";
 import { async } from "@firebase/util";
+import { useSelector } from 'react-redux';
+import {getRole} from "../MyFireStore";
+import { useDispatch } from 'react-redux'
+import { defindRoleInfo} from '../firebaseSlice';
 
 export default function Menu() {
 
-  const [projects, setProjects] = useState(null);
-  const [role, setRole] = useState(null);
-  const [menu, setMenu] = useState(null);
+  const dispatch = useDispatch()
+
+  const [projects, setProjects] = useState(useSelector((state) => state.firebase.allProjects));
+ 
+  const [role, setRole] = useState(useSelector((state) => state.firebase.currentUserFS)); 
+  console.log(role)
+  const [menu, setMenu] = useState(useSelector((state) => state.firebase.currentRoleFS) || null);
 
   const navigate = useNavigate();
 
@@ -76,6 +84,7 @@ export default function Menu() {
 
   if (role !== null && menu === null) {
     getMenu();
+    
   }
 
   if (role !== null && menu !== null && projects === null) {
