@@ -4,7 +4,7 @@ import './Header.css'
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase';
 import { useDispatch } from 'react-redux';
-import { defindCurrentRoleFS, defindCurrentUser, defindCurrentUserFS, deleteCurrentUser } from '../firebaseSlice';
+import { defindCurrentRoleFS, defindCurrentUser, defindCurrentUserFS, deleteAll } from '../firebaseSlice';
 import { useSelector } from 'react-redux';
 import { getRole, getUser } from '../MyFireStore';
 
@@ -18,7 +18,7 @@ export default function Header() {
 
   const handleChange = () => {
     signOut(auth).then(() => {
-      dispatch(deleteCurrentUser())
+      dispatch(deleteAll())
       router('/')
       console.log("signout");
     }).catch((error) => {
