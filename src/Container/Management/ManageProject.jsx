@@ -9,6 +9,7 @@ import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
 import Stack from '@mui/material/Stack';
 import * as GG from '../../MyFireStore';
+import {useSelector} from "react-redux"
 
 import {
     collection,
@@ -23,10 +24,6 @@ import {
     where, query
   } from "firebase/firestore";
 
-
-
- 
-  
 const ManageProject = () => {
 
     const user = auth.currentUser 
@@ -38,35 +35,19 @@ const ManageProject = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    //handle input 
     const [projectInfo, setProjectInfo] = useState({ name: ''});
     const [submenu, setSubmenu] = useState([])
 
-    const [projects, setProjects] = useState([]);
-    const projectsCollectionRef = collection(db, "projects");
+    const [projects, setProjects] = useState(useSelector((state)=> state.firebase.allProjects)); //useSelector((state) => state.firebase.currentUser)
 
-    const [roles, setRoles] = useState([]);
-    const rolesCollectionRef = collection(db, "roles");
-
-    const AdminDoc = doc(db, "roles", 'z0M3C6Jdl1AHlZmk7egb');
+    const [roles, setRoles] = useState(useSelector((state) => state.firebase.allRoles));
     
 
-    const getProjects = async () => {
-        const data = await getDocs(projectsCollectionRef);
-        setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+    const AdminDoc = doc(db, "roles", 'z0M3C6Jdl1AHlZmk7egb');
 
-    if (projects.length===0){ 
-        getProjects()
-    }
-
-    const getRoles = async () => {
-        const data = await getDocs(rolesCollectionRef);
-        setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    if (projects.length===0){ 
-        getRoles()
-    }
+    const userinfo = useSelector((state) => state.firebase.currentUserFS)
+    
 
     const addProjects = async (e) => {
         e.preventDefault();
@@ -117,8 +98,6 @@ const ManageProject = () => {
                 
         }); 
         
-       
-        getProjects()
         setIsLoading(false)
     }
 
@@ -158,8 +137,6 @@ const ManageProject = () => {
             })
                        
         });
-
-        getProjects()
         setIsLoading(false)
     }
 
@@ -179,22 +156,20 @@ const ManageProject = () => {
         console.log()
     }
     const [projectName,setProjectName] =  useState([])
-    const [currentUser,setCurrentUser] =  useState(null)
 
     const getProjectPermission = () =>{
-        const uid = user?.uid  
-        var userinfo = GG.getUser(uid).then((value) => {
+
        
        
-                roles.map(permission =>{
-                    console.log(permission.Management.Project)  
-                    if (permission.name === value.role){ 
-                                
-                        setProjectName(permission.Management.Project)
+        roles.map(permission =>{
+            // console.log(permission.Management.Project)  
+            if (permission.name === userinfo.role){ 
                         
-                    }
-                })
-            })
+                setProjectName(permission.Management.Project)
+                
+            }
+        })
+        
     } 
     if (projectName.length===0 && user !== null){
         getProjectPermission()

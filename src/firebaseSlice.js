@@ -63,8 +63,19 @@ export const firebaseSlice = createSlice({
     }
 })
 
-export const { defindAllUsers, 
-    defindAllProjects, defindAllRoles, defindCurrentUser, defindCurrentRoleFS, defindCurrentUserFS,
-    deleteCurrentUser, deleteAll, deleteAllProjects, deleteAllRoles, deleteAllUsers, deleteCurrentRoleFS, 
-    deleteCurrentUserFS } = firebaseSlice.actions;
+export const {
+    defindAllUsers,
+    defindAllProjects,
+    defindAllRoles,
+    defindCurrentUser,
+    defindCurrentRoleFS,
+    defindCurrentUserFS,
+    deleteCurrentUser,
+    deleteAll,
+    deleteAllProjects,
+    deleteAllRoles,
+    deleteAllUsers,
+    deleteCurrentRoleFS,
+    deleteCurrentUserFS
+} = firebaseSlice.actions;
 export default firebaseSlice.reducer;
