@@ -12,15 +12,15 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
 
 import './signup.css'
+import { defindAllUsers } from '../../firebaseSlice';
 
 export default function Signup() {
 
-  const asdf = useSelector((state) => state.firebase.currentUser)
-  console.log("testtttttttttttt", asdf)
+  const dispatch = useDispatch()
 
   const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
@@ -37,8 +37,9 @@ export default function Signup() {
   const router = useNavigate();
   const timerRef = useRef(null);
 
-  const [users, setUsers] = useState([]);
-  const [roles, setRoles] = useState([]);
+  const users = useSelector((state) => state.firebase.allUsers)
+  const roles = useSelector((state) => state.firebase.allRoles)
+
   const usersCollectionRef = collection(db, "users");
   const rolesCollectionRef = collection(db, "roles");
 
@@ -66,20 +67,20 @@ export default function Signup() {
   const getUsers = async () => {
     setIsLoading(true)
     const data = await getDocs(usersCollectionRef);
-    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    dispatch(defindAllUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))))
     setIsLoading(false)
   };
 
   // get all users in firestore and set to variable name "users"
-  useEffect(() => {
-    const getRoles = async () => {
-      const data = await getDocs(rolesCollectionRef);
-      setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.roleID })));
-    };
+  // useEffect(() => {
+  //   const getRoles = async () => {
+  //     const data = await getDocs(rolesCollectionRef);
+  //     setRoles(data.docs.map((doc) => ({ ...doc.data(), id: doc.roleID })));
+  //   };
 
-    getUsers();
-    getRoles();
-  }, []);
+  //   getUsers();
+  //   getRoles();
+  // }, []);
 
   useEffect(() => {
     return clearTimeout(timerRef.current)
