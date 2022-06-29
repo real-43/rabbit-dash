@@ -277,7 +277,7 @@ export default function PermissionForOthers() {
                 <div className='top'>
                     <h2 className='topic'>Permission</h2>
                     <div className='create'>
-                        <button className="btn create-btn" ><a onClick={() => navigate('/CreatePermission')}>Create New Permission</a></button>
+                        <button className="btn create-btn" ><a onClick={() => navigate('/CreatePermissionOthers')}>Create New Permission</a></button>
                     </div>
                 </div>
                 <Table striped bbordered>

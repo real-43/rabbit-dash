@@ -8,6 +8,7 @@ import { auth, db } from '../../firebase';
 import { getProjects, getUser, getRole } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import Loading from '../../components/Loading';
+import { useSelector } from 'react-redux';
 
 export default function CreatePermissionOthers() {
 
@@ -16,7 +17,7 @@ export default function CreatePermissionOthers() {
 
     const [currentUser, setCurrentUser] = useState([]);
     const [currentUserRole, setCurrentUserRole] = useState([]);
-    const user = auth.currentUser
+    const user = useSelector((state) => state.firebase.currentUser)
 
     // data to in input to create new permission
     const [roleName, setRoleName] = useState("");
@@ -24,7 +25,7 @@ export default function CreatePermissionOthers() {
     const [data, setdata] = useState([]);
     const [options, setOptions] = useState([]);
 
-    const [allProjects, setAllProjects] = useState([]);
+    const allProjects = useSelector((state) => state.firebase.allProjects)
     const [toSend, setToSend] = useState([]);
 
     const optionsProject = () => {
@@ -94,14 +95,9 @@ export default function CreatePermissionOthers() {
     if (currentUser.length < 1) {
         getCurrentUser()
     } else {
-            if (allProjects.length === 0) {
-                getProjects().then((value) => {
-                    setAllProjects(value)
-            })
-            
-            if (currentUserRole.length !== 0 && options.length < 1) {
-                optionsProject()
-            }
+  
+        if (currentUserRole.length !== 0 && options.length < 1) {
+            optionsProject()
         }
     }
 

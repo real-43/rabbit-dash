@@ -22,9 +22,27 @@ export const firebaseSlice = createSlice({
         },
         defindCurrentUser: (state, action) => {
             state.currentUser = action.payload
+        },
+        deleteCurrentUser: (state) => {
+            state.currentUser = ""
+        },
+        deleteAll: (state) => {
+            state.currentUser = ""
+            state.allProjects = []
+            state.allRoles = []
+            state.allUsers = []
+        },
+        deleteAllProjects: (state) => {
+            state.allProjects = []
+        },
+        deleteAllRoles: (state) => {
+            state.allRoles = []
+        },
+        deleteAllUsers: (state) => {
+            state.allUsers = []
         }
     }
 })
 
-export const { defindAllUsers, defindAllProjects, defindAllRoles, defindCurrentUser } = firebaseSlice.actions;
+export const { defindAllUsers, defindAllProjects, defindAllRoles, defindCurrentUser, deleteCurrentUser } = firebaseSlice.actions;
 export default firebaseSlice.reducer;

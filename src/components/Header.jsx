@@ -1,10 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 import './Header.css'
-import { signOut } from 'firebase/auth'
+import { deleteUser, signOut } from 'firebase/auth'
 import { auth } from '../firebase';
 import { useDispatch } from 'react-redux';
-import { defindCurrentUser } from '../firebaseSlice';
+import { defindCurrentUser, deleteCurrentUser } from '../firebaseSlice';
 import { useSelector } from 'react-redux';
 
 export default function Header() {
@@ -17,6 +17,7 @@ export default function Header() {
 
   const handleChange = () => {
     signOut(auth).then(() => {
+      dispatch(deleteCurrentUser())
       router('/')
       console.log("signout");
     }).catch((error) => {
