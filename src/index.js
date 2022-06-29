@@ -12,10 +12,10 @@ import { persistStore } from 'redux-persist'
 let persistor = persistStore(store);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.StrictMode >
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <BrowserRouter>
+        <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
           <App />
         </BrowserRouter>
       </PersistGate>

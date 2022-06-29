@@ -38,21 +38,41 @@ const ManageProject = () => {
     //handle input 
     const [projectInfo, setProjectInfo] = useState({ name: ''});
     const [submenu, setSubmenu] = useState([])
+    
 
     const [projects, setProjects] = useState(useSelector((state)=> state.firebase.allProjects)); //useSelector((state) => state.firebase.currentUser)
 
     const [roles, setRoles] = useState(useSelector((state) => state.firebase.allRoles));
-    
 
-    const AdminDoc = doc(db, "roles", 'z0M3C6Jdl1AHlZmk7egb');
+    const role = useState(useSelector((state) => state.firebase.currentRoleFS));
+
+    const AdminDoc = doc(db, "roles", 'XKvFX3M9e07w0qcpxd32');
 
     const userinfo = useSelector((state) => state.firebase.currentUserFS)
+    
+    const [dupA,setDupA] =useState([])
+    console.log(role.id)
+  
     
 
     const addProjects = async (e) => {
         e.preventDefault();
 
         setIsLoading(true)
+
+        var a = []
+        for (const element of role[0].Management.Project) {
+            a.push(element);   
+        }
+        a.push(projectInfo.name)
+        console.log(a)
+
+        var NewProjectManagement = {
+            Project: a,
+            Permission: a,
+            Services: a
+
+        }
         
         var NewProject ={
             name: projectInfo.name,
@@ -63,7 +83,8 @@ const ManageProject = () => {
         roles.map((role) =>{ 
             if(role.name === 'Admin'){
                 updateDoc(AdminDoc,{
-                    project: arrayUnion(NewProject)
+                    project: arrayUnion(NewProject),
+                    Management: NewProjectManagement
                 });
             }   
         });
@@ -76,7 +97,12 @@ const ManageProject = () => {
         const userDoc = doc(db, "projects", project.id);
 
         setIsLoading(true)
+        var DelProjectManagement = {
+            Project: role[0].Management.Project.filter(obj => obj !== project.name),
+            Permission: role[0].Management.Permission.filter(obj => obj !== project.name),
+            Services: role[0].Management.Services.filter(obj => obj !== project.name)
 
+        }
         var DelProjectDetails = {
             name: project.name,
             subMenu: project.subMenu
@@ -91,7 +117,8 @@ const ManageProject = () => {
                 if(submenu.name === project.name){
                     // console.log(submenu.name)
                     updateDoc(roleDoc,{
-                        project: arrayRemove(DelProjectDetails)
+                        project: arrayRemove(DelProjectDetails),
+                        Management:DelProjectManagement
                     });
                 }      
             })
@@ -122,7 +149,7 @@ const ManageProject = () => {
                         project: arrayRemove({
                             name: project.name,
                             subMenu: project.subMenu
-                        })
+                        }),
                     });  
                     console.log("delete")
                     console.log(newProjectName,submenu )
@@ -158,13 +185,9 @@ const ManageProject = () => {
     const [projectName,setProjectName] =  useState([])
 
     const getProjectPermission = () =>{
-
-       
-       
         roles.map(permission =>{
             // console.log(permission.Management.Project)  
             if (permission.name === userinfo.role){ 
-                        
                 setProjectName(permission.Management.Project)
                 
             }
@@ -175,7 +198,7 @@ const ManageProject = () => {
         getProjectPermission()
     }
   
-    
+    console.log(projectName)
 
     function popup() {
         return (isOpen) ? (
