@@ -5,7 +5,6 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { collection, addDoc } from "firebase/firestore"; 
 import { auth, db } from '../../firebase';
-import { getProjects, getUser, getRole } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import Loading from '../../components/Loading';
 import { useSelector } from 'react-redux';
@@ -31,18 +30,6 @@ export default function CreatePermissionOthers() {
         let pName = currentUserRole.project[0].name
         setOptions([{value: pName, label: pName}])
     }
-
-    // const getCurrentUser = () => {
-    //     let id = user?.uid
-    //     if (id !== undefined) {
-    //         getUser(id).then((value) => {
-    //             setCurrentUser(value);
-    //             getRole(value.role).then((value) => {
-    //                 setCurrentUserRole(value)
-    //             })
-    //         })
-    //     }
-    // }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -91,15 +78,9 @@ export default function CreatePermissionOthers() {
         setdata(filteredProject)
     }
 
-    // if (currentUser.length < 1) {
-    //     // getCurrentUser()
-    // } else {
-  
     if (currentUserRole.length !== 0 && options.length < 1) {
         optionsProject()
     }
-    // }
-
     
 
     return (

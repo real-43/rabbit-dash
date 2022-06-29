@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Table } from 'react-bootstrap';
-import { getProjects, getRole, getRoles, getUser, getUsers } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';

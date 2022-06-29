@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Table } from 'react-bootstrap';
-import { getProjects, getRoles, getUsers } from '../../MyFireStore';
+import { getRoles } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
@@ -8,16 +8,19 @@ import makeAnimated from 'react-select/animated';
 import { db } from '../../firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../components/Loading';
+import { useSelector, useDispatch } from 'react-redux';
+import { defindAllRoles } from '../../firebaseSlice';
 
 export default function Permission() {
 
     const animatedComponents = makeAnimated();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState();
 
-    const [allRoles, setAllRoles] = useState([]);
-    const [allProjects, setAllProjects] = useState([]);
-    const [allUsers, setAllUsers] = useState([]);
+    const allRoles = useSelector((state) => state.firebase.allRoles)
+    const allProjects = useSelector((state) => state.firebase.allProjects)
+    const allUsers = useSelector((state) => state.firebase.allUsers)
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
     const [isPopup, setIsPopup] = useState(false);
@@ -30,29 +33,28 @@ export default function Permission() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
     
-    const getAllUsers = async () => {
-        await getUsers().then((value) => {
-            setAllUsers(value)
-        })
-    }
+    // const getAllUsers = async () => {
+    //     await getUsers().then((value) => {
+    //         setAllUsers(value)
+    //     })
+    // }
 
     const getAllRolesAgain = async () => {
         await getRoles().then((value) => {
-            setAllRoles(value)
-        })
-
-    }
-
-    if (allRoles.length < 1) {
-        getAllRolesAgain()
-        getAllUsers()
-    }
-
-    if (allProjects.length < 1) {
-        getProjects().then((value) => {
-            setAllProjects(value)
+            dispatch(defindAllRoles(value))
         })
     }
+
+    // if (allRoles.length < 1) {
+    //     getAllRolesAgain()
+    //     getAllUsers()
+    // }
+
+    // if (allProjects.length < 1) {
+    //     getProjects().then((value) => {
+    //         setAllProjects(value)
+    //     })
+    // }
 
     // create options for user select of edit permission
     const genProjectOptions = (project) => {

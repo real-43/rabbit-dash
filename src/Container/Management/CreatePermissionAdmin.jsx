@@ -5,9 +5,9 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { collection, addDoc } from "firebase/firestore"; 
 import { db } from '../../firebase';
-import { getProjects } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import Loading from '../../components/Loading';
+import { useSelector } from 'react-redux';
 
 
 export default function CreatePermission() {
@@ -18,7 +18,7 @@ export default function CreatePermission() {
     const [roleName, setRoleName] = useState("");
     const [projectInput, setProjectInput] = useState([]);
     const [data, setdata] = useState([]);
-    const [mockupProject, setMockUpProject] = useState([]);
+    const mockupProject = useSelector((state) => state.firebase.allProjects);
     const [toSend, setToSend] = useState([]);
 
     const optionsProject = () => {
@@ -78,12 +78,6 @@ export default function CreatePermission() {
             })
         })
         setdata(filteredProject)
-    }
-
-    if (mockupProject.length === 0) {
-        getProjects().then((value) => {
-            setMockUpProject(value)
-        })
     }
     
     return (

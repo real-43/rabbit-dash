@@ -4,9 +4,9 @@ const initialState = {
     allUsers: [],
     allProjects: [],
     allRoles: [],
-    currentUser: "",
-    currentUserFS: [],
-    currentRoleFS: [],
+    currentUser: "", // User in auth
+    currentUserFS: [], // User in firestore not auth
+    currentRoleFS: [], // Role in firestore
 }
 
 export const firebaseSlice = createSlice({
