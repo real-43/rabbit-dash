@@ -8,20 +8,22 @@ import makeAnimated from 'react-select/animated';
 import { auth, db } from '../../firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../components/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { defindAllRoles } from '../../firebaseSlice';
 
 export default function PermissionForOthers() {
 
     const animatedComponents = makeAnimated();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
+    const dispatch = useDispatch()
 
-    const [currentUserRole, setCurrentUserRole] = useState();
-    const [currentUser, setCurrentUser] = useState();
-    const user = auth.currentUser
+    const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
 
-    const [allRoles, setAllRoles] = useState([]);
-    const [allProjects, setAllProjects] = useState([]);
-    const [allUsers, setAllUsers] = useState([]);
+    const allRoles = useSelector((state) => state.firebase.allRoles)
+    const allProjects = useSelector((state) => state.firebase.allProjects)
+    const allUsers = useSelector((state) => state.firebase.allUsers)
+    const [rolesInSamePro, setRoleInSamePro] = useState([])
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
     const [isPopup, setIsPopup] = useState(false);
@@ -33,55 +35,24 @@ export default function PermissionForOthers() {
 
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
-    
-    const getCurrentUserRole = async () => {
-        let id = user?.uid
-        if (id !== undefined) {
-            getUser(id).then((value) => {
-                setCurrentUser(value);
-                getRole(value.role).then((value) => {
-                    setCurrentUserRole(value)
-                })
-            })
-        }
-    }
-
-    const getAllUsers = async () => {
-        await getUsers().then((value) => {
-            setAllUsers(value)
-        })
-    }
 
     const getAllRolesAgain = async () => {
-        let roles = [...allRoles]
+        let roles = []
         let index = 0
         if (currentUserRole !== undefined) {
-            await getRoles().then((value) => {
-            value.map((r) => {
+            allRoles.map((r) => {
                 if (r.name !== "Admin" && r.Management.Permission[0] === currentUserRole?.Management.Permission[0]) {
                     roles[index] = r
                     index += 1
                 }
             })
-            setAllRoles(roles)
-            })
+            setRoleInSamePro(roles)
         }
 
     }
 
-    if (allRoles.length < 1) {
+    if (rolesInSamePro.length < 1) {
         getAllRolesAgain()
-        getCurrentUserRole()
-    }
-
-    if (allUsers.length < 1) {
-        getAllUsers()
-    }
-
-    if (allProjects.length < 1) {
-        getProjects().then((value) => {
-            setAllProjects(value)
-        })
     }
 
     // create options for user select of edit permission
@@ -290,7 +261,7 @@ export default function PermissionForOthers() {
                         </tr>
                     </thead>
                     <tbody>
-                        {allRoles?.map((role,index) => {
+                        {rolesInSamePro?.map((role,index) => {
                             return (
                                 <tr>
                                     <td>{index + 1}</td>

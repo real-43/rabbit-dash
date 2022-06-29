@@ -5,6 +5,8 @@ const initialState = {
     allProjects: [],
     allRoles: [],
     currentUser: "",
+    currentUserFS: [],
+    currentRoleFS: [],
 }
 
 export const firebaseSlice = createSlice({
@@ -23,6 +25,15 @@ export const firebaseSlice = createSlice({
         defindCurrentUser: (state, action) => {
             state.currentUser = action.payload
         },
+        defindCurrentUserFS: (state, action) => {
+            state.currentUserFS = action.payload
+        },
+        defindCurrentRoleFS: (state, action) => {
+            state.currentRoleFS = action.payload
+        },
+
+
+
         deleteCurrentUser: (state) => {
             state.currentUser = ""
         },
@@ -31,6 +42,8 @@ export const firebaseSlice = createSlice({
             state.allProjects = []
             state.allRoles = []
             state.allUsers = []
+            state.currentRoleFS = []
+            state.currentUserFS = []
         },
         deleteAllProjects: (state) => {
             state.allProjects = []
@@ -40,9 +53,18 @@ export const firebaseSlice = createSlice({
         },
         deleteAllUsers: (state) => {
             state.allUsers = []
+        },
+        deleteCurrentUserFS: (state) => {
+            state.currentUserFS = []
+        },
+        deleteCurrentRoleFS: (state) => {
+            state.currentRoleFS = []
         }
     }
 })
 
-export const { defindAllUsers, defindAllProjects, defindAllRoles, defindCurrentUser, deleteCurrentUser } = firebaseSlice.actions;
+export const { defindAllUsers, 
+    defindAllProjects, defindAllRoles, defindCurrentUser, defindCurrentRoleFS, defindCurrentUserFS,
+    deleteCurrentUser, deleteAll, deleteAllProjects, deleteAllRoles, deleteAllUsers, deleteCurrentRoleFS, 
+    deleteCurrentUserFS } = firebaseSlice.actions;
 export default firebaseSlice.reducer;

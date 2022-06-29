@@ -1,11 +1,12 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 import './Header.css'
-import { deleteUser, signOut } from 'firebase/auth'
+import { signOut } from 'firebase/auth'
 import { auth } from '../firebase';
 import { useDispatch } from 'react-redux';
-import { defindCurrentUser, deleteCurrentUser } from '../firebaseSlice';
+import { defindCurrentRoleFS, defindCurrentUser, defindCurrentUserFS, deleteCurrentUser } from '../firebaseSlice';
 import { useSelector } from 'react-redux';
+import { getRole, getUser } from '../MyFireStore';
 
 export default function Header() {
 
@@ -25,8 +26,22 @@ export default function Header() {
     });
   }
 
+  const setC_UserAndRole_FS = () => {
+    let id = user.uid
+    getUser(id).then((value) => {
+      dispatch(defindCurrentUserFS(value))
+      getRole(value.role).then((r) => {
+        dispatch(defindCurrentRoleFS(r))
+      })
+    })
+  }
+
   if (user.email !== "") {
     dispatch(defindCurrentUser(user))
+  }
+
+  if (user.uid !== undefined) {
+    setC_UserAndRole_FS()
   }
 
   return (
