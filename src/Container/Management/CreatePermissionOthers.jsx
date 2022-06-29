@@ -17,7 +17,6 @@ export default function CreatePermissionOthers() {
 
     const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
     const currentUser = useSelector((state) => state.firebase.currentUserFS)
-    const user = useSelector((state) => state.firebase.currentUser)
 
     // data to in input to create new permission
     const [roleName, setRoleName] = useState("");
