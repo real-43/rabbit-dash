@@ -38,6 +38,8 @@ export default function Signup() {
   const timerRef = useRef(null);
 
   const usersR = useSelector((state) => state.firebase.allUsers)
+  const currentUser = useSelector((state) => state.firebase.currentUserFS)
+  const currentRoleFS = useSelector((state) => state.firebase.currentRoleFS)
   const rolesR = useSelector((state) => state.firebase.allRoles)
 
   const [users, setUsers] = useState(usersR)
@@ -164,7 +166,7 @@ export default function Signup() {
     event.preventDefault();
     
     // Create user in firebase auth
-    await createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
+    createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
         updateProfile(authSec.currentUser, {
           displayName:userInformation.name
@@ -178,7 +180,7 @@ export default function Signup() {
     })
 
     // To create user in firestore
-    await setDoc(doc(db, "users", authSec.currentUser.uid), {
+    setDoc(doc(db, "users", authSec.currentUser.uid), {
       name: userInfo.name,
       email: userInfo.email,
       password: userInfo.password,
@@ -325,35 +327,40 @@ export default function Signup() {
               <th>function</th>
             </tr>
           </thead>
-          {users.map((user, index) => {return (
+          {users.map((user, index) => { 
+            return (
           <tbody>
             <tr>
-              <td>{index+1}</td>
-              <td>{user.name}</td>
-              <td>{user.isBlocked.toString()}</td>
-              <td>{user.role}</td>
-              <td>{user.email}</td>
-              <td className='btn-table'> 
-                <button
-                  className='btn-function btn'
-                  onClick={() => {
-                    deleteUserOnFstored(user);
-                  }}
-                  >
-                  {" "}
-                  Delete User
-                </button>
-                <button
-                  className='btn btn-function'
-                  onClick={(e) => changeSet(user)}
-                >
-                  {" "}
-                  Edit
-                </button>
-                <Button variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
-                    <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
-                </Button>
-              </td>
+              {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin") ? (
+                <>
+                  <td>{index+1}</td>
+                  <td>{user.name}</td>
+                  <td>{user.isBlocked.toString()}</td>
+                  <td>{user.role}</td>
+                  <td>{user.email}</td>
+                  <td className='btn-table'> 
+                    <button
+                      className='btn-function btn'
+                      onClick={() => {
+                        deleteUserOnFstored(user);
+                      }}
+                      >
+                      {" "}
+                      Delete User
+                    </button>
+                    <button
+                      className='btn btn-function'
+                      onClick={(e) => changeSet(user)}
+                    >
+                      {" "}
+                      Edit
+                    </button>
+                    <Button variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
+                        <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
+                    </Button>
+                  </td>       
+                </>
+              ) : ""}
             </tr>
           </tbody>)})}
         </table>
