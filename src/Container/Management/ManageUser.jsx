@@ -11,7 +11,6 @@ import {
   updateDoc,
   doc,
   setDoc,
-  onSnapshot
 } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
@@ -39,8 +38,6 @@ export default function Signup() {
   const timerRef = useRef(null);
 
   const usersR = useSelector((state) => state.firebase.allUsers)
-  const currentUser = useSelector((state) => state.firebase.currentUserFS)
-  const currentRoleFS = useSelector((state) => state.firebase.currentRoleFS)
   const rolesR = useSelector((state) => state.firebase.allRoles)
 
   const [users, setUsers] = useState(usersR)
@@ -70,13 +67,6 @@ export default function Signup() {
     // window.location.reload(false);
   };
 
-  const unsub = onSnapshot(doc(db, "users", "YVYOnGb6hPVClW0jUJ6VTIzytxG2"), (doc) => {
-    console.log("Current data: ", doc.data());
-    console.log("User is logged in",users)
-  });
-
- 
-
   const getUsers = async () => {
     setIsLoading(true)
 
@@ -95,7 +85,6 @@ export default function Signup() {
   
   // Check that the user are logged in
   useEffect(() => {
-      unsub();
       const authentication = onAuthStateChanged(auth,(user) => {
           if (user) {
               router('/managementUser')
@@ -153,7 +142,7 @@ export default function Signup() {
       authSec.signOut()
     })
     
-    await getUsers()
+    // await getUsers()
   }
 
   const ControlBlocked = async (user) => {
@@ -165,7 +154,7 @@ export default function Signup() {
       
     });
     setIsLoading(false)
-    getUsers();
+    // getUsers();
   }
 
   // To create new user in firebase
@@ -175,7 +164,7 @@ export default function Signup() {
     event.preventDefault();
     
     // Create user in firebase auth
-    createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
+    await createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
       .then((userInformation) => {
         updateProfile(authSec.currentUser, {
           displayName:userInformation.name
@@ -187,6 +176,8 @@ export default function Signup() {
           setAlert({ visible:false,severity:'',message:''})
         },2000)
     })
+    console.log('auth add')
+    console.log(authSec.currentUser.uid)
 
     // To create user in firestore
     setDoc(doc(db, "users", authSec.currentUser.uid), {
@@ -196,10 +187,11 @@ export default function Signup() {
       isBlocked: false,
       role: ""
     })
+    console.log("fire add")
 
     setIsLoading(false);
     setUserInfo({ name: '', email: '', password: '' })
-    getUsers();
+    // getUsers();
   };
 
   // To open/close popup and set user that send form edit btn
@@ -336,40 +328,35 @@ export default function Signup() {
               <th>function</th>
             </tr>
           </thead>
-          {users.map((user, index) => { 
-            return (
+          {users.map((user, index) => {return (
           <tbody>
             <tr>
-              {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin") ? (
-                <>
-                  <td>{index+1}</td>
-                  <td>{user.name}</td>
-                  <td>{user.isBlocked.toString()}</td>
-                  <td>{user.role}</td>
-                  <td>{user.email}</td>
-                  <td className='btn-table'> 
-                    <button
-                      className='btn-function btn'
-                      onClick={() => {
-                        deleteUserOnFstored(user);
-                      }}
-                      >
-                      {" "}
-                      Delete User
-                    </button>
-                    <button
-                      className='btn btn-function'
-                      onClick={(e) => changeSet(user)}
-                    >
-                      {" "}
-                      Edit
-                    </button>
-                    <Button variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
-                        <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
-                    </Button>
-                  </td>       
-                </>
-              ) : ""}
+              <td>{index+1}</td>
+              <td>{user.name}</td>
+              <td>{user.isBlocked.toString()}</td>
+              <td>{user.role}</td>
+              <td>{user.email}</td>
+              <td className='btn-table'> 
+                <button
+                  className='btn-function btn'
+                  onClick={() => {
+                    deleteUserOnFstored(user);
+                  }}
+                  >
+                  {" "}
+                  Delete User
+                </button>
+                <button
+                  className='btn btn-function'
+                  onClick={(e) => changeSet(user)}
+                >
+                  {" "}
+                  Edit
+                </button>
+                <Button variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
+                    <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
+                </Button>
+              </td>
             </tr>
           </tbody>)})}
         </table>
