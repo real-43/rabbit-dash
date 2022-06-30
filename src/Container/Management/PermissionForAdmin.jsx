@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Table } from 'react-bootstrap';
-import { getRoles } from '../../MyFireStore';
+import { GetRoles } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
@@ -39,10 +39,7 @@ export default function Permission() {
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
     const getAllRolesAgain = async () => {
-        await getRoles().then((value) => {
-            dispatch(defindAllRoles(value))
-            setAllRoles(value)
-        })
+        await GetRoles()
     }
 
     if (allRoles.length < 1) {

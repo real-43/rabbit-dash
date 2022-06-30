@@ -1,6 +1,8 @@
 import { getDocs, collection, query, where, getDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "./firebaseSec"
 import React from "react";
+import { useDispatch } from "react-redux";
+import { defindAllProjects, defindAllUsers, defindAllRoles } from "./firebaseSlice";
 
 
 /******************************************************* GET ***********************************************************/
@@ -14,19 +16,55 @@ var a = GG.getUsers().then((value) => {
 
 ************************************************************************************************************************/
 
-export const GetUsers = async () => { 
-    const [users,setUsers] = React.useState([])
+
+export const GetAll = async () => {
+    const dispatch = useDispatch()
     onSnapshot(collection(db,"users"),(function(querySnapshot) {
-        var cities = [];
+        let users = [];
         querySnapshot.forEach(function(doc) {
-            cities.push(doc.data());
-            // console.log("Current cities in CA: ", cities);
-            
+            users.push({...doc.data(), id: doc.id});
         });
-        setUsers(cities);
+        dispatch(defindAllUsers(users))
     }));
-    return users;
+
+    onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+        let roles = [];
+        querySnapshot.forEach(function(doc) {
+            roles.push({...doc.data(), id: doc.id});
+        });
+        dispatch(defindAllRoles(roles))
+    }));
+
+    onSnapshot(collection(db,"projects"),(function(querySnapshot) {
+        let projects = [];
+        querySnapshot.forEach(function(doc) {
+            projects.push({...doc.data(), id: doc.id});
+        });
+        dispatch(defindAllProjects(projects))
+    }));
 };
+
+export const GetUsers = async () => {
+    const dispatch = useDispatch()
+    onSnapshot(collection(db,"users"),(function(querySnapshot) {
+        let users = [];
+        querySnapshot.forEach(function(doc) {
+            users.push({...doc.data(), id: doc.id});
+        });
+        dispatch(defindAllUsers(users))
+    }));
+};
+
+export const GetRoles = async () => {
+    const dispatch = useDispatch()
+    onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+        let roles = [];
+        querySnapshot.forEach(function(doc) {
+            roles.push({...doc.data(), id: doc.id});
+        });
+        dispatch(defindAllRoles(roles))
+    }));
+}
 
 export const getRoles = async () => {
     const rolesCollectionRef = collection(db, "roles");
@@ -35,11 +73,15 @@ export const getRoles = async () => {
     return roles
 }
 
-export const getProjects = async () => {
-    const projectsCollectionRef = collection(db, "projects");
-    const data = await getDocs(projectsCollectionRef);
-    var projects = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    return projects
+export const GetProjects = async () => {
+    const dispatch = useDispatch()
+    onSnapshot(collection(db,"projects"),(function(querySnapshot) {
+        let projects = [];
+        querySnapshot.forEach(function(doc) {
+            projects.push({...doc.data(), id: doc.id});
+        });
+        dispatch(defindAllProjects(projects))
+    }));
 }
 
 export const getRole = async (roleName) => {

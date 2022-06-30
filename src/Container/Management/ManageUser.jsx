@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
+import { GetUsers } from '../../MyFireStore';
 
 import './signup.css'
 import { defindAllUsers } from '../../firebaseSlice';
@@ -63,20 +64,8 @@ export default function Signup() {
       })
 
     setIsLoading(false);
-    getUsers()
+    GetUsers()
     // window.location.reload(false);
-  };
-
-  const getUsers = async () => {
-    setIsLoading(true)
-
-    const data = await getDocs(usersCollectionRef);
-    let usersData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    setUsers(usersData)
-    
-    setIsLoading(false)
-
-    dispatch(defindAllUsers(usersData))
   };
 
   useEffect(() => {
@@ -142,7 +131,7 @@ export default function Signup() {
       authSec.signOut()
     })
     
-    // await getUsers()
+    // await GetUsers()
   }
 
   const ControlBlocked = async (user) => {
@@ -154,7 +143,7 @@ export default function Signup() {
       
     });
     setIsLoading(false)
-    // getUsers();
+    // GetUsers();
   }
 
   // To create new user in firebase
@@ -191,7 +180,7 @@ export default function Signup() {
 
     setIsLoading(false);
     setUserInfo({ name: '', email: '', password: '' })
-    // getUsers();
+    // GetUsers();
   };
 
   // To open/close popup and set user that send form edit btn

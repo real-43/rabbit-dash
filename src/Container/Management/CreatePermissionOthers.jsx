@@ -8,7 +8,7 @@ import { auth, db } from '../../firebase';
 import { useNavigate } from 'react-router'
 import Loading from '../../components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRoles } from '../../MyFireStore';
+import { GetRoles } from '../../MyFireStore';
 import { defindAllRoles } from '../../firebaseSlice';
 
 export default function CreatePermissionOthers() {
@@ -36,9 +36,7 @@ export default function CreatePermissionOthers() {
 
     const updateData = async () => {
         setIsLoading(true)
-        await getRoles().then((value) => {
-            dispatch(defindAllRoles(value))
-        })
+        await GetRoles()
         setIsLoading(false)
     }
 

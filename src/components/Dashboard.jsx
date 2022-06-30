@@ -4,62 +4,42 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getProjects, GetUsers, getRoles, getUser } from "../MyFireStore";
+import { GetAll } from "../MyFireStore";
 
 import { defindAllProjects, defindAllRoles, defindAllUsers } from "../firebaseSlice";
 
 
 export default function Dashboard() {
 
-    const refUser = useSelector((state) => state.firebase.currentUser)
-    const dispatch = useDispatch()
+  const refUser = useSelector((state) => state.firebase.allUsers)
+  const dispatch = useDispatch()
 
-    const [isData, setIsData] = useState(false);
+  const [isData, setIsData] = useState(false);
 
-    const defindAll = async() => {
-        await getAllUsers()
-        await getAllProjects()
-        await getAllRoles()
-        setIsData(true)
-    }
-
-    const getAllUsers = async() => {
-        await GetUsers().then((value) => {
-            dispatch(defindAllUsers(value))
-            // console.log("banan",value)
-        })
-
-    }
-
-    const getAllProjects = async() => {
-        await getProjects().then((value) => {
-            dispatch(defindAllProjects(value))
-        })
-    }
-
-    const getAllRoles = async() => {
-        await getRoles().then((value) => {
-            dispatch(defindAllRoles(value))
-        })
-    }
+  const defindAll = async() => {
+    setIsData(true)
+    await GetAll()
+  }
 
 
-    if (!isData) {
-        defindAll()
-    }
+  if (!isData) {
+      defindAll()
+  }
 
-    const router = useNavigate();
-    useEffect(() => {
-        const authentication = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                router('/dashboard')
-            } else {
-                router('/')
-            }
-        })
+  console.log("refUser", refUser)
 
-        return authentication
-    }, [])
+  const router = useNavigate();
+  useEffect(() => {
+    const authentication = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router('/dashboard')
+      } else {
+        router('/')
+      }
+    })
+
+    return authentication
+  }, [])
   
   return (
     <div>
