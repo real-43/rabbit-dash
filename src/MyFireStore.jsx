@@ -21,8 +21,9 @@ export const GetUsers = async () => {
         querySnapshot.forEach(function(doc) {
             cities.push(doc.data());
             // console.log("Current cities in CA: ", cities);
-            setUsers(cities);
+            
         });
+        setUsers(cities);
     }));
     return users;
 };
@@ -66,6 +67,7 @@ export const getUser = async (uid) => {
     const docRef = doc(db, "users", uid)
     const docSnap = await getDoc(docRef)
     user = docSnap.data()
-    return user
+    const reUser = {...user, id: uid}
+    return reUser
 }
 /******************************************************* GET ***********************************************************/
