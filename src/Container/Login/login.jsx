@@ -18,10 +18,15 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteAll } from '../../firebaseSlice';
 
 const comp_form = "@rabbit.co.th";
 const theme = createTheme();
 export default function Login() {
+
+  const dispatch = useDispatch();
+  const oldUser = useSelector((state) => state.firebase.currentUser);
 
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
@@ -30,6 +35,8 @@ export default function Login() {
 
   const usersCollectionRef = collection(db, "users");
   const [blockUser, setBlockUser] = useState({ id: '',email: '', password: '', isBlock: false });
+
+  if (oldUser !== "") dispatch(deleteAll())
 
   function goBlock() {
     const blocker = async () => {
