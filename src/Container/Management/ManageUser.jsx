@@ -11,6 +11,7 @@ import {
   updateDoc,
   doc,
   setDoc,
+  onSnapshot
 } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
@@ -67,6 +68,13 @@ export default function Signup() {
     // window.location.reload(false);
   };
 
+  const unsub = onSnapshot(doc(db, "users", "YVYOnGb6hPVClW0jUJ6VTIzytxG2"), (doc) => {
+    console.log("Current data: ", doc.data());
+    console.log("User is logged in",users)
+  });
+
+ 
+
   const getUsers = async () => {
     setIsLoading(true)
 
@@ -85,6 +93,7 @@ export default function Signup() {
   
   // Check that the user are logged in
   useEffect(() => {
+      unsub();
       const authentication = onAuthStateChanged(auth,(user) => {
           if (user) {
               router('/managementUser')

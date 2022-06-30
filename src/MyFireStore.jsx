@@ -1,5 +1,6 @@
-import { getDocs, collection, query, where, getDoc, doc } from "firebase/firestore";
+import { getDocs, collection, query, where, getDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "./firebaseSec"
+import React from "react";
 
 
 /******************************************************* GET ***********************************************************/
@@ -13,11 +14,17 @@ var a = GG.getUsers().then((value) => {
 
 ************************************************************************************************************************/
 
-export const getUsers = async () => {
-    const usersCollectionRef = collection(db, "users");
-    const data = await getDocs(usersCollectionRef);
-    var users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    return users
+export const GetUsers = async () => { 
+    const [users,setUsers] = React.useState([])
+    onSnapshot(collection(db,"users"),(function(querySnapshot) {
+        var cities = [];
+        querySnapshot.forEach(function(doc) {
+            cities.push(doc.data());
+            // console.log("Current cities in CA: ", cities);
+            setUsers(cities);
+        });
+    }));
+    return users;
 };
 
 export const getRoles = async () => {

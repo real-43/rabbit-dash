@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getProjects, getUsers, getRoles, getUser } from "../MyFireStore";
+import { getProjects, GetUsers, getRoles, getUser } from "../MyFireStore";
 
 import { defindAllProjects, defindAllRoles, defindAllUsers } from "../firebaseSlice";
 
@@ -24,9 +24,11 @@ export default function Dashboard() {
     }
 
     const getAllUsers = async() => {
-        await getUsers().then((value) => {
+        await GetUsers().then((value) => {
             dispatch(defindAllUsers(value))
+            // console.log("banan",value)
         })
+
     }
 
     const getAllProjects = async() => {
