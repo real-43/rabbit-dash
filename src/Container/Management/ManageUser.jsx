@@ -122,9 +122,19 @@ export default function Signup() {
 
   // Change Name or Password in firebase
   const handleChange = async (user) => {
-    setIsOpen(!isOpen)
+    setIsOpen(false)
     setIsLoading(true)
     setChangeUser(user)
+
+    let rest = []
+
+    users.map((u) => {
+      if (u.id === user.id) {
+        rest.push({...user, name: newName, password: newPassword, role: role})
+      }
+      rest.push(u)
+    })
+
 
     // Change in firestore
     const userDoc = doc(db, "users", user.id);
@@ -196,9 +206,18 @@ export default function Signup() {
 
   // To create new user in firebase
   const handleSubmit = async (event) => {
+    event.preventDefault();
     setIsLoading(true);
 
-    event.preventDefault();
+    let rest = [...users]
+    rest.push({
+      name: userInfo.name,
+      email: userInfo.email,
+      password: userInfo.password,
+      isBlocked: false,
+      role: ""
+    })
+    setUsers(rest)
     
     // Create user in firebase auth
     await createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
@@ -213,8 +232,7 @@ export default function Signup() {
           setAlert({ visible:false,severity:'',message:''})
         },2000)
     })
-    console.log('auth add')
-    console.log(authSec.currentUser.uid)
+    setIsLoading(false);
 
     // To create user in firestore
     await setDoc(doc(db, "users", authSec.currentUser.uid), {
