@@ -209,6 +209,8 @@ export default function Signup() {
     event.preventDefault();
     setIsLoading(true);
 
+    let uInfo = [...userInfo]
+
     let rest = [...users]
     rest.push({
       name: userInfo.name,
@@ -218,9 +220,11 @@ export default function Signup() {
       role: ""
     })
     setUsers(rest)
+
+    setUserInfo({ name: '', email: '', password: '' })
     
     // Create user in firebase auth
-    await createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password)
+    await createUserWithEmailAndPassword(authSec, uInfo.email, uInfo.password)
       .then((userInformation) => {
         updateProfile(authSec.currentUser, {
           displayName:userInformation.name
@@ -232,20 +236,19 @@ export default function Signup() {
           setAlert({ visible:false,severity:'',message:''})
         },2000)
     })
+
     setIsLoading(false);
 
     // To create user in firestore
     await setDoc(doc(db, "users", authSec.currentUser.uid), {
-      name: userInfo.name,
-      email: userInfo.email,
-      password: userInfo.password,
+      name: uInfo.name,
+      email: uInfo.email,
+      password: uInfo.password,
       isBlocked: false,
       role: ""
     })
-    console.log("fire add")
 
     setIsLoading(false);
-    setUserInfo({ name: '', email: '', password: '' })
     updateData()
   };
 
