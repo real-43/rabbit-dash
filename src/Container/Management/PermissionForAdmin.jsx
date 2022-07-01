@@ -39,9 +39,8 @@ export default function Permission() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
-    const getAllRolesAgain = () => {
-        console.log("asd;lfkjasd;lfkjasdf")
-        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+    const getAllRolesAgain = async () => {
+        await onSnapshot(collection(db,"roles"),(function(querySnapshot) {
             let roles = [];
             querySnapshot.forEach(function(doc) {
                 roles.push({...doc.data(), id: doc.id});
@@ -53,13 +52,6 @@ export default function Permission() {
     useEffect(() => {
         setAllRoles([...allRolesR])
     }, [allRolesR])
-        
-
-    if (allRoles.length < 1) {
-        setAllRoles(allRolesR)
-        setAllUsers(allUsersR)
-        setAllProjects(allProjectsR)
-    }
 
     // create options for user select of edit permission
     const genProjectOptions = (project) => {
@@ -184,6 +176,7 @@ export default function Permission() {
         const roleDoc = doc(db, "roles", role.id);
         await deleteDoc(roleDoc);
 
+        // Delete the role from all users in firebase
         allUsers.map((user) => {
             if (user.role === role.name) {
                 const docRef = doc(db, "users", user.id)
@@ -193,8 +186,9 @@ export default function Permission() {
             }
         })
 
+        await getAllRolesAgain()
+
         setIsLoading(false)
-        getAllRolesAgain()
     }
 
     function popupAdd() {

@@ -1,47 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./Menu.css";
 import { auth, db } from '../firebase';
-import { getDoc, doc, getDocs, collection, where, query } from "firebase/firestore";
-import { signOut } from 'firebase/auth'
 import { useNavigate } from "react-router-dom";
-import { async } from "@firebase/util";
 import { useSelector } from 'react-redux';
-import {getRole} from "../MyFireStore";
-import { useDispatch } from 'react-redux'
-import { defindRoleInfo} from '../firebaseSlice';
 
 export default function Menu() {
 
-  const dispatch = useDispatch()
+  const projectsR = useSelector((state) => state.firebase.allProjects)
 
-  const [projects, setProjects] = useState(useSelector((state) => state.firebase.allProjects));
- 
+  const [projects, setProjects] = useState([...projectsR]);
   const [role, setRole] = useState(useSelector((state) => state.firebase.currentUserFS)); 
- 
-  const [menu, setMenu] = useState(useSelector((state) => state.firebase.currentRoleFS) || null);
+  const [menu, setMenu] = useState(useSelector((state) => state.firebase.currentRoleFS));
 
   const navigate = useNavigate();
-
-  const getRole= async() => {
-    const q = query(collection(db, "users"), where("email", "==", user.email));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      setRole(doc.data())
-    });
-  }
-
-  const getMenu = async() => {
-    const q = query(collection(db, "roles"), where("name", "==", role.role));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      setMenu(doc?.data())
-    });
-  }
-
-  const getProjects = async () => {
-    const data = await getDocs( collection(db, "projects"));
-    setProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
 
   const checkMenu = (menuCheck) => {
     var permission = null
@@ -63,6 +34,10 @@ export default function Menu() {
     return permission
   }
 
+  useEffect(() => {
+    setProjects([...projectsR])
+  }, [projectsR])
+
   const checkSubMenu = (subMenuCheck) => {
     var permission = null
     var i = 0
@@ -77,19 +52,6 @@ export default function Menu() {
   }
 
   const user = auth.currentUser || {email: ""};
-
-  if (role === null) {
-    getRole();
-  }
-
-  if (role !== null && menu === null) {
-    getMenu();
-    
-  }
-
-  if (role !== null && menu !== null && projects === null) {
-    getProjects();
-  }
 
   return (
     <div>

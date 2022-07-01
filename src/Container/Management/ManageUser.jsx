@@ -39,14 +39,10 @@ export default function Signup() {
 
   const usersR = useSelector((state) => state.firebase.allUsers)
   const currentUser = useSelector((state) => state.firebase.currentUserFS)
-  const currentRoleFS = useSelector((state) => state.firebase.currentRoleFS)
   const rolesR = useSelector((state) => state.firebase.allRoles)
 
   const [users, setUsers] = useState([...usersR])
   const [roles, setRoles] = useState([...rolesR])
-
-  const usersCollectionRef = collection(db, "users");
-  const rolesCollectionRef = collection(db, "roles");
 
   const updateData = () => {
     onSnapshot(collection(db,"roles"),(function(querySnapshot) {
@@ -55,6 +51,7 @@ export default function Signup() {
         r.push({...doc.data(), id: doc.id});
       });
       dispatch(defindAllRoles(r))
+      setRoles(r)
     }));
 
     onSnapshot(collection(db,"users"),(function(querySnapshot) {
@@ -63,6 +60,7 @@ export default function Signup() {
         u.push({...doc.data(), id: doc.id});
       });
       dispatch(defindAllUsers(u))
+      setUsers(u)
     }));
   }
 
@@ -196,7 +194,7 @@ export default function Signup() {
     console.log(authSec.currentUser.uid)
 
     // To create user in firestore
-    setDoc(doc(db, "users", authSec.currentUser.uid), {
+    await setDoc(doc(db, "users", authSec.currentUser.uid), {
       name: userInfo.name,
       email: userInfo.email,
       password: userInfo.password,

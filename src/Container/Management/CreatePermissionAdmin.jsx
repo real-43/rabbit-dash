@@ -53,6 +53,13 @@ export default function CreatePermission() {
         setIsLoading(false)
     }
 
+    const reset = () => {
+        setdata([])
+        setProjectInput([])
+        setRoleName("")
+        setToSend([])
+    }
+
     const handleSubmit = async (event) => {
         setIsLoading(true)
         event.preventDefault();
@@ -68,8 +75,8 @@ export default function CreatePermission() {
         });
 
         await updateData()
+        reset()
         setIsLoading(false)
-        window.location.reload()
     }
 
     const animatedComponents = makeAnimated();
@@ -113,7 +120,7 @@ export default function CreatePermission() {
                     <Form>
                         <Form.Group className="mb-3">
                             <Form.Label>Permission Name</Form.Label>
-                            <Form.Control type="text" placeholder="Name" onChange={(e) => {setRoleName(e.target.value)}} />
+                            <Form.Control type="text" placeholder="Name" value={roleName} onChange={(e) => {setRoleName(e.target.value)}} />
                             <Form.Text className="text-muted">
                                 If the name includes "Admin" they can manage their project
                             </Form.Text>
@@ -125,6 +132,7 @@ export default function CreatePermission() {
                                 <Select
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
+                                    value={projectInput}
                                     isMulti
                                     options={optionsProject()}
                                     onChange={(event) => {
