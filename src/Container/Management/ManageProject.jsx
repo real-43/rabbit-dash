@@ -1,32 +1,31 @@
-import React, {useState}from 'react';
+import React, { useState, useEffect }from 'react';
 import { db } from '../../firebaseSec';
 import { auth } from '../../firebase';
-import {Modal, Form, Button}  from 'react-bootstrap';
+import { Modal, Form, Button }  from 'react-bootstrap';
 // import Table from 'react-bootstrap';
 import "./signup.css";
 import Chip from '@mui/material/Chip';
 import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
 import Stack from '@mui/material/Stack';
-import * as GG from '../../MyFireStore';
-import {useSelector} from "react-redux"
-
+import { useSelector, useDispatch } from "react-redux"
+import { defindAllProjects, defindAllRoles } from '../../firebaseSlice';
 import {
     collection,
-    getDocs,
     addDoc,
     deleteDoc,
     updateDoc,
     doc,
-    getDoc,
     arrayUnion,
     arrayRemove,
-    where, query
+    onSnapshot
   } from "firebase/firestore";
 
 const ManageProject = () => {
 
-    const user = auth.currentUser 
+    const dispatch = useDispatch()
+
+    const user = auth.currentUser
     
     const [newProjectName,setNewProjectName] = useState("")
     const [newSubM,setNewSubM] = useState([])
@@ -39,21 +38,44 @@ const ManageProject = () => {
     const [projectInfo, setProjectInfo] = useState({ name: ''});
     const [submenu, setSubmenu] = useState([])
     
+    const projectsR = useSelector((state)=> state.firebase.allProjects)
+    const rolesR = useSelector((state) => state.firebase.allRoles)
 
-    const [projects, setProjects] = useState(useSelector((state)=> state.firebase.allProjects)); //useSelector((state) => state.firebase.currentUser)
+    const [projects, setProjects] = useState([...projectsR]);
 
-    const [roles, setRoles] = useState(useSelector((state) => state.firebase.allRoles));
+    const [roles, setRoles] = useState([...rolesR]);
 
     const role = useState(useSelector((state) => state.firebase.currentRoleFS));
 
     const AdminDoc = doc(db, "roles", 'XKvFX3M9e07w0qcpxd32');
 
     const userinfo = useSelector((state) => state.firebase.currentUserFS)
+
+    const updateData = async () => {
+        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+            let r = [];
+            querySnapshot.forEach(function(doc) {
+                r.push({...doc.data(), id: doc.id});
+            });
+            dispatch(defindAllRoles(r))
+        }));
     
-    const [dupA,setDupA] =useState([])
-    console.log(role.id)
-  
-    
+        onSnapshot(collection(db,"projects"),(function(querySnapshot) {
+            let p = [];
+            querySnapshot.forEach(function(doc) {
+                p.push({...doc.data(), id: doc.id});
+            });
+            dispatch(defindAllProjects(p))
+        }));
+    }
+
+    useEffect(() => {
+        setRoles([...rolesR])
+    }, [rolesR])
+
+    useEffect(() => {
+        setProjects([...projectsR])
+    }, [projectsR])
 
     const addProjects = async (e) => {
         e.preventDefault();
@@ -65,7 +87,6 @@ const ManageProject = () => {
             a.push(element);   
         }
         a.push(projectInfo.name)
-        console.log(a)
 
         var NewProjectManagement = {
             Project: a,
@@ -80,7 +101,7 @@ const ManageProject = () => {
         }
 
         await addDoc(collection(db, "projects"), NewProject);
-        roles.map((role) =>{ 
+        roles.map((role) => { 
             if(role.name === 'Admin'){
                 updateDoc(AdminDoc,{
                     project: arrayUnion(NewProject),
@@ -88,7 +109,7 @@ const ManageProject = () => {
                 });
             }   
         });
-
+        await updateData()
         window.location.reload()
         setIsLoading(false)
     }
@@ -125,6 +146,7 @@ const ManageProject = () => {
                 
         }); 
         
+        updateData()
         setIsLoading(false)
     }
 
@@ -151,7 +173,6 @@ const ManageProject = () => {
                             subMenu: project.subMenu
                         }),
                     });  
-                    console.log("delete")
                     console.log(newProjectName,submenu )
                     updateDoc(roleDoc,{
                         project: arrayUnion({
@@ -159,11 +180,12 @@ const ManageProject = () => {
                             subMenu: submenu[submenu.length - 1] 
                         })
                     });   
-                    console.log("add")
                 }    
             })
                        
         });
+
+        updateData()
         setIsLoading(false)
     }
 

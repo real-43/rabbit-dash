@@ -57,14 +57,14 @@ export default function Signup() {
       dispatch(defindAllRoles(r))
     }));
 
-  onSnapshot(collection(db,"users"),(function(querySnapshot) {
-    let u = [];
-    querySnapshot.forEach(function(doc) {
-      u.push({...doc.data(), id: doc.id});
-    });
-    dispatch(defindAllUsers(u))
-  }));
-}
+    onSnapshot(collection(db,"users"),(function(querySnapshot) {
+      let u = [];
+      querySnapshot.forEach(function(doc) {
+        u.push({...doc.data(), id: doc.id});
+      });
+      dispatch(defindAllUsers(u))
+    }));
+  }
 
   // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
