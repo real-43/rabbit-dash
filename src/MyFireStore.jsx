@@ -90,7 +90,7 @@ export const getRole = async (roleName) => {
     const q = query(collection(db, "roles"), where("name", "==", roleName));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      role = doc.data();
+      role = {...doc.data(), id: doc.id};
     });
     return role
 }
@@ -100,7 +100,7 @@ export const getProject = async (projectName) => {
     const q = query(collection(db, "projects"), where("name", "==", projectName));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-        project = doc.data();
+        project = {...doc.data(), id: doc.id};
     });
     return project
 }
