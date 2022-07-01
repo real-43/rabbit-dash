@@ -6,18 +6,17 @@ import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
 import {
   collection,
-  getDocs,
   deleteDoc,
   updateDoc,
   doc,
   setDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
-import { GetUsers } from '../../MyFireStore';
 
 import './signup.css'
-import { defindAllUsers } from '../../firebaseSlice';
+import { defindAllUsers, defindAllRoles } from '../../firebaseSlice';
 
 export default function Signup() {
 
@@ -39,13 +38,33 @@ export default function Signup() {
   const timerRef = useRef(null);
 
   const usersR = useSelector((state) => state.firebase.allUsers)
+  const currentUser = useSelector((state) => state.firebase.currentUserFS)
+  const currentRoleFS = useSelector((state) => state.firebase.currentRoleFS)
   const rolesR = useSelector((state) => state.firebase.allRoles)
 
-  const [users, setUsers] = useState(usersR)
-  const [roles, setRoles] = useState(usersR)
+  const [users, setUsers] = useState([...usersR])
+  const [roles, setRoles] = useState([...rolesR])
 
   const usersCollectionRef = collection(db, "users");
   const rolesCollectionRef = collection(db, "roles");
+
+  const updateData = () => {
+    onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+      let r = [];
+      querySnapshot.forEach(function(doc) {
+        r.push({...doc.data(), id: doc.id});
+      });
+      dispatch(defindAllRoles(r))
+    }));
+
+  onSnapshot(collection(db,"users"),(function(querySnapshot) {
+    let u = [];
+    querySnapshot.forEach(function(doc) {
+      u.push({...doc.data(), id: doc.id});
+    });
+    dispatch(defindAllUsers(u))
+  }));
+}
 
   // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
@@ -64,13 +83,21 @@ export default function Signup() {
       })
 
     setIsLoading(false);
-    // GetUsers()
+    updateData()
     // window.location.reload(false);
   };
 
   useEffect(() => {
     return clearTimeout(timerRef.current)
   },[])
+
+  useEffect(() => {
+    setRoles([...rolesR])
+  }, [rolesR])
+
+  useEffect(() => {
+    setUsers([...usersR])
+  }, [usersR])
   
   // Check that the user are logged in
   useEffect(() => {
@@ -131,7 +158,7 @@ export default function Signup() {
       authSec.signOut()
     })
     
-    // await GetUsers()
+    updateData()
   }
 
   const ControlBlocked = async (user) => {
@@ -143,7 +170,7 @@ export default function Signup() {
       
     });
     setIsLoading(false)
-    // GetUsers();
+    updateData()
   }
 
   // To create new user in firebase
@@ -180,7 +207,7 @@ export default function Signup() {
 
     setIsLoading(false);
     setUserInfo({ name: '', email: '', password: '' })
-    // GetUsers();
+    updateData()
   };
 
   // To open/close popup and set user that send form edit btn
@@ -320,32 +347,36 @@ export default function Signup() {
           {users.map((user, index) => {return (
           <tbody>
             <tr>
-              <td>{index+1}</td>
-              <td>{user.name}</td>
-              <td>{user.isBlocked.toString()}</td>
-              <td>{user.role}</td>
-              <td>{user.email}</td>
-              <td className='btn-table'> 
-                <button
-                  className='btn-function btn'
-                  onClick={() => {
-                    deleteUserOnFstored(user);
-                  }}
+            {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin") ? (
+              <>
+                <td>{index+1}</td>
+                <td>{user.name}</td>
+                <td>{user.isBlocked.toString()}</td>
+                <td>{user.role}</td>
+                <td>{user.email}</td>
+                <td className='btn-table'> 
+                  <button
+                    className='btn-function btn'
+                    onClick={() => {
+                      deleteUserOnFstored(user);
+                    }}
+                    >
+                    {" "}
+                    Delete User
+                  </button>
+                  <button
+                    className='btn btn-function'
+                    onClick={(e) => changeSet(user)}
                   >
-                  {" "}
-                  Delete User
-                </button>
-                <button
-                  className='btn btn-function'
-                  onClick={(e) => changeSet(user)}
-                >
-                  {" "}
-                  Edit
-                </button>
-                <Button variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
-                    <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
-                </Button>
-              </td>
+                    {" "}
+                    Edit
+                  </button>
+                  <Button variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
+                      <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
+                  </Button>
+                </td>       
+              </>
+            ) : ""}
             </tr>
           </tbody>)})}
         </table>

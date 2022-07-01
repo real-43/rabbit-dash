@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap';
-import { GetRoles } from '../../MyFireStore';
 import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
@@ -10,6 +9,8 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../components/Loading';
 import { useSelector, useDispatch } from 'react-redux';
 import { defindAllRoles } from '../../firebaseSlice';
+import { collection, onSnapshot } from "firebase/firestore";
+
 
 export default function Permission() {
 
@@ -22,9 +23,9 @@ export default function Permission() {
     const allProjectsR = useSelector((state) => state.firebase.allProjects)
     const allUsersR = useSelector((state) => state.firebase.allUsers)
 
-    const [allRoles, setAllRoles] = useState([]);
-    const [allProjects, setAllProjects] = useState([]);
-    const [allUsers, setAllUsers] = useState([]);
+    const [allRoles, setAllRoles] = useState([...allRolesR]);
+    const [allProjects, setAllProjects] = useState([...allProjectsR]);
+    const [allUsers, setAllUsers] = useState([...allUsersR]);
 
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
@@ -38,9 +39,21 @@ export default function Permission() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
-    const getAllRolesAgain = async () => {
-        await GetRoles()
+    const getAllRolesAgain = () => {
+        console.log("asd;lfkjasd;lfkjasdf")
+        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+            let roles = [];
+            querySnapshot.forEach(function(doc) {
+                roles.push({...doc.data(), id: doc.id});
+            });
+            dispatch(defindAllRoles(roles))
+        }));
     }
+
+    useEffect(() => {
+        setAllRoles([...allRolesR])
+    }, [allRolesR])
+        
 
     if (allRoles.length < 1) {
         setAllRoles(allRolesR)
@@ -126,7 +139,7 @@ export default function Permission() {
             "project" : sendPro
         })
 
-        await getAllRolesAgain()
+        // getAllRolesAgain()
         handleClosePopup()
         setIsLoading(false)
     }
@@ -158,7 +171,7 @@ export default function Permission() {
         })
 
         // get updated value from firestore to display
-        await getAllRolesAgain()
+        // getAllRolesAgain()
         // close popup and set all variable to default
         handleClosePopup()
 
@@ -181,7 +194,7 @@ export default function Permission() {
         })
 
         setIsLoading(false)
-        await getAllRolesAgain()
+        getAllRolesAgain()
     }
 
     function popupAdd() {
@@ -245,7 +258,6 @@ export default function Permission() {
                                                             })
                                                             addSub[index] = {name: pro.value, subMenu: arrSubMenu}
                                                             setProjectChange(addSub)
-                                                            console.log("pro change", projectChange)
                                                         }}
                                                     />
                                                 </div>
@@ -349,7 +361,6 @@ export default function Permission() {
                                                 })
                                                 addSub[index] = {name: pro.value, subMenu: arrSubMenu}
                                                 setProjectChange(addSub)
-                                                console.log("pro change", projectChange)
                                             }}
                                         />
                                     </div>
@@ -397,7 +408,6 @@ export default function Permission() {
                     </thead>
                     <tbody>
                         {allRoles.map((role,index) => {
-                            console.log("role",role.project)
                             return (
                                 <tr>
                                     <td>{index + 1}</td>

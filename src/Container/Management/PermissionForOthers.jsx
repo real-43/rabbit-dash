@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
@@ -19,13 +19,13 @@ export default function PermissionForOthers() {
     const dispatch = useDispatch()
 
     const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
-
-    const allRoles = useSelector((state) => state.firebase.allRoles)
+    const allRolesR = useSelector((state) => state.firebase.allRoles)
     const allProjectsR = useSelector((state) => state.firebase.allProjects)
     const allUsersR = useSelector((state) => state.firebase.allUsers)
 
-    const [allProjects, setAllProjects] = useState([]);
-    const [allUsers, setAllUsers] = useState([]);
+    const [allRoles, setAllRoles] = useState([...allRolesR])
+    const [allProjects, setAllProjects] = useState([...allProjectsR]);
+    const [allUsers, setAllUsers] = useState([...allUsersR]);
     const [rolesInSamePro, setRoleInSamePro] = useState([])
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
@@ -39,10 +39,9 @@ export default function PermissionForOthers() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
-    if (allUsers.length < 1) {
-        setAllUsers(allUsersR)
-        setAllProjects(allProjectsR)
-    }
+    useEffect(() => {
+        setAllRoles([...allRolesR])
+    }, [allRolesR])
 
     const getSameRolesAgain = async () => {
         let roles = []

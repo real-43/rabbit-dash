@@ -3,16 +3,18 @@ import {Form, Button}  from 'react-bootstrap';
 import './ManagePermission.css'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, onSnapshot } from "firebase/firestore"; 
 import { db } from '../../firebase';
 import { useNavigate } from 'react-router'
 import Loading from '../../components/Loading';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { defindAllRoles } from '../../firebaseSlice';
 
 
 export default function CreatePermission() {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState();
 
     const [roleName, setRoleName] = useState("");
@@ -39,11 +41,22 @@ export default function CreatePermission() {
         return menuName
     }
 
+    const updateData = async () => {
+        setIsLoading(true)
+        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+            let roles = [];
+            querySnapshot.forEach(function(doc) {
+                roles.push({...doc.data(), id: doc.id});
+            });
+            dispatch(defindAllRoles(roles))
+        }));
+        setIsLoading(false)
+    }
+
     const handleSubmit = async (event) => {
+        setIsLoading(true)
         event.preventDefault();
         let manageChild = getProjectName(toSend)
-
-        setIsLoading(true)
 
         var update = [...toSend]
         setToSend(update)
@@ -53,6 +66,8 @@ export default function CreatePermission() {
             project: toSend,
             Management: {Permission: manageChild, Project: manageChild, Services: manageChild}
         });
+
+        await updateData()
         setIsLoading(false)
         window.location.reload()
     }

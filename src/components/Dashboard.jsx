@@ -1,32 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import { useDispatch, useSelector } from 'react-redux'
-
-import { GetAll } from "../MyFireStore";
-
+import { collection, onSnapshot } from "firebase/firestore";
 import { defindAllProjects, defindAllRoles, defindAllUsers } from "../firebaseSlice";
 
-
 export default function Dashboard() {
-
-  const refUser = useSelector((state) => state.firebase.allUsers)
-  const dispatch = useDispatch()
-
-  const [isData, setIsData] = useState(false);
-
-  const defindAll = async() => {
-    setIsData(true)
-    await GetAll()
-  }
-
-
-  if (!isData) {
-      defindAll()
-  }
-
-  console.log("refUser", refUser)
 
   const router = useNavigate();
   useEffect(() => {
