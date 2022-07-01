@@ -209,7 +209,7 @@ export default function Signup() {
     event.preventDefault();
     setIsLoading(true);
 
-    let uInfo = [...userInfo]
+    let uInfo = userInfo
 
     let rest = [...users]
     rest.push({
