@@ -2,7 +2,6 @@ import React, { useState, useEffect }from 'react';
 import { db } from '../../firebaseSec';
 import { auth } from '../../firebase';
 import { Modal, Form, Button }  from 'react-bootstrap';
-// import Table from 'react-bootstrap';
 import "./signup.css";
 import Chip from '@mui/material/Chip';
 import ChipInput from 'material-ui-chip-input'
@@ -44,8 +43,10 @@ const ManageProject = () => {
     const [projects, setProjects] = useState([...projectsR]);
 
     const [roles, setRoles] = useState([...rolesR]);
-
-    const role = useState(useSelector((state) => state.firebase.currentRoleFS));
+    const roleR = useSelector((state) => state.firebase.currentRoleFS)
+    const [role, setRole] = useState(roleR);
+    console.log("RR", roleR)
+    console.log("EE", role)
 
     const AdminDoc = doc(db, "roles", 'XKvFX3M9e07w0qcpxd32');
 
@@ -77,25 +78,33 @@ const ManageProject = () => {
         setProjects([...projectsR])
     }, [projectsR])
 
+    useEffect(() => {
+        setRole(roleR)
+    }, [roleR])
+
     const addProjects = async (e) => {
         e.preventDefault();
-
         setIsLoading(true)
 
+        let rest = [...projects]
+        rest.push({name: projectInfo.name, subMenu: submenu[submenu.length-1]})
+
+        setProjects(rest) 
+
         var a = []
-        for (const element of role[0].Management.Project) {
-            a.push(element);   
+        for (const element of role.Management.Project) {
+            a.push(element);
         }
         a.push(projectInfo.name)
+        console.log("a element", a)
 
         var NewProjectManagement = {
-            Project: a,
-            Permission: a,
-            Services: a
-
+            "Project": a,
+            "Permission": a,
+            "Services": a
         }
         
-        var NewProject ={
+        var NewProject = {
             name: projectInfo.name,
             subMenu: submenu[submenu.length-1],
         }
@@ -109,19 +118,27 @@ const ManageProject = () => {
                 });
             }   
         });
-        await updateData()
-        window.location.reload()
+
+        updateData()
         setIsLoading(false)
     }
 
     const deleteProjects = async (project) => {
         const userDoc = doc(db, "projects", project.id);
-
         setIsLoading(true)
+
+        let rest = []
+        role.Management.Project.map((p) => {
+            if (p !== project.name) {
+                rest.push(p)
+            }
+        })
+        setRole({...role, Management: {Permission: rest, Project: rest, Services: rest}})
+
         var DelProjectManagement = {
-            Project: role[0].Management.Project.filter(obj => obj !== project.name),
-            Permission: role[0].Management.Permission.filter(obj => obj !== project.name),
-            Services: role[0].Management.Services.filter(obj => obj !== project.name)
+            Project: role.Management.Project.filter(obj => obj !== project.name),
+            Permission: role.Management.Permission.filter(obj => obj !== project.name),
+            Services: role.Management.Services.filter(obj => obj !== project.name)
 
         }
         var DelProjectDetails = {
@@ -143,7 +160,6 @@ const ManageProject = () => {
                     });
                 }      
             })
-                
         }); 
         
         updateData()
