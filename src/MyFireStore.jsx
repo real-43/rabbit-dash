@@ -17,6 +17,7 @@ var a = GG.getUsers().then((value) => {
 ************************************************************************************************************************/
 
 
+
 export const GetAll = async () => {
     const dispatch = useDispatch()
     onSnapshot(collection(db,"users"),(function(querySnapshot) {

@@ -64,7 +64,7 @@ export default function Signup() {
       })
 
     setIsLoading(false);
-    GetUsers()
+    // GetUsers()
     // window.location.reload(false);
   };
 
