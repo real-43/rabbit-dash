@@ -44,8 +44,8 @@ export default function Signup() {
   const [users, setUsers] = useState([...usersR])
   const [roles, setRoles] = useState([...rolesR])
 
-  const updateData = () => {
-    onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+  const updateData = async () => {
+    await onSnapshot(collection(db,"roles"),(function(querySnapshot) {
       let r = [];
       querySnapshot.forEach(function(doc) {
         r.push({...doc.data(), id: doc.id});
@@ -68,21 +68,31 @@ export default function Signup() {
   const deleteUserOnFstored = async (user) => {
     setIsLoading(true);
 
+    let index = 0
+    let rest = []
+
+    users.map((u) => {
+      if(u.id !== user.id) {
+        rest[index] = u
+        index += 1
+      }
+    })
+    setUsers(rest)
+
     // delete user in firestore
     const userDoc = doc(db, "users", user.id);
     await deleteDoc(userDoc);
 
+    setIsLoading(false);
+    updateData()
+
     // delete user in firebase auth
-    await signInWithEmailAndPassword(authSec, user.email, user.password)
+    signInWithEmailAndPassword(authSec, user.email, user.password)
       .then(() => {
         const userToDel = authSec.currentUser
         deleteUser(userToDel)
         authSec.signOut()
       })
-
-    setIsLoading(false);
-    updateData()
-    // window.location.reload(false);
   };
 
   useEffect(() => {
@@ -162,13 +172,26 @@ export default function Signup() {
   const ControlBlocked = async (user) => {
     setIsLoading(true)
     console.log("Controlblocked function")
+
+    let rest = []
+
+    users.map((u, index) => {
+      if(u.id === user.id) {
+        rest[index] = {...u, isBlocked: !user.isBlocked}
+      }else {
+        rest[index] = {...u}
+      }
+    })
+
+    setUsers(rest)
+
     const userDoc = doc(db, "users", user.id);
     await updateDoc(userDoc, {
       "isBlocked": !user.isBlocked
       
     });
-    setIsLoading(false)
     updateData()
+    setIsLoading(false)
   }
 
   // To create new user in firebase
@@ -369,8 +392,8 @@ export default function Signup() {
                     {" "}
                     Edit
                   </button>
-                  <Button variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
-                      <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword" onClick={(e)=>ControlBlocked(user)}/>
+                  <Button onClick={(e)=>ControlBlocked(user)} variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
+                      <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword"/>
                   </Button>
                 </td>       
               </>
