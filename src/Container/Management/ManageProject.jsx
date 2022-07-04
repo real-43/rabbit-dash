@@ -1,12 +1,12 @@
 import React, { useState, useEffect }from 'react';
 import { db } from '../../firebaseSec';
 import { auth } from '../../firebase';
+import { Table } from 'react-bootstrap';
 import { Modal, Form, Button }  from 'react-bootstrap';
 import "./signup.css";
 import Chip from '@mui/material/Chip';
 import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
-import Stack from '@mui/material/Stack';
 import { useSelector, useDispatch } from "react-redux"
 import { defindAllProjects, defindAllRoles } from '../../firebaseSlice';
 import {
@@ -314,51 +314,35 @@ const ManageProject = () => {
                     </div>
                 </form>
                 {popup()}
-                <table className="table " style={{paddingTop: "10px"}}>
+                <Table striped bbordered>
                     <thead>
-                        <tr className="border align-items-center ">
-                            <th>Project ID</th>
-                            <th>Project Name</th>
-                            <th>Submenu</th>
-                            <th>Function</th>
+                        <tr>
+                            <th>Number</th>
+                            <th>Role Name</th>
+                            <th>Projects {'('}Sub Menu{')'}</th>
+                            <th>Commands</th>
                         </tr>
                     </thead>
-                    {projects.filter(project => projectName.includes(project.name)).map((filproject,index) =>{return(
-                        <tbody>
-                            <tr className="border align-items-center ">
-                                <td>{index+1}</td>
-                                <td>{filproject.name}</td>      
-                                <td>
-                                    <Stack direction="row" spacing={1}>
-                                        {filproject.subMenu?.map((submenu,index) =>{ return(
-                                            <Chip label={submenu} clickable/>
-                                        ) })}  
-                                    </Stack> 
-                                </td>
-                                <td>
-                                    <i 
-                                        class="fa fa-trash" 
-                                        aria-hidden="true" 
-                                        style={{cursor: "pointer"}}
-                                        onClick={(e)=>deleteProjects(filproject)}
-                                    >
-                                    </i>
-                                    <i 
-                                        class="fa fa-cogs" 
-                                        aria-hidden="true" 
-                                        style={{
-                                            cursor: "pointer",
-                                            marginLeft: "15px",
-                                        }}
-                                        onClick={(e) => handleEdit(filproject)}>
-
-                                    </i>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    )})} 
-                </table>  
+                    <tbody>
+                        {projects.map((pro,index) => {
+                            return (
+                                <tr>
+                                    <td>{index + 1}</td>
+                                    <td>{pro.name}</td>
+                                    <td>
+                                        {pro.subMenu.map((sub) => {
+                                            return <Chip label={sub} clickable/>
+                                        })}
+                                    </td>
+                                    <td>
+                                        <Button className="btn m-2 edit" onClick={(e) => {handleEdit(pro)}}>Edit</Button>
+                                        <button className="btn m-2 del" onClick={(e) => {deleteProjects(pro)}}>Delete</button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </Table>
             </div>         
         </div>
     );

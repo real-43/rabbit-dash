@@ -39,11 +39,6 @@
     font-size: small;
 }
 
-th,
-td {
-    text-align: center !important;
-}
-
 .form-control {
     padding: 5px !important;
 }
