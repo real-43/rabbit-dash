@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { auth, db } from '../../firebase';
+import { auth, db } from '../../../firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
-import Loading from '../../components/Loading';
+import Loading from '../../../components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { defindAllRoles } from '../../firebaseSlice';
-import { getRoles } from '../../MyFireStore';
+import { defindAllRoles } from '../../../firebaseSlice';
+import { getRoles } from '../../../MyFireStore';
 
 export default function PermissionForOthers() {
 

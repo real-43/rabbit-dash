@@ -13,10 +13,10 @@ import Footer from './components/Footer';
 import {Route,Routes, Outlet} from 'react-router-dom';
 import DatafileHome from './Container/Projects/Datafile Morniting/Home';
 import PDF from './Container/Projects/Datafile Morniting/PDF'
-import CreatePermissionAdmin from './Container/Management/CreatePermissionAdmin';
-import CreatePermissionOthers from './Container/Management/CreatePermissionOthers';
-import Permission from './Container/Management/PermissionForAdmin';
-import PermissionForOthers from './Container/Management/PermissionForOthers';
+import CreatePermissionAdmin from './Container/Management/Permission/CreatePermissionAdmin';
+import CreatePermissionOthers from './Container/Management/Permission/CreatePermissionOthers';
+import Permission from './Container/Management/Permission/PermissionForAdmin';
+import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase"
 import { useSelector, useDispatch } from 'react-redux'

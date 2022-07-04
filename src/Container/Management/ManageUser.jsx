@@ -43,6 +43,7 @@ export default function Signup() {
 
   const [users, setUsers] = useState([...usersR])
   const [roles, setRoles] = useState([...rolesR])
+  const [userCreate, setUserCreate] = useState(null)
 
   const updateData = async () => {
     await onSnapshot(collection(db,"roles"),(function(querySnapshot) {
@@ -210,23 +211,27 @@ export default function Signup() {
     setIsLoading(true);
 
     let uInfo = userInfo
+    let newUser = null
+    let newUID = null
 
-    let rest = [...users]
-    rest.push({
-      name: userInfo.name,
-      email: userInfo.email,
-      password: userInfo.password,
-      isBlocked: false,
-      role: ""
-    })
-    setUsers(rest)
+    // let rest = [...users]
+    // rest.push({
+    //   name: userInfo.name,
+    //   email: userInfo.email,
+    //   password: userInfo.password,
+    //   isBlocked: false,
+    //   role: ""
+    // })
+    // setUsers(rest)
 
     setUserInfo({ name: '', email: '', password: '' })
     
     // Create user in firebase auth
     await createUserWithEmailAndPassword(authSec, uInfo.email, uInfo.password)
       .then((userInformation) => {
-        updateProfile(authSec.currentUser, {
+        newUser = authSec.currentUser
+        newUID = newUser.uid
+        updateProfile(newUser, {
           displayName:userInformation.name
         })
       }).catch(error => {
@@ -237,10 +242,8 @@ export default function Signup() {
         },2000)
     })
 
-    setIsLoading(false);
-
     // To create user in firestore
-    await setDoc(doc(db, "users", authSec.currentUser.uid), {
+    await setDoc(doc(db, "users", newUID), {
       name: uInfo.name,
       email: uInfo.email,
       password: uInfo.password,
