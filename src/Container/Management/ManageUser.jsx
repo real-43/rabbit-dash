@@ -11,6 +11,7 @@ import {
   doc,
   setDoc,
   onSnapshot,
+  addDoc
 } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
@@ -206,50 +207,23 @@ export default function Signup() {
 
   // To create new user in firebase
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     setIsLoading(true);
 
-    let uInfo = userInfo
-
-    let rest = [...users]
-    rest.push({
-      name: userInfo.name,
-      email: userInfo.email,
-      password: userInfo.password,
-      isBlocked: false,
-      role: ""
-    })
-    setUsers(rest)
-
-    setUserInfo({ name: '', email: '', password: '' })
+    return createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password).then(
+      (cred) => {
+        setDoc(doc(db, "users",cred.user.uid), {
+          name: userInfo.name, 
+          email: userInfo.email, 
+          password: userInfo.password, 
+          isBlocked: false,
+          role: "" 
+        });
+        setIsLoading(false);    
+        setUserInfo({ name: '', email: '', password: '' })
+      }
+    );
     
-    // Create user in firebase auth
-    await createUserWithEmailAndPassword(authSec, uInfo.email, uInfo.password)
-      .then((userInformation) => {
-        updateProfile(authSec.currentUser, {
-          displayName:userInformation.name
-        })
-      }).catch(error => {
-        setAlert({ visible:true,severity:'error',message:error.message})
-        console.log(error.code);
-        timerRef.current= setTimeout(() => {
-          setAlert({ visible:false,severity:'',message:''})
-        },2000)
-    })
-
-    setIsLoading(false);
-
-    // To create user in firestore
-    await setDoc(doc(db, "users", authSec.currentUser.uid), {
-      name: uInfo.name,
-      email: uInfo.email,
-      password: uInfo.password,
-      isBlocked: false,
-      role: ""
-    })
-
-    setIsLoading(false);
-    updateData()
   };
 
   // To open/close popup and set user that send form edit btn

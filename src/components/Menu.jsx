@@ -23,7 +23,7 @@ export default function Menu() {
         permission = true
       }
     } else if (menu !== null) {
-      menu.project.map((p) => {
+      menu.project?.map((p) => {
         // console.log(p.name,menuCheck)
         if(p.name === menuCheck) {
           permission = true
