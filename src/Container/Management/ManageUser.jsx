@@ -122,7 +122,7 @@ export default function Signup() {
   },[])
 
   // Change Name or Password in firebase
-  const handleChange = async (user) => {
+  const handleChange = (user) => {
     setIsOpen(false)
     setIsLoading(true)
     setChangeUser(user)
@@ -138,44 +138,44 @@ export default function Signup() {
 
 
     // Change in firestore
-    const userDoc = doc(db, "users", user.id);
+    
 
     if (newName !== "") {
-      await updateDoc(userDoc, {
-        "name": newName
-      });
+      signInWithEmailAndPassword(authSec, user.email, user.password)
+        .then((cred) => {
+          updateProfile(cred.user, {
+            displayName: newName
+          })
+          updateDoc(doc(db,"users",cred.user.uid), {
+            "name": newName
+          });
+          authSec.signOut()
+        }
+      )
     }
 
     if (newPassword !== "") {
-      await updateDoc(userDoc, {
-        "password": newPassword
-      });
+      
+      signInWithEmailAndPassword(authSec, user.email, user.password)
+        .then((cred) => {
+          updatePassword(cred.user, newPassword)
+          updateDoc(doc(db,'users',cred.user.uid), {
+            "password": newPassword
+          });
+          
+          authSec.signOut()
+        }
+      )
     }
 
     if (role !== "") {
-      await updateDoc(userDoc, {
+      updateDoc(doc(db,'users',user.id), {
         "role": role
       });
     }
-
+  setIsLoading(false);
     // Change in firebase auth
-    await signInWithEmailAndPassword(authSec, user.email, user.password)
-    .then(() => {
-      const userToChange = authSec.currentUser
-      
-      if(newName !== "") {
-        updateProfile(userToChange, {
-          displayName: newName
-        })
-      }
-
-      if(newPassword !== "") {
-        updatePassword(userToChange, newPassword)
-      }
-
-      setIsLoading(false);
-      authSec.signOut()
-    })
+    
     
     updateData()
   }
