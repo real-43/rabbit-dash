@@ -86,10 +86,10 @@ const ManageProject = () => {
         e.preventDefault();
         setIsLoading(true)
 
-        let rest = [...projects]
-        rest.push({name: projectInfo.name, subMenu: submenu[submenu.length-1]})
+        // let rest = [...projects]
+        // rest.push({name: projectInfo.name, subMenu: submenu[submenu.length-1]})
 
-        setProjects(rest) 
+        // setProjects(rest) 
 
         var a = []
         for (const element of role.Management.Project) {
@@ -119,7 +119,7 @@ const ManageProject = () => {
             }   
         });
 
-        updateData()
+        // updateData()
         setIsLoading(false)
     }
 
