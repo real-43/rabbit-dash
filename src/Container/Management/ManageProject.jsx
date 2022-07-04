@@ -318,8 +318,8 @@ const ManageProject = () => {
                     <thead>
                         <tr>
                             <th>Number</th>
-                            <th>Role Name</th>
-                            <th>Projects {'('}Sub Menu{')'}</th>
+                            <th>Project Name</th>
+                            <th>Sub Menu</th>
                             <th>Commands</th>
                         </tr>
                     </thead>
