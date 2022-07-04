@@ -19,6 +19,7 @@
         "jspdf": "^2.5.1",
         "jspdf-autotable": "^3.5.25",
         "material-ui-chip-input": "^2.0.0-beta.2",
+        "mdb-react-ui-kit": "^4.0.0",
         "mdbreact": "^5.2.0",
         "react": "^17.0.1",
         "react-bootstrap": "^2.4.0",

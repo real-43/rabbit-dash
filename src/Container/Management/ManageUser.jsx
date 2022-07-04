@@ -4,6 +4,7 @@ import { authSec, db } from '../../firebaseSec';
 import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
 import { auth } from '../../firebase'
 import { useNavigate } from 'react-router'
+import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import {
   collection,
   deleteDoc,
@@ -48,7 +49,7 @@ export default function Signup() {
   const [roles, setRoles] = useState([...rolesR])
 
   const updateData = async () => {
-    await onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+    onSnapshot(collection(db,"roles"),(function(querySnapshot) {
       let r = [];
       querySnapshot.forEach(function(doc) {
         r.push({...doc.data(), id: doc.id});
@@ -350,9 +351,9 @@ export default function Signup() {
         </div>
       </div>
       {popup()}
-      <div className='table-container mx-4'>
-        <table class="table">
-          <thead>
+      <div className='table-container mx-4 border border-secondary rounded px-3 py-4' >
+      <MDBTable borderless>
+        <MDBTableHead>
             <tr>
               <th>Number</th>
               <th>First Name</th>
@@ -361,9 +362,10 @@ export default function Signup() {
               <th>Email</th>
               <th>function</th>
             </tr>
-          </thead>
+        </MDBTableHead>
+      
           {users.map((user, index) => {return (
-          <tbody>
+        <MDBTableBody>
             <tr>
             {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin") ? (
               <>
@@ -392,12 +394,12 @@ export default function Signup() {
                   <Button onClick={(e)=>ControlBlocked(user)} variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
                       <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword"/>
                   </Button>
-                </td>       
+            </td>       
               </>
             ) : ""}
             </tr>
-          </tbody>)})}
-        </table>
+            </MDBTableBody>)})}
+        </MDBTable>
       </div>         
     </div>
   );
