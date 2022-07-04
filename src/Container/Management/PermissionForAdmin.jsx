@@ -125,11 +125,22 @@ export default function Permission() {
             })
         })
 
+        let rest = []
+        allRoles.map((r) => {
+            if (r.name === clickedRole.name) {
+                rest.push({...r, project: sendPro})
+            } else {
+                rest.push(r)
+            }
+        })
+
         // update field(project) in firestore
         const docRef = doc(db, "roles", clickedRole.id)
         await updateDoc(docRef, {
             "project" : sendPro
         })
+
+        setAllRoles(rest)
 
         // getAllRolesAgain()
         handleClosePopup()
@@ -155,6 +166,15 @@ export default function Permission() {
             })
         })
 
+        let rest = []
+        allRoles.map((r) => {
+            if (r.name === clickedRole.name) {
+                rest.push({...r, project: sendPro, name: newRoleName})
+            } else {
+                rest.push(r)
+            }
+        })
+
         // update field(name and project) in document roles in firestore
         const docRef = doc(db, "roles", clickedRole.id)
         await updateDoc(docRef, {
@@ -162,11 +182,12 @@ export default function Permission() {
             "project" : sendPro
         })
 
+        setAllRoles(rest)
+
         // get updated value from firestore to display
         // getAllRolesAgain()
         // close popup and set all variable to default
         handleClosePopup()
-
         setIsLoading(false)
     }
 
@@ -179,10 +200,11 @@ export default function Permission() {
                 rest.push(r)
             }
         })
-        setAllRoles(rest)
 
         const roleDoc = doc(db, "roles", role.id);
         await deleteDoc(roleDoc);
+        
+        setAllRoles(rest)
 
         // Delete the role from all users in firebase
         allUsers.map((user) => {
@@ -195,7 +217,6 @@ export default function Permission() {
         })
 
         getAllRolesAgain()
-
         setIsLoading(false)
     }
 
