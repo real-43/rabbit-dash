@@ -18,12 +18,12 @@ export default function Menu() {
   const checkMenu = (menuCheck) => {
     var permission = null
 
-    if (menuCheck === "Management" && menu !== null) {
+    if (menuCheck === "Management" && menu !== undefined) {
 
       if (menu?.Management !== undefined) {
         permission = true
       }
-    } else if (menu !== null) {
+    } else if (menu !== undefined) {
       menu?.project.map((p) => {
         // console.log(p.name,menuCheck)
         if(p.name === menuCheck) {
