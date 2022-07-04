@@ -173,6 +173,14 @@ export default function Permission() {
     const handleDeleteBtn = async (role) => {
         setIsLoading(true)
 
+        let rest = []
+        allRoles.map((r) => {
+            if(r.name !== role.name) {
+                rest.push(r)
+            }
+        })
+        setAllRoles(rest)
+
         const roleDoc = doc(db, "roles", role.id);
         await deleteDoc(roleDoc);
 
@@ -186,7 +194,7 @@ export default function Permission() {
             }
         })
 
-        await getAllRolesAgain()
+        getAllRolesAgain()
 
         setIsLoading(false)
     }

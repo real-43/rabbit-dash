@@ -74,7 +74,7 @@ export default function CreatePermission() {
             Management: {Permission: manageChild, Project: manageChild, Services: manageChild}
         });
 
-        await updateData()
+        updateData()
         reset()
         setIsLoading(false)
     }

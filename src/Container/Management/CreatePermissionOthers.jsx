@@ -45,6 +45,12 @@ export default function CreatePermissionOthers() {
         setIsLoading(false)
     }
 
+    const inputToDefault = () => {
+        setRoleName("")
+        setProjectInput([])
+        setdata([])
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true)
@@ -58,9 +64,9 @@ export default function CreatePermissionOthers() {
             Management: {Permission: [toSend[0].name], Project: [toSend[0].name], Services: [toSend[0].name]}
         });
 
-        setIsLoading(false)
         await updateData()
-        window.location.reload()
+        inputToDefault()
+        setIsLoading(false)
     }
 
     const animatedComponents = makeAnimated();
@@ -114,13 +120,14 @@ export default function CreatePermissionOthers() {
                     <Form>
                         <Form.Group className="mb-3">
                             <Form.Label>Permission Name</Form.Label>
-                            <Form.Control type="text" placeholder="Name" onChange={(e) => {setRoleName(e.target.value)}} />
+                            <Form.Control type="text" value={roleName} placeholder="Name" onChange={(e) => {setRoleName(e.target.value)}} />
                         </Form.Group>
                         
                         <Form.Group className="mb-3">
                             <Form.Label>Select Projects</Form.Label>
                             <div className="mb-3">
                                 <Select
+                                    value={projectInput}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
                                     isMulti

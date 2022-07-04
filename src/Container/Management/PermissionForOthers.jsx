@@ -16,7 +16,8 @@ export default function PermissionForOthers() {
     const animatedComponents = makeAnimated();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const [isData, setIsData] = useState(false);
 
     const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
     const allRolesR = useSelector((state) => state.firebase.allRoles)
@@ -62,7 +63,6 @@ export default function PermissionForOthers() {
         let roles = []
         let index = 0
 
-        setIsLoading(true)
         await getRoles().then((value) => {
             dispatch(defindAllRoles(value))
             value.map((r) => {
@@ -74,11 +74,10 @@ export default function PermissionForOthers() {
         })
         
         setRoleInSamePro(roles)
-
-        setIsLoading(false)
     }
 
-    if (rolesInSamePro.length < 1) {
+    if (!isData) {
+        setIsData(true)
         getSameRolesAgain()
     }
 
@@ -129,26 +128,50 @@ export default function PermissionForOthers() {
             })
         })
 
+        let rest = []
+        rolesInSamePro.map((r) => {
+            if (r.name === clickedRole.name) {
+                rest.push({
+                    ...r,
+                    name : newRoleName,
+                    project : sendPro
+                })
+            } else {
+                rest.push(r)
+            }
+        })
+        setRoleInSamePro(rest)
+        
         // update field(name and project) in document roles in firestore
         const docRef = doc(db, "roles", clickedRole.id)
         await updateDoc(docRef, {
             "name" : newRoleName,
             "project" : sendPro
         })
+        
+        setIsLoading(false)
 
         // get updated value from firestore to display
-        await updateData()
+        updateData()
         // close popup and set all variable to default
         handleClosePopup()
-
-        setIsLoading(false)
     }
 
     const handleDeleteBtn = async (role) => {
         setIsLoading(true)
 
+        let rest = []
+        rolesInSamePro.map((r) => {
+            if (role.name !== r.name) {
+                rest.push(r)
+            }
+        })
+
         const roleDoc = doc(db, "roles", role.id);
         await deleteDoc(roleDoc);
+
+        setRoleInSamePro(rest)
+        setIsLoading(false)
 
         allUsers.map((user) => {
             if (user.role === role.name) {
@@ -159,9 +182,8 @@ export default function PermissionForOthers() {
             }
         })
 
-        setIsLoading(false)
         await updateData()
-        window.location.reload()
+        
     }
 
     function popupEdit() {
