@@ -23,7 +23,7 @@ export default function Menu() {
       if (menu?.Management !== undefined) {
         permission = true
       }
-    } else if (menu !== null) {
+    } else if (menu !== undefined) {
       menu.project?.map((p) => {
         // console.log(p.name,menuCheck)
         if(p.name === menuCheck) {
@@ -42,7 +42,7 @@ export default function Menu() {
   const checkSubMenu = (subMenuCheck) => {
     var permission = null
     var i = 0
-    if (menu !== null) {
+    if (menu !== undefined) {
       menu?.project.map((p) => {
         if (p.subMenu.includes(subMenuCheck)) {
           permission = true
