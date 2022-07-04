@@ -43,7 +43,7 @@ export default function Menu() {
     var permission = null
     var i = 0
     if (menu !== null) {
-      menu.project.map((p) => {
+      menu?.project.map((p) => {
         if (p.subMenu.includes(subMenuCheck)) {
           permission = true
         }
