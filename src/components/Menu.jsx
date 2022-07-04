@@ -10,14 +10,15 @@ export default function Menu() {
 
   const [projects, setProjects] = useState([...projectsR]);
   const [role, setRole] = useState(useSelector((state) => state.firebase.currentUserFS)); 
-  const [menu, setMenu] = useState(useSelector((state) => state.firebase.currentRoleFS));
+  const menu = useSelector((state) => state.firebase.currentRoleFS);
+  console.log("menu", menu)
 
   const navigate = useNavigate();
 
   const checkMenu = (menuCheck) => {
     var permission = null
 
-    if (menuCheck === "Management" && menu !== null) {
+    if (menuCheck === "Management" && menu !== undefined) {
 
       if (menu?.Management !== undefined) {
         permission = true
@@ -30,7 +31,7 @@ export default function Menu() {
         }
       })
     }
-    // console.log(menuCheck,permission);
+    // console.log("menuCheck",menu.Management);
     return permission
   }
 
@@ -42,7 +43,7 @@ export default function Menu() {
     var permission = null
     var i = 0
     if (menu !== null) {
-      menu.project.map((p) => {
+      menu?.project.map((p) => {
         if (p.subMenu.includes(subMenuCheck)) {
           permission = true
         }

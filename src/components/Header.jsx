@@ -6,8 +6,7 @@ import { auth, db } from '../firebase';
 import { useDispatch } from 'react-redux';
 import { defindCurrentRoleFS, defindCurrentUser, defindCurrentUserFS, deleteAll } from '../firebaseSlice';
 import { useSelector } from 'react-redux';
-import { getRole, getUser } from '../MyFireStore';
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, doc, query, where, getDocs, getDoc } from "firebase/firestore";
 import { defindAllProjects, defindAllRoles, defindAllUsers } from "../firebaseSlice";
 
 export default function Header() {
@@ -18,6 +17,7 @@ export default function Header() {
   const user = useSelector((state) => state.firebase.currentUser) || auth.currentUser || {email: ""};
   const userName = user.displayName || user.email.split('@')[0]
   const [isData, setIsData] = useState(false)
+  const [pass, setPass] = useState(0)
 
   const handleChange = () => {
     signOut(auth).then(() => {
@@ -64,21 +64,29 @@ export default function Header() {
     }));
   }
 
-  const setC_UserAndRole_FS = () => {
+  const setC_UserAndRole_FS = async () => {
     let id = user.uid
-    getUser(id).then((value) => {
-      dispatch(defindCurrentUserFS(value))
-      getRole(value.role).then((r) => {
-        dispatch(defindCurrentRoleFS(r))
-      })
-    })
+    const docRef = doc(db, "users", id)
+    const docSnap = await getDoc(docRef)
+    const u = docSnap.data()
+    dispatch(defindCurrentUserFS({...u, id: id}))
+
+    let role = null
+    const q = query(collection(db, "roles"), where("name", "==", u.role));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      role = {...doc.data(), id: doc.id};
+    });
+    dispatch(defindCurrentRoleFS(role))
   }
 
-  if (user.email !== "") {
+  if (user.email !== "" && pass === 0) {
+    setPass(1)
     dispatch(defindCurrentUser(user))
   }
 
-  if (user.uid !== undefined) {
+  if (user.uid !== undefined && pass === 1) {
+    setPass(2)
     setC_UserAndRole_FS()
   }
 
