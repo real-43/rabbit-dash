@@ -320,7 +320,7 @@ export default function Signup() {
 
         <div className='input-container'>
           <input className='input-register'
-            placeholder="Name..."
+            placeholder=" Name..."
             value={userInfo.name}
             onChange={(event) => {
               setUserInfo({ ...userInfo, name: event.target.value })
@@ -328,7 +328,7 @@ export default function Signup() {
           />
           <input className='input-register'
             type="Email"
-            placeholder="Email..."
+            placeholder=" Email..."
             value={userInfo.email}
             onChange={(event) => {
               setUserInfo({ ...userInfo, email: event.target.value })
@@ -336,7 +336,7 @@ export default function Signup() {
           />
           <input className='input-register'
             type="Password"
-            placeholder="Password..."
+            placeholder=" Password..."
             value={userInfo.password}
             onChange={(event) => {
               setUserInfo({ ...userInfo, password: event.target.value })
@@ -348,7 +348,7 @@ export default function Signup() {
         </div>
       </div>
       {popup()}
-      <div className='table-container'>
+      <div className='table-container mx-4'>
         <table class="table">
           <thead>
             <tr>
