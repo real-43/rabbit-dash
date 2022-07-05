@@ -17,7 +17,6 @@ export default function Menu() {
     querySnapshot.forEach((doc) => {
       setRole(doc.data())
     });
-    console.log("getRole")
   }
 
   const getMenu = async() => {
@@ -26,7 +25,6 @@ export default function Menu() {
     querySnapshot.forEach((doc) => {
       setMenu(doc.data())
     });
-    console.log("getMenu")
   }
 
   const checkMenu = (menuCheck) => {

@@ -24,13 +24,11 @@ export default function Menu() {
       }
     } else if (menu !== undefined) {
       menu.project?.map((p) => {
-        // console.log(p.name,menuCheck)
         if(p.name === menuCheck) {
           permission = true
         }
       })
     }
-    // console.log("menuCheck",menu.Management);
     return permission
   }
 

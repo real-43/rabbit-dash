@@ -21,8 +21,6 @@ export default function Header() {
   const taskR = useSelector((state) => state.firebase.task)
   const [task, setTask] = useState([...taskR]);
 
-  console.log("Task", task)
-
   const handleChange = () => {
     signOut(auth).then(() => {
       dispatch(deleteAll())

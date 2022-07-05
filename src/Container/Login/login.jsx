@@ -40,7 +40,6 @@ export default function Login() {
 
   function goBlock() {
     const blocker = async () => {
-      console.log(blockUser.isBlock)
       if(blockUser.isBlock) {
         setAlert({ visible:true,severity:'error',message:"This account has been bolcked!"})
         timerRef.current= setTimeout(() => {
@@ -49,8 +48,6 @@ export default function Login() {
       } else {
         await firestoreBlock()
       }
-
-      // console.log("data", data.docs[1])
     };
 
     const firestoreBlock = async () => {
@@ -59,10 +56,7 @@ export default function Login() {
       updateDoc(userDoc, {
         "isBlocked": true  
       })
-      console.log("id: ", blockUser.email)
     }
-
-    console.log("Block!!")
     blocker();
   }
 
@@ -88,7 +82,6 @@ export default function Login() {
   }
 
   useEffect(() => {
-    // console.log("UseEffect")
     getCurrentProfile();
   })
 
@@ -103,8 +96,6 @@ export default function Login() {
     } else {
       signInWithEmailAndPassword(auth, userInfo.email, userInfo.password)
         .then(userInformation => {
-          console.log(userInformation);
-          console.log(userInfo.email);
           if (userInfo.email.includes(comp_form)){
             navigate('/dashboard')
           }
@@ -119,7 +110,6 @@ export default function Login() {
             goBlock()
           } else {
             setAlert({ visible:true,severity:'error',message:error.message})
-            console.log(error.code);
             timerRef.current= setTimeout(() => {
               setAlert({ visible:false,severity:'',message:''})
             },5000)
@@ -138,7 +128,6 @@ export default function Login() {
   //     })
   //     .catch(error => {
   //     setAlert({ visible:true,severity:'error',message:error.message})
-  //       console.log(error.code);
   //       timerRef.current= setTimeout(() => {
   //         setAlert({ visible:false,severity:'',message:''})
   //       },2000)
@@ -154,7 +143,6 @@ export default function Login() {
     })
 
     const user = await signInWithPopup(auth, provider).then(result => {
-      console.log(result)
       // if (user.auth.email.includes(comp_form)) {
       //   navigate('/dashboard')
       // } else {
@@ -162,7 +150,6 @@ export default function Login() {
       //   signOut(auth).then(() => {
       //   navigate('/')
       //   alert("You have to use @rabbit.co.th domain")
-      //   console.log("signout");
       //   })
       // }
       navigate('/dashboard')

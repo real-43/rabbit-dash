@@ -37,6 +37,8 @@ const ManageProject = () => {
     //handle input 
     const [projectInfo, setProjectInfo] = useState({ name: ''});
     const [submenu, setSubmenu] = useState([])
+
+    const [projectName,setProjectName] =  useState([])
     
     const projectsR = useSelector((state)=> state.firebase.allProjects)
     const rolesR = useSelector((state) => state.firebase.allRoles)
@@ -147,12 +149,9 @@ const ManageProject = () => {
         }
         await deleteDoc(userDoc);
         roles.map((role) =>{ 
-            // console.log(role.id)
             const roleDoc = doc(db, "roles", role.id)
             role.project?.map((submenu) =>{
-                // console.log(submenu.name)
                 if(submenu.name === project.name){
-                    // console.log(submenu.name)
                     updateDoc(roleDoc,{
                         project: arrayRemove(DelProjectDetails),
                         Management:DelProjectManagement
@@ -179,7 +178,6 @@ const ManageProject = () => {
         roles.map((role) =>{ 
             const roleDoc = doc(db, "roles", role.id)
             role.project?.map((proJ) =>{
-                // console.log(submenu.name)
                 if(proJ.name === project.name){
                     updateDoc(roleDoc,{
                         project: arrayRemove({
@@ -203,11 +201,9 @@ const ManageProject = () => {
     }
 
     const handleChip = (value) => {
-        // console.log(value)
         const chips = submenu.slice();
         chips.push(value);
         setSubmenu(chips[chips.length - 1]);
-        console.log(submenu)
     };
 
     const handleEdit = (project) => {
@@ -216,11 +212,9 @@ const ManageProject = () => {
         setNewSubM(project.subMenu)
         setChangeProject(project)
     }
-    const [projectName,setProjectName] =  useState([])
 
     const getProjectPermission = () =>{
-        roles.map(permission =>{
-            // console.log(permission.Management.Project)  
+        roles.map(permission =>{ 
             if (permission.name === userinfo.role){ 
                 setProjectName(permission.Management.Project)
                 
@@ -232,7 +226,7 @@ const ManageProject = () => {
         getProjectPermission()
     }
   
-
+    // Popup of edit
     function popup() {
         return (isOpen) ? (
             <div>
