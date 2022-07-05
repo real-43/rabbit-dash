@@ -52,7 +52,6 @@ const User = () => {
             }
         });
         let data = response.data
-        // console.log("responseGetUser",data)
         setUserData(data)
     }
 
@@ -95,7 +94,6 @@ const User = () => {
     }
 
     const editUser = async () => {
-        console.log('log test',selectemail, ' || ', selectrole, ' || ', selectstatus)
         let response = await axios({
             method: "put",
             url: `${base_api}/api/user`,

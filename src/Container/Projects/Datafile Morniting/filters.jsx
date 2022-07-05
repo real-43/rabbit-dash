@@ -95,7 +95,6 @@ export const DateColumnFilter = ({
       let a = d.split("T")
       let b = a[0].split("-")
       let c = b[2] + "/"+ b[1] + "/" +b[0].split("\"")[1]
-      console.log("first", c, typeof(c))
       return c
     }catch {
       setValue(newValue)
@@ -112,7 +111,6 @@ export const DateColumnFilter = ({
         dateFormat={'dd/mm/yyyy'}
         onChange={(newValue) => {
           setFilter(show(newValue) || undefined);
-          console.log("Filter", filterValue, typeof(filterValue))
         }}
         renderInput={({ inputRef, inputProps, InputProps }) => (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>

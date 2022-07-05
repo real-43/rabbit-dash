@@ -16,9 +16,7 @@ const ShowTable = () => {
   //     const response = await fetch('https://randomuser.me/api/?results=100');
   //     const body = await response.json();
   //     const contacts = body.results;
-  //     console.log(contacts);
   //     setData(contacts);
-  //     console.log("data", data)
   //   };
   //   doFetch();
   // }, []);

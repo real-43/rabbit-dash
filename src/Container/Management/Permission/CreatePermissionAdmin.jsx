@@ -71,7 +71,6 @@ export default function CreatePermission() {
 
     const handleChange = (event) => {
         setProjectInput(event)
-        console.log("event", event)
         if (event.length < 1) {
             setToSend([])
         }
@@ -151,7 +150,6 @@ export default function CreatePermission() {
                                                         })
                                                         addSub[index] = {name: d.name, subMenu: arrSubMenu}
                                                         setToSend(addSub)
-                                                        console.log("tosend", toSend)
                                                     }}
                                                 />
                                             </div>
