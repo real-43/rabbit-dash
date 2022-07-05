@@ -10,6 +10,7 @@ import Loading from '../../../components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { defindAllRoles } from '../../../Reducer/firebaseSlice';
 import { getRoles } from '../../../MyFireStore';
+import './ManagePermission.css'
 
 export default function PermissionForOthers() {
 
@@ -298,7 +299,7 @@ export default function PermissionForOthers() {
                 <div className='top'>
                     <h2 className='topic'>Permission</h2>
                     <div className='create'>
-                        <button className="btn create-btn" ><a onClick={() => navigate('/CreatePermissionOthers')}>Create New Permission</a></button>
+                        <button className="create-btn" ><a onClick={() => navigate('/CreatePermissionOthers')}>Create New Permission</a></button>
                     </div>
                 </div>
                 <Table striped bbordered>
