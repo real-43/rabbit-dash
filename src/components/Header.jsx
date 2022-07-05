@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import './Header.css'
 import { signOut } from 'firebase/auth'
-import { auth, db } from '../Reducer/Firebase Config/firebase';
+import { auth, db } from '../Firebase Config/firebase';
 import { useDispatch } from 'react-redux';
 import { defindCurrentRoleFS, defindCurrentUser, defindCurrentUserFS, deleteAll, popTask } from '../Reducer/firebaseSlice';
 import { useSelector } from 'react-redux';

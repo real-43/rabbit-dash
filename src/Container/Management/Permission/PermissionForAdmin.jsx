@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { db } from '../../../Reducer/Firebase Config/firebase';
+import { db } from '../../../Firebase Config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../../components/Loading';
 import { useSelector, useDispatch } from 'react-redux';

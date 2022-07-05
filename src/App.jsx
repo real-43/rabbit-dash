@@ -1,24 +1,28 @@
 import { useState, useEffect } from 'react';
+import { Route,Routes, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux'
+
 import './App.css';
-import Dash from './Container/Home/Dashboard'
-import LoginPage from './Container/Login/login';
-import SignupPage from './Container/Management/ManageUser';
-import ManagePro from './Container/Management/ManageProject';
+
+import Footer from './components/Footer';
 import Header from './components/Header';
 import Menu from './components/Menu';
 
-import BTS_QR_Home from './Container/Projects/BTSQR/containers/Home';
-import BTS_QR_Search from './Container/Projects/BTSQR/containers/Monitors/Bts_Search'
+import Dash from './components/Dashboard'
 
-import Footer from './components/Footer';
-import {Route,Routes, Outlet} from 'react-router-dom';
-import DatafileHome from './Container/Projects/Datafile Morniting/Home';
-import PDF from './Container/Projects/Datafile Morniting/PDF'
+import LoginPage from './Container/Login/login';
+
+import SignupPage from './Container/Management/ManageUser';
+import ManagePro from './Container/Management/ManageProject';
 import CreatePermissionAdmin from './Container/Management/Permission/CreatePermissionAdmin';
 import CreatePermissionOthers from './Container/Management/Permission/CreatePermissionOthers';
 import Permission from './Container/Management/Permission/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
-import { useSelector } from 'react-redux'
+import BTS_QR_Home from './Container/Projects/BTSQR/containers/Home';
+import BTS_QR_Search from './Container/Projects/BTSQR/containers/Monitors/Bts_Search'
+
+import DatafileHome from './Container/Projects/Datafile Morniting/Home';
+import PDF from './Container/Projects/Datafile Morniting/PDF'
 
 function App() {
 

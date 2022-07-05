@@ -9,9 +9,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth,provider } from '../../Reducer/Firebase Config/firebase';
+import { auth,provider } from '../../Firebase Config/firebase';
 import './login.css'
-import { db } from '../../Reducer/Firebase Config/firebaseSec';
+import { db } from '../../Firebase Config/firebaseSec';
 import {
   collection,
   getDocs,

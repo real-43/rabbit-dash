@@ -1,6 +1,6 @@
 import React, { useState, useEffect }from 'react';
-import { db } from '../../Reducer/Firebase Config/firebaseSec';
-import { auth } from '../../Reducer/Firebase Config/firebase';
+import { db } from '../../Firebase Config/firebaseSec';
+import { auth } from '../../Firebase Config/firebase';
 import { Table } from 'react-bootstrap';
 import { Modal, Form, Button }  from 'react-bootstrap';
 import "./signup.css";
