@@ -11,18 +11,19 @@ export default function Menu() {
   const [projects, setProjects] = useState([...projectsR]);
   const [role, setRole] = useState(useSelector((state) => state.firebase.currentUserFS)); 
   const menu = useSelector((state) => state.firebase.currentRoleFS);
+  console.log("menu", menu)
 
   const navigate = useNavigate();
 
   const checkMenu = (menuCheck) => {
     var permission = null
 
-    if (menuCheck === "Management" && menu !== undefined) {
+    if (menuCheck === "Management" && menu !== []) {
 
       if (menu?.Management !== undefined) {
         permission = true
       }
-    } else if (menu !== undefined) {
+    } else if (menu !== []) {
       menu.project?.map((p) => {
         if(p.name === menuCheck) {
           permission = true
@@ -39,9 +40,9 @@ export default function Menu() {
   const checkSubMenu = (subMenuCheck) => {
     var permission = null
     var i = 0
-    if (menu !== undefined) {
+    if (menu !== []) {
       menu?.project.map((p) => {
-        if (p.subMenu.includes(subMenuCheck)) {
+        if (p.subMenu?.includes(subMenuCheck)) {
           permission = true
         }
       })
@@ -125,7 +126,7 @@ export default function Menu() {
                     </a>
                   </li>
                 </ul>
-                {(role.role.includes("Admin")) ? (
+                {(role.role?.includes("Admin") && menu !== []) ? (
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
                     <a onClick={() => {if (role.role === "Admin") {

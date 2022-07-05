@@ -87,7 +87,7 @@ export default function Header() {
     const u = docSnap.data()
     dispatch(defindCurrentUserFS({...u, id: id}))
 
-    let role = null
+    let role = {}
     const q = query(collection(db, "roles"), where("name", "==", u.role));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
