@@ -39,6 +39,7 @@ export default function ManageUsers() {
 
   const usersR = useSelector((state) => state.firebase.allUsers)
   const currentUser = useSelector((state) => state.firebase.currentUserFS)
+  const currentRole = useSelector((state) => state.firebase.currentRoleFS)
   const rolesR = useSelector((state) => state.firebase.allRoles)
 
   const [users, setUsers] = useState([...usersR])
@@ -172,6 +173,16 @@ export default function ManageUsers() {
     );
   };
 
+  const checkDomainRole = (obj) => {
+    if (currentUser.role==="Admin"){
+      return true
+    }
+    else{
+      if (obj.name.includes(currentRole.project[0].name.split(" ").join(''))) return true
+      else return false
+    }
+  }
+
   // To open/close popup and set user that send form edit btn
   function changeSet(user) {
     setChangeUser(user)
@@ -179,7 +190,6 @@ export default function ManageUsers() {
     setNewName(user.name)
     setNewPassword(user.password)
     setRole(user.role)
-    
   }
 
   // To show/unshow pass in edit popup
@@ -239,7 +249,7 @@ export default function ManageUsers() {
               <Form.Label>Role</Form.Label>
               <Form.Select aria-label={role} defaultValue={role} onChange={(e) => setRole(e.target.value)}>
                 <option className="d-none" value="">{role}</option>
-                {roles.map((role) => {return (
+                {roles.filter(obj => checkDomainRole(obj)).map((role) => {return (
                   <option value={role.name}>{role.name}</option>
                 )})}
               </Form.Select>
