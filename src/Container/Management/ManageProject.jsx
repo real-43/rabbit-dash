@@ -314,7 +314,7 @@ const ManageProject = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {projects.map((pro,index) => {
+                        {projects.filter(project => projectName.includes(project.name)).map((pro,index) => {
                             return (
                                 <tr>
                                     <td>{index + 1}</td>
