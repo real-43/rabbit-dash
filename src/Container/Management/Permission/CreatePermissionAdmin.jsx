@@ -77,11 +77,20 @@ export default function CreatePermission() {
         var update = [...toSend]
         setToSend(update)
 
-        await addDoc(collection(db, "roles"), {
-            name: roleName,
-            project: toSend,
-            Management: {Permission: manageChild, Project: manageChild, Services: manageChild}
-        });
+        if (roleName.includes("Admin")) {
+            await addDoc(collection(db, "roles"), {
+                name: roleName,
+                project: toSend,
+                Management: {Permission: manageChild, Project: manageChild, Services: manageChild}
+            });
+        } else {
+            await addDoc(collection(db, "roles"), {
+                name: roleName,
+                project: toSend,
+            });
+        }
+
+        
 
         reset()
         setIsLoading(false)
