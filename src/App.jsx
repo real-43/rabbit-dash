@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Menu from './components/Menu';
 
-import Dash from './components/Dashboard'
+import Dash from './Container/Home/Dashboard'
 
 import LoginPage from './Container/Login/login';
 
