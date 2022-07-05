@@ -40,9 +40,9 @@ Ion.RangeSlider. Is an easy, flexible and responsive range slider with tons of o
 
 ## Demos
 
-* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo.html" class="switch__item">Basic demo</a>
-* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo_advanced.html" class="switch__item">Advanced demo</a>
-* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo_interactions.html" class="switch__item">Interactions demo</a>
+* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo.html" className="switch__item">Basic demo</a>
+* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo_advanced.html" className="switch__item">Advanced demo</a>
+* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo_interactions.html" className="switch__item">Interactions demo</a>
 
 
 ## Dependencies
@@ -275,9 +275,9 @@ slider.destroy();
 
 ## One more look on demos
 
-* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo.html" class="switch__item">Basic demo</a>
-* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo_advanced.html" class="switch__item">Advanced demo</a>
-* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo_interactions.html" class="switch__item">Interactions demo</a>
+* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo.html" className="switch__item">Basic demo</a>
+* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo_advanced.html" className="switch__item">Advanced demo</a>
+* <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo_interactions.html" className="switch__item">Interactions demo</a>
 
 All plugins options are covered in demos.
 
