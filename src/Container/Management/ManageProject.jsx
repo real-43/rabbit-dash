@@ -333,8 +333,23 @@ const ManageProject = () => {
                                         })}
                                     </Stack></td>
                                     <td>
-                                        <Button className="btn m-2 edit" onClick={(e) => {handleEdit(pro)}}>Edit</Button>
-                                        <button className="btn m-2 del" onClick={(e) => {deleteProjects(pro)}}>Delete</button>
+                                        <i 
+                                            class="fa fa-trash" 
+                                            aria-hidden="true" 
+                                            style={{cursor: "pointer"}}
+                                            onClick={(e)=>deleteProjects(pro)}
+                                        >
+                                        </i>
+                                        <i 
+                                            class="fa fa-cogs" 
+                                            aria-hidden="true" 
+                                            style={{
+                                                cursor: "pointer",
+                                                marginLeft: "15px",
+                                            }}
+                                            onClick={(e) => handleEdit(pro)}>
+
+                                        </i>
                                     </td>
                                 </tr>
                             )
