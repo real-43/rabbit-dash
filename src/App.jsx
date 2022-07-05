@@ -18,20 +18,12 @@ import CreatePermissionAdmin from './Container/Management/Permission/CreatePermi
 import CreatePermissionOthers from './Container/Management/Permission/CreatePermissionOthers';
 import Permission from './Container/Management/Permission/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "./Reducer/Firebase Config/firebase"
 import { useSelector } from 'react-redux'
 
 function App() {
 
   const taskR = useSelector((state) => state.firebase.task)
   const [task, setTask] = useState([...taskR]);
-
-  const getUsers = async () => {
-    const usersCollectionRef = collection(db, "users");
-    const data = await getDocs(usersCollectionRef);
-    var users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-  };
 
   useEffect(() => {
     setTask([...taskR])

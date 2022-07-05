@@ -58,7 +58,7 @@ export default function CreatePermissionOthers() {
         var update = [...toSend]
         setToSend(update)
 
-        addDoc(collection(db, "roles"), {
+        await addDoc(collection(db, "roles"), {
             name: roleName,
             project: toSend,
             Management: {Permission: [toSend[0].name], Project: [toSend[0].name], Services: [toSend[0].name]}
