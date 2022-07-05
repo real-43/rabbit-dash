@@ -6,27 +6,24 @@ import { auth } from '../../Firebase Config/firebase'
 import { useNavigate } from 'react-router'
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import {
-  collection,
   deleteDoc,
   updateDoc,
   doc,
   setDoc,
-  onSnapshot
 } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
 
 import './signup.css'
-import { defindAllUsers, defindAllRoles, addTask } from '../../Reducer/firebaseSlice';
+import { addTask } from '../../Reducer/firebaseSlice';
 
 
 
-export default function Signup() {
+export default function ManageUsers() {
 
   const dispatch = useDispatch()
 
   const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' });
-  const [alert, setAlert] = useState({visible:false, severity:'', message:''});
   const [isOpen, setIsOpen] = useState(false);
 
   // Use for change profile and password
@@ -47,48 +44,16 @@ export default function Signup() {
   const [users, setUsers] = useState([...usersR])
   const [roles, setRoles] = useState([...rolesR])
 
-  const updateData = async () => {
-    onSnapshot(collection(db,"roles"),(function(querySnapshot) {
-      let r = [];
-      querySnapshot.forEach(function(doc) {
-        r.push({...doc.data(), id: doc.id});
-      });
-      dispatch(defindAllRoles(r))
-      setRoles(r)
-    }));
-
-    onSnapshot(collection(db,"users"),(function(querySnapshot) {
-      let u = [];
-      querySnapshot.forEach(function(doc) {
-        u.push({...doc.data(), id: doc.id});
-      });
-      dispatch(defindAllUsers(u))
-      setUsers(u)
-    }));
-  }
-
   // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
     setIsLoading(true);
     dispatch(addTask("Deleting user"))
-
-    let index = 0
-    let rest = []
-
-    users.map((u) => {
-      if(u.id !== user.id) {
-        rest[index] = u
-        index += 1
-      }
-    })
-    setUsers(rest)
 
     // delete user in firestore
     const userDoc = doc(db, "users", user.id);
     await deleteDoc(userDoc);
 
     setIsLoading(false);
-    // updateData()
 
     // delete user in firebase auth
     signInWithEmailAndPassword(authSec, user.email, user.password)
@@ -103,10 +68,11 @@ export default function Signup() {
     return clearTimeout(timerRef.current)
   },[])
 
+  // update roles when allRoles in reducer change
   useEffect(() => {
     setRoles([...rolesR])
   }, [rolesR])
-
+  // update roles when allUsers in reducer change
   useEffect(() => {
     setUsers([...usersR])
   }, [usersR])
@@ -133,59 +99,24 @@ export default function Signup() {
 
     setChangeUser(user)
 
-    let rest = []
-
-    users.map((u) => {
-      if (u.id === user.id) {
-        rest.push({...user, name: newName, password: newPassword, role: role})
+    signInWithEmailAndPassword(authSec, user.email, user.password)
+      .then((cred) => {
+        updateProfile(cred.user, {
+          displayName: newName
+        })
+        updateDoc(doc(db,"users",cred.user.uid), {
+          "name": newName,
+          "password": newPassword,
+          "role": role
+        });
+        authSec.signOut()
       }
-      rest.push(u)
-    })
+    )
 
-
-    // Change in firestore
-    
-
-    if (newName !== "") {
-      signInWithEmailAndPassword(authSec, user.email, user.password)
-        .then((cred) => {
-          updateProfile(cred.user, {
-            displayName: newName
-          })
-          updateDoc(doc(db,"users",cred.user.uid), {
-            "name": newName
-          });
-          authSec.signOut()
-        }
-      )
-    }
-
-    if (newPassword !== "") {
-      
-      signInWithEmailAndPassword(authSec, user.email, user.password)
-        .then((cred) => {
-          updatePassword(cred.user, newPassword)
-          updateDoc(doc(db,'users',cred.user.uid), {
-            "password": newPassword
-          });
-          
-          authSec.signOut()
-        }
-      )
-    }
-
-    if (role !== "") {
-      updateDoc(doc(db,'users',user.id), {
-        "role": role
-      });
-    }
-  setIsLoading(false);
-    // Change in firebase auth
-    
-    
-    // updateData()
+    setIsLoading(false);
   }
 
+  // To Block/Unblock user
   const ControlBlocked = async (user) => {
     setIsLoading(true)
 
@@ -219,8 +150,10 @@ export default function Signup() {
 
     dispatch(addTask("Creating user"))
 
+    // Create user in auth firebase
     return createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password).then(
       (cred) => {
+        // Create user in firestore
         setDoc(doc(db, "users",cred.user.uid), {
           name: userInfo.name, 
           email: userInfo.email, 
@@ -244,6 +177,7 @@ export default function Signup() {
     
   }
 
+  // To show/unshow pass in edit popup
   function displayOption() {
     setActive(!isActive);
     var x = document.getElementById("myInput");
@@ -255,7 +189,7 @@ export default function Signup() {
     }
   }
 
-  // Popup input to chnage password or name
+  // Popup input to Edit user infomation
   function popup() {
     
     return (isOpen) ? (
