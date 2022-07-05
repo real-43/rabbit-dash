@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
 
 import './signup.css'
-import { defindAllUsers, defindAllRoles } from '../../firebaseSlice';
+import { defindAllUsers, defindAllRoles, addTask } from '../../firebaseSlice';
 
 
 
@@ -71,6 +71,7 @@ export default function Signup() {
   // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
     setIsLoading(true);
+    dispatch(addTask("Deleting user"))
 
     let index = 0
     let rest = []
@@ -88,7 +89,7 @@ export default function Signup() {
     await deleteDoc(userDoc);
 
     setIsLoading(false);
-    updateData()
+    // updateData()
 
     // delete user in firebase auth
     signInWithEmailAndPassword(authSec, user.email, user.password)
@@ -128,6 +129,9 @@ export default function Signup() {
   const handleChange = (user) => {
     setIsOpen(false)
     setIsLoading(true)
+
+    dispatch(addTask("Updating user info"))
+
     setChangeUser(user)
 
     let rest = []
@@ -180,12 +184,13 @@ export default function Signup() {
     // Change in firebase auth
     
     
-    updateData()
+    // updateData()
   }
 
   const ControlBlocked = async (user) => {
     setIsLoading(true)
-    console.log("Controlblocked function")
+
+    dispatch(addTask("Blocking user"))
 
     let rest = []
 
@@ -204,7 +209,7 @@ export default function Signup() {
       "isBlocked": !user.isBlocked
       
     });
-    updateData()
+    // updateData()
     setIsLoading(false)
   }
 
@@ -212,6 +217,8 @@ export default function Signup() {
   const handleSubmit = async (event) => {
     // event.preventDefault();
     setIsLoading(true);
+
+    dispatch(addTask("Creating user"))
 
     return createUserWithEmailAndPassword(authSec, userInfo.email, userInfo.password).then(
       (cred) => {
@@ -226,7 +233,6 @@ export default function Signup() {
         setUserInfo({ name: '', email: '', password: '' })
       }
     );
-    
   };
 
   // To open/close popup and set user that send form edit btn

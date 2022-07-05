@@ -7,6 +7,7 @@ const initialState = {
     currentUser: "", // User in auth
     currentUserFS: [], // User in firestore not auth
     currentRoleFS: [], // Role in firestore
+    task: []
 }
 
 export const firebaseSlice = createSlice({
@@ -31,6 +32,9 @@ export const firebaseSlice = createSlice({
         defindCurrentRoleFS: (state, action) => {
             state.currentRoleFS = action.payload
         },
+        addTask: (state, action) => {
+            state.task.push(action.payload)
+        },
 
 
 
@@ -44,6 +48,7 @@ export const firebaseSlice = createSlice({
             state.allUsers = []
             state.currentRoleFS = []
             state.currentUserFS = []
+            state.task = []
         },
         deleteAllProjects: (state) => {
             state.allProjects = []
@@ -59,7 +64,19 @@ export const firebaseSlice = createSlice({
         },
         deleteCurrentRoleFS: (state) => {
             state.currentRoleFS = []
-        }
+        },
+        deleteTask: (state) => {
+            state.task = []
+        },
+        popTask: (state, action) => {
+            let newTask = []
+            state.task.map((t) => {
+                if(!t.includes(action.payload)) {
+                    newTask.push(t)
+                }
+            })
+            state.task = newTask
+        },
     }
 })
 
@@ -76,6 +93,9 @@ export const {
     deleteAllRoles,
     deleteAllUsers,
     deleteCurrentRoleFS,
-    deleteCurrentUserFS
+    deleteCurrentUserFS,
+    popTask,
+    deleteTask,
+    addTask,
 } = firebaseSlice.actions;
 export default firebaseSlice.reducer;

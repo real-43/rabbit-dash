@@ -45,8 +45,6 @@ const ManageProject = () => {
     const [roles, setRoles] = useState([...rolesR]);
     const roleR = useSelector((state) => state.firebase.currentRoleFS)
     const [role, setRole] = useState(roleR);
-    console.log("RR", roleR)
-    console.log("EE", role)
 
     const AdminDoc = doc(db, "roles", 'XKvFX3M9e07w0qcpxd32');
 
@@ -96,7 +94,6 @@ const ManageProject = () => {
             a.push(element);
         }
         a.push(projectInfo.name)
-        console.log("a element", a)
 
         var NewProjectManagement = {
             "Project": a,
@@ -146,7 +143,6 @@ const ManageProject = () => {
             subMenu: project.subMenu
         }
         await deleteDoc(userDoc);
-        console.log("delete",project.id)
         roles.map((role) =>{ 
             // console.log(role.id)
             const roleDoc = doc(db, "roles", role.id)
@@ -169,7 +165,6 @@ const ManageProject = () => {
     const editProject = async (project) =>{
 
         setIsLoading(true)
-        console.log("edit", project.id)
         setIsOpen(!isOpen)
         const projectDoc = doc(db, "projects", project.id);
     
@@ -189,7 +184,6 @@ const ManageProject = () => {
                             subMenu: project.subMenu
                         }),
                     });  
-                    console.log(newProjectName,submenu )
                     updateDoc(roleDoc,{
                         project: arrayUnion({
                             name: newProjectName,
@@ -210,7 +204,6 @@ const ManageProject = () => {
         const chips = submenu.slice();
         chips.push(value);
         setSubmenu(chips);
-        console.log(chips,submenu);
     };
 
     const handleEdit = (project) => {
@@ -218,7 +211,6 @@ const ManageProject = () => {
         setNewProjectName(project.name)
         setNewSubM(project.subMenu)
         setChangeProject(project)
-        console.log()
     }
     const [projectName,setProjectName] =  useState([])
 
@@ -236,7 +228,6 @@ const ManageProject = () => {
         getProjectPermission()
     }
   
-    console.log(projectName)
 
     function popup() {
         return (isOpen) ? (

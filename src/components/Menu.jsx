@@ -11,7 +11,6 @@ export default function Menu() {
   const [projects, setProjects] = useState([...projectsR]);
   const [role, setRole] = useState(useSelector((state) => state.firebase.currentUserFS)); 
   const menu = useSelector((state) => state.firebase.currentRoleFS);
-  console.log("menu", menu)
 
   const navigate = useNavigate();
 

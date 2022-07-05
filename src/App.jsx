@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import './App.css';
 import Dash from './components/Dashboard'
 import LoginPage from './Container/Login/login';
@@ -19,12 +20,12 @@ import Permission from './Container/Management/Permission/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "./firebase"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 function App() {
 
-  // const users = useSelector((state) => state.counter.users)
-  const dispatch = useDispatch()
+  const taskR = useSelector((state) => state.firebase.task)
+  const [task, setTask] = useState([...taskR]);
 
   const getUsers = async () => {
     const usersCollectionRef = collection(db, "users");
@@ -32,10 +33,15 @@ function App() {
     var users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
   };
 
+  useEffect(() => {
+    setTask([...taskR])
+  }, [taskR])
+
   const SidebarLayout = () => (
     <>
       <Header/>
       <Menu/>
+      {(task.length > 0) ? (<div>Popup Notifications</div>) : ""}
       <Footer/>
       <Outlet/>
     </>
