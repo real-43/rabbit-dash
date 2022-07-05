@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Select from '../../components/component/Select';
 import Date_range_picker from '../../components/component/date-range-picker';
+import { useNavigate } from "react-router";
+import { auth } from "../../../../../Firebase Config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Search = () => {
     const { handleSubmit } = useForm();
@@ -38,6 +41,16 @@ const Search = () => {
     const [stationList, setStationList] = useState([])
      const base_api = 'http://localhost:9000'
     // const base_api = ''
+    const navigate = useNavigate();
+    useEffect(() => {
+        const authentication = onAuthStateChanged(auth,(user) => {
+            if (!user) {
+                navigate('/')
+            }
+        }) 
+        
+        return authentication
+    },[])
 
     useEffect(() => {
         let dates = new Date();

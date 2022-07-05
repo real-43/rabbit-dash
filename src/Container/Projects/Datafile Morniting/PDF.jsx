@@ -83,13 +83,11 @@ export default function DataFilePDF() {
 
     useEffect(() => {
         const authentication = onAuthStateChanged(auth,(user) => {
-            if (user) {
-                navigate('/CreatePermissionAdmin')
-            } else {
+            if (!user) {
                 navigate('/')
             }
         }) 
-
+        
         return authentication
     },[])
 
