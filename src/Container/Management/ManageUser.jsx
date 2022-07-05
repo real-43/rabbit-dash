@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {  createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, deleteUser, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
+import {  createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, deleteUser, signInWithEmailAndPassword } from "firebase/auth";
 import { authSec, db } from '../../Firebase Config/firebaseSec';
 import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
 import { auth } from '../../Firebase Config/firebase'
@@ -113,11 +113,10 @@ export default function ManageUsers() {
       }
     )
 
-    if (role !== "") {
-      updateDoc(doc(db,'users',user.id), {
-        "role": role
-      });
-    }
+    updateDoc(doc(db,'users',user.id), {
+      "role": role
+    });
+
 
     setIsLoading(false);
   }
@@ -249,6 +248,7 @@ export default function ManageUsers() {
               <Form.Label>Role</Form.Label>
               <Form.Select aria-label={role} defaultValue={role} onChange={(e) => setRole(e.target.value)}>
                 <option className="d-none" value="">{role}</option>
+                <option value="">Set No role</option>
                 {roles.filter(obj => checkDomainRole(obj)).map((role) => {return (
                   <option value={role.name}>{role.name}</option>
                 )})}
@@ -321,7 +321,7 @@ export default function ManageUsers() {
           {users.map((user, index) => {return (
         <MDBTableBody>
             <tr>
-            {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin") ? (
+            {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin" || user.role.includes(currentUser.role.split("Admin")[0])) ? (
               <>
                 <td>{index+1}</td>
                 <td>{user.name}</td>

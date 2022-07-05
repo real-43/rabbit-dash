@@ -20,10 +20,13 @@ import {
     arrayRemove,
     onSnapshot
   } from "firebase/firestore";
+import { useNavigate } from 'react-router';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const ManageProject = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const user = auth.currentUser
     
@@ -52,6 +55,18 @@ const ManageProject = () => {
     const AdminDoc = doc(db, "roles", 'XKvFX3M9e07w0qcpxd32');
 
     const userinfo = useSelector((state) => state.firebase.currentUserFS)
+
+    useEffect(() => {
+        const authentication = onAuthStateChanged(auth,(user) => {
+            if (user) {
+                navigate('/CreatePermissionAdmin')
+            } else {
+                navigate('/')
+           }
+        }) 
+        
+        return authentication
+    },[])
 
     const updateData = async () => {
         onSnapshot(collection(db,"roles"),(function(querySnapshot) {

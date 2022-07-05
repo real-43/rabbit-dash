@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Form, Button}  from 'react-bootstrap';
 import './ManagePermission.css'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { collection, addDoc } from "firebase/firestore"; 
-import { db } from '../../../Firebase Config/firebase';
+import { db, auth } from '../../../Firebase Config/firebase';
 import { useNavigate } from 'react-router'
 import Loading from '../../../components/Loading';
 import { useSelector } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function CreatePermission() {
 
@@ -21,6 +22,18 @@ export default function CreatePermission() {
     const [data, setdata] = useState([]);
     const mockupProject = useSelector((state) => state.firebase.allProjects);
     const [toSend, setToSend] = useState([]);
+
+    useEffect(() => {
+        const authentication = onAuthStateChanged(auth,(user) => {
+            if (user) {
+                navigate('/CreatePermissionAdmin')
+            } else {
+                navigate('/')
+           }
+        }) 
+        
+        return authentication
+    },[])
 
     // Create array of options that user can select
     const optionsProject = () => {

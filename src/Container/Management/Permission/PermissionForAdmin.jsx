@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { db } from '../../../Firebase Config/firebase';
+import { db, auth } from '../../../Firebase Config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../../components/Loading';
 import { useSelector, useDispatch } from 'react-redux';
 import { defindAllRoles } from '../../../Reducer/firebaseSlice';
 import { collection, onSnapshot } from "firebase/firestore";
 import './ManagePermission.css';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 export default function Permission() {
@@ -40,8 +41,20 @@ export default function Permission() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
+    useEffect(() => {
+        const authentication = onAuthStateChanged(auth,(user) => {
+            if (user) {
+                navigate('/permission')
+            } else {
+                navigate('/')
+           }
+        }) 
+        
+        return authentication
+    },[])
+
     const getAllRolesAgain = async () => {
-        await onSnapshot(collection(db,"roles"),(function(querySnapshot) {
+        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
             let roles = [];
             querySnapshot.forEach(function(doc) {
                 roles.push({...doc.data(), id: doc.id});

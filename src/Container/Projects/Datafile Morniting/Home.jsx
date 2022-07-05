@@ -1,7 +1,9 @@
-import React from 'react';
-import { MDBDataTableV5 } from 'mdbreact';
+import React, { useEffect } from 'react';
 import {data} from '../../../Mockup Data/Data'
 import ShowTable from './ShowTable';
+import { auth } from '../../../Firebase Config/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router';
 
 const DatatablePage = () => {
   const data1 = {
@@ -69,6 +71,20 @@ const DatatablePage = () => {
     ],
     rows: data
   };
+
+  const navigate = useNavigate()
+
+    useEffect(() => {
+        const authentication = onAuthStateChanged(auth,(user) => {
+            if (user) {
+                navigate('/CreatePermissionAdmin')
+            } else {
+                navigate('/')
+        }
+        }) 
+        
+        return authentication
+    },[])
 
   return (
     <div className="content-wrapper" style={{paddingBottom: 100, paddingLeft: 25, paddingRight: 25, paddingTop: 25}}>

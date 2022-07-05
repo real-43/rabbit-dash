@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
-import { MDBDataTableV5 } from 'mdbreact';
+import React, { useState, useEffect } from 'react'
 import {data} from '../../../Mockup Data/Data'
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import './PDF.css'
 import Loading from '../../../components/Loading';
 import ShowTable from './ShowTable';
+import { useNavigate } from 'react-router';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../../Firebase Config/firebase';
 
 export default function DataFilePDF() {
 
@@ -76,6 +78,20 @@ export default function DataFilePDF() {
         ],
         rows: data
       };
+    
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const authentication = onAuthStateChanged(auth,(user) => {
+            if (user) {
+                navigate('/CreatePermissionAdmin')
+            } else {
+                navigate('/')
+            }
+        }) 
+
+        return authentication
+    },[])
 
     function exportPDF() {
         setIsLoading(true)

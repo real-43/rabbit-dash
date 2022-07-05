@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router'
 import { Modal, Form, Button }  from 'react-bootstrap';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { db } from '../../../Firebase Config/firebase';
+import { db, auth } from '../../../Firebase Config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../../components/Loading';
 import './ManagePermission.css'
 import { useSelector } from 'react-redux';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function PermissionForOthers() {
 
@@ -37,6 +38,17 @@ export default function PermissionForOthers() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
+    useEffect(() => {
+        const authentication = onAuthStateChanged(auth,(user) => {
+            if (user) {
+                navigate('/permissionOthers')
+            } else {
+                navigate('/')
+           }
+        }) 
+        
+        return authentication
+    },[])
 
     // update allRoles when allRoles in redux change
     useEffect(() => {
@@ -281,7 +293,7 @@ export default function PermissionForOthers() {
                                     })}
                                     </td>
                                     <td>
-                                        <Button className="btn m-2 edit" onClick={(e) => {handleEditBtn(role)}}>Edit</Button><br/>
+                                        <Button className="btn m-2 edit" onClick={(e) => {handleEditBtn(role)}}>Edit</Button>
                                         <button className="btn m-2 del" onClick={(e) => {handleDeleteBtn(role)}}>Delete</button>
                                     </td>
                                 </tr>
