@@ -3,18 +3,17 @@ import {Form, Button}  from 'react-bootstrap';
 import './ManagePermission.css'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { collection, addDoc, onSnapshot } from "firebase/firestore"; 
+import { collection, addDoc } from "firebase/firestore"; 
 import { db } from '../../../Firebase Config/firebase';
 import { useNavigate } from 'react-router'
 import Loading from '../../../components/Loading';
-import { useSelector, useDispatch } from 'react-redux';
-import { defindAllRoles } from '../../../Reducer/firebaseSlice';
-
+import { useSelector } from 'react-redux';
 
 export default function CreatePermission() {
 
+    const animatedComponents = makeAnimated();
+
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState();
 
     const [roleName, setRoleName] = useState("");
@@ -23,6 +22,7 @@ export default function CreatePermission() {
     const mockupProject = useSelector((state) => state.firebase.allProjects);
     const [toSend, setToSend] = useState([]);
 
+    // Create array of options that user can select
     const optionsProject = () => {
         var names = []
         var index = 0
@@ -33,6 +33,7 @@ export default function CreatePermission() {
         return names
     }
 
+    // Use when want to get all project name that user selected
     const getProjectName = (project) => {
         let menuName = []
         project.map((p, index) => {
@@ -41,18 +42,7 @@ export default function CreatePermission() {
         return menuName
     }
 
-    const updateData = async () => {
-        setIsLoading(true)
-        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
-            let roles = [];
-            querySnapshot.forEach(function(doc) {
-                roles.push({...doc.data(), id: doc.id});
-            });
-            dispatch(defindAllRoles(roles))
-        }));
-        setIsLoading(false)
-    }
-
+    // reset input
     const reset = () => {
         setdata([])
         setProjectInput([])
@@ -60,6 +50,7 @@ export default function CreatePermission() {
         setToSend([])
     }
 
+    // Create role when click create button
     const handleSubmit = async (event) => {
         setIsLoading(true)
         event.preventDefault();
@@ -74,12 +65,9 @@ export default function CreatePermission() {
             Management: {Permission: manageChild, Project: manageChild, Services: manageChild}
         });
 
-        updateData()
         reset()
         setIsLoading(false)
     }
-
-    const animatedComponents = makeAnimated();
 
     const handleChange = (event) => {
         setProjectInput(event)
@@ -89,6 +77,7 @@ export default function CreatePermission() {
         }
     }
 
+    // Create array of submenu of projects selected
     const subMenuOptions = (event) => {
         var filteredProject = [{name: "", options: [{value: "", label: ""}]}]
         var index = 0

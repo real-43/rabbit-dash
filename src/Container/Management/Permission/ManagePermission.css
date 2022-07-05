@@ -14,6 +14,11 @@
 .create-btn {
     background-color: orange;
     justify-self: flex-end;
+    border: 0;
+    border-radius: 4px;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .create-btn:hover {

@@ -33,18 +33,6 @@ export default function CreatePermissionOthers() {
         setOptions([{value: pName, label: pName}])
     }
 
-    const updateData = async () => {
-        setIsLoading(true)
-        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
-            let roles = [];
-            querySnapshot.forEach(function(doc) {
-                roles.push({...doc.data(), id: doc.id});
-            });
-            dispatch(defindAllRoles(roles))
-        }));
-        setIsLoading(false)
-    }
-
     const inputToDefault = () => {
         setRoleName("")
         setProjectInput([])
@@ -64,7 +52,6 @@ export default function CreatePermissionOthers() {
             Management: {Permission: [toSend[0].name], Project: [toSend[0].name], Services: [toSend[0].name]}
         });
 
-        updateData()
         inputToDefault()
         setIsLoading(false)
     }
