@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Menu.css";
-import { auth, db } from '../firebase';
+import { auth, db } from '../Reducer/Firebase Config/firebase';
 import { getDoc, doc, getDocs, collection, where, query } from "firebase/firestore";
 import { signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router'

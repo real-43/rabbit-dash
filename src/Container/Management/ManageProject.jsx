@@ -1,6 +1,6 @@
 import React, { useState, useEffect }from 'react';
-import { db } from '../../firebaseSec';
-import { auth } from '../../firebase';
+import { db } from '../../Reducer/Firebase Config/firebaseSec';
+import { auth } from '../../Reducer/Firebase Config/firebase';
 import { Table } from 'react-bootstrap';
 import { Modal, Form, Button }  from 'react-bootstrap';
 import "./signup.css";
@@ -8,7 +8,7 @@ import Chip from '@mui/material/Chip';
 import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
 import { useSelector, useDispatch } from "react-redux"
-import { defindAllProjects, defindAllRoles } from '../../firebaseSlice';
+import { defindAllProjects, defindAllRoles } from '../../Reducer/firebaseSlice';
 import {
     collection,
     addDoc,

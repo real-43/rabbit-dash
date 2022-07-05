@@ -9,9 +9,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth,provider } from '../../firebase';
+import { auth,provider } from '../../Reducer/Firebase Config/firebase';
 import './login.css'
-import { db } from '../../firebaseSec';
+import { db } from '../../Reducer/Firebase Config/firebaseSec';
 import {
   collection,
   getDocs,
@@ -19,7 +19,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteAll } from '../../firebaseSlice';
+import { deleteAll } from '../../Reducer/firebaseSlice';
 
 const comp_form = "@rabbit.co.th";
 const theme = createTheme();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
-import {data} from '../../../Data'
+import {data} from '../../../Mockup Data/Data'
 import ShowTable from './ShowTable';
 
 const DatatablePage = () => {

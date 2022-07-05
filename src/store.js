@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import firebaseSlice from "./firebaseSlice";
+import firebaseSlice from "./Reducer/firebaseSlice";
 import { combineReducers } from 'redux';
 import {
     persistReducer,

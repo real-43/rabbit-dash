@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { MDBDataTableV5 } from 'mdbreact';
-import {data} from '../../../Data'
+import {data} from '../../../Mockup Data/Data'
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import './PDF.css'

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {  createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, deleteUser, updatePassword, signInWithEmailAndPassword } from "firebase/auth";
-import { authSec, db } from '../../firebaseSec';
+import { authSec, db } from '../../Reducer/Firebase Config/firebaseSec';
 import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
-import { auth } from '../../firebase'
+import { auth } from '../../Reducer/Firebase Config/firebase'
 import { useNavigate } from 'react-router'
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import {
@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/Loading';
 
 import './signup.css'
-import { defindAllUsers, defindAllRoles, addTask } from '../../firebaseSlice';
+import { defindAllUsers, defindAllRoles, addTask } from '../../Reducer/firebaseSlice';
 
 
 

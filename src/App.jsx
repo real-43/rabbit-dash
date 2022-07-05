@@ -19,7 +19,7 @@ import CreatePermissionOthers from './Container/Management/Permission/CreatePerm
 import Permission from './Container/Management/Permission/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
 import { getDocs, collection } from "firebase/firestore";
-import { db } from "./firebase"
+import { db } from "./Reducer/Firebase Config/firebase"
 import { useSelector } from 'react-redux'
 
 function App() {
