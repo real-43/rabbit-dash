@@ -117,6 +117,8 @@ const ManageProject = () => {
         });
 
         // updateData()
+        setProjectInfo({ ...projectInfo, name: "" })
+        setSubmenu([])
         setIsLoading(false)
     }
 
@@ -290,13 +292,14 @@ const ManageProject = () => {
                                 onChange={(event) => {
                                     setProjectInfo({ ...projectInfo, name: event.target.value })
                                 }}
+                                value={projectInfo.name}
                                 placeholder="Project Name"
                                 
                             />
                         </div>
                         <ChipInput 
                             style={{paddingTop: "10px",width:"97.5%",marginLeft:"20px"}}
-                            chips={submenu}
+                            value={submenu[submenu.length - 1]}
                             onChange={(chips) => handleChip(chips)}
                             placeholder="Submenu..."
 

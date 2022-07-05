@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import Dash from './components/Dashboard'
+import Dash from './Container/Home/Dashboard'
 import LoginPage from './Container/Login/login';
 import SignupPage from './Container/Management/ManageUser';
 import ManagePro from './Container/Management/ManageProject';
@@ -23,7 +23,7 @@ import { useSelector } from 'react-redux'
 function App() {
 
   const taskR = useSelector((state) => state.firebase.task)
-  const [task, setTask] = useState([...taskR]);
+  const [task, setTask] = useState([...taskR] || []);
 
   useEffect(() => {
     setTask([...taskR])
