@@ -214,7 +214,7 @@ const Search = () => {
             let tableBody = [];
             QRgens.forEach((detail, index) => {
                 tableBody.push(
-                    <tr key={index}>
+                    <tr key={index} style={{backgroundColor: "white !important"}}>
                         <td className="p17-5">{(index + 1) + ((currentpage - 1) * itemsPerPage)}</td>
                         <td className="p17-5">{detail.branchname}</td>
                         <td className="p17-5">{detail.terminalid}</td>
@@ -313,7 +313,7 @@ const Search = () => {
                         <form className="Search" onSubmit={handleSubmit(mySubmitHandler)}>
                                 {/* <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="formDate" style={{ borderRadius: '20px' }} value={FormDate} onChange={(e) => setFormDate(e.target.value)} /></div>
                                 <div className="align-self-center"><input className="form-control align-self-center search p17-5" type="date" name="toDate" style={{ borderRadius: '20px' }} value={ToDate} onChange={(e) => setToDate(e.target.value)} /></div> */}
-                                <button className="btn btn-success align-self-center" style={{ marginLeft: 5, height: 38 }} type="submit">Search</button>
+                                <button className="btn btn-success align-self-center" style={{ marginLeft: 5, height: 38, color: 'black !important' }} type="submit">Search</button>
                         </form>
                     </div>
                 </div>
