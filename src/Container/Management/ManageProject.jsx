@@ -5,6 +5,7 @@ import { Table } from 'react-bootstrap';
 import { Modal, Form, Button }  from 'react-bootstrap';
 import "./signup.css";
 import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
 import { useSelector, useDispatch } from "react-redux"
@@ -103,7 +104,7 @@ const ManageProject = () => {
         
         var NewProject = {
             name: projectInfo.name,
-            subMenu: submenu[submenu.length-1],
+            subMenu: submenu,
         }
 
         await addDoc(collection(db, "projects"), NewProject);
@@ -172,7 +173,7 @@ const ManageProject = () => {
     
         await updateDoc(projectDoc, {
             "name": newProjectName,
-            "subMenu": submenu[submenu.length - 1] 
+            "subMenu": submenu
         });
 
         roles.map((role) =>{ 
@@ -189,7 +190,7 @@ const ManageProject = () => {
                     updateDoc(roleDoc,{
                         project: arrayUnion({
                             name: newProjectName,
-                            subMenu: submenu[submenu.length - 1] 
+                            subMenu: submenu
                         })
                     });   
                 }    
@@ -205,7 +206,8 @@ const ManageProject = () => {
         // console.log(value)
         const chips = submenu.slice();
         chips.push(value);
-        setSubmenu(chips);
+        setSubmenu(chips[chips.length - 1]);
+        console.log(submenu)
     };
 
     const handleEdit = (project) => {
@@ -293,15 +295,15 @@ const ManageProject = () => {
                                     setProjectInfo({ ...projectInfo, name: event.target.value })
                                 }}
                                 value={projectInfo.name}
-                                placeholder="Project Name"
+                                placeholder=" Project Name..."
                                 
                             />
                         </div>
                         <ChipInput 
                             style={{paddingTop: "10px",width:"97.5%",marginLeft:"20px"}}
-                            value={submenu[submenu.length - 1]}
+                            value={submenu}
                             onChange={(chips) => handleChip(chips)}
-                            placeholder="Submenu..."
+                            placeholder=" Submenu..."
 
                         />
                         <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create Project</button> 
@@ -323,11 +325,13 @@ const ManageProject = () => {
                                 <tr>
                                     <td>{index + 1}</td>
                                     <td>{pro.name}</td>
-                                    <td>
+                                    <td><Stack direction="row" spacing={1}>
                                         {pro.subMenu.map((sub) => {
-                                            return <Chip label={sub} clickable/>
+                                            return(
+                                                <Chip label={sub} clickable/>
+                                            )
                                         })}
-                                    </td>
+                                    </Stack></td>
                                     <td>
                                         <Button className="btn m-2 edit" onClick={(e) => {handleEdit(pro)}}>Edit</Button>
                                         <button className="btn m-2 del" onClick={(e) => {deleteProjects(pro)}}>Delete</button>
