@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
 import { useSelector, useDispatch } from "react-redux"
-import { defindAllProjects, defindAllRoles } from '../../Reducer/firebaseSlice';
+import { addTask, defindAllProjects, defindAllRoles } from '../../Reducer/firebaseSlice';
 import {
     collection,
     addDoc,
@@ -100,6 +100,8 @@ const ManageProject = () => {
         e.preventDefault();
         setIsLoading(true)
 
+        dispatch(addTask("Add project"))
+
         // let rest = [...projects]
         // rest.push({name: projectInfo.name, subMenu: submenu[submenu.length-1]})
 
@@ -142,6 +144,8 @@ const ManageProject = () => {
         const userDoc = doc(db, "projects", project.id);
         setIsLoading(true)
 
+        dispatch(addTask("Delete project"))
+
         let rest = []
         role.Management.Project.map((p) => {
             if (p !== project.name) {
@@ -180,6 +184,9 @@ const ManageProject = () => {
     const editProject = async (project) =>{
 
         setIsLoading(true)
+
+        dispatch(addTask("Edit project"))
+
         setIsOpen(!isOpen)
         const projectDoc = doc(db, "projects", project.id);
     

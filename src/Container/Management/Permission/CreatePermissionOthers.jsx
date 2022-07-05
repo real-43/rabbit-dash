@@ -8,12 +8,14 @@ import { db, auth } from '../../../Firebase Config/firebase';
 import { useNavigate } from 'react-router'
 import Loading from '../../../components/Loading';
 import { onAuthStateChanged } from 'firebase/auth';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask } from '../../../Reducer/firebaseSlice';
 
 export default function CreatePermissionOthers() {
 
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
+    const dispatch = useDispatch();
 
     const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
     const currentUser = useSelector((state) => state.firebase.currentUserFS)
@@ -53,6 +55,8 @@ export default function CreatePermissionOthers() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true)
+
+        dispatch(addTask("Create role"))
 
         var update = [...toSend]
         setToSend(update)

@@ -7,12 +7,14 @@ import { collection, addDoc } from "firebase/firestore";
 import { db, auth } from '../../../Firebase Config/firebase';
 import { useNavigate } from 'react-router'
 import Loading from '../../../components/Loading';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
+import { addTask } from '../../../Reducer/firebaseSlice';
 
 export default function CreatePermission() {
 
     const animatedComponents = makeAnimated();
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
@@ -67,6 +69,9 @@ export default function CreatePermission() {
     const handleSubmit = async (event) => {
         setIsLoading(true)
         event.preventDefault();
+
+        dispatch(addTask("Create role"))
+
         let manageChild = getProjectName(toSend)
 
         var update = [...toSend]
