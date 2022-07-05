@@ -4,7 +4,7 @@ import './ManagePermission.css'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { collection, addDoc, onSnapshot } from "firebase/firestore"; 
-import { db } from '../../../Reducer/Firebase Config/firebase';
+import { db } from '../../../Firebase Config/firebase';
 import { useNavigate } from 'react-router'
 import Loading from '../../../components/Loading';
 import { useSelector, useDispatch } from 'react-redux';

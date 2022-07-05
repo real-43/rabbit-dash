@@ -1,6 +1,5 @@
 import { getDocs, collection, query, where, getDoc, doc, onSnapshot } from "firebase/firestore";
-import { db } from "./Reducer/Firebase Config/firebaseSec"
-import React from "react";
+import { db } from "./Firebase Config/firebaseSec"
 import { useDispatch } from "react-redux";
 import { defindAllProjects, defindAllUsers, defindAllRoles } from "./Reducer/firebaseSlice";
 

@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
-import { auth, db } from '../Reducer/Firebase Config/firebase'
-import { useDispatch, useSelector } from 'react-redux'
-import { collection, onSnapshot } from "firebase/firestore";
-import { defindAllProjects, defindAllRoles, defindAllUsers } from "../Reducer/firebaseSlice";
+import { auth, db } from '../Firebase Config/firebase'
 
 export default function Dashboard() {
 

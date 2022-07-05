@@ -1,5 +1,4 @@
-import React from 'react'
-import { auth } from '../Reducer/Firebase Config/firebase'
+import { auth } from '../Firebase Config/firebase'
 
 const authentication = onAuthStateChanged(auth,(user) => {
     if (user) {
