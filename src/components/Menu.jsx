@@ -11,7 +11,6 @@ export default function Menu() {
   const [projects, setProjects] = useState([...projectsR]);
   const [role, setRole] = useState(useSelector((state) => state.firebase.currentUserFS)); 
   const menu = useSelector((state) => state.firebase.currentRoleFS);
-  console.log("menu", menu)
 
   const navigate = useNavigate();
 
@@ -178,7 +177,7 @@ export default function Menu() {
 
                 <ul className="nav nav-treeview"> 
                 {projects?.map((project) =>(
-                  <div>
+                  <div key={project.id}>
                   {(checkMenu(project.name)) ? (
                     <li className="nav-item has-treeview">
 
@@ -196,7 +195,7 @@ export default function Menu() {
 
                         {project.subMenu?.map((submenu, i) =>(
                           
-                                    <ul className="nav nav-treeview">
+                                    <ul className="nav nav-treeview" key={i}>
                                       {(checkSubMenu(submenu)) ? (
                                           <li className="nav-item">
                                             <a onClick={() => navigate(`${project.name}${submenu}`)} className="nav-link" style={{cursor: "pointer"}}>
@@ -207,12 +206,12 @@ export default function Menu() {
                                       ) : ""}
 
                                     </ul>
-                        ))}
-                  
-                    </li>
-                  ) : ""}
+                            ))}
+                      
+                        </li>
+                      ) : ""}
                   </div>
-                ))}
+                  ))}
                 </ul>
               </li>
 

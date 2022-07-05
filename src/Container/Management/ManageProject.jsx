@@ -335,7 +335,7 @@ const ManageProject = () => {
                                     <td><Stack direction="row" spacing={1}>
                                         {pro.subMenu.map((sub) => {
                                             return(
-                                                <Chip label={sub} clickable/>
+                                                <Chip label={sub} clickable key={sub}/>
                                             )
                                         })}
                                     </Stack></td>

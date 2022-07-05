@@ -249,8 +249,8 @@ export default function ManageUsers() {
               <Form.Select aria-label={role} defaultValue={role} onChange={(e) => setRole(e.target.value)}>
                 <option className="d-none" value="">{role}</option>
                 <option value="">Set No role</option>
-                {roles.filter(obj => checkDomainRole(obj)).map((role) => {return (
-                  <option value={role.name}>{role.name}</option>
+                {roles.filter(obj => checkDomainRole(obj)).map((role,i) => {return (
+                  <option value={role.name} key={i}>{role.name}</option>
                 )})}
               </Form.Select>
             </Form>
@@ -319,7 +319,7 @@ export default function ManageUsers() {
         </MDBTableHead>
       
           {users.map((user, index) => {return (
-        <MDBTableBody>
+        <MDBTableBody key={index}>
             <tr>
             {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin" || user.role.includes(currentUser.role.split("Admin")[0])) ? (
               <>
