@@ -107,11 +107,16 @@ export default function ManageUsers() {
         updateDoc(doc(db,"users",cred.user.uid), {
           "name": newName,
           "password": newPassword,
-          "role": role
         });
         authSec.signOut()
       }
     )
+
+    if (role !== "") {
+      updateDoc(doc(db,'users',user.id), {
+        "role": role
+      });
+    }
 
     setIsLoading(false);
   }
