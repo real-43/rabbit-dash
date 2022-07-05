@@ -7,17 +7,14 @@ import makeAnimated from 'react-select/animated';
 import { db } from '../../../Firebase Config/firebase';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../../../components/Loading';
-import { useDispatch, useSelector } from 'react-redux';
-import { defindAllRoles } from '../../../Reducer/firebaseSlice';
-import { getRoles } from '../../../MyFireStore';
 import './ManagePermission.css'
+import { useSelector } from 'react-redux';
 
 export default function PermissionForOthers() {
 
     const animatedComponents = makeAnimated();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
-    const dispatch = useDispatch();
     const [isData, setIsData] = useState(false);
 
     const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
@@ -32,7 +29,6 @@ export default function PermissionForOthers() {
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
     const [isPopup, setIsPopup] = useState(false);
-    const [isAdd, setIsAdd] = useState(false);
 
     const [newRoleName, setNewRoleName] = useState("");
 
@@ -41,6 +37,8 @@ export default function PermissionForOthers() {
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
 
+
+    // update allRoles when allRoles in redux change
     useEffect(() => {
         setAllRoles([...allRolesR])
     }, [allRolesR])
@@ -58,23 +56,6 @@ export default function PermissionForOthers() {
             setRoleInSamePro(roles)
         }
 
-    }
-
-    const updateData = async () => {
-        let roles = []
-        let index = 0
-
-        await getRoles().then((value) => {
-            dispatch(defindAllRoles(value))
-            value.map((r) => {
-                if (r.name !== "Admin" && r.Management.Permission[0] === currentUserRole?.Management.Permission[0]) {
-                    roles[index] = r
-                    index += 1
-                }
-            })
-        })
-        
-        setRoleInSamePro(roles)
     }
 
     if (!isData) {
@@ -128,20 +109,6 @@ export default function PermissionForOthers() {
                 }
             })
         })
-
-        let rest = []
-        rolesInSamePro.map((r) => {
-            if (r.name === clickedRole.name) {
-                rest.push({
-                    ...r,
-                    name : newRoleName,
-                    project : sendPro
-                })
-            } else {
-                rest.push(r)
-            }
-        })
-        setRoleInSamePro(rest)
         
         // update field(name and project) in document roles in firestore
         const docRef = doc(db, "roles", clickedRole.id)
@@ -151,9 +118,6 @@ export default function PermissionForOthers() {
         })
         
         setIsLoading(false)
-
-        // get updated value from firestore to display
-        updateData()
         // close popup and set all variable to default
         handleClosePopup()
     }
@@ -161,17 +125,9 @@ export default function PermissionForOthers() {
     const handleDeleteBtn = async (role) => {
         setIsLoading(true)
 
-        let rest = []
-        rolesInSamePro.map((r) => {
-            if (role.name !== r.name) {
-                rest.push(r)
-            }
-        })
-
         const roleDoc = doc(db, "roles", role.id);
         await deleteDoc(roleDoc);
 
-        setRoleInSamePro(rest)
         setIsLoading(false)
 
         allUsers.map((user) => {
@@ -182,13 +138,10 @@ export default function PermissionForOthers() {
                 })
             }
         })
-
-        await updateData()
         
     }
 
     function popupEdit() {
-    
         return (isPopup) ? (
           <div>
             <Modal show={true} onHide={(e)=>{handleClosePopup()}}>

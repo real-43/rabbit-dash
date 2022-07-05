@@ -16,82 +16,11 @@ var a = GG.getUsers().then((value) => {
 ************************************************************************************************************************/
 
 
-
-function GetAll(command) {
-    const dispatch = useDispatch()
-
-    if (command === "all" || command === "users") {
-        onSnapshot(collection(db,"users"),(function(querySnapshot) {
-            let users = [];
-            querySnapshot.forEach(function(doc) {
-                users.push({...doc.data(), id: doc.id});
-            });
-            dispatch(defindAllUsers(users))
-        }));
-    }
-    
-    if (command === "all" || command === "roles") {
-        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
-            let roles = [];
-            querySnapshot.forEach(function(doc) {
-                roles.push({...doc.data(), id: doc.id});
-            });
-            dispatch(defindAllRoles(roles))
-        }));
-    }
-
-    if (command === "all" || command === "projects") {
-        onSnapshot(collection(db,"projects"),(function(querySnapshot) {
-            let projects = [];
-            querySnapshot.forEach(function(doc) {
-                projects.push({...doc.data(), id: doc.id});
-            });
-            dispatch(defindAllProjects(projects))
-        }));
-    }
-};
-
-const GetUsers = async () => {
-const dispatch = useDispatch()
-
-    onSnapshot(collection(db,"users"),(function(querySnapshot) {
-        let users = [];
-        querySnapshot.forEach(function(doc) {
-            users.push({...doc.data(), id: doc.id});
-        });
-        dispatch(defindAllUsers(users))
-    }));
-};
-
-const GetRoles = async () => {
-const dispatch = useDispatch()
-
-    onSnapshot(collection(db,"roles"),(function(querySnapshot) {
-        let roles = [];
-        querySnapshot.forEach(function(doc) {
-            roles.push({...doc.data(), id: doc.id});
-        });
-        dispatch(defindAllRoles(roles))
-    }));
-}
-
 const getRoles = async () => {
     const rolesCollectionRef = collection(db, "roles");
     const data = await getDocs(rolesCollectionRef);
     var roles = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     return roles
-}
-
-const GetProjects = async () => {
-const dispatch = useDispatch()
-
-    onSnapshot(collection(db,"projects"),(function(querySnapshot) {
-        let projects = [];
-        querySnapshot.forEach(function(doc) {
-            projects.push({...doc.data(), id: doc.id});
-        });
-        dispatch(defindAllProjects(projects))
-    }));
 }
 
 const getRole = async (roleName) => {
@@ -123,5 +52,5 @@ const getUser = async (uid) => {
     return reUser
 }
 
-export { GetAll, getUser, getProject, getRole, getRoles }
+export { getUser, getProject, getRole, getRoles }
 /******************************************************* GET ***********************************************************/
