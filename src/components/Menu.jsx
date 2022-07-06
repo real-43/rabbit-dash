@@ -62,7 +62,7 @@ export default function Menu() {
         {/* Sidebar */}
 
         {/* SidebarSearch Form */}
-        <div className="form-inline mt-2" style={{padding: "0px 10px"}}>
+        <div className="form-inline mt-3 mb-1 mx-1" style={{padding: "0px 10px"}}>
           <div className="input-group" data-widget="sidebar-search">
             <input
               className="form-control form-control-sidebar"
