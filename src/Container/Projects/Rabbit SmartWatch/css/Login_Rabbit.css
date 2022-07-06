@@ -1,0 +1,91 @@
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 768px) {
+    .bgLogin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #F78F1E;
+      width: 300px;
+      vertical-align: middle;
+      padding-bottom: 15px;
+    }
+  
+    .groupLogin {
+      text-align: center;
+    }
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .bgLogin {
+      vertical-align: middle;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+    }
+    .groupLogin {
+      padding: 70px 110px 0px 0px;
+      text-align: center;
+    }
+  } 
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .bgLogin {
+      border-radius: 120px 15px;
+      vertical-align: middle;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+    }
+    .groupLogin {
+      padding: 70px 110px 0px 0px;
+      text-align: center;
+    }
+  } 
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .bg-login {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+    }
+    .bg-login-left {
+      height: 100%;
+      width: 55%;
+      /* position: fixed; */
+      background-color: #F78F1E;
+      float: left;
+    }
+    .box-bg-login {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+    }
+    .bg-login-right {
+      height: 100%;
+      width: 45%;
+      /* position: fixed; */
+      float: right;
+    }
+    .Login-Group {
+      position: relative;
+      top: 50%;
+      transform: translate(0, -90%);
+    }
+    .text-center {
+      text-align: center;
+      width: 100%;
+    }
+  }

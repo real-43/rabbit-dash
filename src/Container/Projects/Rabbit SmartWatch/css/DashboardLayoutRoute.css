@@ -1,0 +1,138 @@
+.monitor-home {
+    background-color: #F78F1E;
+}
+
+.btns {
+    margin-left: 2rem;
+    background-color: #FA9D00;
+    padding: 0 1.5rem 0 1.5rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 1rem;
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (max-width: 768px) {
+    .container-full {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+    .menu_sidebar {
+        width: 15%;
+        height: 100%;
+        float: left;
+        background-color: #FA9D00;
+    }
+    .main_monitor {
+        width: 85%;
+        height: 100%;
+        float: right;
+    }
+    .header_monitor {
+        height: 10%;
+        /* background-color: chartreuse; */
+    }
+    .content_monitor {
+        height: 90%;
+        padding: .5rem .5rem .5rem .5rem;
+        /* background-color: darkgray; */
+    }
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {
+    .container-full {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+    .menu_sidebar {
+        width: 15%;
+        height: 100%;
+        float: left;
+        background-color: #FA9D00;
+    }
+    .main_monitor {
+        width: 85%;
+        height: 100%;
+        float: right;
+    }
+    .header_monitor {
+        height: 10%;
+        /* background-color: chartreuse; */
+    }
+    .content_monitor {
+        height: 90%;
+        padding: .5rem .5rem .5rem .5rem;
+        /* background-color: darkgray; */
+    }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 992px) {
+    .container-full {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+    .menu_sidebar {
+        width: 15%;
+        height: 100%;
+        float: left;
+        background-color: #FA9D00;
+    }
+    .main_monitor {
+        width: 85%;
+        height: 100%;
+        float: right;
+    }
+    .header_monitor {
+        height: 10%;
+        /* background-color: chartreuse; */
+    }
+    .content_monitor {
+        height: 90%;
+        padding: .5rem .5rem .5rem .5rem;
+        /* background-color: darkgray; */
+    }
+}
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and (min-width: 1200px) {
+    .container-full {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+    .menu_sidebar {
+        width: 15%;
+        height: 100%;
+        float: left;
+        background-color: #FA9D00;
+    }
+    .main_monitor {
+        width: 85%;
+        height: 100%;
+        float: right;
+    }
+    .header_monitor {
+        height: 10%;
+        /* background-color: chartreuse; */
+    }
+    .content_monitor {
+        height: 90%;
+        padding: .5rem .5rem .5rem .5rem;
+        /* background-color: darkgray; */
+    }
+}

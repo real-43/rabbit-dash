@@ -1,0 +1,35 @@
+.textFileName {
+    margin-left: 2rem;
+    width: 24rem;
+    text-align: center;
+    border-radius: 10rem;
+    height: 50px;
+}
+
+.textArea {
+    min-height: 25rem;
+}
+
+.labelImport {
+    margin-top: auto;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #707070;
+}
+
+.divbtnUpload {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btns {
+    margin-left: 2rem;
+    background-color: #FA9D00;
+    padding: 0 1.5rem 0 1.5rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 1rem;
+    color: #ffffff;
+    font-size: 1.5rem;
+    height: 50px;
+}           
