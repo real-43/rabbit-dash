@@ -7,8 +7,7 @@ const initialState = {
     currentUser: "", // User in auth
     currentUserFS: [], // User in firestore not auth
     currentRoleFS: [], // Role in firestore
-    task: [],
-    BTSQRDataStore: []
+    task: []
 }
 
 export const firebaseSlice = createSlice({
@@ -36,9 +35,6 @@ export const firebaseSlice = createSlice({
         addTask: (state, action) => {
             state.task.push(action.payload)
         },
-        storeFetchDataBTAQR: (state, action) => {
-            state.BTSQRDataStore = action.payload
-        },
 
 
 
@@ -53,7 +49,6 @@ export const firebaseSlice = createSlice({
             state.currentRoleFS = []
             state.currentUserFS = []
             state.task = []
-            state.dataPDF = []
         },
         deleteAllProjects: (state) => {
             state.allProjects = []
@@ -82,9 +77,6 @@ export const firebaseSlice = createSlice({
             })
             state.task = newTask
         },
-        deleteDataPDF: (state) => {
-            state.dataPDF = []
-        }
     }
 })
 
@@ -105,6 +97,5 @@ export const {
     popTask,
     deleteTask,
     addTask,
-    storeFetchDataBTAQR
 } = firebaseSlice.actions;
 export default firebaseSlice.reducer;
