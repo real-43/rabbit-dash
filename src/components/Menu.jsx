@@ -125,7 +125,7 @@ export default function Menu() {
                     </a>
                   </li>
                 </ul>
-                {(role.role?.includes("Admin") && menu !== []) ? (
+                {(role.role?.includes("Admin")) ? (
                 <ul className="nav nav-treeview">
                   <li className="nav-item has-treeview">
                     <a onClick={() => {if (role.role === "Admin") {
