@@ -6,6 +6,7 @@ export default function Loading(props) {
         <div className='loading-container'>
             <div className='loading-wrapper'>
                 <Loader />
+                The process may slow sometime
             </div>
         </div>
       ) : "";
