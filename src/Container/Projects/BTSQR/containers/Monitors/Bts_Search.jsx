@@ -58,26 +58,26 @@ const Search = () => {
         let date = dates.getFullYear() + '-' + (dates.getMonth() + 1) + '-' + (dates.getDate() < 10 ? '0' + dates.getDate() : dates.getDate());
         setFormDate(date)
         setToDate(date);
-    //     const fetchData = async () => {
-    //         let response = await axios({
-    //             method: "get",
-    //             url: `${base_api}/api/get_bss_stations`,
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'authorization': 'rabbit2020ok'
-    //             }
-    //         });
-    //         let datas = response.data
-    //         let arroptions = []
-    //         datas.forEach(data => {
-    //             arroptions.push({
-    //                 value: data.SP_BranchId,
-    //                 label: data.bss_loc_des
-    //             })
-    //         })
-    //         setStationList(arroptions)
-    //     }
-    //     fetchData();
+        const fetchData = async () => {
+            let response = await axios({
+                method: "get",
+                url: `${base_api}/api/get_bss_stations`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': 'rabbit2020ok'
+                }
+            });
+            let datas = response.data
+            let arroptions = []
+            datas.forEach(data => {
+                arroptions.push({
+                    value: data.SP_BranchId,
+                    label: data.bss_loc_des
+                })
+            })
+            setStationList(arroptions)
+        }
+        fetchData();
 
     }, [])
 
