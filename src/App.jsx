@@ -18,6 +18,9 @@ import CreatePermissionAdmin from './Container/Management/Permission/CreatePermi
 import CreatePermissionOthers from './Container/Management/Permission/CreatePermissionOthers';
 import Permission from './Container/Management/Permission/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
+
+import Rabbit_SmartWatch_Search from './Container/Projects/Rabbit SmartWatch/containers/Monitors/Smartwatch_Search'
+
 import BTS_QR_Home from './Container/Projects/BTSQR/containers/Home';
 import BTS_QR_Search from './Container/Projects/BTSQR/containers/Monitors/Bts_Search'
 
@@ -63,8 +66,8 @@ function App() {
           <Route path='/BTS%20QRHome' element={<BTS_QR_Home/>}  />
           <Route path='/BTS%20QRBTS' element={<BTS_QR_Search/>} />  
 
-         
-          
+          <Route path='/Rabbit%20SmartWatchSearch' element={<Rabbit_SmartWatch_Search/>}  />
+          <Route path='/Rabbit%20SmartWatchImport' element={<BTS_QR_Search/>} />            
         </Route>
       </Routes>
     </>

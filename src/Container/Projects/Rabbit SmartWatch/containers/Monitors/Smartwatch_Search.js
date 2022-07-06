@@ -217,14 +217,14 @@ const Smartwatch_Search = () => {
     }
     return (
         <>
-            <div className="container-fluid">
+            <div className="container-fluid content-wrapper">
                 {/* <Header /> */}
                 <div className="monitor-smartwatch">
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="col-md-2 align-self-center mt-2" style={{ marginLeft: '10px' }}><Select func_setSelect={func_setSelect} setState={setPartner} placeholder={'Partner'} options={partner_list} /></div>
-                            <div className="col-md-3 align-self-center mt-2" style={{ marginLeft: '10px' }}><Select func_setSelect={func_setSelect} setState={setType} placeholder={'Search Type'} options={type_list} /></div>
-                            <div className="input-group col-md-4 align-self-center mt-2" style={{ marginLeft: '25px', marginRight: '15px', background: 'white', height: '55px', borderRadius: '30px' }}>
+                            <div className="col-md-2 align-self-center " style={{ marginLeft: '10px' }}><Select func_setSelect={func_setSelect} setState={setPartner} placeholder={'Partner'} options={partner_list} /></div>
+                            <div className="col-md-3 align-self-center " style={{ marginLeft: '10px' }}><Select func_setSelect={func_setSelect} setState={setType} placeholder={'Search Type'} options={type_list} /></div>
+                            <div className="input-group col-md-4 align-self-center " style={{ marginLeft: '25px', marginRight: '15px', background: 'white', height: '55px', borderRadius: '30px' }}>
                                 <input className="form-control align-self-center search p17-5" style={{ backgroundImage: `url(${iconSearch})`, backgroundSize: '25px 25px', backgroundPosition: '0 9px', backgroundRepeat: 'no-repeat', padding: '0 0 0 35px', border: 0, marginRight: '2px' }} type="text" onChange={(e) => setSerial(e.target.value)} placeholder='Serial number...' />
                                 <button className="btn btn-sm float-right align-self-center" onClick={handleSearch} style={{ background: 'orange', borderRadius: '20px', fontSize: '19.5px', width: '100px', color: 'white', fontWeight: 'bold', marginRight: '-4px', width: '100px', height: '40px' }}>Search</button>
                             </div>
