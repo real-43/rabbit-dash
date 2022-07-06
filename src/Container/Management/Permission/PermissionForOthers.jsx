@@ -60,7 +60,7 @@ export default function PermissionForOthers() {
         let index = 0
         if (currentUserRole !== undefined) {
             allRoles.map((r) => {
-                if (r.name !== "Admin" && r.Management.Permission[0] === currentUserRole?.Management.Permission[0]) {
+                if (r.name !== "Admin" && r?.Management?.Permission[0] === currentUserRole?.Management?.Permission[0]) {
                     roles[index] = r
                     index += 1
                 }

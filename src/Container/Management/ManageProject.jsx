@@ -297,32 +297,35 @@ const ManageProject = () => {
         <div className="content-wrapper">
             <Loading isLoading={isLoading} />
             <div className='manage-project'>
-                <form >
-                    <div class="form-group row">
-                        <div class="col-xs-2">
-                            <label for="ex1" style={{paddingBottom: '20px'}}>Project Management</label>
-                            <input 
-                                class="form-control" 
-                                id="ex1" 
-                                type="text" 
-                                onChange={(event) => {
-                                    setProjectInfo({ ...projectInfo, name: event.target.value })
-                                }}
-                                value={projectInfo.name}
-                                placeholder=" Project Name..."
-                                
-                            />
-                        </div>
-                        <ChipInput 
-                            style={{paddingTop: "10px",width:"97.5%",marginLeft:"20px"}}
-                            value={submenu}
-                            onChange={(chips) => handleChip(chips)}
-                            placeholder=" Submenu..."
+                {(role.name === "Admin") ? (
+                    <form >
+                        <div class="form-group row">
+                            <div class="col-xs-2">
+                                <label for="ex1" style={{paddingBottom: '20px'}}>Project Management</label>
+                                <input 
+                                    class="form-control" 
+                                    id="ex1" 
+                                    type="text" 
+                                    onChange={(event) => {
+                                        setProjectInfo({ ...projectInfo, name: event.target.value })
+                                    }}
+                                    value={projectInfo.name}
+                                    placeholder=" Project Name..."
+                                    
+                                />
+                            </div>
+                            <ChipInput 
+                                style={{paddingTop: "10px",width:"97.5%",marginLeft:"20px"}}
+                                value={submenu}
+                                onChange={(chips) => handleChip(chips)}
+                                placeholder=" Submenu..."
 
-                        />
-                        <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create Project</button> 
-                    </div>
-                </form>
+                            />
+                            <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create Project</button> 
+                        </div>
+                    </form>
+                ) : ""}
+                
                 {popup()}
                 <Table striped bbordered>
                     <thead>
