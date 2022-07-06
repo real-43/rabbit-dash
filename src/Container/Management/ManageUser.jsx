@@ -276,24 +276,24 @@ export default function ManageUsers() {
         <h5 className="px-4 py-3">Create New User</h5>
 
         <div className='input-container px-3'>
-          <input className='input-register'
-            placeholder=" Name..."
+          <input className='input-register px-2'
+            placeholder="Name..."
             value={userInfo.name}
             onChange={(event) => {
               setUserInfo({ ...userInfo, name: event.target.value })
             }}
           />
-          <input className='input-register'
+          <input className='input-register px-2'
             type="Email"
-            placeholder=" Email..."
+            placeholder="Email..."
             value={userInfo.email}
             onChange={(event) => {
               setUserInfo({ ...userInfo, email: event.target.value })
             }}
           />
-          <input className='input-register'
+          <input className='input-register px-2'
             type="Password"
-            placeholder=" Password..."
+            placeholder="Password..."
             value={userInfo.password}
             onChange={(event) => {
               setUserInfo({ ...userInfo, password: event.target.value })
