@@ -32,7 +32,7 @@ Several quick start options are available:
 #### checkbox example
 
 ```
-<div className="icheck-primary">
+<div class="icheck-primary">
     <input type="checkbox" id="someCheckboxId" />
     <label for="someCheckboxId">Click to check</label>
 </div>
@@ -41,11 +41,11 @@ Several quick start options are available:
 #### radio buttons example
 
 ```
-<div className="icheck-primary">
+<div class="icheck-primary">
     <input type="radio" id="someRadioId1" name="someGroupName" />
     <label for="someRadioId1">Option 1</label>
 </div>
-<div className="icheck-primary">
+<div class="icheck-primary">
     <input type="radio" id="someRadioId2" name="someGroupName" />
     <label for="someRadioId2">Option 2</label>
 </div>
@@ -56,11 +56,11 @@ Several quick start options are available:
 To have checkboxes or radio buttons inline use .icheck-inline class
 
 ```
-<div className="icheck-primary icheck-inline">
+<div class="icheck-primary icheck-inline">
     <input type="checkbox" id="chb1" />
     <label for="chb1">Label 1</label>
 </div>
-<div className="icheck-primary icheck-inline">
+<div class="icheck-primary icheck-inline">
     <input type="checkbox" id="chb2" />
     <label for="chb2">Label 2</label>
 </div>
@@ -75,7 +75,7 @@ Use disabled attribute on your input (checkbox or radio) to have disabled style.
 To have components without label, you still have to have label control with empty text.
 
 ```
-<div className="icheck-primary">
+<div class="icheck-primary">
     <input type="checkbox" id="someCheckboxId" />
     <label for="someCheckboxId"></label>
 </div>
@@ -86,7 +86,7 @@ To have components without label, you still have to have label control with empt
 #### checkbox example
 
 ```
-<div className="icheck-primary">
+<div class="icheck-primary">
     @Html.CheckBoxFor(m => m.SomeProperty, new { id = "someCheckboxId" })
     <label for="someCheckboxId">Click to check</label>
 </div>
@@ -95,11 +95,11 @@ To have components without label, you still have to have label control with empt
 #### radio buttons example
 
 ```
-<div className="icheck-primary">
+<div class="icheck-primary">
     @Html.RadioButtonFor(m => m.SomeProperty, SomeValue1, new { id = "someRadioId1" }) 
     <label for="someRadioId1">Option 1</label>
 </div>
-<div className="icheck-primary">
+<div class="icheck-primary">
     @Html.RadioButtonFor(m => m.SomeProperty, SomeValue2, new { id = "someRadioId2" })
     <label for="someRadioId2">Option 2</label>
 </div>

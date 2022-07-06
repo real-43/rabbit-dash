@@ -44,8 +44,8 @@
                 yPos: ''
             };
 
-        html[j++] = '<svg className="legendLayer" style="width:inherit;height:inherit;">';
-        html[j++] = '<rect className="background" width="100%" height="100%"/>';
+        html[j++] = '<svg class="legendLayer" style="width:inherit;height:inherit;">';
+        html[j++] = '<rect class="background" width="100%" height="100%"/>';
         html[j++] = svgShapeDefs;
 
         var left = 0;
@@ -145,7 +145,7 @@
         var legendEl,
             height = Math.ceil(entries.length / options.legend.noColumns) * 1.6;
         if (!options.legend.container) {
-            legendEl = $('<div className="legend" style="position:absolute;' + pos + '">' + html.join('') + '</div>').appendTo(placeholder);
+            legendEl = $('<div class="legend" style="position:absolute;' + pos + '">' + html.join('') + '</div>').appendTo(placeholder);
             legendEl.css('width', width + 'px');
             legendEl.css('height', height + 'em');
             legendEl.css('pointerEvents', 'none');
@@ -167,7 +167,7 @@
             width = shape.strokeWidth;
         switch (name) {
             case 'circle':
-                html = '<use xlink:href="#circle" className="legendIcon" ' +
+                html = '<use xlink:href="#circle" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -177,7 +177,7 @@
                     '/>';
                 break;
             case 'diamond':
-                html = '<use xlink:href="#diamond" className="legendIcon" ' +
+                html = '<use xlink:href="#diamond" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -187,7 +187,7 @@
                     '/>';
                 break;
             case 'cross':
-                html = '<use xlink:href="#cross" className="legendIcon" ' +
+                html = '<use xlink:href="#cross" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     // 'fill="' + fill + '" ' +
@@ -197,7 +197,7 @@
                     '/>';
                 break;
             case 'rectangle':
-                html = '<use xlink:href="#rectangle" className="legendIcon" ' +
+                html = '<use xlink:href="#rectangle" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -207,7 +207,7 @@
                     '/>';
                 break;
             case 'plus':
-                html = '<use xlink:href="#plus" className="legendIcon" ' +
+                html = '<use xlink:href="#plus" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     // 'fill="' + fill + '" ' +
@@ -217,7 +217,7 @@
                     '/>';
                 break;
             case 'bar':
-                html = '<use xlink:href="#bars" className="legendIcon" ' +
+                html = '<use xlink:href="#bars" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -227,7 +227,7 @@
                     '/>';
                 break;
             case 'area':
-                html = '<use xlink:href="#area" className="legendIcon" ' +
+                html = '<use xlink:href="#area" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -237,7 +237,7 @@
                     '/>';
                 break;
             case 'line':
-                html = '<use xlink:href="#line" className="legendIcon" ' +
+                html = '<use xlink:href="#line" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     // 'fill="' + fill + '" ' +
@@ -248,7 +248,7 @@
                 break;
             default:
                 // default is circle
-                html = '<use xlink:href="#circle" className="legendIcon" ' +
+                html = '<use xlink:href="#circle" class="legendIcon" ' +
                     'x="' + x + '" ' +
                     'y="' + y + '" ' +
                     'fill="' + fill + '" ' +
@@ -264,52 +264,52 @@
     // Define svg symbols for shapes
     var svgShapeDefs = '' +
         '<defs>' +
-        '<symbol id="line" fill="none" viewBox="-5 -5 25 25">' +
-        '<polyline points="0,15 5,5 10,10 15,0"/>' +
-        '</symbol>' +
+            '<symbol id="line" fill="none" viewBox="-5 -5 25 25">' +
+                '<polyline points="0,15 5,5 10,10 15,0"/>' +
+            '</symbol>' +
 
-        '<symbol id="area" stroke-width="1" viewBox="-5 -5 25 25">' +
-        '<polyline points="0,15 5,5 10,10 15,0, 15,15, 0,15"/>' +
-        '</symbol>' +
+            '<symbol id="area" stroke-width="1" viewBox="-5 -5 25 25">' +
+                '<polyline points="0,15 5,5 10,10 15,0, 15,15, 0,15"/>' +
+            '</symbol>' +
 
-        '<symbol id="bars" stroke-width="1" viewBox="-5 -5 25 25">' +
-        '<polyline points="1.5,15.5 1.5,12.5, 4.5,12.5 4.5,15.5 6.5,15.5 6.5,3.5, 9.5,3.5 9.5,15.5 11.5,15.5 11.5,7.5 14.5,7.5 14.5,15.5 1.5,15.5"/>' +
-        '</symbol>' +
+            '<symbol id="bars" stroke-width="1" viewBox="-5 -5 25 25">' +
+                '<polyline points="1.5,15.5 1.5,12.5, 4.5,12.5 4.5,15.5 6.5,15.5 6.5,3.5, 9.5,3.5 9.5,15.5 11.5,15.5 11.5,7.5 14.5,7.5 14.5,15.5 1.5,15.5"/>' +
+            '</symbol>' +
 
-        '<symbol id="circle" viewBox="-5 -5 25 25">' +
-        '<circle cx="0" cy="15" r="2.5"/>' +
-        '<circle cx="5" cy="5" r="2.5"/>' +
-        '<circle cx="10" cy="10" r="2.5"/>' +
-        '<circle cx="15" cy="0" r="2.5"/>' +
-        '</symbol>' +
+            '<symbol id="circle" viewBox="-5 -5 25 25">' +
+                '<circle cx="0" cy="15" r="2.5"/>' +
+                '<circle cx="5" cy="5" r="2.5"/>' +
+                '<circle cx="10" cy="10" r="2.5"/>' +
+                '<circle cx="15" cy="0" r="2.5"/>' +
+            '</symbol>' +
 
-        '<symbol id="rectangle" viewBox="-5 -5 25 25">' +
-        '<rect x="-2.1" y="12.9" width="4.2" height="4.2"/>' +
-        '<rect x="2.9" y="2.9" width="4.2" height="4.2"/>' +
-        '<rect x="7.9" y="7.9" width="4.2" height="4.2"/>' +
-        '<rect x="12.9" y="-2.1" width="4.2" height="4.2"/>' +
-        '</symbol>' +
+            '<symbol id="rectangle" viewBox="-5 -5 25 25">' +
+                '<rect x="-2.1" y="12.9" width="4.2" height="4.2"/>' +
+                '<rect x="2.9" y="2.9" width="4.2" height="4.2"/>' +
+                '<rect x="7.9" y="7.9" width="4.2" height="4.2"/>' +
+                '<rect x="12.9" y="-2.1" width="4.2" height="4.2"/>' +
+            '</symbol>' +
 
-        '<symbol id="diamond" viewBox="-5 -5 25 25">' +
-        '<path d="M-3,15 L0,12 L3,15, L0,18 Z"/>' +
-        '<path d="M2,5 L5,2 L8,5, L5,8 Z"/>' +
-        '<path d="M7,10 L10,7 L13,10, L10,13 Z"/>' +
-        '<path d="M12,0 L15,-3 L18,0, L15,3 Z"/>' +
-        '</symbol>' +
+            '<symbol id="diamond" viewBox="-5 -5 25 25">' +
+                '<path d="M-3,15 L0,12 L3,15, L0,18 Z"/>' +
+                '<path d="M2,5 L5,2 L8,5, L5,8 Z"/>' +
+                '<path d="M7,10 L10,7 L13,10, L10,13 Z"/>' +
+                '<path d="M12,0 L15,-3 L18,0, L15,3 Z"/>' +
+            '</symbol>' +
 
-        '<symbol id="cross" fill="none" viewBox="-5 -5 25 25">' +
-        '<path d="M-2.1,12.9 L2.1,17.1, M2.1,12.9 L-2.1,17.1 Z"/>' +
-        '<path d="M2.9,2.9 L7.1,7.1 M7.1,2.9 L2.9,7.1 Z"/>' +
-        '<path d="M7.9,7.9 L12.1,12.1 M12.1,7.9 L7.9,12.1 Z"/>' +
-        '<path d="M12.9,-2.1 L17.1,2.1 M17.1,-2.1 L12.9,2.1 Z"/>' +
-        '</symbol>' +
+            '<symbol id="cross" fill="none" viewBox="-5 -5 25 25">' +
+                '<path d="M-2.1,12.9 L2.1,17.1, M2.1,12.9 L-2.1,17.1 Z"/>' +
+                '<path d="M2.9,2.9 L7.1,7.1 M7.1,2.9 L2.9,7.1 Z"/>' +
+                '<path d="M7.9,7.9 L12.1,12.1 M12.1,7.9 L7.9,12.1 Z"/>' +
+                '<path d="M12.9,-2.1 L17.1,2.1 M17.1,-2.1 L12.9,2.1 Z"/>' +
+            '</symbol>' +
 
-        '<symbol id="plus" fill="none" viewBox="-5 -5 25 25">' +
-        '<path d="M0,12 L0,18, M-3,15 L3,15 Z"/>' +
-        '<path d="M5,2 L5,8 M2,5 L8,5 Z"/>' +
-        '<path d="M10,7 L10,13 M7,10 L13,10 Z"/>' +
-        '<path d="M15,-3 L15,3 M12,0 L18,0 Z"/>' +
-        '</symbol>' +
+            '<symbol id="plus" fill="none" viewBox="-5 -5 25 25">' +
+                '<path d="M0,12 L0,18, M-3,15 L3,15 Z"/>' +
+                '<path d="M5,2 L5,8 M2,5 L8,5 Z"/>' +
+                '<path d="M10,7 L10,13 M7,10 L13,10 Z"/>' +
+                '<path d="M15,-3 L15,3 M12,0 L18,0 Z"/>' +
+            '</symbol>' +
         '</defs>';
 
     // Generate a list of legend entries in their final order
@@ -341,9 +341,9 @@
             } else {
                 var ascending = (sorted !== 'descending');
                 legendEntries.sort(function(a, b) {
-                    return a.label === b.label ?
-                        0 :
-                        ((a.label < b.label) !== ascending ? 1 : -1 // Logical XOR
+                    return a.label === b.label
+                        ? 0
+                        : ((a.label < b.label) !== ascending ? 1 : -1 // Logical XOR
                         );
                 });
             }
@@ -412,7 +412,7 @@
     }
 
     function init(plot) {
-        plot.hooks.setupGrid.push(function(plot) {
+        plot.hooks.setupGrid.push(function (plot) {
             var options = plot.getOptions();
             var series = plot.getData(),
                 labelFormatter = options.legend.labelFormatter,

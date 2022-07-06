@@ -119,3 +119,10 @@
         margin-left: 0 !important;
         margin-top: 10px;
     }
+
+    @media (min-width: 992px) { 
+        .sidebar-mini.sidebar-collapse .main-sidebar, .sidebar-mini.sidebar-collapse .main-sidebar::before {
+            margin-left: 0;
+            width: 60px;
+        }
+    }

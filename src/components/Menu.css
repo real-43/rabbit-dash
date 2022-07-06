@@ -32,7 +32,3 @@
     transition: width .3s ease-in-out;
     white-space: nowrap;
 }
-
-:not(.layout-fixed) .main-sidebar {
-    position: fixed
-}

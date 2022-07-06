@@ -241,7 +241,7 @@ export default function ManageUsers() {
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
                   <Button variant="outline-secondary" id="button-addon1">
-                    <i className={isActive ? "fa fa-eye" : "fa fa-eye-slash"} id="togglePassword" onClick={(e) => displayOption(this)}/>
+                    <i class={isActive ? "fa fa-eye" : "fa fa-eye-slash"} id="togglePassword" onClick={(e) => displayOption(this)}/>
                   </Button>
                 </InputGroup>
               </Form.Group>
@@ -346,7 +346,7 @@ export default function ManageUsers() {
                     Edit
                   </button>
                   <Button onClick={(e)=>ControlBlocked(user)} variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
-                      <i className={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword"/>
+                      <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword"/>
                   </Button>
             </td>       
               </>

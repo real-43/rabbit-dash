@@ -298,11 +298,11 @@ const ManageProject = () => {
             <Loading isLoading={isLoading} />
             <div className='manage-project'>
                 <form >
-                    <div className="form-group row">
-                        <div className="col-xs-2">
+                    <div class="form-group row">
+                        <div class="col-xs-2">
                             <label for="ex1" style={{paddingBottom: '20px'}}>Project Management</label>
                             <input 
-                                className="form-control" 
+                                class="form-control" 
                                 id="ex1" 
                                 type="text" 
                                 onChange={(event) => {
@@ -348,14 +348,14 @@ const ManageProject = () => {
                                     </Stack></td>
                                     <td>
                                         <i 
-                                            className="fa fa-trash" 
+                                            class="fa fa-trash" 
                                             aria-hidden="true" 
                                             style={{cursor: "pointer"}}
                                             onClick={(e)=>deleteProjects(pro)}
                                         >
                                         </i>
                                         <i 
-                                            className="fa fa-cogs" 
+                                            class="fa fa-cogs" 
                                             aria-hidden="true" 
                                             style={{
                                                 cursor: "pointer",

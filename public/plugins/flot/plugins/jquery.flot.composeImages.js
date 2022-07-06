@@ -130,7 +130,7 @@ temporary images load their data.
 
     function embedCSSRulesInSVG(rules, svg) {
         var text = [
-            '<svg className="snapshot ' + svg.classList + '" width="' + svg.width.baseVal.value * pixelRatio + '" height="' + svg.height.baseVal.value * pixelRatio + '" viewBox="0 0 ' + svg.width.baseVal.value + ' ' + svg.height.baseVal.value + '" xmlns="http://www.w3.org/2000/svg">',
+            '<svg class="snapshot ' + svg.classList + '" width="' + svg.width.baseVal.value * pixelRatio + '" height="' + svg.height.baseVal.value * pixelRatio + '" viewBox="0 0 ' + svg.width.baseVal.value + ' ' + svg.height.baseVal.value + '" xmlns="http://www.w3.org/2000/svg">',
             '<style>',
             '/* <![CDATA[ */',
             rules.join('\n'),
@@ -148,7 +148,7 @@ temporary images load their data.
 
         source = patchSVGSource(source);
 
-        var blob = new Blob([source], { type: "image/svg+xml;charset=utf-8" }),
+        var blob = new Blob([source], {type: "image/svg+xml;charset=utf-8"}),
             domURL = self.URL || self.webkitURL || self,
             url = domURL.createObjectURL(blob);
         img.src = url;
@@ -159,7 +159,7 @@ temporary images load their data.
         // Do so by breaking up large strings into smaller substrings; this is necessary to avoid the
         // "maximum call stack size exceeded" exception that can happen when calling 'String.fromCharCode.apply'
         // with a very long array.
-        function buildBinaryString(arrayBuffer) {
+        function buildBinaryString (arrayBuffer) {
             var binaryString = "";
             const utf8Array = new Uint8Array(arrayBuffer);
             const blockSize = 16384;
@@ -179,7 +179,7 @@ temporary images load their data.
 
         // Encode the string as UTF-8 and convert it to a binary string. The UTF-8 encoding is required to
         // capture unicode characters correctly.
-        utf8BinaryString = buildBinaryString(new(TextEncoder || TextEncoderLite)('utf-8').encode(source));
+        utf8BinaryString = buildBinaryString(new (TextEncoder || TextEncoderLite)('utf-8').encode(source));
 
         data = "data:image/svg+xml;base64," + btoa(utf8BinaryString);
         img.src = data;
