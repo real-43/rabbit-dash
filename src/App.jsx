@@ -24,42 +24,13 @@ import BTS_QR_Search from './Container/Projects/BTSQR/containers/Monitors/Bts_Se
 import DatafileHome from './Container/Projects/Datafile Morniting/Home';
 import PDF from './Container/Projects/Datafile Morniting/PDF'
 
-import { storeFetchDataBTAQR } from './Reducer/firebaseSlice';
-
 function App() {
-  const dispatch = useDispatch();
   const taskR = useSelector((state) => state.firebase.task)
   const [task, setTask] = useState([...taskR] || []);
-
-  const base_api = 'http://localhost:9000'
 
   useEffect(() => {
     setTask([...taskR])
   }, [taskR])
-
-  useEffect(() => {
-    const fetchData = async () => {
-        let response = await axios({
-            method: "get",
-            url: `${base_api}/api/get_bss_stations`,
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': 'rabbit2020ok'
-            }
-        });
-        let datas = response.data
-        let arroptions = []
-        datas.forEach(data => {
-            arroptions.push({
-                value: data.SP_BranchId,
-                label: data.bss_loc_des
-            })
-        })
-        dispatch(storeFetchDataBTAQR(arroptions))
-    }
-    fetchData();
-
-}, [])
 
   const SidebarLayout = () => (
     <>
