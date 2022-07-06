@@ -61,11 +61,13 @@ export default function CreatePermissionOthers() {
         var update = [...toSend]
         setToSend(update)
 
-        await addDoc(collection(db, "roles"), {
-            name: roleName,
-            project: toSend,
-        });
-
+        if (roleName !== "") {
+            await addDoc(collection(db, "roles"), {
+                name: roleName,
+                project: toSend,
+            });
+        }
+            
         inputToDefault()
         setIsLoading(false)
     }
@@ -122,6 +124,9 @@ export default function CreatePermissionOthers() {
                         <Form.Group className="mb-3">
                             <Form.Label>Permission Name</Form.Label>
                             <Form.Control type="text" value={roleName} placeholder="Name" onChange={(e) => {setRoleName(e.target.value)}} />
+                            <Form.Text className="text-muted">
+                                Project name have to be prefix.
+                            </Form.Text>
                         </Form.Group>
                         
                         <Form.Group className="mb-3">
