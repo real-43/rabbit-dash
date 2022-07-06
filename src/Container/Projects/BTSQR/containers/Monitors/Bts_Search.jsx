@@ -39,7 +39,7 @@ const Search = () => {
     const [oldFormDate, setOldFormDate] = useState('');
     const [oldToDate, setOldToDate] = useState('');
 
-    const stationList = useSelector((state) => state.firebase.BTSQRDataStore)
+    const [stationList,setStationList] = useState([])
      const base_api = 'http://localhost:9000'
     // const base_api = ''
     const navigate = useNavigate();
