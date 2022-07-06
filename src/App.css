@@ -26,15 +26,15 @@
         .sidebar-mini.sidebar-collapse .main-header {
             margin-left: 0rem !important;
         }
-
-        body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .content-wrapper::before, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-footer::before, body:not(.sidebar-mini-md) .main-header, body:not(.sidebar-mini-md) .main-header::before {
+        body:not(.sidebar-mini-md) .content-wrapper,
+        body:not(.sidebar-mini-md) .content-wrapper::before,
+        body:not(.sidebar-mini-md) .main-footer,
+        body:not(.sidebar-mini-md) .main-footer::before,
+        body:not(.sidebar-mini-md) .main-header,
+        body:not(.sidebar-mini-md) .main-header::before {
             margin-left: 250px;
             overflow: auto;
-            transition: margin-left .3s ease-in-out;
-            transition-property: margin-left;
-            transition-duration: 0.3s;
-            transition-timing-function: ease-in-out;
-            transition-delay: 0s;;
+            transition: margin-left .3s ease-in-out, width .3s ease-in-out;
         }
     }
     
@@ -119,9 +119,10 @@
         margin-left: 0 !important;
         margin-top: 10px;
     }
-
-    @media (min-width: 992px) { 
-        .sidebar-mini.sidebar-collapse .main-sidebar, .sidebar-mini.sidebar-collapse .main-sidebar::before {
+    
+    @media (min-width: 992px) {
+        .sidebar-mini.sidebar-collapse .main-sidebar,
+        .sidebar-mini.sidebar-collapse .main-sidebar::before {
             margin-left: 0;
             width: 60px;
         }

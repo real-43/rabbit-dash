@@ -273,9 +273,9 @@ export default function ManageUsers() {
       <Loading isLoading={isLoading} />
       
       <div className='input-wrapper'>
-        <h4>Create New User</h4>
+        <h4 style={{padding:"20px 20px "}}>Create New User</h4>
 
-        <div className='input-container'>
+        <div className='input-container px-4'>
           <input className='input-register'
             placeholder=" Name..."
             value={userInfo.name}
