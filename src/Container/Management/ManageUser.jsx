@@ -240,8 +240,8 @@ export default function ManageUsers() {
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
-                  <Button variant="outline-secondary" id="button-addon1">
-                    <i class={isActive ? "fa fa-eye" : "fa fa-eye-slash"} id="togglePassword" onClick={(e) => displayOption(this)}/>
+                  <Button variant="outline-secondary" id="button-addon1" onClick={(e) => displayOption(this)}>
+                    <i class={isActive ? "fa fa-eye" : "fa fa-eye-slash"} id="togglePassword"/>
                   </Button>
                 </InputGroup>
               </Form.Group>
