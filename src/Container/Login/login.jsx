@@ -173,7 +173,7 @@ export default function Login() {
             alignItems: 'center',
           }}
         >
-          <img src="./rabbitcard-logo.jpg" alt="rabbit-logo" style={{border: '5px solid black', borderRadius:'50%', height: '200px',width: 'auto',marginBottom: "20px"}} />
+          <img src="./rabbitcard-logo.jpg" alt="rabbit-logo" className="rabbit-logo" style={{border: '5px solid black', borderRadius:'50%', height: '200px',width: 'auto',marginBottom: "20px"}} />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>

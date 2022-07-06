@@ -127,3 +127,8 @@
             width: 60px;
         }
     }
+    
+    .main-header {
+        border-bottom: 0px solid #dee2e6;
+        z-index: 1034;
+    }
