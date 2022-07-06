@@ -54,6 +54,8 @@
 .del {
     background-color: whitesmoke;
     border: 0.5px solid rgb(138, 138, 138);
+    height: 40px;
+    border-radius: 4px;
 }
 
 .del:hover {

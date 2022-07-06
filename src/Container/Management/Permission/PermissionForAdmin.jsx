@@ -462,7 +462,7 @@ export default function Permission() {
                                     <td>
                                         <Button className="btn m-2 edit" onClick={(e) => {handleEditBtn(role)}}>Edit</Button>
                                         <Button className="btn m-2 add" onClick={(e) => {handleAddBtn(role)}}>Add Projects</Button><br/>
-                                        <button className="btn m-2 del" onClick={(e) => {handleDeleteBtn(role)}}>Delete</button>
+                                        <button className="m-2 del" onClick={(e) => {handleDeleteBtn(role)}}>Delete</button>
                                     </td>
                                 </tr>
                             )

@@ -294,7 +294,7 @@ export default function PermissionForOthers() {
                                     </td>
                                     <td>
                                         <Button className="btn m-2 edit" onClick={(e) => {handleEditBtn(role)}}>Edit</Button>
-                                        <button className="btn m-2 del" onClick={(e) => {handleDeleteBtn(role)}}>Delete</button>
+                                        <button className="m-2 del" onClick={(e) => {handleDeleteBtn(role)}}>Delete</button>
                                     </td>
                                 </tr>
                             )
