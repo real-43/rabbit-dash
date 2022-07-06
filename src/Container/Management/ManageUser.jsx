@@ -210,7 +210,7 @@ export default function ManageUsers() {
       <div>
         <Modal show={true} onHide={(e)=>{setIsOpen(!isOpen)}}>
           <Modal.Header>
-            <Modal.Title>Edit User<i onClick={(e) => setIsOpen(!isOpen)} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
+            <Modal.Title>Edit User<i onClick={(e) => setIsOpen(!isOpen)} style={{cursor:"pointer", marginLeft:"330px"}} className='fa fa-times'/></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
