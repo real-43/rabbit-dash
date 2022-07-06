@@ -53,6 +53,7 @@ export const firebaseSlice = createSlice({
             state.currentRoleFS = []
             state.currentUserFS = []
             state.task = []
+            state.dataPDF = []
         },
         deleteAllProjects: (state) => {
             state.allProjects = []
@@ -81,6 +82,9 @@ export const firebaseSlice = createSlice({
             })
             state.task = newTask
         },
+        deleteDataPDF: (state) => {
+            state.dataPDF = []
+        }
     }
 })
 
