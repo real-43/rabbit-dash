@@ -73,7 +73,7 @@
     }
 }
 
-.input-group {
+.input-group .search-box {
     position: relative;
     display: flex;
     flex-wrap: wrap;
