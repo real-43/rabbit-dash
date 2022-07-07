@@ -134,7 +134,7 @@ const Smartwatch_Search = () => {
 
     const table = () => {
         return (
-            <table className="table table-responsive-sm table-bordered table-striped text-center">
+            <table className="table table-responsive-sm table-bordered text-center pt-3">
                 <thead className="table-primary">
                     {tableHeader()}
                 </thead>
@@ -235,14 +235,14 @@ const Smartwatch_Search = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container-fluid" style={{ padding: '5px'}}>
-                    <div className="text-left mx-auto col-lg-10 col-md-12" style={{ padding: '0 3.2rem' }}>
-                        <input className="form-check-input" type="checkbox" defaultChecked={checkbox} onChange={e => setCheckbox(e.target.checked) } />
-                        <label className="form-check-label" style={{ fontSize: '14px' }}>
+                <div className="container-fluid ">
+                    <div className="text-left mx-auto col-lg-10 col-md-12 my-2" style={{ padding: '0 3.2rem' }}>
+                        <input className="form-check-input " type="checkbox" defaultChecked={checkbox} onChange={e => setCheckbox(e.target.checked) } />
+                        <label className="form-check-label px-1" style={{ fontSize: '14px' }}>
                             Sort By Initial Datetime
                         </label>
                     </div>
-                    <div className="table-responsive mx-auto col-lg-10 col-md-12">
+                    <div className="table-responsive mx-auto col-lg-10 col-md-12 my-3">
                         {isLoading === true ?
                             Loading()
                             :

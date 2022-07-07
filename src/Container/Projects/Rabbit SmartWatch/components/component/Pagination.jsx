@@ -10,7 +10,7 @@ const Button = styled.button`
     background-color: #FFFFFF;
     border-radius: 50%;
     border: ${props => props.cur ? '2px solid #FF8800' : '2px solid #E6DFCF'};
-`
+`;
 const Pagination = (props) => {
     //paginations
     // const [pagination, setPagination] = useState(props.page);
