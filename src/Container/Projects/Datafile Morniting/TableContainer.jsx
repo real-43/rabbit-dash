@@ -161,9 +161,9 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
                   onChange={onChangeInSelect}
                 >
                   {'>'}
-                  {[10, 20, 30, 40, 50].map((pageSize) => (
+                  {[10, 20, 30, 40, 50, 10**10].map((pageSize) => (
                     <option key={pageSize} value={pageSize}>
-                      Show {pageSize}
+                      Show {(pageSize === 10**10) ? "All" : `${pageSize}`}
                     </option>
                   ))}
                 </Input>
