@@ -33,6 +33,7 @@ export default function Permission() {
 
     const [isPopup, setIsPopup] = useState(false);
     const [isAdd, setIsAdd] = useState(false);
+    const [isDel, setIsDel] = useState(false);
 
     const [newRoleName, setNewRoleName] = useState("");
 
@@ -40,6 +41,8 @@ export default function Permission() {
 
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
+
+    const [roleDel, setRoleDel] = useState([]);
 
     useEffect(() => {
         const authentication = onAuthStateChanged(auth,(user) => {
@@ -205,24 +208,64 @@ export default function Permission() {
         setIsLoading(false)
     }
 
-    const handleDeleteBtn = async (role) => {
+
+    const popupDel = () => {
+        return (isDel) ? (
+            <div>
+                <Modal show={true} onHide={(e)=>{handleCloseDel()}} centered>
+                    <Modal.Header>
+                        <Modal.Title>Confirm Delete <i onClick={(e) => {handleCloseDel()}} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure to delete this permission ?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={(e) => {
+                            handleCloseDel()
+                        }}>
+                            Cancle
+                        </Button>
+                        <Button variant="primary" onClick={(e) =>{
+                            deleteRole()
+                        }}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        ) : ""
+    }
+
+    const handleDeleteBtn = (role) => {
+        setClickedRole(role)
+        setIsDel(true)
+    }
+
+    const handleCloseDel = () => {
+        setIsDel(false)
+        setClickedRole([])
+    }
+
+    const deleteRole = async () => {
         setIsLoading(true)
+
+        setIsDel(false)
 
         let rest = []
         allRoles.map((r) => {
-            if(r.name !== role.name) {
+            if(r.name !== clickedRole.name) {
                 rest.push(r)
             }
         })
 
-        const roleDoc = doc(db, "roles", role.id);
+        const roleDoc = doc(db, "roles", clickedRole.id);
         await deleteDoc(roleDoc);
         
         setAllRoles(rest)
 
         // Delete the role from all users in firebase
         allUsers.map((user) => {
-            if (user.role === role.name) {
+            if (user.role === clickedRole.name) {
                 const docRef = doc(db, "users", user.id)
                 updateDoc(docRef, {
                     "role" : "",
@@ -231,6 +274,7 @@ export default function Permission() {
         })
 
         getAllRolesAgain()
+        handleCloseDel()
         setIsLoading(false)
     }
 
@@ -427,6 +471,7 @@ export default function Permission() {
             <Loading isLoading={isLoading} />
             {popupAdd()}
             {popupEdit()}
+            {popupDel()}
             <div className='permission'>
                 <div className='top'>
                     <h2 className='topic'>Permission</h2>

@@ -30,6 +30,7 @@ export default function PermissionForOthers() {
     const [clickedRole, setClickedRole] = useState({}); // store the role user want to add, edit, delete
 
     const [isPopup, setIsPopup] = useState(false);
+    const [isDel, setIsDel] = useState(false);
 
     const [newRoleName, setNewRoleName] = useState("");
 
@@ -94,6 +95,11 @@ export default function PermissionForOthers() {
         setProjectInput([])
     }
 
+    const handleCloseDel = () => {
+        setIsDel(false)
+        setClickedRole([])
+    }
+
     const handleEditBtn = (role) => {
         let options = genProjectOptions(role.project)
         setIsPopup(true)
@@ -101,6 +107,11 @@ export default function PermissionForOthers() {
         setNewRoleName(role.name)
         setProOptions(options)
         setProjectInput(options)
+    }
+
+    const handleDeleteBtn = (role) => {
+        setClickedRole(role)
+        setIsDel(true)
     }
 
     const handleSubmitEdit = async () => {
@@ -134,16 +145,18 @@ export default function PermissionForOthers() {
         handleClosePopup()
     }
 
-    const handleDeleteBtn = async (role) => {
+    const deleteRole = async () => {
         setIsLoading(true)
+        
+        setIsDel(false)
 
-        const roleDoc = doc(db, "roles", role.id);
+        const roleDoc = doc(db, "roles", clickedRole.id);
         await deleteDoc(roleDoc);
 
         setIsLoading(false)
 
         allUsers.map((user) => {
-            if (user.role === role.name) {
+            if (user.role === clickedRole.name) {
                 const docRef = doc(db, "users", user.id)
                 updateDoc(docRef, {
                     "role" : "",
@@ -151,6 +164,33 @@ export default function PermissionForOthers() {
             }
         })
         
+    }
+
+    const popupDel = () => {
+        return (isDel) ? (
+            <div>
+                <Modal show={true} onHide={(e)=>{handleCloseDel()}} centered>
+                    <Modal.Header>
+                        <Modal.Title>Confirm Delete <i onClick={(e) => {handleCloseDel()}} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure to delete this permission ?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={(e) => {
+                            handleCloseDel()
+                        }}>
+                            Cancle
+                        </Button>
+                        <Button variant="primary" onClick={(e) =>{
+                            deleteRole()
+                        }}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        ) : ""
     }
 
     function popupEdit() {
@@ -260,6 +300,7 @@ export default function PermissionForOthers() {
         <div className='content-wrapper'>
             <Loading isLoading={isLoading} />
             {popupEdit()}
+            {popupDel()}
             <div className='permission'>
                 <div className='top'>
                     <h2 className='topic'>Permission</h2>
