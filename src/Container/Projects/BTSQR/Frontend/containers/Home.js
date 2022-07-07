@@ -4,7 +4,7 @@ import "../css/Home.css";
 import { useNavigate } from 'react-router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
-import { auth } from '../../../../Firebase Config/firebase';
+import { auth } from '../../../../../Firebase Config/firebase';
 
 const Home = () => {
 

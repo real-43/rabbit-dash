@@ -1,5 +1,5 @@
 import { Modal, Button } from 'react-bootstrap';
-import Select from '../../components/Modal/Modal_Select';
+import Select from './Modal_Select';
 const Modal_UserUpdate = (props) => {
 
     return (

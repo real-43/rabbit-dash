@@ -7,11 +7,10 @@ import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Menu from './components/Menu';
-import axios from "axios";
+
+// Main project
 import Dash from './Container/Home/Dashboard'
-
 import LoginPage from './Container/Login/login';
-
 import SignupPage from './Container/Management/ManageUser';
 import ManagePro from './Container/Management/ManageProject';
 import CreatePermissionAdmin from './Container/Management/Permission/CreatePermissionAdmin';
@@ -19,11 +18,14 @@ import CreatePermissionOthers from './Container/Management/Permission/CreatePerm
 import Permission from './Container/Management/Permission/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
 
+// Rabbit SmartWatch
 import Rabbit_SmartWatch_Search from './Container/Projects/Rabbit SmartWatch/containers/Monitors/Smartwatch_Search'
 
-import BTS_QR_Home from './Container/Projects/BTSQR/containers/Home';
-import BTS_QR_Search from './Container/Projects/BTSQR/containers/Monitors/Bts_Search'
+// BTS QR
+import BTS_QR_Home from './Container/Projects/BTSQR/Frontend/containers/Home';
+import BTS_QR_Search from './Container/Projects/BTSQR/Frontend/containers/Monitors/Bts_Search'
 
+// Datafile Monitoring
 import DatafileHome from './Container/Projects/Datafile Morniting/Home';
 import PDF from './Container/Projects/Datafile Morniting/PDF'
 
