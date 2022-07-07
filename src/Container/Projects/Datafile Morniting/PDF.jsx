@@ -21,7 +21,7 @@ export default function DataFilePDF() {
     },[])
 
   return (
-    <div>
+    <div className='PDF-main'>
         <ShowTable />
     </div>
   );
