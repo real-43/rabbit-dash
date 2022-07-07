@@ -22,7 +22,7 @@ export default function DataFilePDF() {
 
   return (
     <div className='PDF-main'>
-        <ShowTable />
+        <ShowTable genPDF={true}/>
     </div>
   );
 }

@@ -85,9 +85,9 @@ const DatatablePage = () => {
     },[])
 
   return (
-    <div className="content-wrapper" style={{paddingBottom: 100, paddingLeft: 25, paddingRight: 25, paddingTop: 25}}>
+    <div style={{paddingBottom: 30, overflowY: "hidden"}}>
 
-        <ShowTable/>
+        <ShowTable genPDF={false}/>
     
     </div>
   );

@@ -13,7 +13,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Loading from '../../../components/Loading';
 
-const TableContainer = ({ columns, data, renderRowSubComponent }) => {
+const TableContainer = ({ columns, data, renderRowSubComponent, genPDF }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -183,9 +183,11 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             </Row>
           </Fragment>
         </div>
-        <div>
-          <button className="pdf-btn" onClick={(e) => exportPDF()}>Generate showing data to PDF</button>
-        </div>
+        {(genPDF.genPDF) ? (
+          <div>
+            <button className="pdf-btn" onClick={(e) => exportPDF()}>Generate showing data to PDF</button>
+          </div>
+        ) : ""}
       </div>
     </div>
   );
