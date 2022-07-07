@@ -2,7 +2,7 @@
     align-items: center;
     text-align: center;
     padding: 25px;
-    overflow: hidden;
+    overflow-x: scroll;
 }
 
 .pdf-btn {

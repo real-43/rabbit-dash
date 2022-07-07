@@ -13,7 +13,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import Loading from '../../../components/Loading';
 
-const TableContainer = ({ columns, data, renderRowSubComponent }) => {
+const TableContainer = ({ columns, data, renderRowSubComponent, genPDF }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -161,9 +161,9 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
                   onChange={onChangeInSelect}
                 >
                   {'>'}
-                  {[10, 20, 30, 40, 50].map((pageSize) => (
+                  {[10, 20, 30, 40, 50, 10**10].map((pageSize) => (
                     <option key={pageSize} value={pageSize}>
-                      Show {pageSize}
+                      Show {(pageSize === 10**10) ? "All" : `${pageSize}`}
                     </option>
                   ))}
                 </Input>
@@ -183,9 +183,11 @@ const TableContainer = ({ columns, data, renderRowSubComponent }) => {
             </Row>
           </Fragment>
         </div>
-        <div>
-          <button className="pdf-btn" onClick={(e) => exportPDF()}>Generate showing data to PDF</button>
-        </div>
+        {(genPDF.genPDF) ? (
+          <div>
+            <button className="pdf-btn" onClick={(e) => exportPDF()}>Generate showing data to PDF</button>
+          </div>
+        ) : ""}
       </div>
     </div>
   );

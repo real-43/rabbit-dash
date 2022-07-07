@@ -9,7 +9,7 @@ import { data } from '../../../Mockup Data/Data'
 import './Table.css'
 import { NoEncryption } from '@mui/icons-material';
 
-const ShowTable = () => {
+const ShowTable = (genPDF) => {
   // const [data, setData] = useState([]);
   // useEffect(() => {
   //   const doFetch = async () => {
@@ -93,6 +93,7 @@ const ShowTable = () => {
         <TableContainer
           columns={columns}
           data={data}
+          genPDF={genPDF}
         />
       </Container>
   );
