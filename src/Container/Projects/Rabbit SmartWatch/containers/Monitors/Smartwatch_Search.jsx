@@ -235,7 +235,7 @@ const Smartwatch_Search = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container-fluid" style={{ padding: '5px' }}>
+                <div className="container-fluid" style={{ padding: '5px'}}>
                     <div className="text-left mx-auto col-lg-10 col-md-12" style={{ padding: '0 3.2rem' }}>
                         <input className="form-check-input" type="checkbox" defaultChecked={checkbox} onChange={e => setCheckbox(e.target.checked) } />
                         <label className="form-check-label" style={{ fontSize: '14px' }}>
@@ -253,7 +253,7 @@ const Smartwatch_Search = () => {
                         }
                     </div>
                 </div>
-                <div>
+                <div style={{marginBottom: "50px"}}>
                     {pagination === true ?
                         <Paginations currentpage={1} maxpage={maxPage} fnc_changePage={changePage} />
                         :
