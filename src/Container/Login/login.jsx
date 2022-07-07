@@ -212,7 +212,7 @@ export default function Login() {
               Sign In
             </Button>
           </Box>
-          <button className='google_button' onClick={handleGoogleButton}><img src={"./google.png"} alt=''/></button>
+          <button className='google_button' onClick={handleGoogleButton}><img src={"./google.png"} style={{width: "30px"}} alt=''/></button>
         </Box>
       </Container>
     </ThemeProvider>
