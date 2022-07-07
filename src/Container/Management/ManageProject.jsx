@@ -35,6 +35,7 @@ const ManageProject = () => {
     const [changeProject,setChangeProject] = useState(null)
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isDel, setIsDel] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
 
     //handle input 
@@ -65,24 +66,6 @@ const ManageProject = () => {
         
         return authentication
     },[])
-
-    const updateData = async () => {
-        onSnapshot(collection(db,"roles"),(function(querySnapshot) {
-            let r = [];
-            querySnapshot.forEach(function(doc) {
-                r.push({...doc.data(), id: doc.id});
-            });
-            dispatch(defindAllRoles(r))
-        }));
-    
-        onSnapshot(collection(db,"projects"),(function(querySnapshot) {
-            let p = [];
-            querySnapshot.forEach(function(doc) {
-                p.push({...doc.data(), id: doc.id});
-            });
-            dispatch(defindAllProjects(p))
-        }));
-    }
 
     useEffect(() => {
         setRoles([...rolesR])
@@ -134,41 +117,42 @@ const ManageProject = () => {
             }   
         });
 
-        // updateData()
         setProjectInfo({ ...projectInfo, name: "" })
         setSubmenu([])
         setIsLoading(false)
     }
 
-    const deleteProjects = async (project) => {
-        const userDoc = doc(db, "projects", project.id);
+    const deleteProjects = async () => {
+        const userDoc = doc(db, "projects", changeProject.id);
         setIsLoading(true)
+
+        setIsDel(false)
 
         dispatch(addTask("Delete project"))
 
         let rest = []
         role.Management.Project.map((p) => {
-            if (p !== project.name) {
+            if (p !== changeProject.name) {
                 rest.push(p)
             }
         })
         setRole({...role, Management: {Permission: rest, Project: rest, Services: rest}})
 
         var DelProjectManagement = {
-            Project: role.Management.Project.filter(obj => obj !== project.name),
-            Permission: role.Management.Permission.filter(obj => obj !== project.name),
-            Services: role.Management.Services.filter(obj => obj !== project.name)
+            Project: role.Management.Project.filter(obj => obj !== changeProject.name),
+            Permission: role.Management.Permission.filter(obj => obj !== changeProject.name),
+            Services: role.Management.Services.filter(obj => obj !== changeProject.name)
 
         }
         var DelProjectDetails = {
-            name: project.name,
-            subMenu: project.subMenu
+            name: changeProject.name,
+            subMenu: changeProject.subMenu
         }
         await deleteDoc(userDoc);
         roles.map((role) =>{ 
             const roleDoc = doc(db, "roles", role.id)
             role.project?.map((submenu) =>{
-                if(submenu.name === project.name){
+                if(submenu.name === changeProject.name){
                     updateDoc(roleDoc,{
                         project: arrayRemove(DelProjectDetails),
                         Management:DelProjectManagement
@@ -177,7 +161,7 @@ const ManageProject = () => {
             })
         }); 
         
-        updateData()
+        handleCloseDel()
         setIsLoading(false)
     }
 
@@ -216,7 +200,6 @@ const ManageProject = () => {
                        
         });
 
-        updateData()
         setIsLoading(false)
     }
 
@@ -233,6 +216,16 @@ const ManageProject = () => {
         setChangeProject(project)
     }
 
+    const handleDelete = (project) => {
+        setIsDel(true)
+        setChangeProject(project)
+    }
+
+    const handleCloseDel = () => {
+        setIsDel(false)
+        setChangeProject([])
+    }
+
     const getProjectPermission = () =>{
         roles.map(permission =>{ 
             if (permission.name === userinfo.role){ 
@@ -246,6 +239,33 @@ const ManageProject = () => {
         getProjectPermission()
     }
   
+    const popupDel = () => {
+        return (isDel) ? (
+            <div>
+                <Modal show={true} onHide={(e)=>{handleCloseDel()}} centered>
+                    <Modal.Header>
+                        <Modal.Title>Confirm Delete <i onClick={(e) => {handleCloseDel()}} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure to delete this project ?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={(e) => {
+                            handleCloseDel()
+                        }}>
+                            Cancle
+                        </Button>
+                        <Button variant="primary" onClick={(e) =>{
+                            deleteProjects()
+                        }}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
+        ) : ""
+    }
+
     // Popup of edit
     function popup() {
         return (isOpen) ? (
@@ -327,6 +347,7 @@ const ManageProject = () => {
                 ) : ""}
                 
                 {popup()}
+                {popupDel()}
                 <Table striped bbordered>
                     <thead>
                         <tr>
@@ -354,7 +375,7 @@ const ManageProject = () => {
                                             class="fa fa-trash" 
                                             aria-hidden="true" 
                                             style={{cursor: "pointer"}}
-                                            onClick={(e)=>deleteProjects(pro)}
+                                            onClick={(e)=>handleDelete(pro)}
                                         >
                                         </i>
                                         <i 
