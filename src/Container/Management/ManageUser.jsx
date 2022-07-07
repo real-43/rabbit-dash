@@ -25,6 +25,7 @@ export default function ManageUsers() {
 
   const [userInfo, setUserInfo] = useState({ name: '', email: '', password: '' });
   const [isOpen, setIsOpen] = useState(false);
+  const [isDel, setIsDel] = useState(false)
 
   // Use for change profile and password
   const [newPassword, setNewPassword] = useState("")
@@ -48,21 +49,26 @@ export default function ManageUsers() {
   // To delete user in firebase
   const deleteUserOnFstored = async (user) => {
     setIsLoading(true);
+
     dispatch(addTask("Deleting user"))
 
+    setIsDel(false)
+
     // delete user in firestore
-    const userDoc = doc(db, "users", user.id);
+    const userDoc = doc(db, "users", changeUser.id);
     await deleteDoc(userDoc);
 
     setIsLoading(false);
 
     // delete user in firebase auth
-    signInWithEmailAndPassword(authSec, user.email, user.password)
+    signInWithEmailAndPassword(authSec, changeUser.email, changeUser.password)
       .then(() => {
         const userToDel = authSec.currentUser
         deleteUser(userToDel)
         authSec.signOut()
       })
+
+    handleCloseDel()
   };
 
   useEffect(() => {
@@ -191,6 +197,16 @@ export default function ManageUsers() {
     setRole(user.role)
   }
 
+  const handleDeleteBtn = (user) => {
+    setChangeUser(user)
+    setIsDel(true)
+  }
+
+  const handleCloseDel = () => {
+    setIsDel(false)
+    setChangeUser([])
+  }
+
   // To show/unshow pass in edit popup
   function displayOption() {
     setActive(!isActive);
@@ -201,6 +217,33 @@ export default function ManageUsers() {
     } else {
       x.type = "password";
     }
+  }
+
+  const popupDel = () => {
+    return (isDel) ? (
+        <div>
+          <Modal show={true} onHide={(e)=>{handleCloseDel()}} centered>
+            <Modal.Header>
+              <Modal.Title>Confirm Delete <i onClick={(e) => {handleCloseDel()}} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Are you sure to delete this user ?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={(e) => {
+                handleCloseDel()
+              }}>
+                Cancle
+              </Button>
+              <Button variant="primary" onClick={(e) =>{
+                deleteUserOnFstored(changeUser)
+              }}>
+                  Delete
+              </Button>
+            </Modal.Footer>
+          </Modal>
+      </div>
+    ) : ""
   }
 
   // Popup input to Edit user infomation
@@ -305,6 +348,7 @@ export default function ManageUsers() {
         </div>
       </div>
       {popup()}
+      {popupDel()}
       <div className='table-container mx-4 border border-secondary rounded px-3 py-4' >
       <MDBTable borderless>
         <MDBTableHead>
@@ -332,7 +376,7 @@ export default function ManageUsers() {
                   <button
                     className='btn-function btn'
                     onClick={() => {
-                      deleteUserOnFstored(user);
+                      handleDeleteBtn(user)
                     }}
                     >
                     {" "}
