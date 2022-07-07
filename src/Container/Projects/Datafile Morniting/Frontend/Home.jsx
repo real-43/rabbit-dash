@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import {data} from '../../../Mockup Data/Data'
+import {data} from '../../../../Mockup Data/Data'
 import ShowTable from './ShowTable';
-import { auth } from '../../../Firebase Config/firebase';
+import { auth } from '../../../../Firebase Config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router';
 

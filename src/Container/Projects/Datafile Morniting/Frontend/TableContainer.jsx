@@ -11,7 +11,7 @@ import { Filter, DefaultColumnFilter } from './filters';
 import './Table.css'
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import Loading from '../../../components/Loading';
+import Loading from '../../../../components/Loading';
 
 const TableContainer = ({ columns, data, renderRowSubComponent, genPDF }) => {
 

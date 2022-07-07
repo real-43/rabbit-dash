@@ -4,7 +4,7 @@ import './PDF.css'
 import ShowTable from './ShowTable';
 import { useNavigate } from 'react-router';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../../Firebase Config/firebase';
+import { auth } from '../../../../Firebase Config/firebase';
 
 export default function DataFilePDF() {
     

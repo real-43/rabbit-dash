@@ -26,8 +26,8 @@ import BTS_QR_Home from './Container/Projects/BTSQR/Frontend/containers/Home';
 import BTS_QR_Search from './Container/Projects/BTSQR/Frontend/containers/Monitors/Bts_Search'
 
 // Datafile Monitoring
-import DatafileHome from './Container/Projects/Datafile Morniting/Home';
-import PDF from './Container/Projects/Datafile Morniting/PDF'
+import DatafileHome from './Container/Projects/Datafile Morniting/Frontend/Home';
+import PDF from './Container/Projects/Datafile Morniting/Frontend/PDF'
 
 function App() {
   const taskR = useSelector((state) => state.firebase.task)

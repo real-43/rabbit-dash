@@ -5,7 +5,7 @@ import {
 import TableContainer from './TableContainer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { SelectColumnFilter, DateColumnFilter, NoSearch, CNUDateColumnFilter } from './filters';
-import { data } from '../../../Mockup Data/Data'
+import { data } from '../../../../Mockup Data/Data'
 import './Table.css'
 import { NoEncryption } from '@mui/icons-material';
 
