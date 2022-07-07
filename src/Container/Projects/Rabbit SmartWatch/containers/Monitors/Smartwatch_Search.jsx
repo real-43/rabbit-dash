@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from '../../components/component/Select';
-import iconSearch from '../../images/iconsearch.png';
+// import iconSearch from '../../images/iconsearch.png';
 import pngRabbit from '../../images/Rabbit.png';
 import Paginations from '../../components/component/Pagination';
 import { base_api } from '../../config';
@@ -134,8 +134,8 @@ const Smartwatch_Search = () => {
 
     const table = () => {
         return (
-            <table className="table table-hover table-borderless scrollBar">
-                <thead>
+            <table className="table table-responsive-sm table-bordered table-striped text-center">
+                <thead className="table-primary">
                     {tableHeader()}
                 </thead>
                 <tbody>
@@ -148,14 +148,14 @@ const Smartwatch_Search = () => {
     const tableHeader = () => {
         return (
             <tr>
-                <th className="p17-5" style={{ color: '#000000', fontWeight: 'bold' }}>DEVICE SERIAL</th>
-                <th className="p17-5" style={{ color: '#000000', fontWeight: 'bold' }}>DEVICE UNIQUE ID</th>
-                <th className="p17-5" style={{ color: '#000000', fontWeight: 'bold' }}>DEVICE MODEL</th>
-                <th className="p17-5" style={{ color: '#000000', fontWeight: 'bold' }}>RABBIT CARD SERIAL</th>
-                <th className="p17-5" style={{ color: '#000000', fontWeight: 'bold' }}>INITIAL DATETIME</th>
-                <th className="p17-5" style={{ color: '#000000', fontWeight: 'bold' }}>STATUS</th>
-                <th className="p17-5" style={{ color: '#000000', fontWeight: 'bold' }}>REFURBISHED TO</th>
-                <th className="p17-5" style={{ color: '#000000', fontWeight: 'bold' }}>REFURBISHED DATETIME</th>
+                <th className="p17-5 py-3" style={{ color: '#000000', fontWeight: 'bold' }}>DEVICE SERIAL</th>
+                <th className="p17-5 py-3" style={{ color: '#000000', fontWeight: 'bold' }}>DEVICE UNIQUE ID</th>
+                <th className="p17-5 py-3" style={{ color: '#000000', fontWeight: 'bold' }}>DEVICE MODEL</th>
+                <th className="p17-5 py-3" style={{ color: '#000000', fontWeight: 'bold' }}>RABBIT CARD SERIAL</th>
+                <th className="p17-5 py-3" style={{ color: '#000000', fontWeight: 'bold' }}>INITIAL DATETIME</th>
+                <th className="p17-5 py-3" style={{ color: '#000000', fontWeight: 'bold' }}>STATUS</th>
+                <th className="p17-5 py-3" style={{ color: '#000000', fontWeight: 'bold' }}>REFURBISHED TO</th>
+                <th className="p17-5 py-3" style={{ color: '#000000', fontWeight: 'bold' }}>REFURBISHED DATETIME</th>
             </tr>
         )
     }
@@ -190,7 +190,7 @@ const Smartwatch_Search = () => {
     const Loading = () => {
         return (
             <div>
-                <table className="table table-hover table-borderless">
+                <table className="table my-4">
                     <thead>
                         {tableHeader()}
                     </thead>
@@ -224,8 +224,9 @@ const Smartwatch_Search = () => {
                         <div className="row justify-content-center">
                             <div className="col-md-2 align-self-center mt-2" style={{ marginLeft: '10px' }}><Select func_setSelect={func_setSelect} setState={setPartner} placeholder={'Partner'} options={partner_list} /></div>
                             <div className="col-md-3 align-self-center mt-2" style={{ marginLeft: '10px' }}><Select func_setSelect={func_setSelect} setState={setType} placeholder={'Search Type'} options={type_list} /></div>
-                            <div className="input-group col-md-4 align-self-center my-2 mx-3" style={{ marginLeft: '25px', marginRight: '15px', background: 'white', height: '55px', borderRadius: '30px' }}>
-                                <input className="form-control align-self-center search p17-5" style={{ backgroundImage: `url(${iconSearch})`, backgroundSize: '25px 25px', backgroundPosition: '0 9px', backgroundRepeat: 'no-repeat', padding: '0 0 0 35px', border: 0, marginRight: '2px' }} type="text" onChange={(e) => setSerial(e.target.value)} placeholder='Serial number...' />
+                            <div className="input-group col-md-4 align-self-center my-2 mx-3" style={{ marginLeft: '25px', marginRight: '15px', background: 'white', height: '55px', borderRadius: '30px',border: "1px solid #d4d4d4" }}>
+                                <i class="fa fa-search px-1" aria-hidden="true" style={{ marginTop: '19px' }}></i>
+                                <input className="form-control align-self-center search p17-5" style={{padding: '0 0 0 35px', border: 0, marginRight: '2px' }} type="text" onChange={(e) => setSerial(e.target.value)} placeholder='Serial number...' />
                                 <button className="btn btn-sm float-right align-self-center" onClick={handleSearch} style={{ background: 'orange', borderRadius: '20px', fontSize: '19.5px', width: '100px', color: 'white', fontWeight: 'bold', marginRight: '-4px', width: '100px', height: '40px' }}>Search</button>
                             </div>
                             <div className="box-img">
