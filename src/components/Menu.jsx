@@ -78,7 +78,7 @@ export default function Menu() {
           </div>
         </div>
 
-        <div className="sidebar" style={{padding: "0px 0px 0px 0px"}}>
+        <div className="sidebar" style={{padding: "0px 0px 0px 0px", marginBottom: "200px"}}>
           {/* Sidebar Search form */}
           <nav className="mt-2">
             <ul
@@ -242,7 +242,7 @@ export default function Menu() {
                           <p>Con2</p>
                         </a>
                       </li>
-                      <li className="nav-item">
+                      <li className="nav-item " style={{paddingBottom: "200px"}}>
                         <a href="#" className="nav-link">
                           <i className="far fa-dot-circle nav-icon" />
                           <p>Con2</p>
