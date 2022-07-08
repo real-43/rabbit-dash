@@ -19,7 +19,7 @@ import Permission from './Container/Management/Permission/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
 
 // Rabbit SmartWatch
-import Rabbit_SmartWatch_Search from '../Frontend/containers/Monitors/Smartwatch_Search'
+import Rabbit_SmartWatch_Search from './Container/Projects/Rabbit SmartWatch/Frontend/containers/Monitors/Smartwatch_Search'
 
 // BTS QR
 import BTS_QR_Home from './Container/Projects/BTSQR/Frontend/containers/Home';
