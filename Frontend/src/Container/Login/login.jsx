@@ -20,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAll } from '../../Reducer/firebaseSlice';
+import { GoogleLogin } from 'react-google-login';
 
 const comp_form = "@rabbit.co.th";
 const theme = createTheme();
@@ -27,6 +28,8 @@ export default function Login() {
 
   const dispatch = useDispatch();
   const oldUser = useSelector((state) => state.firebase.currentUser);
+
+  const ClientId = '239632812014-hkdqhseqll1uc2grtgkf22m5n7jf3438.apps.googleusercontent.com';
 
   const [userInfo, setUserInfo] = useState({ email: '', password: '' });
   const [alert, setAlert] = useState({visible:false, severity:'', message:''});
@@ -211,8 +214,21 @@ export default function Login() {
             >
               Sign In
             </Button>
+
+            <GoogleLogin
+              className='google-btn'
+              clientId={ClientId}
+              buttonText="Login with Google"
+              onSuccess={handleGoogleButton}
+              onFailure={handleGoogleButton}
+              scope={'email'}
+              isSignedIn={true}
+              cookiePolicy={'single_host_origin'}
+            />
           </Box>
-          <button className='google_button' onClick={handleGoogleButton}><img src={"./google.png"} style={{width: "30px"}} alt=''/></button>
+          <div>
+            
+          </div>
         </Box>
       </Container>
     </ThemeProvider>
