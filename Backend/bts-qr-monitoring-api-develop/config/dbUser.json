@@ -1,0 +1,67 @@
+{
+    "users": [
+        {
+            "email": "arrakp@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "sarana@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "sarayutb@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "anurakb@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "thanawathd@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "neeranuts@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "thanyaluxk@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "wigroms@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "niponc@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "nipatc@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "pissanus@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "norapatn@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "praewpilaip@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "methawatt@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "pongsakornl@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "puritatt@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "bundittw@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "penpayomep@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "phumipakj@rabbit.co.th", "role": "FE", "status": "User"
+        },
+        {
+            "email": "umnuaychait@rabbit.co.th", "role": "FE", "status": "Admin"
+        },
+        {
+            "email": "woranank@rabbit.co.th", "role": "FE", "status": "Admin"
+        }
+    ]
+}

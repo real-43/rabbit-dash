@@ -1,0 +1,44 @@
+{
+    "users": [
+        {
+            "user": "btsuser", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser2", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser3", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser4", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser5", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser6", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser7", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser8", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser9", 
+            "pass": "bts@1234"
+        },
+        {
+            "user": "btsuser10", 
+            "pass": "bts@1234"
+        }
+    ]
+}
