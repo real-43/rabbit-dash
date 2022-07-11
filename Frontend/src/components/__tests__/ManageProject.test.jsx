@@ -21,30 +21,13 @@ import "core-js/stable";
 import firebaseSlice from "../../Reducer/firebaseSlice";
 
 import ManageProject from '../../Container/Management/ManageProject'
+import store from '../../store'
 
 describe("Test Function popupDel",()=>{
-    const persistConfig = {
-        key: 'firebase',
-        storage,
-      };
-    
-    const reducers = combineReducers({ firebase: firebaseSlice });
-    
-    const persistedReducer = persistReducer(persistConfig, reducers);
-
-    const mockStore = configureStore({
-        reducer: persistedReducer,
-        middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        }),
-    });
 
     test("Manage Project", () => {
         const { getByTestId } = render(
-            <Provider store={mockStore}>
+            <Provider store={store}>
                 <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
                     <Routes>
                         <Route path='/' exact element={<ManageProject/>} />

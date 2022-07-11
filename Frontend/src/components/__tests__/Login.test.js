@@ -18,30 +18,12 @@ import {
   } from 'redux-persist'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import "core-js/stable";
+import store from '../../store'
 
 test("Login input is render", () => {
 
-    const persistConfig = {
-        key: 'firebase',
-        storage,
-      };
-    
-    const reducers = combineReducers({ firebase: firebaseSlice });
-    
-    const persistedReducer = persistReducer(persistConfig, reducers);
-
-    const mockStore = configureStore({
-        reducer: persistedReducer,
-        middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        }),
-    });
-
     const { getByTestId } = render(
-            <Provider store={mockStore}>
+            <Provider store={store}>
                 <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
                     <Routes>
                         <Route path='/' exact element={<Login/>} />
