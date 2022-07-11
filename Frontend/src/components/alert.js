@@ -5,7 +5,7 @@ export default function AlertBox({visible,severity,message}) {
     return (
         <>
             {visible &&
-                <Alert severity={severity} >
+                <Alert severity={severity} data-testid="alertMessage">
                {message}
             </Alert>}
            

@@ -5,7 +5,6 @@ import { auth, db } from '../../Firebase Config/firebase'
 
 export default function Dashboard() {
 
-  const [re,setRe] = React.useState(false)
   const router = useNavigate();
   // useEffect(() => {
   //   window.location.reload(false);

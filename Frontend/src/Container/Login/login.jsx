@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router'
 import AlertBox from '../../components/alert';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth,provider } from '../../Firebase Config/firebase';
-import './login.css'
+import './login.css';
 import { db } from '../../Firebase Config/firebaseSec';
 import {
   collection,
@@ -182,6 +182,7 @@ export default function Login() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              data-testid="emailInput"
               margin="normal"
               required
               fullWidth
