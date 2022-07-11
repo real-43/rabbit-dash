@@ -9,7 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 
 import { addTask } from '../../../Reducer/firebaseSlice';
-import { optionsProject, getProjectName, subMenuOptions } from './function';
+import { optionsProject, getProjectName, subMenuOptions } from './functionPermission';
 import Loading from '../../../components/Loading';
 import { db, auth } from '../../../Firebase Config/firebase';
 import './ManagePermission.css'
@@ -39,17 +39,6 @@ export default function CreatePermission() {
         
         return authentication
     },[])
-
-    // Create array of options that user can select
-    // const optionsProject = (allProject) => {
-    //     var names = []
-    //     var index = 0
-    //     allProject.map((p) => {
-    //         names[index] = {value: p.name, label: p.name}
-    //         index = index + 1
-    //     })
-    //     return names
-    // }
 
     // reset input
     const reset = () => {

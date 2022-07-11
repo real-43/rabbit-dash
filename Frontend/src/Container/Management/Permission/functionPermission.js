@@ -6,6 +6,7 @@ const optionsProject = (allProject) => {
         names[index] = {value: p.name, label: p.name}
         index = index + 1
     })
+
     return names
 }
 

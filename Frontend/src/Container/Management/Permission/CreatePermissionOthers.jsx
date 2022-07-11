@@ -10,12 +10,14 @@ import Loading from '../../../components/Loading';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask } from '../../../Reducer/firebaseSlice';
+import { subMenuOptions } from './functionPermission';
 
 export default function CreatePermissionOthers() {
 
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
     const dispatch = useDispatch();
+    const animatedComponents = makeAnimated();
 
     const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
     const currentUser = useSelector((state) => state.firebase.currentUserFS)
@@ -72,35 +74,11 @@ export default function CreatePermissionOthers() {
         setIsLoading(false)
     }
 
-    const animatedComponents = makeAnimated();
-
     const handleChange = (event) => {
         setProjectInput(event)
         if (event.length < 1) {
             setToSend([])
         }
-    }
-
-    const subMenuOptions = (event) => {
-        var filteredProject = [{name: "", options: [{value: "", label: ""}]}]
-        var index = 0
-        event.map((inp) => {
-            
-            allProjects.map((moc) => {
-                var option = []
-                var indexOption = 0
-                // if project in input
-                if (inp.value === moc.name) {
-                    moc.subMenu?.map((sub) => {
-                        option[indexOption] = {value: sub, label: sub}
-                        indexOption = indexOption + 1
-                    })
-                    filteredProject[index] = {name: inp.value, options: option}
-                    index = index + 1
-                }
-            })
-        })
-        setdata(filteredProject)
     }
 
     if (currentUserRole.length !== 0 && options.length < 1) {
@@ -140,7 +118,7 @@ export default function CreatePermissionOthers() {
                                     options={options}
                                     onChange={(event) => {
                                         handleChange(event)
-                                        subMenuOptions(event)
+                                        setdata(subMenuOptions(event, allProjects))
                                     }}
                                 />
                             </div>
