@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import {Form, Button}  from 'react-bootstrap';
-import './ManagePermission.css'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { collection, addDoc } from "firebase/firestore"; 
-import { db, auth } from '../../../Firebase Config/firebase';
 import { useNavigate } from 'react-router'
-import Loading from '../../../components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
+
+
 import { addTask } from '../../../Reducer/firebaseSlice';
+import { optionsProject, getProjectName, subMenuOptions } from './function';
+import Loading from '../../../components/Loading';
+import { db, auth } from '../../../Firebase Config/firebase';
+import './ManagePermission.css'
 
 export default function CreatePermission() {
 
@@ -22,7 +25,7 @@ export default function CreatePermission() {
     const [roleName, setRoleName] = useState("");
     const [projectInput, setProjectInput] = useState([]);
     const [data, setdata] = useState([]);
-    const mockupProject = useSelector((state) => state.firebase.allProjects);
+    const allProject = useSelector((state) => state.firebase.allProjects);
     const [toSend, setToSend] = useState([]);
 
     useEffect(() => {
@@ -38,24 +41,15 @@ export default function CreatePermission() {
     },[])
 
     // Create array of options that user can select
-    const optionsProject = () => {
-        var names = []
-        var index = 0
-        mockupProject.map((p) => {
-            names[index] = {value: p.name, label: p.name}
-            index = index + 1
-        })
-        return names
-    }
-
-    // Use when want to get all project name that user selected
-    const getProjectName = (project) => {
-        let menuName = []
-        project.map((p, index) => {
-            menuName[index] = p.name
-        })
-        return menuName
-    }
+    // const optionsProject = (allProject) => {
+    //     var names = []
+    //     var index = 0
+    //     allProject.map((p) => {
+    //         names[index] = {value: p.name, label: p.name}
+    //         index = index + 1
+    //     })
+    //     return names
+    // }
 
     // reset input
     const reset = () => {
@@ -91,9 +85,6 @@ export default function CreatePermission() {
                 });
             }
         }
-
-        
-
         reset()
         setIsLoading(false)
     }
@@ -103,29 +94,6 @@ export default function CreatePermission() {
         if (event.length < 1) {
             setToSend([])
         }
-    }
-
-    // Create array of submenu of projects selected
-    const subMenuOptions = (event) => {
-        var filteredProject = [{name: "", options: [{value: "", label: ""}]}]
-        var index = 0
-        event.map((inp) => {
-            
-            mockupProject.map((moc) => {
-                var option = []
-                var indexOption = 0
-                // if project in input
-                if (inp.value === moc.name) {
-                    moc.subMenu?.map((sub) => {
-                        option[indexOption] = {value: sub, label: sub}
-                        indexOption = indexOption + 1
-                    })
-                    filteredProject[index] = {name: inp.value, options: option}
-                    index = index + 1
-                }
-            })
-        })
-        setdata(filteredProject)
     }
     
     return (
@@ -151,10 +119,10 @@ export default function CreatePermission() {
                                     components={animatedComponents}
                                     value={projectInput}
                                     isMulti
-                                    options={optionsProject()}
+                                    options={optionsProject(allProject)}
                                     onChange={(event) => {
                                         handleChange(event)
-                                        subMenuOptions(event)
+                                        setdata(subMenuOptions(event, allProject))
                                     }}
                                 />
                             </div>
@@ -188,7 +156,7 @@ export default function CreatePermission() {
                             </div>
                         ) : ""}
                        
-                        <Button onClick={(e) => handleSubmit(e)} variant="primary" type="submit">
+                        <Button className="create-permission-btn" onClick={(e) => handleSubmit(e)} variant="primary" type="submit">
                             Create
                         </Button>
                     </Form>
