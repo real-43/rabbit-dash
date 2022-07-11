@@ -9,7 +9,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 
 import { addTask } from '../../../Reducer/firebaseSlice';
-import { optionsProject, getProjectName, subMenuOptions } from './function';
+import { optionsProject, getProjectName, subMenuOptions } from './functionPermission';
 import Loading from '../../../components/Loading';
 import { db, auth } from '../../../Firebase Config/firebase';
 import './ManagePermission.css'
