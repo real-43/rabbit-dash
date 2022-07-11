@@ -6,6 +6,8 @@ import { optionsProject } from "../../Container/Management/Permission/functionPe
 
 describe("Permission", () => {
     test("PermissinoAdmin optionsProject", () => {
-        expect(optionsProject([{name: "project one"}, {name: "project two"}, {name: "project three"}])).toStrictEqual([{value: "project one", label: "project one"}, {value: "project two", label: "project two"}, {value: "project three", label: "project three"}])
+        var check = [{value: "project one", label: "project one"}, {value: "project two", label: "project two"}, {value: "project three", label: "project three"}]
+        var allProject = [{name: "project one"}, {name: "project two"}, {name: "project three"}]
+        expect(optionsProject(allProject)).toStrictEqual(check)
     })
 })
