@@ -18,9 +18,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "Frontend", "babel.config.js"  ]
+    "src",
+    "Frontend",
+    "babel.config.js"
+  ]
 }
