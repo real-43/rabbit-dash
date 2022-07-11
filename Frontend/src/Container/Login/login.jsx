@@ -195,6 +195,7 @@ export default function Login() {
               onChange={(event)=>{setUserInfo({...userInfo,email:event.target.value})}}
             />
             <TextField
+              data-testid="passInput"
               margin="normal"
               required
               fullWidth

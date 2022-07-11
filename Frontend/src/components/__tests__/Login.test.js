@@ -19,7 +19,7 @@ import {
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import "core-js/stable";
 
-test("Login", () => {
+test("Login input is render", () => {
 
     const persistConfig = {
         key: 'firebase',
@@ -50,5 +50,7 @@ test("Login", () => {
             </Provider>
         )
     const emailInput = getByTestId("emailInput")
+    const passInput = getByTestId("passInput")
     expect(emailInput).toBeTruthy()
+    expect(passInput).toBeTruthy()
 })
