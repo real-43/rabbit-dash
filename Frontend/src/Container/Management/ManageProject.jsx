@@ -81,46 +81,46 @@ const ManageProject = () => {
 
     const addProjects = async (e) => {
         e.preventDefault();
-        console.log(projectInfo.name)
-        // setIsLoading(true)
+        // console.log(projectInfo.name)
+        setIsLoading(true)
 
-        // dispatch(addTask("Add project"))
+        dispatch(addTask("Add project"))
 
-        // // let rest = [...projects]
-        // // rest.push({name: projectInfo.name, subMenu: submenu[submenu.length-1]})
+        // let rest = [...projects]
+        // rest.push({name: projectInfo.name, subMenu: submenu[submenu.length-1]})
 
-        // // setProjects(rest) 
+        // setProjects(rest) 
 
-        // var a = []
-        // for (const element of role.Management.Project) {
-        //     a.push(element);
-        // }
-        // a.push(projectInfo.name)
+        var a = []
+        for (const element of role.Management.Project) {
+            a.push(element);
+        }
+        a.push(projectInfo.name)
 
-        // var NewProjectManagement = {
-        //     "Project": a,
-        //     "Permission": a,
-        //     "Services": a
-        // }
+        var NewProjectManagement = {
+            "Project": a,
+            "Permission": a,
+            "Services": a
+        }
         
-        // var NewProject = {
-        //     name: projectInfo.name,
-        //     subMenu: submenu,
-        // }
+        var NewProject = {
+            name: projectInfo.name,
+            subMenu: submenu,
+        }
 
-        // await addDoc(collection(db, "projects"), NewProject);
-        // roles.map((role) => { 
-        //     if(role.name === 'Admin'){
-        //         updateDoc(AdminDoc,{
-        //             project: arrayUnion(NewProject),
-        //             Management: NewProjectManagement
-        //         });
-        //     }   
-        // });
+        await addDoc(collection(db, "projects"), NewProject);
+        roles.map((role) => { 
+            if(role.name === 'Admin'){
+                updateDoc(AdminDoc,{
+                    project: arrayUnion(NewProject),
+                    Management: NewProjectManagement
+                });
+            }   
+        });
 
-        // setProjectInfo({ ...projectInfo, name: "" })
-        // setSubmenu([])
-        // setIsLoading(false)
+        setProjectInfo({ ...projectInfo, name: "" })
+        setSubmenu([])
+        setIsLoading(false)
     }
 
     const deleteProjects = async () => {
