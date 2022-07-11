@@ -17,7 +17,7 @@ import {
     REGISTER,
   } from 'redux-persist'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
+import "core-js/stable";
 
 test("Login", () => {
 
