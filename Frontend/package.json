@@ -42,8 +42,9 @@
     "scripts": {
         "start": "concurrently \"react-scripts start\"",
         "build": "react-scripts build",
-        "test": "react-scripts test",
+        "test": "jest",
         "eject": "react-scripts eject"
+
     },
     "eslintConfig": {
         "extends": [
@@ -62,5 +63,12 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    }
+    },
+    "devDependencies": {
+        "jest": "^26.6.3"
+    },
+    "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+    "main": "index.js",
+    "author": "",
+    "license": "ISC"
 }
