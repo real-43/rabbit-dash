@@ -40,17 +40,6 @@ export default function CreatePermission() {
         return authentication
     },[])
 
-    // Create array of options that user can select
-    // const optionsProject = (allProject) => {
-    //     var names = []
-    //     var index = 0
-    //     allProject.map((p) => {
-    //         names[index] = {value: p.name, label: p.name}
-    //         index = index + 1
-    //     })
-    //     return names
-    // }
-
     // reset input
     const reset = () => {
         setdata([])

@@ -7,7 +7,6 @@ const optionsProject = (allProject) => {
         index = index + 1
     })
 
-    console.log("names", names)
     return names
 }
 

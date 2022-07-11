@@ -6,8 +6,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import "core-js/stable";
 
 
-import firebaseSlice from "../../Reducer/firebaseSlice";
-
 import Header from '../Header'
 import store from '../../store'
 
