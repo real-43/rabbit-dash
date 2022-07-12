@@ -14,17 +14,17 @@ import store from '../../store'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("Test Function popupDel",()=>{
-
-    test("Manage Project", () => {
-        const { getByTestId } = render(
-            <Provider store={store}>
-                <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
-                   <ManageProject/>
-                </BrowserRouter>
-            </Provider>
-        )
-    })
+describe("Manage Project",()=>{
+    const { getByTestId } = render(
+        <Provider store={store}>
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <ManageProject/>
+            </BrowserRouter>
+        </Provider>
+    )
+    // test("Test Function popupDel", () => {
+        
+    // })
     
 } )
 
