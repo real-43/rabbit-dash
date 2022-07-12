@@ -1,30 +1,33 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import { render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { screen } from '@testing-library/dom'
-import ReactDOM from 'react-dom';
-import { Console } from 'console';
 import { Provider } from 'react-redux';
 import "core-js/stable";
-import firebaseSlice from "../../Reducer/firebaseSlice";
 import ManageProject from '../../Container/Management/ManageProject'
 import store from '../../store'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 Enzyme.configure({ adapter: new Adapter() });
 
-describe("Test Function popupDel",()=>{
+describe("Manage Project", ()=>{
 
     test("Manage Project", () => {
-        const { getByTestId } = render(
+        const { getByTestId, getByText } = render(
             <Provider store={store}>
                 <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
                    <ManageProject/>
                 </BrowserRouter>
             </Provider>
         )
+        const input = getByTestId("Input")
+        getByText(/Number/i)
+        getByText(/Project Name/i)
+        getByText(/Sub Menu/i)
+        getByText(/Commands/i)
+        expect(input).toBeTruthy()
     })
+
+    
     
 } )
 
