@@ -322,7 +322,7 @@ const ManageProject = () => {
                     <form >
                         <div class="form-group row">
                             <div class="col-xs-2">
-                                <label for="ex1" style={{paddingBottom: '20px'}}>Project Management</label>
+                                <label for="ex1" style={{paddingBottom: '20px'}} data-testid="Test Render Project Header">Project Management</label>
                                 <input 
                                     class="form-control" 
                                     id="ex1" 

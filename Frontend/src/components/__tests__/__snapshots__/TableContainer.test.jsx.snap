@@ -1,0 +1,1129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableContainerComponent render 1`] = `
+<div
+  className="content-wrapper"
+>
+  
+  <div
+    className="pdf-page"
+  >
+    <div
+      className="pdf-table"
+    >
+      <table
+        className="table table-bordered table-hover"
+        role="table"
+      >
+        <thead
+          className="header-table"
+        >
+          <tr
+            role="row"
+          >
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="Toggle SortBy"
+              >
+                ID
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                NoSearch
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="Toggle SortBy"
+              >
+                Device ID
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                <input
+                  className="form-control"
+                  onChange={[Function]}
+                  placeholder="search..."
+                  style={
+                    Object {
+                      "height": "30px",
+                      "marginLeft": "auto",
+                      "marginRight": "auto",
+                      "width": "70px",
+                    }
+                  }
+                  type="text"
+                  value=""
+                />
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="Toggle SortBy"
+              >
+                Location ID
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                <input
+                  className="form-control"
+                  onChange={[Function]}
+                  placeholder="search..."
+                  style={
+                    Object {
+                      "height": "30px",
+                      "marginLeft": "auto",
+                      "marginRight": "auto",
+                      "width": "70px",
+                    }
+                  }
+                  type="text"
+                  value=""
+                />
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                style={
+                  Object {
+                    "cursor": undefined,
+                  }
+                }
+              >
+                Source Type
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                SelectColumnFilter
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                style={
+                  Object {
+                    "cursor": undefined,
+                  }
+                }
+              >
+                Status
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                SelectColumnFilter
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                style={
+                  Object {
+                    "cursor": undefined,
+                  }
+                }
+              >
+                <div
+                  className="header-txn-date"
+                >
+                  <p>
+                    Txn Date
+                  </p>
+                  <button
+                    onClick={[Function]}
+                  >
+                    <i
+                      className="fas fa-times"
+                    />
+                  </button>
+                </div>
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                DateColumnFilter
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                style={
+                  Object {
+                    "cursor": undefined,
+                  }
+                }
+              >
+                Txn Type
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                SelectColumnFilter
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="Toggle SortBy"
+              >
+                Value
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                <input
+                  className="form-control"
+                  onChange={[Function]}
+                  placeholder="search..."
+                  style={
+                    Object {
+                      "height": "30px",
+                      "marginLeft": "auto",
+                      "marginRight": "auto",
+                      "width": "70px",
+                    }
+                  }
+                  type="text"
+                  value=""
+                />
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="Toggle SortBy"
+              >
+                Create Date
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                CNUDateColumnFilter
+              </div>
+            </th>
+            <th
+              colSpan={1}
+              role="columnheader"
+              style={
+                Object {
+                  "width": "fit-content",
+                }
+              }
+            >
+              <div
+                className="header-content"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "cursor": "pointer",
+                  }
+                }
+                title="Toggle SortBy"
+              >
+                Update Date
+                
+              </div>
+              <div
+                style={
+                  Object {
+                    "marginTop": 5,
+                  }
+                }
+              >
+                CNUDateColumnFilter
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          role="rowgroup"
+        >
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              1
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A22E8
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              244
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              20/02/2021 07:49:21
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              116.75
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A22E8
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              244
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              15/02/2021 13:49:59
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              317.00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              3
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A22E8
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              244
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              11/02/2021 07:18:52
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              42.00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              4
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A4D16
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              16777215
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              17/01/2021 17:46:15
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              150.00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              5
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A4253
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              16777215
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              24/02/2021 18:55:20
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              178.25
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              6
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A4253
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              16777215
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              25/02/2021 20:23:33
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              135.00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              7
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A4253
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              16777215
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              25/02/2021 21:49:41
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              25.00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              8
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A4253
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              16777215
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              25/02/2021 22:03:00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              46.00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              9
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A22E8
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              244
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              24/02/2021 19:25:34
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              243.00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              10
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              000A22E8
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              244
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              LP
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              unmatched
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              24/02/2021 20:22:24
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              Purse Use
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              56.00
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.467Z
+            </td>
+            <td
+              className="content-tabel"
+              role="cell"
+            >
+              2021-05-27T11:20:27.499Z
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        className="under-table row"
+      >
+        <div
+          className="col-md-3"
+        >
+          <button
+            className="btn btn-primary disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            &lt;&lt;
+          </button>
+          <button
+            className="btn btn-primary disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            &lt;
+          </button>
+        </div>
+        <div
+          className="col-md-2"
+          style={
+            Object {
+              "marginTop": 7,
+            }
+          }
+        >
+          Page
+           
+          <strong>
+            1
+             of 
+            5
+          </strong>
+        </div>
+        <div
+          className="col-md-2"
+        >
+          <select
+            className="form-select"
+            onChange={[Function]}
+            value={10}
+          >
+            &gt;
+            <option
+              value={10}
+            >
+              Show 
+              10
+            </option>
+            <option
+              value={20}
+            >
+              Show 
+              20
+            </option>
+            <option
+              value={30}
+            >
+              Show 
+              30
+            </option>
+            <option
+              value={40}
+            >
+              Show 
+              40
+            </option>
+            <option
+              value={50}
+            >
+              Show 
+              50
+            </option>
+            <option
+              value={10000000000}
+            >
+              Show 
+              All
+            </option>
+          </select>
+        </div>
+        <div
+          className="col-md-3"
+        >
+          <button
+            className="btn btn-primary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            &gt;
+          </button>
+          <button
+            className="btn btn-primary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            &gt;&gt;
+          </button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+`;

@@ -1,7 +1,7 @@
 import React from 'react'
 // import { shallowToJson } from 'enzyme-to-json'
 // import sinon from 'sinon'
-import Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import { Provider } from 'react-redux';
 import { shallow, configure, mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store'
@@ -26,6 +26,11 @@ describe('Menu', () => {
     name:"HI",
     project: [{name:"project1",subMenu:["1","2"]}]
   });
+
+  it("renders without crashing", () => {
+    shallow(<Provider store={store}><Menu /></Provider>);
+  });
+
   it('renders a Menu', () => {
     const output = shallow(
         <Provider store={store}>
@@ -34,31 +39,6 @@ describe('Menu', () => {
     )
     expect(output.find('a').length).toEqual(0)
   })
-  it('renders aside Menu', () => {
-    const output = shallow(
-        <Provider store={store}>
-            <Menu />
-        </Provider> 
-    )
-    expect(output.find('aside').length).toEqual(0)
-  })
-  it('renders li Menu', () => {
-    const output = shallow(
-        <Provider store={store}>
-            <Menu />
-        </Provider> 
-    )
-    expect(output.find('li').length).toEqual(0)
-  })
-  it('renders div Menu', () => {
-    const output = shallow(
-      <div store={store}>
-            <Menu  />
-      </div>
-    )
-    expect(output.find('a').length).toEqual(1)
-  })
- 
 
 //   it('renders an output area', () => {
 //     const output = shallow(<Link />)

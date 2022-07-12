@@ -52,7 +52,7 @@ export default function Menu() {
   const user = auth.currentUser || {email: ""};
 
   return (
-    <div>
+    <div data-testid="Menu wrapper">
       <aside className="sidebar-mini main-sidebar  sidebar-dark-primary " style={{overflowX: 'hidden'}}>
         {/* Brand Logo */}
         <a onClick={() => navigate("/dashboard")} style={{cursor: "pointer"}} class="brand-link logo-switch logo-scale">
