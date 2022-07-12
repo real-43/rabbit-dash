@@ -10,5 +10,7 @@ describe('Loading', () => {
         console.log(testInstance)
         
         expect(testInstance.findByType(Loading).props.isLoading).toBeTruthy
+        // expect(testInstance.findByProps({className: "loading-wrapper"}).children).toEqual(['The process may slow sometime']);
+
     })
 })

@@ -1,5 +1,5 @@
 import { React } from "react";
-import Popup from "../../Container/Management/User/Popup"
+import Popup from "../../Container/Management/User/EditPopup.jsx"
 import { mount } from 'enzyme';
 
 it('renders content when modal is open', () => {
