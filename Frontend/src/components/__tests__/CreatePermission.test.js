@@ -11,7 +11,7 @@ describe("Permission", () => {
         {name: "project three", subMenu: ["PDF", "Notification", "Setting"]}
     ]
 
-    test("PermissinoAdmin optionsProject", () => {
+    test("Permission optionsProject", () => {
         var check = [
             {value: "project one", label: "project one"}, 
             {value: "project two", label: "project two"}, 

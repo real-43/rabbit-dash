@@ -23,14 +23,14 @@ import store from '../../store'
 test("Login input is render", () => {
 
     const { getByTestId } = render(
-            <Provider store={store}>
-                <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
-                    <Routes>
-                        <Route path='/' exact element={<Login/>} />
-                    </Routes>
-                </BrowserRouter>
-            </Provider>
-        )
+        <Provider store={store}>
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Login/>} />
+                </Routes>
+            </BrowserRouter>
+        </Provider>
+    )
     const emailInput = getByTestId("emailInput")
     const passInput = getByTestId("passInput")
     expect(emailInput).toBeTruthy()
