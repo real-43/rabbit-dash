@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {  createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, deleteUser, signInWithEmailAndPassword } from "firebase/auth";
 import { authSec, db } from '../../../Firebase Config/firebaseSec';
-import {Modal, Form, Button, InputGroup, FormControl}  from 'react-bootstrap';
+import { Modal, Form, Button, InputGroup, FormControl }  from 'react-bootstrap';
 import { auth } from '../../../Firebase Config/firebase'
 import { useNavigate } from 'react-router'
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
@@ -14,8 +14,9 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../../components/Loading';
 
-import './signup.css'
+import '../signup.css'
 import { addTask } from '../../../Reducer/firebaseSlice';
+import EditPopup from './EditPopup';
 
 
 
@@ -251,62 +252,16 @@ export default function ManageUsers() {
     
     return (isOpen) ? (
       <div>
-        <Modal show={true} onHide={(e)=>{setIsOpen(!isOpen)}}>
-          <Modal.Header>
-            <Modal.Title>Edit User<i onClick={(e) => setIsOpen(!isOpen)} style={{cursor:"pointer", marginLeft:"330px"}} className='fa fa-times'/></Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder={changeUser.name}
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
-                  autoFocus
-                />
-              </Form.Group>
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
-                <Form.Label>Password</Form.Label>
-                <InputGroup className="mb-3">
-                  
-                  <FormControl
-                    aria-label="Example text with button addon"
-                    aria-describedby="basic-addon1"
-                    id='myInput'
-                    type="password"
-                    placeholder="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                  <Button variant="outline-secondary" id="button-addon1" onClick={(e) => displayOption(this)}>
-                    <i class={isActive ? "fa fa-eye" : "fa fa-eye-slash"} id="togglePassword"/>
-                  </Button>
-                </InputGroup>
-              </Form.Group>
-              <Form.Label>Role</Form.Label>
-              <Form.Select aria-label={role} defaultValue={role} onChange={(e) => setRole(e.target.value)}>
-                <option className="d-none" value="">{role}</option>
-                <option value="">Set No role</option>
-                {roles.filter(obj => checkDomainRole(obj)).map((role,i) => {return (
-                  <option value={role.name} key={i}>{role.name}</option>
-                )})}
-              </Form.Select>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={(e) => setIsOpen(!isOpen)}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={(e) =>{handleChange(changeUser)}}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <EditPopup 
+          changeUser={changeUser} 
+          newName={newName}
+          newPassword={newPassword}
+          currentUser={currentUser}
+          currentRole={currentRole}
+          role={role}
+          roles={roles}
+          onClose={() => {setIsOpen(false)}}
+        />
       </div>
     ) : "";
   }
@@ -365,41 +320,40 @@ export default function ManageUsers() {
             </tr>
         </MDBTableHead>
       
-          {users.map((user, index) => {return (
+        {users.map((user, index) => {return (
         <MDBTableBody key={index}>
-            <tr>
-            {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin" || user.role.includes(currentUser.role.split("Admin")[0])) ? (
-              <>
-                <td>{index+1}</td>
-                <td>{user.name}</td>
-                <td>{user.isBlocked.toString()}</td>
-                <td>{user.role}</td>
-                <td>{user.email}</td>
-                <td className='btn-table'> 
-                  <button
-                    className='btn-function btn'
-                    onClick={() => {
-                      handleDeleteBtn(user)
-                    }}
-                    >
-                    {" "}
-                    Delete User
-                  </button>
-                  <button
-                    className='btn btn-function'
-                    onClick={(e) => changeSet(user)}
+          <tr>
+          {(user.role === "" || currentUser.role === user.role || currentUser.role === "Admin" || user.role.includes(currentUser.role.split("Admin")[0])) ? (
+            <>
+              <td>{index+1}</td>
+              <td>{user.name}</td>
+              <td>{user.isBlocked.toString()}</td>
+              <td>{user.role}</td>
+              <td>{user.email}</td>
+              <td className='btn-table'> 
+                <button
+                  className='btn-function btn'
+                  onClick={() => {
+                    handleDeleteBtn(user)
+                  }}
                   >
-                    {" "}
-                    Edit
-                  </button>
-                  <Button onClick={(e)=>ControlBlocked(user)} variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
-                      <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword"/>
-                  </Button>
-            </td>       
-              </>
-            ) : ""}
-            </tr>
-            </MDBTableBody>)})}
+                  {" "}
+                  Delete User
+                </button>
+                <button
+                  className='btn btn-function'
+                  onClick={(e) => changeSet(user)}
+                >
+                  {" "}
+                  Edit
+                </button>
+                <Button onClick={(e)=>ControlBlocked(user)} variant={user.isBlocked ? "outline-danger" : "outline-secondary"} id="button-addon1" >
+                    <i class={user.isBlocked ? "fa fa-lock" : "fa fa-unlock"} id="togglePassword"/>
+                </Button>
+              </td>       
+            </> ) : ""}
+          </tr>
+        </MDBTableBody>)})}
         </MDBTable>
       </div>         
     </div>
