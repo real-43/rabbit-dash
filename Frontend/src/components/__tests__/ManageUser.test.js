@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import "core-js/stable";
 import store from '../../store'
-import ManageUsers from '../../Container/Management/ManageUser'
+import ManageUsers from '../../Container/Management/User/ManageUser'
 
 describe("Management User", () => {
 

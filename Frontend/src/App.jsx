@@ -11,7 +11,7 @@ import Menu from './components/Menu';
 // Main project
 import Dash from './Container/Home/Dashboard'
 import LoginPage from './Container/Login/login';
-import SignupPage from './Container/Management/ManageUser';
+import SignupPage from './Container/Management/User/ManageUser';
 import ManagePro from './Container/Management/ManageProject';
 import CreatePermissionAdmin from './Container/Management/Permission/CreatePermissionAdmin';
 import CreatePermissionOthers from './Container/Management/Permission/CreatePermissionOthers';
