@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import ChipInput from 'material-ui-chip-input'
 import Loading from '../../components/Loading';
 import { useSelector, useDispatch } from "react-redux"
-import { addTask, defindAllProjects, defindAllRoles } from '../../Reducer/firebaseSlice';
+import { addTask } from '../../Reducer/firebaseSlice';
 import {
     collection,
     addDoc,
@@ -18,7 +18,6 @@ import {
     doc,
     arrayUnion,
     arrayRemove,
-    onSnapshot
   } from "firebase/firestore";
 import { useNavigate } from 'react-router';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -317,34 +316,35 @@ const ManageProject = () => {
         
         <div className="content-wrapper">
             <Loading isLoading={isLoading} />
-            <div className='manage-project'>
+            <div className='manage-project' data-testid="Input">
                 {(role.name === "Admin") ? (
-                    <form >
-                        <div class="form-group row">
-                            <div class="col-xs-2">
-                                <label for="ex1" style={{paddingBottom: '20px'}} data-testid="Test Render Project Header">Project Management</label>
-                                <input 
-                                    class="form-control" 
-                                    id="ex1" 
-                                    type="text" 
-                                    onChange={(event) => {
-                                        setProjectInfo({ ...projectInfo, name: event.target.value.replace(/[^a-zA-Z ]/g, "") })
-                                    }}
-                                    value={projectInfo.name}
-                                    placeholder=" Project Name..."
-                                    
+                    <div>
+                        <form data-testid="Input" >
+                            <div class="form-group row">
+                                <div class="col-xs-2">
+                                    <label for="ex1" style={{paddingBottom: '20px'}}>Project Management</label>
+                                    <input 
+                                        class="form-control" 
+                                        id="ex1" 
+                                        type="text" 
+                                        onChange={(event) => {
+                                            setProjectInfo({ ...projectInfo, name: event.target.value.replace(/[^a-zA-Z ]/g, "") })
+                                        }}
+                                        value={projectInfo.name}
+                                        placeholder=" Project Name..."
+                                        
+                                    />
+                                </div>
+                                <ChipInput 
+                                    style={{paddingTop: "10px",width:"97.5%",marginLeft:"20px"}}
+                                    value={submenu}
+                                    onChange={(chips) => handleChip(chips)}
+                                    placeholder=" Submenu..."
                                 />
+                                <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create Project</button> 
                             </div>
-                            <ChipInput 
-                                style={{paddingTop: "10px",width:"97.5%",marginLeft:"20px"}}
-                                value={submenu}
-                                onChange={(chips) => handleChip(chips)}
-                                placeholder=" Submenu..."
-
-                            />
-                            <button className="btn" type="submit" onClick={(e)=>addProjects(e)} style={{marginTop: "15px"}}> Create Project</button> 
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 ) : ""}
                 
                 {popup()}

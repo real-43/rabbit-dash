@@ -320,6 +320,7 @@ export default function ManageUsers() {
 
         <div className='input-container px-3'>
           <input className='input-register px-2'
+            data-testid="inputUserName"
             placeholder="Name..."
             value={userInfo.name}
             onChange={(event) => {
@@ -327,6 +328,7 @@ export default function ManageUsers() {
             }}
           />
           <input className='input-register px-2'
+            data-testid="inputEmail"
             type="Email"
             placeholder="Email..."
             value={userInfo.email}
@@ -335,6 +337,7 @@ export default function ManageUsers() {
             }}
           />
           <input className='input-register px-2'
+            data-testid="inputPassword"
             type="Password"
             placeholder="Password..."
             value={userInfo.password}
