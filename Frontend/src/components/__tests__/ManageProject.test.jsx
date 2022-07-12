@@ -40,9 +40,9 @@ describe('Test Case for Create Project Page', () => {
         </Provider>
     );
     test('Validate Create Project Label render', () => {
-        console.log(menu)
+        // console.log(menu)
         const wrapper = mount(menu)
-        console.log(wrapper)
+        // console.log(wrapper)
         const createProject = wrapper.find('ManageProject');  
         
         expect(createProject).toHaveLength(1);
