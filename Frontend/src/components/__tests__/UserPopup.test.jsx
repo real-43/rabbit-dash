@@ -140,16 +140,7 @@ describe('render Popup component correctly', () => {
         <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
             <Routes>
                 <Route path='/' exact element={
-                    <Popup
-                        roles={Object.values(store)}
-                        changeUser={changeUser} 
-                        newName={'newName'}
-                        newPassword={'newPassword'}
-                        currentUser={currentUser}
-                        currentRole={currentRole}
-                        role={"DatafileMonitoringStaff"}
-                        onClose={() => {setIsOpen(false)}}
-                    />
+                    <Popup/>
                 } />
             </Routes>
         </BrowserRouter>
