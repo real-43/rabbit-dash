@@ -32,7 +32,7 @@ const EditPopup = props => {
                     <Button variant="secondary" onClick={() => setIsConfirm(false)}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={
+                    <Button variant="primary" name="primary" onClick={
                         props.handleClose
                     }>
                         Confirm

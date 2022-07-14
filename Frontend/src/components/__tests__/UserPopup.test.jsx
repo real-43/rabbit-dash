@@ -4,8 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Popup from "../../Container/Management/User/EditPopup.jsx"
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import { mount, shallow, configure } from 'enzyme';
-import { render } from '@testing-library/react';
-// import store from '../../store'
+import { render, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import '@testing-library/jest-dom'
@@ -65,7 +64,7 @@ const currentUser = {
     role: "DatafileMonitoringStaff"
 }
 
-it('renders content when modal is open', () => {
+describe('renders content when modal is open', () => {
     // mount renders to the dom (real or mocked)
     const {asFragment, getByText} = render(
         <Provider store={store} >
@@ -85,9 +84,27 @@ it('renders content when modal is open', () => {
         </BrowserRouter>
         </Provider>
     );
-                
-    expect(getByText('Edit User')).toBeInTheDocument()
-    // expect(asFragment()).toMatchInlineSnapshot(`<h1>Hello, World!</h1>`)
+    console.log(screen)
+    test("render Save button", () => {
+        const primaryButton = screen.getByRole('button', { name: /Save Change/i })
+        expect(primaryButton).toHaveClass('btn-primary')
+    })
+    test("render Close  button", () => {
+        const secondaryButton = screen.getByRole('button', { name: /Close/i })
+        expect(secondaryButton).toHaveClass('btn-secondary')
+    })
+    test("render password input", () => {
+        const passInput = screen.getByRole('FormControl', { value: /newPassword/i })
+        expect(passInput).toHaveClass('btn-secondary')
+    })   
+    test("render name input", () => {
+        const nameInput = screen.getByRole('FormControl', { value: /newName/i })
+        expect(nameInput).toHaveClass('btn-secondary')
+    })
+    test("render header label", () => {
+        // expect(getByText('Edit User')).toBeInTheDocument()
+        expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
+    })
 });
 
 it('render Popup component correctly', () => {  
@@ -95,7 +112,18 @@ it('render Popup component correctly', () => {
         <Provider store={store}>
         <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
             <Routes>
-                <Route path='/' exact element={<Popup/>} />
+                <Route path='/' exact element={
+                    <Popup
+                        roles={Object.values(store)}
+                        changeUser={changeUser} 
+                        newName={'newName'}
+                        newPassword={'newPassword'}
+                        currentUser={currentUser}
+                        currentRole={currentRole}
+                        role={"DatafileMonitoringStaff"}
+                        onClose={() => {setIsOpen(false)}}
+                    />
+                } />
             </Routes>
         </BrowserRouter>
         </Provider>
