@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React,{ useState } from "react"
 import { useDispatch } from "react-redux";
 import { addTask } from "../../../../Reducer/firebaseSlice";
 import { Modal, Form, Button }  from 'react-bootstrap';
@@ -90,13 +90,14 @@ export default function EditProject(props) {
         <div>
             <Modal show={true} onHide={props.onClose}>
                 <Modal.Header>
-                    <Modal.Title>Edit Project<i onClick={props.onClose} style={{cursor:"pointer", marginLeft:"320px"}} className='fa fa-times'/></Modal.Title>
+                    <Modal.Title role="title">Edit Project<i onClick={props.onClose} style={{cursor:"pointer", marginLeft:"320px"}} className='fa fa-times'/></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Project Name</Form.Label>
                             <Form.Control
+                                
                                 type="text"
                                 value={newProjectName}
                                 onChange={(e) => setNewProjectName(e.target.value.replace(/[^\\]_-/, ""))}
