@@ -44,10 +44,17 @@ export default function EditProject(props) {
             });
         }
 
-        
 
         props.roles.map((role) =>{ 
             const roleDoc = doc(db, "roles", role.id)
+            let newManage = []
+            role.Management?.Permission?.map((per) => {
+                if(per === project.name) {
+                    newManage.push(newProjectName)
+                } else {
+                    newManage.push(per)
+                }
+            })
             role.project?.map((proJ) =>{
                 if(proJ.name === project.name){
                     updateDoc(roleDoc,{
@@ -56,9 +63,9 @@ export default function EditProject(props) {
                             subMenu: project.subMenu
                         }),
                     });
-
                     if (submenu.length > 0) {
                         updateDoc(roleDoc,{
+                            Management: {Permission: newManage, Project: newManage, Services: newManage},
                             project: arrayUnion({
                                 name: newProjectName,
                                 subMenu: submenu
@@ -66,6 +73,7 @@ export default function EditProject(props) {
                         });   
                     } else {
                         updateDoc(roleDoc,{
+                            Management: {Permission: newManage, Project: newManage, Services: newManage},
                             project: arrayUnion({
                                 name: newProjectName,
                                 subMenu: newSubM
