@@ -15,6 +15,8 @@ export default function EditProject(props) {
 
     const dispatch = useDispatch()
 
+    const newSubM = props.newSubM
+
     const [newProjectName, setNewProjectName] = useState(props.newProjectName)
     const [submenu, setSubmenu] = useState(props.submenu)
 
@@ -29,11 +31,20 @@ export default function EditProject(props) {
         dispatch(addTask("Edit project"))
 
         const projectDoc = doc(db, "projects", project.id);
-    
-        await updateDoc(projectDoc, {
-            "name": newProjectName,
-            "subMenu": submenu
-        });
+
+        if (submenu.length < 1) {
+            await updateDoc(projectDoc,  {
+                "name": newProjectName,
+                "subMenu": newSubM
+            })
+        } else {
+            await updateDoc(projectDoc, {
+                "name": newProjectName,
+                "subMenu": submenu
+            });
+        }
+
+        
 
         props.roles.map((role) =>{ 
             const roleDoc = doc(db, "roles", role.id)
@@ -44,13 +55,23 @@ export default function EditProject(props) {
                             name: project.name,
                             subMenu: project.subMenu
                         }),
-                    });  
-                    updateDoc(roleDoc,{
-                        project: arrayUnion({
-                            name: newProjectName,
-                            subMenu: submenu
-                        })
-                    });   
+                    });
+
+                    if (submenu.length > 0) {
+                        updateDoc(roleDoc,{
+                            project: arrayUnion({
+                                name: newProjectName,
+                                subMenu: submenu
+                            })
+                        });   
+                    } else {
+                        updateDoc(roleDoc,{
+                            project: arrayUnion({
+                                name: newProjectName,
+                                subMenu: newSubM
+                            })
+                        }); 
+                    }
                 }    
             })
                        
@@ -80,7 +101,7 @@ export default function EditProject(props) {
                         >
                             <ChipInput 
                                 style={{paddingTop: "10px",width: "100%",}}
-                                defaultValue={props.newSubM}
+                                defaultValue={newSubM}
                                 chips={submenu}
                                 onChange={(chips) => handleChip(chips)}                  
                             />
@@ -89,7 +110,7 @@ export default function EditProject(props) {
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={(e) => props.onClose}>
+                    <Button variant="secondary" onClick={props.onClose}>
                         Close
                     </Button>
                     <a onClick={props.onClose}><Button variant="primary" onClick={(e) => editProject(props.changeProject)}>
