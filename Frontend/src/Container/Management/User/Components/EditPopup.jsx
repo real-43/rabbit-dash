@@ -105,7 +105,7 @@ const EditPopup = props => {
                         <Form.Label>Name</Form.Label>
                         <Form.Control
                         type="text"
-                        placeholder={changeUser.name}
+                        // placeholder={changeUser.name}
                         value={newName}
                         onChange={(e) => {setNewName(e.target.value)}}
                         autoFocus
