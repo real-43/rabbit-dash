@@ -121,40 +121,14 @@ export default function Login() {
     }
   };
     
-  // const handlePassword = () => {
-  //   sendPasswordResetEmail(auth, userInfo.email)
-  //     .then(() => {
-  //       setAlert({ visible: true, severity: 'success', message: 'Email Sent Successfully' })
-  //        timerRef.current= setTimeout(() => {
-  //         setAlert({ visible:false,severity:'',message:''})
-  //       },2000)
-  //     })
-  //     .catch(error => {
-  //     setAlert({ visible:true,severity:'error',message:error.message})
-  //       timerRef.current= setTimeout(() => {
-  //         setAlert({ visible:false,severity:'',message:''})
-  //       },2000)
-  //   })
-  // }
-    
   const handleGoogleButton = async() => {
-    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     provider.setCustomParameters ({
       'login_hint': "jsmith@rabbit.co.th",
       'hd': 'rabbit.co.th',
       'promp': 'select_account'
     })
 
-    const user = await signInWithPopup(auth, provider).then(result => {
-      // if (user.auth.email.includes(comp_form)) {
-      //   navigate('/dashboard')
-      // } else {
-      //   deleteUser(user.id)
-      //   signOut(auth).then(() => {
-      //   navigate('/')
-      //   alert("You have to use @rabbit.co.th domain")
-      //   })
-      // }
+    await signInWithPopup(auth, provider).then(result => {
       navigate('/dashboard')
     }).catch(error => {
       console.log(error)
