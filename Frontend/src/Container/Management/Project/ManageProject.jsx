@@ -92,19 +92,19 @@ const ManageProject = () => {
 
         // setProjects(rest) 
 
-        var a = []
+        let a = []
         for (const element of role.Management.Project) {
             a.push(element);
         }
         a.push(projectInfo.name)
 
-        var NewProjectManagement = {
+        let NewProjectManagement = {
             "Project": a,
             "Permission": a,
             "Services": a
         }
         
-        var NewProject = {
+        let NewProject = {
             name: projectInfo.name,
             subMenu: submenu,
         }
@@ -140,13 +140,13 @@ const ManageProject = () => {
         })
         setRole({...role, Management: {Permission: rest, Project: rest, Services: rest}})
 
-        var DelProjectManagement = {
+        let DelProjectManagement = {
             Project: role.Management.Project.filter(obj => obj !== changeProject.name),
             Permission: role.Management.Permission.filter(obj => obj !== changeProject.name),
             Services: role.Management.Services.filter(obj => obj !== changeProject.name)
 
         }
-        var DelProjectDetails = {
+        let DelProjectDetails = {
             name: changeProject.name,
             subMenu: changeProject.subMenu
         }
