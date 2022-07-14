@@ -21,6 +21,7 @@ import {
   } from "firebase/firestore";
 import { useNavigate } from 'react-router';
 import { onAuthStateChanged } from 'firebase/auth';
+import ConfirmDelete from './ConfirmDelete';
 
 const ManageProject = () => {
 
@@ -238,34 +239,7 @@ const ManageProject = () => {
     if (projectName.length===0 && user !== null){
         getProjectPermission()
     }
-  
-    const popupDel = () => {
-        return (isDel) ? (
-            <div>
-                <Modal show={true} onHide={(e)=>{handleCloseDel()}} centered>
-                    <Modal.Header>
-                        <Modal.Title>Confirm Delete <i onClick={(e) => {handleCloseDel()}} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Are you sure to delete this project ?
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={(e) => {
-                            handleCloseDel()
-                        }}>
-                            Cancle
-                        </Button>
-                        <Button variant="primary" onClick={(e) =>{
-                            deleteProjects()
-                        }}>
-                            Delete
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        ) : ""
-    }
-
+    
     // Popup of edit
     function popup() {
         return (isOpen) ? (
@@ -348,7 +322,13 @@ const ManageProject = () => {
                 ) : ""}
                 
                 {popup()}
-                {popupDel()}
+                {(isDel) ? (
+                    <ConfirmDelete
+                        onClose={() => setIsDel(false)}
+                        topic="Project"
+                        onConfirm={() => deleteProjects()}
+                    />
+                ) : ""}
                 <Table striped bbordered>
                     <thead>
                         <tr>

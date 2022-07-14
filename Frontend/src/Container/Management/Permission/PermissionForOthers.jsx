@@ -10,6 +10,7 @@ import Loading from '../../../components/Loading';
 import './ManagePermission.css'
 import { useSelector } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
+import ConfirmDelete from '../ConfirmDelete';
 
 export default function PermissionForOthers() {
 
@@ -166,33 +167,6 @@ export default function PermissionForOthers() {
         
     }
 
-    const popupDel = () => {
-        return (isDel) ? (
-            <div>
-                <Modal show={true} onHide={(e)=>{handleCloseDel()}} centered>
-                    <Modal.Header>
-                        <Modal.Title>Confirm Delete <i onClick={(e) => {handleCloseDel()}} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Are you sure to delete this permission ?
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={(e) => {
-                            handleCloseDel()
-                        }}>
-                            Cancle
-                        </Button>
-                        <Button variant="primary" onClick={(e) =>{
-                            deleteRole()
-                        }}>
-                            Delete
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        ) : ""
-    }
-
     function popupEdit() {
         return (isPopup) ? (
           <div>
@@ -300,7 +274,13 @@ export default function PermissionForOthers() {
         <div className='content-wrapper'>
             <Loading isLoading={isLoading} />
             {popupEdit()}
-            {popupDel()}
+            {(isDel) ? (
+                <ConfirmDelete
+                    onClose={() => setIsDel(false)}
+                    topic="Permission"
+                    onConfirm={() => deleteRole()}
+                />
+            ) : ""}
             <div className='permission'>
                 <div className='top'>
                     <h2 className='topic'>Permission</h2>

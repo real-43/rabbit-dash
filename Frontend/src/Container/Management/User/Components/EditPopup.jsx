@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Modal, Form, Button, InputGroup, FormControl }  from 'react-bootstrap';
 import { updateProfile, signInWithEmailAndPassword } from "firebase/auth";
-import { authSec, db } from '../../../Firebase Config/firebaseSec';
+import { authSec, db } from '../../../../Firebase Config/firebaseSec';
 import {
     updateDoc,
     doc,
   } from "firebase/firestore";
-import { addTask } from '../../../Reducer/firebaseSlice';
+import { addTask } from '../../../../Reducer/firebaseSlice';
 import { useDispatch } from 'react-redux';
 
 const EditPopup = props => {
