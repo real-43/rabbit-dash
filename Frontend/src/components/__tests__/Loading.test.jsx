@@ -7,7 +7,7 @@ describe('Loading', () => {
         const test = create(<Loading  isloading={true}/>)
         console.log(test)
         const testInstance = test.root;
-        console.log(testInstance)
+        // console.log(testInstance)
         
         expect(testInstance.findByType(Loading).props.isLoading).toBeTruthy
         // expect(testInstance.findByProps({className: "loading-wrapper"}).children).toEqual(['The process may slow sometime']);
