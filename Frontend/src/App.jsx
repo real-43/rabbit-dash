@@ -7,14 +7,15 @@ import './App.css';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Menu from './components/Menu';
+import Loading from './components/Loading';
 
 // Main project
 import Dash from './Container/Home/Dashboard'
 import LoginPage from './Container/Login/login';
 import SignupPage from './Container/Management/User/ManageUser';
 import ManagePro from './Container/Management/Project/ManageProject';
-import CreatePermissionAdmin from './Container/Management/Permission/CreatePermissionAdmin';
-import CreatePermissionOthers from './Container/Management/Permission/CreatePermissionOthers';
+import CreatePermissionAdmin from './Container/Management/Permission/Components/CreatePermissionAdmin';
+import CreatePermissionOthers from './Container/Management/Permission/Components/CreatePermissionOthers';
 import Permission from './Container/Management/Permission/PermissionForAdmin';
 import PermissionForOthers from './Container/Management/Permission/PermissionForOthers';
 

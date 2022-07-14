@@ -52,18 +52,20 @@ const EditPopup = props => {
 
         setChangeUser(user)
 
-        signInWithEmailAndPassword(authSec, user.email, user.password)
-        .then((cred) => {
-            updateProfile(cred.user, {
-                displayName: newName
+        if(newName !== changeUser.name || newPassword !== changeUser.password) {
+            signInWithEmailAndPassword(authSec, user.email, user.password)
+            .then((cred) => {
+                console.log("cred", cred.user.uid)
+                updateProfile(cred.user, {
+                    displayName: newName
+                })
+                authSec.signOut()
             })
-            updateDoc(doc(db,"users",cred.user.uid), {
+            updateDoc(doc(db,"users",changeUser.id), {
                 "name": newName,
                 "password": newPassword,
             });
-            authSec.signOut()
         }
-        )
 
         updateDoc(doc(db,'users',user.id), {
             "role": role
