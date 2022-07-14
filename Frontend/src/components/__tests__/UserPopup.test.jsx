@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Popup from "../../Container/Management/User/Components/EditPopup"
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import { mount, shallow, configure } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import { render, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
@@ -68,8 +68,8 @@ describe('renders content when modal is open', () => {
     // mount renders to the dom (real or mocked)
     
     test("render Save button", () => {
-        const {asFragment, getByText} = render(
-                <Provider store={store} >
+        render(
+            <Provider store={store} >
                 <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
                     <Routes>
                         <Route path='/' exact element={<Popup 
@@ -84,7 +84,7 @@ describe('renders content when modal is open', () => {
                         />} />
                     </Routes>
                 </BrowserRouter>
-                </Provider>
+            </Provider>
         );
         const primaryButton = screen.getByRole('button', { name: /Save Change/i })
         expect(primaryButton).toHaveClass('btn-primary')
@@ -112,8 +112,8 @@ describe('renders content when modal is open', () => {
         expect(secondaryButton).toHaveClass('btn-secondary')
     })
     test("render name input", () => {
-        const {asFragment, getByText} = render(
-                <Provider store={store} >
+        render(
+            <Provider store={store} >
                 <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
                     <Routes>
                         <Route path='/' exact element={<Popup 
@@ -128,7 +128,7 @@ describe('renders content when modal is open', () => {
                         />} />
                     </Routes>
                 </BrowserRouter>
-                </Provider>
+            </Provider>
         );
         const passInput = screen.getByRole('textbox', { value: /Name/i })
         expect(passInput).toHaveClass('form-control')

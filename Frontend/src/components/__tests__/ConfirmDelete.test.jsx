@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom'
 import React from 'react'
 import PopupConfirmDelete from "../../Container/Management/ConfirmDelete"
-import { mount, shallow, configure } from 'enzyme';
+import { mount, configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import "core-js/stable";
 
 configure({adapter: new Adapter()});
