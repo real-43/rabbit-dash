@@ -32,7 +32,7 @@ describe("Manage Project", ()=>{
 } )
 
 describe('Test Case for Create Project Page', () => {
-    jest.mock('../../Container/Management/ManageProject', () => 'ManageProject');
+    jest.mock('../../Container/Management/Project/ManageProject', () => 'ManageProject');
     // const menu = (
     //     <Provider store={store}>
     //         <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>

@@ -17,14 +17,23 @@ describe('Confirm delete popup', () => {
 
 describe('Confirm delete popup check component', () => {
     test("render modal header",() => {
-        const popupDelete = mount(
-            <PopupConfirmDelete
-                // onClose={() => setIsDel(false)}
-                topic="Project"
-                // onConfirm={() => deleteProjects()}
-            />
-        )
-        const passInput = screen.getByRole('dialog',{ name: ""})
-        expect(passInput).toHaveBeenCalled(1)
+        const title = screen.getByRole('title')
+        expect(title).toHaveClass('modal-title')
     })
+
+    test("render modal body",() => {
+        const body = screen.getByRole('body')
+        expect(body).toHaveClass('modal-body')
+    })
+
+    test("render Cancle button",() => {
+        const secondary_button = screen.getByRole('button', {name: 'Cancle'})
+        expect(secondary_button).toHaveClass('btn-secondary')
+    })
+
+    test("render Delete button",() => {
+        const primary_button = screen.getByRole('button', {name: 'Delete'})
+        expect(primary_button).toHaveClass('btn-primary')
+    })
+
 })

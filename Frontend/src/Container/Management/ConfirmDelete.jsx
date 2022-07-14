@@ -8,9 +8,9 @@ export default function ConfirmDelete(props) {
         <div>
             <Modal show={true} onHide={props.onClose} centered>
                 <Modal.Header>
-                    <Modal.Title>Confirm Delete <i onClick={props.onClose} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
+                    <Modal.Title role="title">Confirm Delete <i onClick={props.onClose} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body role="body">
                     Are you sure to delete this {props.topic} ?
                 </Modal.Body>
                 <Modal.Footer>
