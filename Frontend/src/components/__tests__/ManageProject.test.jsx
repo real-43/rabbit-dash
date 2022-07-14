@@ -4,7 +4,7 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import "core-js/stable";
-import ManageProject from '../../Container/Management/ManageProject'
+import ManageProject from '../../Container/Management/Project/ManageProject'
 import store from '../../store'
 import { BrowserRouter } from 'react-router-dom';
 Enzyme.configure({ adapter: new Adapter() });

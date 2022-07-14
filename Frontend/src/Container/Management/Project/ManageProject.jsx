@@ -1,15 +1,15 @@
 import React, { useState, useEffect }from 'react';
-import { db } from '../../Firebase Config/firebaseSec';
-import { auth } from '../../Firebase Config/firebase';
+import { db } from '../../../Firebase Config/firebaseSec';
+import { auth } from '../../../Firebase Config/firebase';
 import { Table } from 'react-bootstrap';
 import { Modal, Form, Button }  from 'react-bootstrap';
-import "./signup.css";
+import "../signup.css";
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import ChipInput from 'material-ui-chip-input'
-import Loading from '../../components/Loading';
+import Loading from '../../../components/Loading';
 import { useSelector, useDispatch } from "react-redux"
-import { addTask } from '../../Reducer/firebaseSlice';
+import { addTask } from '../../../Reducer/firebaseSlice';
 import {
     collection,
     addDoc,
@@ -21,7 +21,8 @@ import {
   } from "firebase/firestore";
 import { useNavigate } from 'react-router';
 import { onAuthStateChanged } from 'firebase/auth';
-import ConfirmDelete from './ConfirmDelete';
+import ConfirmDelete from '../ConfirmDelete';
+import EditProject from './Components/EditProject';
 
 const ManageProject = () => {
 
@@ -321,7 +322,16 @@ const ManageProject = () => {
                     </div>
                 ) : ""}
                 
-                {popup()}
+                {(isOpen) ? (
+                    <EditProject 
+                        onClose={() => setIsOpen(false)}
+                        newProjectName={newProjectName}
+                        submenu={submenu}
+                        roles={roles}
+                        newSubM={newSubM}
+                        changeProject={changeProject}
+                    />
+                ) : ""}
                 {(isDel) ? (
                     <ConfirmDelete
                         onClose={() => setIsDel(false)}

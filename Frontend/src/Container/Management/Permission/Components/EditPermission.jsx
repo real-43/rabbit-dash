@@ -4,10 +4,13 @@ import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
 import { db } from '../../../../Firebase Config/firebase';
 import { updateDoc, doc } from 'firebase/firestore';
+import { useDispatch } from "react-redux";
+import { addTask } from "../../../../Reducer/firebaseSlice";
 
 export default function EditPermission(props) {
 
     const animatedComponents = makeAnimated();
+    const dispatch = useDispatch()
 
     const clickedRole = props.clickedRole
     const proOptions = props.proOptions
@@ -17,6 +20,9 @@ export default function EditPermission(props) {
     const [projectInput, setProjectInput] = useState(proOptions)
     
     const handleSubmitEdit = async () => {
+
+        dispatch(addTask("Edit role"))
+
         let update = [...projectChange]
         let sendPro = []
         
