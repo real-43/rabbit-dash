@@ -12,7 +12,7 @@ import store from '../../store'
 describe("Test Function Header",()=>{
 
     test("Header", () => {
-        const { getByTestId } = render(
+        const { getByTestId, getByText } = render(
             <Provider store={store}>
                 <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
                     <Routes>
@@ -21,7 +21,7 @@ describe("Test Function Header",()=>{
                 </BrowserRouter>
             </Provider>
         )
-
-        expect(true);
+        getByText(/ยินดีต้อนรับคุณ :/i)
+        getByText(/ออกจากระบบ/i)
     })
 } )
