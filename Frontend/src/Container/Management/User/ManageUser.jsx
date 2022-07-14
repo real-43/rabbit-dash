@@ -16,7 +16,8 @@ import Loading from '../../../components/Loading';
 
 import '../signup.css'
 import { addTask } from '../../../Reducer/firebaseSlice';
-import EditPopup from './EditPopup';
+import EditPopup from './Components/EditPopup';
+import ConfirmDelete from '../ConfirmDelete'
 
 
 
@@ -220,33 +221,6 @@ export default function ManageUsers() {
     }
   }
 
-  const popupDel = () => {
-    return (isDel) ? (
-        <div>
-          <Modal show={true} onHide={(e)=>{handleCloseDel()}} centered>
-            <Modal.Header>
-              <Modal.Title>Confirm Delete <i onClick={(e) => {handleCloseDel()}} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Are you sure to delete this user ?
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={(e) => {
-                handleCloseDel()
-              }}>
-                Cancle
-              </Button>
-              <Button variant="primary" onClick={(e) =>{
-                deleteUserOnFstored(changeUser)
-              }}>
-                  Delete
-              </Button>
-            </Modal.Footer>
-          </Modal>
-      </div>
-    ) : ""
-  }
-
   // Popup input to Edit user infomation
   function popup() {
     
@@ -306,7 +280,14 @@ export default function ManageUsers() {
         </div>
       </div>
       {popup()}
-      {popupDel()}
+      {(isDel) ? (
+        <ConfirmDelete 
+          onClose={() => setIsDel(false)}
+          topic="User"
+          onConfirm={() => deleteUserOnFstored(changeUser)}
+        />
+      ) : ""}
+      
       <div className='table-container mx-4 border border-secondary rounded px-3 py-4' >
       <MDBTable borderless>
         <MDBTableHead>

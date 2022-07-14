@@ -12,6 +12,9 @@ import { defindAllRoles } from '../../../Reducer/firebaseSlice';
 import { collection, onSnapshot } from "firebase/firestore";
 import './ManagePermission.css';
 import { onAuthStateChanged } from 'firebase/auth';
+import ConfirmDelete from '../ConfirmDelete';
+import AddProject from './Components/AddProject';
+import EditPermission from './Components/EditPermission';
 
 
 export default function Permission() {
@@ -41,8 +44,6 @@ export default function Permission() {
 
     const [projectInput, setProjectInput] = useState([]); // store project options input that user select ex. [{value: "", label: ""}]
     const [projectChange, setProjectChange] = useState([]); // store project that will send to firestore
-
-    const [roleDel, setRoleDel] = useState([]);
 
     useEffect(() => {
         const authentication = onAuthStateChanged(auth,(user) => {
@@ -91,9 +92,9 @@ export default function Permission() {
             })
             if (!projectNames.includes(all.name)) {
                 options[index] = {value: all.name, label: all.name}
+                index += 1
             }
         })
-
         return options
     }
 
@@ -121,47 +122,9 @@ export default function Permission() {
     }
 
     const handleAddBtn = (role) => {
-        setIsAdd(true)
-        setClickedRole(role)
         setProOptions(genAddOptions(role))
-    }
-
-    const handleSubmitAdd = async () => {
-        setIsLoading(true)
-        setIsAdd(false)
-        let sendPro = []
-        let update = [...projectChange]
-
-        setProjectChange(update)
-
-        // add new project to current role
-        clickedRole.project.map((pro, index) => {
-            sendPro[index] = pro
-            projectChange.map((proC, proCIndex) => {
-                sendPro[index + proCIndex + 1] = proC
-            })
-        })
-
-        let rest = []
-        allRoles.map((r) => {
-            if (r.name === clickedRole.name) {
-                rest.push({...r, project: sendPro})
-            } else {
-                rest.push(r)
-            }
-        })
-
-        // update field(project) in firestore
-        const docRef = doc(db, "roles", clickedRole.id)
-        await updateDoc(docRef, {
-            "project" : sendPro
-        })
-
-        setAllRoles(rest)
-
-        // getAllRolesAgain()
-        handleClosePopup()
-        setIsLoading(false)
+        setClickedRole(role)
+        setIsAdd(true)
     }
 
     const handleSubmitEdit = async () => {
@@ -208,34 +171,6 @@ export default function Permission() {
         setIsLoading(false)
     }
 
-
-    const popupDel = () => {
-        return (isDel) ? (
-            <div>
-                <Modal show={true} onHide={(e)=>{handleCloseDel()}} centered>
-                    <Modal.Header>
-                        <Modal.Title>Confirm Delete <i onClick={(e) => {handleCloseDel()}} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        Are you sure to delete this permission ?
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={(e) => {
-                            handleCloseDel()
-                        }}>
-                            Cancle
-                        </Button>
-                        <Button variant="primary" onClick={(e) =>{
-                            deleteRole()
-                        }}>
-                            Delete
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        ) : ""
-    }
-
     const handleDeleteBtn = (role) => {
         setClickedRole(role)
         setIsDel(true)
@@ -276,90 +211,6 @@ export default function Permission() {
         getAllRolesAgain()
         handleCloseDel()
         setIsLoading(false)
-    }
-
-    function popupAdd() {
-        return (isAdd) ? (
-            <div>
-                <Modal show={true} onHide={(e)=>{handleClosePopup()}}>
-                    <Modal.Header>
-                        <Modal.Title>Add Projects <i onClick={(e) => handleClosePopup()} style={{cursor:"pointer", marginLeft:"270px"}} className='fa fa-times'/></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form>
-                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control
-                                type="text"
-                                disabled
-                                value={clickedRole.name}
-                                />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Select Projects</Form.Label>
-                                <div className="mb-3">
-                                    <Select
-                                        closeMenuOnSelect={true}
-                                        components={animatedComponents}
-                                        isMulti
-                                        options={proOptions}
-                                        onChange={(event) => {
-                                            setProjectInput(event)
-                                        }}
-                                    />
-                                </div>
-                            </Form.Group>
-                            
-                            {(projectInput.length > 0) ? (
-                                <Form.Group className="mb-3">
-                                    {projectInput.map((pro, index) => {
-                                        let subMenuOptions = []
-                                        allProjects.map((all) => {
-                                            if (all.name === pro.value) {
-                                                all.subMenu.map((sub, subIndex) => {
-                                                    subMenuOptions[subIndex] = {value: sub, label: sub}
-                                                })
-                                            }
-                                        })
-                                        return (
-                                            <div>
-                                                <Form.Label>{pro.value}</Form.Label>
-                                                <div className="mb-3">
-                                                    <Select
-                                                        closeMenuOnSelect={true}
-                                                        components={animatedComponents}
-                                                        isMulti
-                                                        options={subMenuOptions}
-                                                        onChange={(event) => {
-                                                            var arrSubMenu = []
-                                                            var addSub = [...projectChange]
-                                                            event.map((e, eIndex) => {
-                                                                arrSubMenu[eIndex] = e.value
-                                                            })
-                                                            addSub[index] = {name: pro.value, subMenu: arrSubMenu}
-                                                            setProjectChange(addSub)
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
-                                        )
-                                    })}
-                                </Form.Group>
-                            ) : ""}
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={(e) => {handleClosePopup()}}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={(e) =>{handleSubmitAdd()}}>
-                            Add Permission
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-        ) : "";
     }
 
     function popupEdit() {
@@ -464,14 +315,34 @@ export default function Permission() {
             </Modal>
           </div>
         ) : "";
-      }
+    }
 
     return (
         <div className='content-wrapper'>
             <Loading isLoading={isLoading} />
-            {popupAdd()}
-            {popupEdit()}
-            {popupDel()}
+            {(isAdd) ? (
+                <AddProject 
+                    onClose={() => setIsAdd(false)}
+                    clickedRole={clickedRole}
+                    proOptions={proOptions}
+                    allProjects={allProjects}
+                />
+            ) : ""}
+            {(isPopup) ? (
+                <EditPermission 
+                    onClose={() => setIsPopup(false)}
+                    clickedRole={clickedRole}
+                    proOptions={proOptions}
+                    allProjects={allProjects}
+                />
+            ) : ""}
+            {(isDel) ? (
+                <ConfirmDelete 
+                    onClose={() => setIsDel(false)}
+                    topic="Permission"
+                    onConfirm={() => deleteRole()}
+                />
+            ) : ""}
             <div className='permission'>
                 <div className='top'>
                     <h2 className='topic'>Permission</h2>

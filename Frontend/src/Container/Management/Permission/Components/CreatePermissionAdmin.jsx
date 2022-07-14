@@ -1,40 +1,37 @@
 import React, { useState, useEffect } from 'react'
 import {Form, Button}  from 'react-bootstrap';
-import './ManagePermission.css'
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { collection, addDoc } from "firebase/firestore"; 
-import { db, auth } from '../../../Firebase Config/firebase';
 import { useNavigate } from 'react-router'
-import Loading from '../../../components/Loading';
-import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask } from '../../../Reducer/firebaseSlice';
-import { subMenuOptions } from './functionPermission';
+import { onAuthStateChanged } from 'firebase/auth';
 
-export default function CreatePermissionOthers() {
+
+import { addTask } from '../../../../Reducer/firebaseSlice';
+import { optionsProject, getProjectName, subMenuOptions } from './functionPermission';
+import Loading from '../../../../components/Loading';
+import { db, auth } from '../../../../Firebase Config/firebase';
+import '../ManagePermission.css'
+
+export default function CreatePermission() {
+
+    const animatedComponents = makeAnimated();
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState();
-    const dispatch = useDispatch();
-    const animatedComponents = makeAnimated();
 
-    const currentUserRole = useSelector((state) => state.firebase.currentRoleFS)
-    const currentUser = useSelector((state) => state.firebase.currentUserFS)
-
-    // data to in input to create new permission
     const [roleName, setRoleName] = useState("");
     const [projectInput, setProjectInput] = useState([]);
     const [data, setdata] = useState([]);
-    const [options, setOptions] = useState([]);
-
-    const allProjects = useSelector((state) => state.firebase.allProjects)
+    const allProject = useSelector((state) => state.firebase.allProjects);
     const [toSend, setToSend] = useState([]);
 
     useEffect(() => {
         const authentication = onAuthStateChanged(auth,(user) => {
             if (user) {
-                navigate('/CreatePermissionOthers')
+                navigate('/CreatePermissionAdmin')
             } else {
                 navigate('/')
            }
@@ -43,34 +40,41 @@ export default function CreatePermissionOthers() {
         return authentication
     },[])
 
-    const optionsProject = () => {
-        let pName = currentUserRole.project[0].name
-        setOptions([{value: pName, label: pName}])
-    }
-
-    const inputToDefault = () => {
-        setRoleName("")
-        setProjectInput([])
+    // reset input
+    const reset = () => {
         setdata([])
+        setProjectInput([])
+        setRoleName("")
+        setToSend([])
     }
 
+    // Create role when click create button
     const handleSubmit = async (event) => {
-        event.preventDefault();
         setIsLoading(true)
+        event.preventDefault();
 
         dispatch(addTask("Create role"))
+
+        let manageChild = getProjectName(toSend)
 
         var update = [...toSend]
         setToSend(update)
 
         if (roleName !== "") {
-            await addDoc(collection(db, "roles"), {
-                name: roleName,
-                project: toSend,
-            });
+            if (roleName.includes("Admin")) {
+                await addDoc(collection(db, "roles"), {
+                    name: roleName,
+                    project: toSend,
+                    Management: {Permission: manageChild, Project: manageChild, Services: manageChild}
+                });
+            } else {
+                await addDoc(collection(db, "roles"), {
+                    name: roleName,
+                    project: toSend,
+                });
+            }
         }
-            
-        inputToDefault()
+        reset()
         setIsLoading(false)
     }
 
@@ -80,30 +84,19 @@ export default function CreatePermissionOthers() {
             setToSend([])
         }
     }
-
-    if (currentUserRole.length !== 0 && options.length < 1) {
-        optionsProject()
-    }
     
-
     return (
         <div className='content-wrapper'>
             <Loading isLoading={isLoading} />
             <div className='CreatePermission'>
-                <button className='back-btn' >{'<'} <a onClick={() => {
-                    if (currentUser.role === "Admin") {
-                        navigate("/permission")
-                    }else {
-                        navigate("/permissionOthers")
-                    }
-                }}>Back</a></button>
+                <button className='back-btn' >{'<'} <a onClick={() => navigate('/permission')}>Back</a></button>
                 <div className='create-permission'>
                     <Form>
                         <Form.Group className="mb-3">
                             <Form.Label>Permission Name</Form.Label>
-                            <Form.Control type="text" value={roleName} placeholder="Name" onChange={(e) => {setRoleName(e.target.value)}} />
+                            <Form.Control type="text" placeholder="Name" value={roleName} onChange={(e) => {setRoleName(e.target.value)}} />
                             <Form.Text className="text-muted">
-                                Project name have to be prefix.
+                                The name have to start with project name and end with "Admin" if you want to assign to be admin of the project.
                             </Form.Text>
                         </Form.Group>
                         
@@ -111,14 +104,14 @@ export default function CreatePermissionOthers() {
                             <Form.Label>Select Projects</Form.Label>
                             <div className="mb-3">
                                 <Select
-                                    value={projectInput}
                                     closeMenuOnSelect={false}
                                     components={animatedComponents}
+                                    value={projectInput}
                                     isMulti
-                                    options={options}
+                                    options={optionsProject(allProject)}
                                     onChange={(event) => {
                                         handleChange(event)
-                                        setdata(subMenuOptions(event, allProjects))
+                                        setdata(subMenuOptions(event, allProject))
                                     }}
                                 />
                             </div>
@@ -152,7 +145,7 @@ export default function CreatePermissionOthers() {
                             </div>
                         ) : ""}
                        
-                        <Button onClick={(e) => handleSubmit(e)} variant="primary" type="submit">
+                        <Button className="create-permission-btn" onClick={(e) => handleSubmit(e)} variant="primary" type="submit">
                             Create
                         </Button>
                     </Form>
