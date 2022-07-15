@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Popup from "../../Container/Management/User/Components/EditPopup"
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import { shallow, configure } from 'enzyme';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import '@testing-library/jest-dom'
@@ -133,6 +133,30 @@ describe('renders content when modal is open', () => {
         const passInput = screen.getByRole('textbox', { value: /Name/i })
         expect(passInput).toHaveClass('form-control')
     })   
+    test("onclick close button", () => {
+        const handleClose = jest.fn()
+        const {asFragment, getByText} = render(
+            <Provider store={store} >
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Popup 
+                        roles={Object.values(store)}
+                        changeUser={changeUser} 
+                        newName={'newName'}
+                        newPassword={'newPassword'}
+                        currentUser={currentUser}
+                        currentRole={currentRole}
+                        role={"DatafileMonitoringStaff"}
+                        onClose={handleClose}
+                    />} />
+                </Routes>
+            </BrowserRouter>
+            </Provider>
+    );
+        fireEvent.click(getByText(/Close/i));
+        // console.log(getByText(/Close/i), screen.getByRole('button', { name: /Close/i }))
+        expect(handleClose).toHaveBeenCalledTimes(1)
+    })
 });
 describe('render Popup component correctly', () => {  
         const Popup = shallow(
