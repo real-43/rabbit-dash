@@ -157,6 +157,54 @@ describe('renders content when modal is open', () => {
         // console.log(getByText(/Close/i), screen.getByRole('button', { name: /Close/i }))
         expect(handleClose).toHaveBeenCalledTimes(1)
     })
+
+    test('Input Name', () => {
+        const {asFragment, getByText} = render(
+            <Provider store={store} >
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Popup 
+                        roles={Object.values(store)}
+                        changeUser={changeUser} 
+                        newName={'newName'}
+                        newPassword={'newPassword'}
+                        currentUser={currentUser}
+                        currentRole={currentRole}
+                        role={"DatafileMonitoringStaff"}
+                        onClose={() => {setIsOpen(false)}}
+                    />} />
+                </Routes>
+            </BrowserRouter>
+            </Provider>
+    );
+        const input = screen.getByRole('textbox', {name: /Name/i})
+        fireEvent.change(input, {target: {value: 'Poodyn'}})
+        expect(input.value).toBe('Poodyn')
+    })
+
+    test('Input Password', () => {
+        const {asFragment, getByText} = render(
+            <Provider store={store} >
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Popup 
+                        roles={Object.values(store)}
+                        changeUser={changeUser} 
+                        newName={'newName'}
+                        newPassword={'newPassword'}
+                        currentUser={currentUser}
+                        currentRole={currentRole}
+                        role={"DatafileMonitoringStaff"}
+                        onClose={() => {setIsOpen(false)}}
+                    />} />
+                </Routes>
+            </BrowserRouter>
+            </Provider>
+    );
+        const input = screen.getByRole('Input')
+        fireEvent.change(input, {target: {value: '123123'}})
+        expect(input.value).toBe('123123')
+    })
 });
 describe('render Popup component correctly', () => {  
         const Popup = shallow(

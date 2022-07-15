@@ -85,7 +85,7 @@ const EditPopup = props => {
     // To show/unshow pass in edit popup
     function displayOption() {
         setActive(!isActive);
-        var x = document.getElementById("myInput");
+        let x = document.getElementById("myInput");
 
         if (x.type === "password") {
             x.type = "text";
@@ -121,6 +121,7 @@ const EditPopup = props => {
                         <InputGroup className="mb-3">
                         
                         <FormControl
+                            role = "Input Password"
                             aria-label="Example text with button addon"
                             aria-describedby="basic-addon1"
                             id='myInput'

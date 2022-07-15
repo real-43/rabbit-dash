@@ -5,14 +5,14 @@ import { optionsProject, getProjectName, subMenuOptions } from "../../Container/
 
 describe("Permission", () => {
 
-    var allProject = [
+    let allProject = [
         { name: "project one", subMenu: ["Home", "BTS"] },
         { name: "project two", subMenu: ["Search"] },
         { name: "project three", subMenu: ["PDF", "Notification", "Setting"] }
     ]
 
     test("Permission optionsProject", () => {
-        var check = [
+        let check = [
             { value: "project one", label: "project one" },
             { value: "project two", label: "project two" },
             { value: "project three", label: "project three" }
@@ -21,17 +21,17 @@ describe("Permission", () => {
     })
 
     test("PermssionAdmin getProjectName", () => {
-        var check = ["project one", "project two", "project three"]
+        let check = ["project one", "project two", "project three"]
         expect(getProjectName(allProject)).toStrictEqual(check)
     })
 
     test("PermissionAdmin subMenuOptions", () => {
-        var event = [
+        let event = [
             { value: "project one", label: "project one" },
             { value: "project two", label: "project two" }
         ]
 
-        var check = [
+        let check = [
             { name: "project one", options: [{ value: "Home", label: "Home" }, { value: "BTS", label: "BTS" }] },
             { name: "project two", options: [{ value: "Search", label: "Search" }] }
         ]
