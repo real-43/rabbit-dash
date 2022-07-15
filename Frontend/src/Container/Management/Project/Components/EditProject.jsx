@@ -17,6 +17,7 @@ export default function EditProject(props) {
 
     const newSubM = props.newSubM
 
+    // const [isOpen,setIsOpen] = useState(null)
     const [newProjectName, setNewProjectName] = useState(props.newProjectName)
     const [submenu, setSubmenu] = useState(props.submenu)
 

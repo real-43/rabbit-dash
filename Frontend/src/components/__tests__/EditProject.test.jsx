@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Popup from "../../Container/Management/Project/Components/EditProject.jsx"
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import { mount, shallow, configure } from 'enzyme';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import '@testing-library/jest-dom'
@@ -59,38 +59,107 @@ expect(Popup).toMatchSnapshot();
 
 describe('renders content when modal is open', () => {
     // mount renders to the dom (real or mocked)
-    
     test("render Save button", () => {
-        const pop = mount(
-                <Provider store={store} >
-                <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
-                    <Routes>
-                        <Route path='/' exact element={<Popup 
-                            onClose={() => setIsOpen(false)}
-                            newProjectName={'newProjectName'}
-                            submenu={['1','2','3','4']}
-                            roles={store}
-                            newSubM={['1','2','3','4']}
-                            changeProject={changeProject}
-                        />} />
-                    </Routes>
-                </BrowserRouter>
-                </Provider>
+        const {getByText} = render(
+            <Provider store={store} >
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Popup 
+                        onClose={() => setIsOpen(false)}
+                        newProjectName={'newProjectName'}
+                        submenu={['1','2','3','4']}
+                        roles={store}
+                        newSubM={['1','2','3','4']}
+                        changeProject={changeProject}
+                    />} />
+                </Routes>
+            </BrowserRouter>
+            </Provider>
         );
         const primaryButton = screen.getByRole('button', { name: /Save Change/i })
         expect(primaryButton).toHaveClass('btn-primary')
     })
     test("render Close  button", () => {
+        const {getByText} = render(
+            <Provider store={store} >
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Popup 
+                        onClose={() => setIsOpen(false)}
+                        newProjectName={'newProjectName'}
+                        submenu={['1','2','3','4']}
+                        roles={store}
+                        newSubM={['1','2','3','4']}
+                        changeProject={changeProject}
+                    />} />
+                </Routes>
+            </BrowserRouter>
+            </Provider>
+        );
         const secondaryButton = screen.getByRole('button', { name: /Close/i })
         expect(secondaryButton).toHaveClass('btn-secondary')
     })
     test("render Header title", () => {
+        const {getByText} = render(
+            <Provider store={store} >
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Popup 
+                        onClose={() => setIsOpen(false)}
+                        newProjectName={'newProjectName'}
+                        submenu={['1','2','3','4']}
+                        roles={store}
+                        newSubM={['1','2','3','4']}
+                        changeProject={changeProject}
+                    />} />
+                </Routes>
+            </BrowserRouter>
+            </Provider>
+        );
         const passInput = screen.getByRole('title', { name: '' })
         expect(passInput).toHaveClass('modal-title')
     })   
     test("render body content", () => {
+        const {getByText} = render(
+            <Provider store={store} >
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Popup 
+                        onClose={() => setIsOpen(false)}
+                        newProjectName={'newProjectName'}
+                        submenu={['1','2','3','4']}
+                        roles={store}
+                        newSubM={['1','2','3','4']}
+                        changeProject={changeProject}
+                    />} />
+                </Routes>
+            </BrowserRouter>
+            </Provider>
+        );
         const passInput = screen.getByRole('textbox', { name: 'Project Name' })
         expect(passInput).toHaveClass('form-control')
+    })
+    test("onclick close button", () => {
+        const handleClose = jest.fn()
+        const {getByText} = render(
+            <Provider store={store} >
+            <BrowserRouter styles={{pointerEvents: 'none',cursor: 'none'}}>
+                <Routes>
+                    <Route path='/' exact element={<Popup 
+                        onClose={handleClose}
+                        newProjectName={'newProjectName'}
+                        submenu={['1','2','3','4']}
+                        roles={store}
+                        newSubM={['1','2','3','4']}
+                        changeProject={changeProject}
+                    />} />
+                </Routes>
+            </BrowserRouter>
+            </Provider>
+        );
+        fireEvent.click(getByText(/Close/i));
+        // console.log(getByText(/Close/i), screen.getByRole('button', { name: /Close/i }))
+        expect(handleClose).toHaveBeenCalledTimes(1)
     })
 });
 
